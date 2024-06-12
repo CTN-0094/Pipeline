@@ -1,0 +1,10 @@
+2024-06-12 11:47:14 - INFO - -------------------------------------------
+2024-06-12 11:47:14 - INFO - Logging setup complete - starting pipeline.
+2024-06-12 11:47:14 - INFO - -------------------------------------------
+2024-06-12 11:47:27 - INFO - Selected demographic feature: 'RaceEth'
+2024-06-12 11:47:27 - INFO - Races: NHW
+2024-06-12 11:47:27 - INFO - Sample sizes: 1000
+2024-06-12 11:47:29 - INFO - Datasets loaded successfully.
+2024-06-12 11:47:29 - INFO - Selected outcome column 'Rs_johnson_1992' successfully.
+2024-06-12 11:47:29 - INFO - Starting merge of dataset and selected outcome...
+2024-06-12 11:47:30 - INFO - Dataset merged successfully with selected outcome.
