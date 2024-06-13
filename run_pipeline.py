@@ -77,8 +77,13 @@ def main():
     #Subset will turn into a list of dataframes  
 
     # Preprocess the subset
+    """
+    PREPROCESSING STAGE START
+    """
     processed_data = preprocess_data(subset, selected_outcome)
-
+    """
+    PREPROCESSING STAGE END
+    """
 
     logging.info("-----------------------------")
     logging.info("TRAIN MODEL STAGE STARTING...")
