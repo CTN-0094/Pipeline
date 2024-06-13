@@ -1,3 +1,5 @@
+import pandas as pd
+
 def merge_demographic_data(demographic_dfs, full_data):
     """
     Merge the list of demographic DataFrames with the full dataset.
