@@ -69,7 +69,8 @@ def main():
     except Exception as e:
         logging.error(f"Error during preprocessing of the merged dataset: {e}")
         return
-    
+
+    #---------------------------------------------------------------------------   
     # Create demographic subsets from the preprocessed data
     try:
         logging.info("Creating demographic subsets from preprocessed data...")
@@ -79,8 +80,19 @@ def main():
         logging.error(f"Error creating demographic subsets: {e}")
         return
     
+    # Create merged subsets from the create_demographics_dfs function
+
+    try:
+        logging.info("Creating merged subsets from create_demographics_dfs function")
+        merged_subsets = merge_demographic_data(subsets, processed_data)
+        logging.info(f"Created {len(subsets)} subsets successfully.")
+    except Exception as e:
+        logging.error(f"Error creating demographic subsets: {e}")
+        return
+
+
     # Loop over each subset
-    for i, subset in enumerate(subsets):
+    for i, subset in enumerate(merged_subsets):
         logging.info(f"Processing subset {i + 1}...")
         
         logging.info("-----------------------------")

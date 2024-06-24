@@ -1,6 +1,59 @@
 import pandas as pd
 import numpy as np
 from sklearn.neighbors import NearestNeighbors
+'''
+create_demographic_dfs
+|
+|-- Initial Setup
+|   |-- Initialize empty list df_list
+|   |-- Split data into minority_groups and nhw_group
+|   |-- Sample initial_nhw_sample and initial_minority_sample
+|   |-- Copy initial samples to current_nhw_sample and remaining_minority_sample
+|   |-- Set current_nhw and current_minority to initial_nhw and initial_minority
+|
+|-- while current_minority > 0
+|   |-- Select first current_minority participants as minority_sample
+|   |
+|   |-- if current_nhw > initial_nhw
+|   |   |-- Initialize KNN with n_neighbors=1
+|   |   |-- Fit KNN on nhw_group with 'age' and 'is_female'
+|   |   |-- Get minority_features from remaining_minority_sample
+|   |   |-- Find nearest NHW participants using KNN
+|   |   |-- Select closest_nhw_indices and additional_nhw_sample
+|   |   |-- Concatenate additional_nhw_sample to current_nhw_sample
+|   |   |-- Drop selected NHW participants from nhw_group
+|   |
+|   |-- Concatenate current_nhw_sample and minority_sample to form subset
+|   |-- Append subset to df_list
+|   |
+|   |-- Increment current_nhw by step
+|   |-- Decrement current_minority by step
+|   |
+|   |-- if current_minority <= 0
+|   |   |-- Set current_minority to 0
+|   |   |-- break
+|   |
+|   |-- Update remaining_minority_sample to head of current_minority
+|
+|-- Ensure final subset has 1000 NHW participants
+|   |-- while current_nhw_sample.shape[0] < 1000
+|   |   |-- Initialize KNN with n_neighbors=1
+|   |   |-- Fit KNN on nhw_group with 'age' and 'is_female'
+|   |   |-- Find nearest NHW participants using KNN
+|   |   |-- Select closest_nhw_indices and additional_nhw_sample
+|   |   |-- Concatenate additional_nhw_sample to current_nhw_sample
+|   |   |-- Drop duplicates from current_nhw_sample
+|   |   |-- Drop selected NHW participants from nhw_group
+|
+|-- Select final_subset as the first 1000 NHW participants from current_nhw_sample
+|-- Append final_subset to df_list
+|
+|-- Return df_list
+
+'''
+
+
+
 
 def create_demographic_dfs(data, initial_nhw=500, initial_minority=500, step=50):
     """
