@@ -3,9 +3,8 @@
 ### Overview
 This visualization represents the demographic composition of subsets created through an iterative process. Each subset contains a specified number of Non-Hispanic White (NHW) participants and minority participants. The process replaces a portion of the minority participants with NHW participants in each iteration using the K-Nearest Neighbors (KNN) algorithm.
 
-
+### Visualization
 ![Subset Composition](SubsetCompositionMultipleSubs.jpg)
-
 
 ### Key
 - **NHW**: Non-Hispanic White
@@ -91,71 +90,80 @@ This visualization represents the demographic composition of subsets created thr
 2. **Create Demographic Subsets**:
     ```python
     def create_demographic_dfs(data, initial_nhw=500, initial_minority=500, step=50):
-        # Initialize lists and groups
-        df_list = []
-        minority_groups = data[data['RaceEth'] != 1]
-        nhw_group = data[data['RaceEth'] == 1]
+        """
+        Create a list of DataFrames with different demographic distributions.
+
+        Parameters:
+        - data: DataFrame containing the dataset.
+        - initial_nhw: Initial number of Non-Hispanic White participants.
+        - initial_minority: Initial number of minority participants.
+        - step: The step size for increasing NHW and decreasing minority participants in each subsequent DataFrame.
+
+        Returns:
+        - df_list: A list of DataFrames with different demographic distributions.
+        """
         
-        # Sample initial participants
-        initial_nhw_sample = nhw_group.sample(n=initial_nhw, random_state=42)
-        initial_minority_sample = minority_groups.sample(n=initial_minority, random_state=42)
+        df_list = []  # Initialize an empty list to store the DataFrames
+        minority_groups = data[data['RaceEth'] != 1]  # Select rows where 'RaceEth' is not NHW
+        nhw_group = data[data['RaceEth'] == 1]  # Select rows where 'RaceEth' is NHW
         
-        current_nhw_sample = initial_nhw_sample.copy()
-        remaining_minority_sample = initial_minority_sample.copy()
+        initial_nhw_sample = nhw_group.sample(n=initial_nhw, random_state=42)  # Sample initial NHW participants
+        initial_minority_sample = minority_groups.sample(n=initial_minority, random_state=42)  # Sample initial minority participants
         
-        current_nhw = initial_nhw
-        current_minority = initial_minority
+        current_nhw_sample = initial_nhw_sample.copy()  # Copy the initial NHW sample to use as the starting point
+        remaining_minority_sample = initial_minority_sample.copy()  # Copy the initial minority sample to use as the starting point
+        
+        current_nhw = initial_nhw  # Initialize current NHW count
+        current_minority = initial_minority  # Initialize current minority count
     ```
 
 #### Iterative Subsetting
 1. **Iteration Loop**:
     ```python
-    while current_minority > 0:
-        minority_sample = remaining_minority_sample.head(current_minority)
+    while current_minority > 0:  # Loop until there are no more minority participants to decrement
+        minority_sample = remaining_minority_sample.head(current_minority)  # Select the first current_minority participants from the remaining sample
         
-        if current_nhw > initial_nhw:
-            knn = NearestNeighbors(n_neighbors=1)
-            knn.fit(nhw_group[['age', 'is_female']])
-            minority_features = remaining_minority_sample.head(step)[['age', 'is_female']]
-            distances, indices = knn.kneighbors(minority_features)
-            closest_nhw_indices = indices.flatten()
-            additional_nhw_sample = nhw_group.iloc[closest_nhw_indices]
-            current_nhw_sample = pd.concat([current_nhw_sample, additional_nhw_sample])
-            nhw_group = nhw_group.drop(nhw_group.index[closest_nhw_indices])
-        
-        subset = pd.concat([current_nhw_sample, minority_sample])
-        df_list.append(subset[['who', 'RaceEth', 'age', 'is_female']])
-        
-        current_nhw += step
-        current_minority -= step
+        if current_nhw > initial_nhw:  # If additional NHW participants are needed
+            knn = NearestNeighbors(n_neighbors=1)  # Initialize the K-Nearest Neighbors model with 1 neighbor
+            knn.fit(nhw_group[['age', 'is_female']])  # Fit the KNN model on the NHW participants' age and gender
+            minority_features = remaining_minority_sample.head(step)[['age', 'is_female']]  # Get the age and gender features of the next batch of minority participants to replace
+            distances, indices = knn.kneighbors(minority_features)  # Find the nearest NHW participants for the minority participants to replace
+            closest_nhw_indices = indices.flatten()  # Get the indices of the closest NHW participants
+            additional_nhw_sample = nhw_group.iloc[closest_nhw_indices]  # Select the closest NHW participants
+            current_nhw_sample = pd.concat([current_nhw_sample, additional_nhw_sample])  # Concatenate the additional NHW participants to the current NHW sample
+            nhw_group = nhw_group.drop(nhw_group.index[closest_nhw_indices])  # Drop the selected NHW participants from the NHW group
 
-        if current_minority <= 0:
-            current_minority = 0
-            break
+        subset = pd.concat([current_nhw_sample, minority_sample])  # Concatenate the NHW and minority samples to form the subset
+        df_list.append(subset[['who', 'RaceEth', 'age', 'is_female']])  # Append the subset to the list with selected columns
+        
+        current_nhw += step  # Increment the NHW count by the step size
+        current_minority -= step  # Decrement the minority count by the step size
 
-        remaining_minority_sample = remaining_minority_sample.head(current_minority)
+        if current_minority <= 0:  # If no more minority participants are left
+            current_minority = 0  # Ensure current_minority is set to 0 for the final subset
+            break  # Exit the loop
+
+        remaining_minority_sample = remaining_minority_sample.head(current_minority)  # Update the remaining minority sample
     ```
 
 #### Final Adjustment
 1. **Ensure Final Subset**:
     ```python
+    # Ensure the final subset has exactly 1000 NHW participants
     while current_nhw_sample.shape[0] < 1000:
-        knn = NearestNeighbors(n_neighbors=1)
-        knn.fit(nhw_group[['age', 'is_female']])
-        distances, indices = knn.kneighbors(nhw_group[['age', 'is_female']].head(1))
-        closest_nhw_indices = indices.flatten()
-        additional_nhw_sample = nhw_group.iloc[closest_nhw_indices]
-        current_nhw_sample = pd.concat([current_nhw_sample, additional_nhw_sample])
-        current_nhw_sample = current_nhw_sample.drop_duplicates()
-        nhw_group = nhw_group.drop(nhw_group.index[closest_nhw_indices])
-    
-    final_subset = current_nhw_sample.head(1000)
-    df_list.append(final_subset[['who', 'RaceEth', 'age', 'is_female']])
-    ```
+        knn = NearestNeighbors(n_neighbors=1)  # Initialize the K-Nearest Neighbors model with 1 neighbor
+        knn.fit(nhw_group[['age', 'is_female']])  # Fit the KNN model on the NHW participants' age and gender
+        distances, indices = knn.kneighbors(nhw_group[['age', 'is_female']].head(1))  # Find the nearest NHW participants
+        closest_nhw_indices = indices.flatten()  # Get the indices of the closest NHW participants
+        additional_nhw_sample = nhw_group.iloc[closest_nhw_indices]  # Select the closest NHW participants
+        current_nhw_sample = pd.concat([current_nhw_sample, additional_nhw_sample])  # Add these NHW participants to the current sample
+        current_nhw_sample = current_nhw_sample.drop_duplicates()  # Drop duplicate NHW participants
+        nhw_group = nhw_group.drop(nhw_group.index[closest_nhw_indices])  # Drop the selected NHW participants
 
-2. **Return Subsets**:
-    ```python
-    return df_list
+    final_subset = current_nhw_sample.head(1000)  # Ensure the final subset has exactly 1000 NHW participants
+    df_list.append(final_subset[['who', 'RaceEth', 'age', 'is_female']])  # Append the final subset to the list
+
+    return df_list  # Return the list of DataFrames
     ```
 
 ### Visual Explanation
