@@ -90,9 +90,13 @@ def main():
         logging.error(f"Error creating demographic subsets: {e}")
         return
 
-
     # Loop over each subset
     for i, subset in enumerate(merged_subsets):
+        # Logging the demographic makeup of the subset
+        demographic_counts = subset['RaceEth'].value_counts().to_dict()
+        demographic_str = ", ".join([f"{v} {k}" for k, v in demographic_counts.items()])
+        logging.info(f"Subset {i + 1} demographic makeup: {demographic_str}")
+
         logging.info(f"Processing subset {i + 1}...")
         
         logging.info("-----------------------------")
