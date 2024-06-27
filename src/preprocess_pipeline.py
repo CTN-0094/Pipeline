@@ -1,7 +1,7 @@
 # preprocess_pipeline.py
 
 import logging
-from .preprocess import DataPreprocessor  # Preprocessing utility for data preparation
+from src.preprocess import DataPreprocessor  # Preprocessing utility for data preparation
 
 def preprocess_data(subset, selected_outcome):
     """
