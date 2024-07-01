@@ -2,7 +2,9 @@
 
 ## Overview
 
-The purpose of this project is to establish a modular, scalable data pipeline for statistical modeling and machine learning on the CTN-0094 database. The pipeline will support various modeling strategies and evaluation metrics to deliver insights into the relationship between demographics and different target outcomes.
+- Purpose: The purpose of this project is to establish a modular, scalable data pipeline for statistical modeling and machine learning on the CTN-0094 database. The pipeline will support various modeling strategies and evaluation metrics to deliver insights into the relationship between demographics and different target outcomes.
+- Team: this work is led by Prof. Laura Brandt (clinical arm) and Prof. Gabriel Odom (computational arm); Mr. Ganesh Jainarain is the primary data scientist and statistical programmer.
+- Funding: this work is towards the successful completion of "Towards a framework for algorithmic bias and fairness in predicting treatment outcome for opioid use disorder" (NIH AIM-AHEAD 1OT2OD032581-02-267) with contact PI Laura Brandt, City College of New York.
 
 ## Step-by-Step Guide
 
