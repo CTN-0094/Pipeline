@@ -3,7 +3,7 @@ import os  # For handling file and directory operations
 from datetime import datetime  # To get the current date and time
 import pandas as pd  # DataFrame operations with pandas
 from joblib import load  # For loading and saving compressed files via joblib
-from src.create_subset import create_demographic_subsets  # Custom module for demographic data subsetting
+# from create_subset import create_demographic_subsets  # Custom module for demographic data subsetting
 
 def setup_logging():
     os.makedirs('logs', exist_ok=True)
@@ -76,17 +76,17 @@ def get_demographic_inputs():
         'sample_sizes': sample_sizes
     }
 
-def create_demographic_subset(merged_df, demo_inputs):
-    try:
-        subset = create_demographic_subsets(
-            data=merged_df,
-            demographic_feature=demo_inputs['demographic_feature'],
-            categories=demo_inputs['races'],
-            sample_sizes=demo_inputs['sample_sizes'],
-            exclude_hispanic=True
-        )
-        logging.info(f"Created demographic subset with feature '{demo_inputs['demographic_feature']}'.")
-    except Exception as e:
-        logging.error(f"Error creating demographic subset: {e}")
-        return None
-    return subset
+# def create_demographic_subset(merged_df, demo_inputs):
+#     try:
+#         subset = create_demographic_subsets(
+#             data=merged_df,
+#             demographic_feature=demo_inputs['demographic_feature'],
+#             categories=demo_inputs['races'],
+#             sample_sizes=demo_inputs['sample_sizes'],
+#             exclude_hispanic=True
+#         )
+#         logging.info(f"Created demographic subset with feature '{demo_inputs['demographic_feature']}'.")
+#     except Exception as e:
+#         logging.error(f"Error creating demographic subset: {e}")
+#         return None
+#     return subset

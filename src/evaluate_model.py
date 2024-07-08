@@ -20,12 +20,9 @@ def evaluate_on_new_data(test_data_path, model_path):
     logistic_model.X_test = X_test
     logistic_model.y_test = y_test
 
-    # Now you can use the evaluation methods such as:
+    # evaluation methods 
     logistic_model.generate_and_decode_prediction_table()
     logistic_model.visualize_feature_importance()
     logistic_model.visualize_confusion_matrix()
     logistic_model.visualize_roc_curve()
-    # And any other evaluation methods you've implemented
-
-# # Example usage
-# evaluate_on_new_data('path/to/your/test_data.csv', '/Users/richeyjay/Desktop/Relapse_Pipeline/env/MLModel/trained_model.joblib')
+    
