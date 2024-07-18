@@ -9,6 +9,7 @@ from demographic_handling import create_and_merge_demographic_subsets
 from model_training import train_and_evaluate_models
 import pandas as pd
 
+
 def main():
     setup_logging()
     selected_outcome = get_outcome_choice()

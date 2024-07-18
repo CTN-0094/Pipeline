@@ -1,4 +1,4 @@
-### README
+# README
 
 ## Project Inventory and Implementation Plan
 
