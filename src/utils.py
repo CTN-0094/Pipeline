@@ -37,7 +37,7 @@ def get_outcome_choice():
             choice = int(input("Select an outcome by entering its number: "))
             if 1 <= choice <= len(available_outcomes):
                 selected_outcome = available_outcomes[choice - 1]
-                logging.info(f"Selected outcome: {selected_outcome}")
+                
                 return selected_outcome
             else:
                 print(f"Please enter a number between 1 and {len(available_outcomes)}.")
