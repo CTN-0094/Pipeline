@@ -14,8 +14,9 @@ def main():
     setup_logging()
     selected_outcome = get_outcome_choice()
     
-    master_path = '/Users/richeyjay/Desktop/Relapse_Pipeline/env/data/master_data.csv'
-    outcomes_path = '/Users/richeyjay/Desktop/Relapse_Pipeline/env/data/all_binary_selected_outcomes.csv'
+    master_path = 'data/master_data.csv'
+    #'/Users/richeyjay/Desktop/Relapse_Pipeline/env/data/master_data.csv'
+    outcomes_path = 'data/all_binary_selected_outcomes.csv'
     
     master_df, outcomes_df = load_datasets(master_path, outcomes_path)
     
