@@ -30,6 +30,6 @@ def main():
     train_and_evaluate_models(merged_subsets, selected_outcome)
     
     log_pipeline_completion()
-
+ 
 if __name__ == "__main__":
     main()
