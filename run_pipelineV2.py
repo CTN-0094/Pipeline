@@ -9,13 +9,14 @@ from demographic_handling import create_and_merge_demographic_subsets
 from model_training import train_and_evaluate_models
 import pandas as pd
 
+# Import the log scraper
+from logScraper import main as scrape_log
 
 def main():
     setup_logging()
     selected_outcome = get_outcome_choice()
     
     master_path = 'data/master_data.csv'
-    #'/Users/richeyjay/Desktop/Relapse_Pipeline/env/data/master_data.csv'
     outcomes_path = 'data/all_binary_selected_outcomes.csv'
     
     master_df, outcomes_df = load_datasets(master_path, outcomes_path)
@@ -30,6 +31,9 @@ def main():
     train_and_evaluate_models(merged_subsets, selected_outcome)
     
     log_pipeline_completion()
- 
+
+    # Run the log scraper after the pipeline completes
+    scrape_log()
+
 if __name__ == "__main__":
     main()
