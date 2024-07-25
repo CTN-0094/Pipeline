@@ -107,8 +107,8 @@ This visualization represents the demographic composition of subsets created thr
         minority_groups = data[data['RaceEth'] != 1]  # Select rows where 'RaceEth' is not NHW
         nhw_group = data[data['RaceEth'] == 1]  # Select rows where 'RaceEth' is NHW
         
-        initial_nhw_sample = nhw_group.sample(n=initial_nhw, random_state=42)  # Sample initial NHW participants
-        initial_minority_sample = minority_groups.sample(n=initial_minority, random_state=42)  # Sample initial minority participants
+        initial_nhw_sample = nhw_group.sample(n=initial_nhw)  # Sample initial NHW participants
+        initial_minority_sample = minority_groups.sample(n=initial_minority)  # Sample initial minority participants
         
         current_nhw_sample = initial_nhw_sample.copy()  # Copy the initial NHW sample to use as the starting point
         remaining_minority_sample = initial_minority_sample.copy()  # Copy the initial minority sample to use as the starting point

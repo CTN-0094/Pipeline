@@ -1,8 +1,10 @@
 from create_demodf_knn import create_demographic_dfs
 from merge_demodf import merge_demographic_data
 import logging
+import numpy as np
 
 def create_and_merge_demographic_subsets(processed_data):
+   
     try:
         logging.info("Creating demographic subsets from preprocessed data...")
         subsets = create_demographic_dfs(processed_data)

@@ -14,7 +14,7 @@ np.random.seed(42)
 random.seed(42)
 
 class LogisticModel:
-    def __init__(self, data, target_column, Cs=[1000], cv=5):
+    def __init__(self, data, target_column, Cs=[1000], cv=5, seed=None):
         self.data = data  # Full dataset
         self.target_column = target_column  # Target variable for prediction
         self.X = data.drop([target_column], axis=1)  # Features matrix
@@ -22,11 +22,15 @@ class LogisticModel:
         self.model = None  # Placeholder for the trained logistic regression model
         self.selected_features = None  # Placeholder for features selected by LASSO
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(
-            self.X, self.y, test_size=0.25, random_state=42
+            self.X, self.y, test_size=0.25
         )
         self.Cs = Cs  # Custom regularization strengths for LASSO
         self.cv = cv  # Number of cross-validation folds
         self.best_threshold = 0.5  # Default threshold
+        self.seed = seed
+        if seed is not None:
+            np.random.seed(seed)
+            random.seed(seed)
 
     def feature_selection_and_model_fitting(self):
         try:
@@ -35,7 +39,7 @@ class LogisticModel:
             lasso = make_pipeline(
                 StandardScaler(),
                 LogisticRegressionCV(
-                    penalty='l1', solver='saga', Cs=self.Cs, cv=self.cv, max_iter=10000, random_state=42
+                    penalty='l1', solver='saga', Cs=self.Cs, cv=self.cv, max_iter=10000
                 )
             )
             lasso.fit(self.X, self.y)
@@ -56,12 +60,12 @@ class LogisticModel:
             # Split dataset into training and testing sets using selected features
             X_selected = self.X[self.selected_features]
             self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(
-                X_selected, self.y, test_size=0.25, random_state=42
+                X_selected, self.y, test_size=0.25
             )
 
             # Fit logistic regression model on training data
             logging.info("Fitting logistic regression model with the selected features...")
-            self.model = LogisticRegression(max_iter=10000, random_state=42)
+            self.model = LogisticRegression(max_iter=10000)
             self.model.fit(self.X_train, self.y_train)
             logging.info("Model training completed successfully.")
         except Exception as e:

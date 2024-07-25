@@ -7,7 +7,7 @@ import logging
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Directory containing the log files
-LOG_DIR = "logs"  # Update this path to the directory where your log files are stored
+LOG_DIR = "/Users/richeyjay/Desktop/Relapse_Pipeline/env/logs"  # Update this path to the directory where your log files are stored
 CSVPATH = "LogData.csv"
 
 # Define hardcoded variables
