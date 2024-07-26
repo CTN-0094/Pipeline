@@ -10,8 +10,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, roc_curve, roc_auc_score, precision_score, recall_score, f1_score
 
 # Set seed for reproducibility in numpy and random
-np.random.seed(42)
-random.seed(42)
+#np.random.seed(42)
+#random.seed(42)
 
 class LogisticModel:
     def __init__(self, data, target_column, Cs=[1000], cv=5, seed=None):
