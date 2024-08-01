@@ -16,19 +16,21 @@ from logScraper import scrape_log_to_csv  # Import the log scraper function
 
 import logging
 
-def main():
+def run_pipeline_with_seed(seed, selected_outcome, pipeline_number):
+    """Run the pipeline using a specific seed."""
     log_filepath = setup_logging()
 
-    # Set a dynamic seed based on the current time
-    seed = int(datetime.now().timestamp())
+    # Set the seed for reproducibility
     random.seed(seed)
     np.random.seed(seed)
 
-    # Log the seed value
+    # Log the seed and pipeline number
+    logging.info(f"Pipeline Number: {pipeline_number}")
     logging.info(f"Global Seed set to: {seed}")
 
-    selected_outcome = get_outcome_choice()
-    
+    # Log the selected outcome
+    logging.info(f"Outcome Name: {selected_outcome}")
+
     master_path = 'data/master_data.csv'
     outcomes_path = 'data/all_binary_selected_outcomes.csv'
     
@@ -46,7 +48,22 @@ def main():
     log_pipeline_completion()
 
     # Scrape the log file and write to CSV
-    scrape_log_to_csv()
+    scrape_log_to_csv(pipeline_number)
+
+def main():
+    # Define a list of seeds to iterate over
+    seed_list = [42, 1, 42]  # Example seeds; replace with your desired values
+
+    # Get the selected outcome
+    selected_outcome = get_outcome_choice()
+
+    # Initialize pipeline number
+    pipeline_number = 1
+
+    # Loop through each seed and run the pipeline
+    for seed in seed_list:
+        run_pipeline_with_seed(seed, selected_outcome, pipeline_number)
+        pipeline_number += 1  # Increment the pipeline number after each run
 
 if __name__ == "__main__":
     main()

@@ -19,20 +19,19 @@ CSVPATH = "log_data.csv"
 
 # Dictionary of hardcoded variables to include in the CSV output
 hardCodedVars = {
-    "global_seed": "N/A",  # Add global seed here
+    "global_seed": "N/A",
     "outcomeType": "Binary",
     "outcomeName": "",
     "preProcessScriptName": "pipeline 7-2024",
     "modelScriptName": "TBD",
-    "demoComparison": "Race: non hispanic white vs minority",
-    "": ""
+    "demoComparison": "Race: non hispanic white vs minority"
 }
 
 # Define the phrases you want to match
 regex_patterns = [
     re.compile(r'demographic makeup:\s+(.*?)$'),
-    re.compile(r'\[\[\s*(\d+)\s+(\d+)'), # Confusion matrix first line
-    re.compile(r'\s*\[\s*(\d+)\s+(\d+)\]'), # Confusion matrix second line
+    re.compile(r'\[\[\s*(\d+)\s+(\d+)'),  # Confusion matrix first line
+    re.compile(r'\s*\[\s*(\d+)\s+(\d+)\]'),  # Confusion matrix second line
     re.compile(r'Precision:\s+(\d+\.\d+)'),
     re.compile(r'Recall:\s+(\d+\.\d+)')
 ]
@@ -43,7 +42,7 @@ def parse_log_line(line, pattern_idx):
         return match.groups()
     return None
 
-def scrape_log_to_csv():
+def scrape_log_to_csv(pipeline_number):
     if not latest_log_file:
         return
 
@@ -53,7 +52,8 @@ def scrape_log_to_csv():
         # Write the CSV header if the file is empty
         if os.stat(CSVPATH).st_size == 0:
             csv_writer.writerow([
-                'global_seed',  # Add global seed to the CSV header
+                'Pipeline Number',  # Add pipeline number to the CSV header
+                'global_seed',      # Add global seed to the CSV header
                 'Outcome Type',
                 'Outcome Name',
                 'Pre-processing script name',
@@ -77,6 +77,9 @@ def scrape_log_to_csv():
             # Extract global seed
             if "Global Seed set to:" in line:
                 hardCodedVars["global_seed"] = line.split(":")[-1].strip()
+            # Extract outcome name
+            if "Outcome Name:" in line:
+                hardCodedVars["outcomeName"] = line.split(":")[-1].strip()
 
             parsed_line = parse_log_line(line, pattern_idx)
             if parsed_line:
@@ -91,6 +94,7 @@ def scrape_log_to_csv():
 
                     # Write the extracted data to CSV
                     csv_writer.writerow([
+                        pipeline_number,
                         hardCodedVars['global_seed'],
                         hardCodedVars['outcomeType'],
                         hardCodedVars['outcomeName'],
@@ -110,9 +114,9 @@ def scrape_log_to_csv():
 
                     pattern_idx = 0
                     csv_line = []
-
+    
 if __name__ == "__main__":
-    scrape_log_to_csv()
+    scrape_log_to_csv(1)
 
 # End time for performance tracking
 end_time = time.time()
