@@ -1,105 +1,103 @@
 import csv
 import re
+import glob
 import os
-import logging
+import time
 
-# Configure logging for debugging
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+# Start time for performance tracking
+start_time = time.time()
 
-# Directory containing the log files
-LOG_DIR = "/Users/richeyjay/Desktop/Relapse_Pipeline/env/logs"  # Update this path to the directory where your log files are stored
-CSVPATH = "LogData.csv"
+# Find the most recent log file based on the naming pattern
+log_files = glob.glob("logs/pipeline_*.log")
+if log_files:
+    latest_log_file = max(log_files, key=os.path.getctime)
+else:
+    print("No log files found.")
+    latest_log_file = None
 
-# Define hardcoded variables
+CSVPATH = "log_data.csv"
+
+# Dictionary of hardcoded variables to include in the CSV output
 hardCodedVars = {
-    "seed": "N/A",
+    "global_seed": "N/A",  # Add global seed here
     "outcomeType": "Binary",
     "outcomeName": "",
     "preProcessScriptName": "pipeline 7-2024",
     "modelScriptName": "TBD",
-    "demoComparison": "Race: non hispanic white vs minority"
+    "demoComparison": "Race: non hispanic white vs minority",
+    "": ""
 }
 
-# Define regex patterns to match specific log lines
+# Define the phrases you want to match
 regex_patterns = [
-    re.compile(r'demographic makeup:\s*(.*)'),
-    re.compile(r'\[\[\s*(\d+)\s+(\d+)'),
-    re.compile(r'\[\s*(\d+)\s+(\d+)'),
-    re.compile(r'Precision:\s*(\d+\.\d+)'),
-    re.compile(r'Recall:\s*(\d+\.\d+)')
+    re.compile(r'demographic makeup:\s+(.*?)$'),
+    re.compile(r'\[\[\s*(\d+)\s+(\d+)'), # Confusion matrix first line
+    re.compile(r'\s*\[\s*(\d+)\s+(\d+)\]'), # Confusion matrix second line
+    re.compile(r'Precision:\s+(\d+\.\d+)'),
+    re.compile(r'Recall:\s+(\d+\.\d+)')
 ]
 
-# Function to parse each log line
 def parse_log_line(line, pattern_idx):
-    if hardCodedVars['outcomeName'] == "":
-        name_match = re.search(r'Moved\s+(\S+)', line)
-        if name_match:
-            hardCodedVars['outcomeName'] = name_match.group(1)
-
     match = regex_patterns[pattern_idx].search(line)
     if match:
-        result = list(match.groups())
-        return result
+        return match.groups()
     return None
 
-# Function to find the latest log file in the directory
-def find_latest_log_file(log_dir):
-    log_files = [f for f in os.listdir(log_dir) if f.startswith('pipeline') and f.endswith('.log')]
-    latest_log_file = max(log_files, key=lambda f: os.path.getmtime(os.path.join(log_dir, f)))
-    return os.path.join(log_dir, latest_log_file)
+def scrape_log_to_csv():
+    if not latest_log_file:
+        return
 
-# Function to scrape the log file and write to CSV
-def scrape_log_to_csv(log_file_path):
-    with open(log_file_path, 'r') as log_file, open(CSVPATH, 'a', newline='') as csv_file:
+    with open(latest_log_file, 'r') as log_file, open(CSVPATH, 'a', newline='') as csv_file:
         csv_writer = csv.writer(csv_file)
-        # Write the CSV header if the file is new
-        if os.path.getsize(CSVPATH) == 0:
+        
+        # Write the CSV header if the file is empty
+        if os.stat(CSVPATH).st_size == 0:
             csv_writer.writerow([
-                'seed',
-                'Outcome Type', 
-                'Outcome Name', 
-                'Pre-processing script name', 
-                'Model script name', 
-                'Demog Comparison', 
-                'Prop(Demog)', 
-                'TP', 
-                'TN', 
-                'FP', 
-                'FN', 
-                'Precision', 
-                'Accuracy', 
-                'Recall', 
+                'global_seed',  # Add global seed to the CSV header
+                'Outcome Type',
+                'Outcome Name',
+                'Pre-processing script name',
+                'Model script name',
+                'Demog Comparison',
+                'Prop(Demog)',
+                'TP',
+                'TN',
+                'FP',
+                'FN',
+                'Precision',
+                'Accuracy',
+                'Recall',
                 'F1'
             ])
-
+        
         pattern_idx = 0
-        csvLine = []
+        csv_line = []
+
         for line in log_file:
-            logging.debug(f"Processing line: {line.strip()}")
+            # Extract global seed
+            if "Global Seed set to:" in line:
+                hardCodedVars["global_seed"] = line.split(":")[-1].strip()
+
             parsed_line = parse_log_line(line, pattern_idx)
-            
             if parsed_line:
-                logging.debug(f"Matched pattern {pattern_idx}: {parsed_line}")
-                csvLine.extend(parsed_line)
+                csv_line.extend(parsed_line)
                 pattern_idx += 1
                 if pattern_idx >= len(regex_patterns):
-                    precision = float(csvLine[5])
-                    recall = float(csvLine[6])
-                    tp = int(csvLine[1])
-                    tn = int(csvLine[4])
-                    fp = int(csvLine[3])
-                    fn = int(csvLine[2])
+                    tp, fn, fp, tn = map(int, csv_line[1:5])
+                    precision = float(csv_line[5])
+                    recall = float(csv_line[6])
                     accuracy = (tp + tn) / (tp + tn + fp + fn)
-                    f1_score = 2 * (precision * recall) / (precision + recall)
+                    f1 = 2 * (precision * recall) / (precision + recall)
 
+                    # Write the extracted data to CSV
                     csv_writer.writerow([
-                        hardCodedVars['seed'],
+                        hardCodedVars['global_seed'],
                         hardCodedVars['outcomeType'],
                         hardCodedVars['outcomeName'],
                         hardCodedVars['preProcessScriptName'],
                         hardCodedVars['modelScriptName'],
                         hardCodedVars['demoComparison'],
-                        csvLine[0],  # Prop(Demog)
+                        csv_line[0],
                         tp,
                         tn,
                         fp,
@@ -107,19 +105,16 @@ def scrape_log_to_csv(log_file_path):
                         precision,
                         accuracy,
                         recall,
-                        f1_score
+                        f1
                     ])
+
                     pattern_idx = 0
-                    csvLine = []
+                    csv_line = []
 
-# Main function to scrape the latest log file
-def main():
-    # Find the latest log file
-    latest_log_file = find_latest_log_file(LOG_DIR)
-    logging.info(f"Found latest log file: {latest_log_file}")
-    # Run the scraping function
-    scrape_log_to_csv(latest_log_file)
-
-# Run the main function
 if __name__ == "__main__":
-    main()
+    scrape_log_to_csv()
+
+# End time for performance tracking
+end_time = time.time()
+elapsed_time = end_time - start_time
+print(f"Elapsed time: {elapsed_time} seconds")

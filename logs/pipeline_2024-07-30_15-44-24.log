@@ -1,0 +1,30 @@
+2024-07-30 15:44:24 - INFO - -------------------------------------------
+2024-07-30 15:44:24 - INFO - Logging setup complete - starting pipeline.
+2024-07-30 15:44:24 - INFO - -------------------------------------------
+2024-07-30 15:44:24 - INFO - Seed set to: 1722368664
+2024-07-30 15:44:26 - INFO - Datasets loaded successfully.
+2024-07-30 15:44:26 - INFO - Starting preprocessing of the merged dataset...
+2024-07-30 15:44:26 - INFO - ---------------------------------
+2024-07-30 15:44:26 - INFO - PRE-PROCESSING STAGE STARTING...
+2024-07-30 15:44:26 - INFO - ---------------------------------
+2024-07-30 15:44:26 - INFO - Dropped initial columns: ['pain_when', 'is_smoker', 'per_day', 'max', 'amount', 'depression', 'anxiety', 'schizophrenia', 'max', 'amount', 'cocaine_inject_days', 'speedball_inject_days', 'opioid_inject_days', 'speed_inject_days', 'UDS_Alcohol_Count', 'UDS_Mdma/Hallucinogen_Count']
+2024-07-30 15:44:26 - INFO - Converted Yes/No to binary.
+2024-07-30 15:44:26 - INFO - Processed TLFB columns with specified columns: ['TLFB_Alcohol_Count', 'TLFB_Amphetamine_Count', 'TLFB_Cocaine_Count', 'TLFB_Heroin_Count', 'TLFB_Benzodiazepine_Count', 'TLFB_Opioid_Count', 'TLFB_THC_Count', 'TLFB_Methadone_Count', 'TLFB_Buprenorphine_Count']
+2024-07-30 15:44:26 - INFO - Calculated behavioral columns.
+2024-07-30 15:44:26 - INFO - Moved 'Rd_kostenB_1993' column to the end.
+2024-07-30 15:44:27 - INFO - Dropped initial columns: ['msm_npt', 'msm_frq', 'txx_prt']
+2024-07-30 15:44:27 - INFO - transform_data_with_nan_handling success
+2024-07-30 15:44:27 - INFO - Renamed columns according to the mapping.
+2024-07-30 15:44:27 - INFO - Transformed NaN to 0 for binary columns.
+2024-07-30 15:44:27 - INFO - Transformed and renamed 'heroin_inject_days' column to 'rbsivheroin'.
+2024-07-30 15:44:27 - INFO - Filled NaN with 0 for 'ftnd' column.
+2024-07-30 15:44:27 - INFO - Dropped additional columns: ['rbs_iv_days', 'race', 'RBS_cocaine_Days', 'RBS_heroin_Days', 'RBS_opioid_Days', 'RBS_speed_Days', 'RBS_speedball_Days']
+2024-07-30 15:44:27 - INFO - Converted UDS drug counts to binary.
+2024-07-30 15:44:27 - INFO - ------------------------------
+2024-07-30 15:44:27 - INFO - PRE-PROCESSING STAGE COMPLETED
+2024-07-30 15:44:27 - INFO - ------------------------------
+2024-07-30 15:44:27 - INFO - Merged dataset preprocessed successfully.
+2024-07-30 15:44:27 - INFO - Creating demographic subsets from preprocessed data...
+2024-07-30 15:44:34 - INFO - Created 11 subsets successfully.
+2024-07-30 15:44:34 - INFO - Creating merged subsets from create_demographics_dfs function
+2024-07-30 15:44:34 - INFO - Created 11 merged subsets successfully.
