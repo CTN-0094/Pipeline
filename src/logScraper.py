@@ -1,21 +1,11 @@
 import csv
 import re
-import glob
 import os
 import time
+from datetime import datetime
 
 # Start time for performance tracking
 start_time = time.time()
-
-# Find the most recent log file based on the naming pattern
-log_files = glob.glob("logs/pipeline_*.log")
-if log_files:
-    latest_log_file = max(log_files, key=os.path.getctime)
-else:
-    print("No log files found.")
-    latest_log_file = None
-
-CSVPATH = "log_data.csv"
 
 # Dictionary of hardcoded variables to include in the CSV output
 hardCodedVars = {
@@ -24,7 +14,7 @@ hardCodedVars = {
     "outcomeName": "",
     "preProcessScriptName": "pipeline 7-2024",
     "modelScriptName": "TBD",
-    "demoComparison": "Race: non hispanic white vs minority"
+    "demoComparison": "Race: non hispanic white vs minority",
 }
 
 # Define the phrases you want to match
@@ -42,34 +32,37 @@ def parse_log_line(line, pattern_idx):
         return match.groups()
     return None
 
-def scrape_log_to_csv(pipeline_number):
-    if not latest_log_file:
+def scrape_log_to_csv(log_filepath):
+    if not os.path.exists(log_filepath):
+        print("Log file does not exist.")
         return
 
-    with open(latest_log_file, 'r') as log_file, open(CSVPATH, 'a', newline='') as csv_file:
+    # Generate a unique CSV filename based on the current timestamp
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    CSVPATH = f"log_data_{timestamp}.csv"
+
+    with open(log_filepath, 'r') as log_file, open(CSVPATH, 'w', newline='') as csv_file:
         csv_writer = csv.writer(csv_file)
-        
-        # Write the CSV header if the file is empty
-        if os.stat(CSVPATH).st_size == 0:
-            csv_writer.writerow([
-                'Pipeline Number',  # Add pipeline number to the CSV header
-                'global_seed',      # Add global seed to the CSV header
-                'Outcome Type',
-                'Outcome Name',
-                'Pre-processing script name',
-                'Model script name',
-                'Demog Comparison',
-                'Prop(Demog)',
-                'TP',
-                'TN',
-                'FP',
-                'FN',
-                'Precision',
-                'Accuracy',
-                'Recall',
-                'F1'
-            ])
-        
+
+        # Write the CSV header
+        csv_writer.writerow([
+            'global_seed',
+            'Outcome Type',
+            'Outcome Name',
+            'Pre-processing script name',
+            'Model script name',
+            'Demog Comparison',
+            'Prop(Demog)',
+            'TP',
+            'TN',
+            'FP',
+            'FN',
+            'Precision',
+            'Accuracy',
+            'Recall',
+            'F1'
+        ])
+
         pattern_idx = 0
         csv_line = []
 
@@ -94,7 +87,6 @@ def scrape_log_to_csv(pipeline_number):
 
                     # Write the extracted data to CSV
                     csv_writer.writerow([
-                        pipeline_number,
                         hardCodedVars['global_seed'],
                         hardCodedVars['outcomeType'],
                         hardCodedVars['outcomeName'],
@@ -114,9 +106,6 @@ def scrape_log_to_csv(pipeline_number):
 
                     pattern_idx = 0
                     csv_line = []
-    
-if __name__ == "__main__":
-    scrape_log_to_csv(1)
 
 # End time for performance tracking
 end_time = time.time()

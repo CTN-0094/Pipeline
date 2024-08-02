@@ -16,50 +16,19 @@ from logScraper import scrape_log_to_csv  # Import the log scraper function
 
 import logging
 
-def setup_logging():
-    """Set up logging for the pipeline."""
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    log_filename = f"logs/pipeline_{timestamp}.log"
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s - %(levelname)s - %(message)s",
-        handlers=[
-            logging.FileHandler(log_filename),
-            logging.StreamHandler()
-        ]
-    )
-    return log_filename
-
-def get_user_seed():
-    """Get a seed from the user, or generate a dynamic seed."""
-    while True:
-        user_input = input("Enter a seed number (or press Enter to use a dynamic seed): ")
-        if user_input.strip() == "":
-            # Use dynamic seed
-            return int(datetime.now().timestamp())
-        try:
-            # Validate if input is a valid integer
-            return int(user_input)
-        except ValueError:
-            print("Invalid input. Please enter a valid integer.")
-
-def main():
+def run_pipeline_with_seed(seed, selected_outcome, pipeline_number):
+    """Run the pipeline using a specific seed."""
     log_filepath = setup_logging()
-
-    # Get seed from the user or use a dynamic one
-    seed = get_user_seed()
 
     # Set the seed for reproducibility
     random.seed(seed)
     np.random.seed(seed)
 
-    # Log the seed value
+    # Log the seed and pipeline number
+    logging.info(f"Pipeline Number: {pipeline_number}")
     logging.info(f"Global Seed set to: {seed}")
 
-    # Get the selected outcome
-    selected_outcome = get_outcome_choice()
-
-    # Log the selected outcome on a separate line
+    # Log the selected outcome
     logging.info(f"Outcome Name: {selected_outcome}")
 
     master_path = 'data/master_data.csv'
@@ -79,7 +48,22 @@ def main():
     log_pipeline_completion()
 
     # Scrape the log file and write to CSV
-    scrape_log_to_csv(log_filepath)
+    scrape_log_to_csv(pipeline_number)
+
+def main():
+    # Define a list of seeds to iterate over
+    seed_list = [42, 1, 42]  # Example seeds; replace with your desired values
+
+    # Get the selected outcome
+    selected_outcome = get_outcome_choice()
+
+    # Initialize pipeline number
+    pipeline_number = 1
+
+    # Loop through each seed and run the pipeline
+    for seed in seed_list:
+        run_pipeline_with_seed(seed, selected_outcome, pipeline_number)
+        pipeline_number += 1  # Increment the pipeline number after each run
 
 if __name__ == "__main__":
     main()
