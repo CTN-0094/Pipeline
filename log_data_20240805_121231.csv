@@ -1,0 +1,12 @@
+global_seed,Outcome Type,Outcome Name,Pre-processing script name,Model script name,Demog Comparison,Prop(Demog),TP,TN,FP,FN,Precision,Accuracy,Recall,F1
+4,Binary,Rs_johnson_1992,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"500 1, 248 3, 153 2, 99 4",12,128,100,10,0.927536231884058,0.56,0.5614035087719298,0.6994535519125682
+4,Binary,Rs_johnson_1992,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"550 1, 221 3, 140 2, 89 4",16,158,62,14,0.9186046511627907,0.696,0.7181818181818181,0.8061224489795918
+4,Binary,Rs_johnson_1992,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"600 1, 195 3, 123 2, 82 4",14,143,83,10,0.934640522875817,0.628,0.6327433628318584,0.7546174142480211
+4,Binary,Rs_johnson_1992,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"650 1, 169 3, 108 2, 73 4",17,120,105,8,0.9375,0.548,0.5333333333333333,0.6798866855524079
+4,Binary,Rs_johnson_1992,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"700 1, 145 3, 93 2, 62 4",20,144,80,6,0.96,0.656,0.6428571428571429,0.7700534759358291
+4,Binary,Rs_johnson_1992,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"750 1, 126 3, 73 2, 51 4",17,143,78,12,0.9225806451612903,0.64,0.6470588235294118,0.7606382978723404
+4,Binary,Rs_johnson_1992,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"800 1, 104 3, 59 2, 37 4",17,145,81,7,0.9539473684210527,0.648,0.6415929203539823,0.7671957671957672
+4,Binary,Rs_johnson_1992,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"850 1, 77 3, 46 2, 27 4",18,129,97,6,0.9555555555555556,0.588,0.5707964601769911,0.7146814404432134
+4,Binary,Rs_johnson_1992,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"900 1, 50 3, 32 2, 18 4",16,168,49,17,0.9081081081081082,0.736,0.7741935483870968,0.835820895522388
+4,Binary,Rs_johnson_1992,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"950 1, 25 3, 16 2, 9 4",19,155,64,12,0.9281437125748503,0.696,0.7077625570776256,0.8031088082901555
+4,Binary,Rs_johnson_1992,pipeline 7-2024,TBD,Race: non hispanic white vs minority,1000 1,21,138,87,4,0.971830985915493,0.636,0.6133333333333333,0.7520435967302452

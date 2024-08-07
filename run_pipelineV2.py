@@ -4,22 +4,31 @@ import random
 import numpy as np
 import pandas as pd
 from datetime import datetime
+import logging
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
 
-from utils import setup_logging, log_pipeline_completion, get_outcome_choice
+from utils import log_pipeline_completion, get_outcome_choice
 from data_loading import load_datasets
 from data_preprocessing import preprocess_merged_data
 from demographic_handling import create_and_merge_demographic_subsets
 from model_training import train_and_evaluate_models
 from logScraper import scrape_log_to_csv  # Import the log scraper function
 
-import logging
+LOG_DIR = "logs"  # Directory to store log files
 
-def setup_logging():
+def setup_logging(seed):
     """Set up logging for the pipeline."""
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    log_filename = f"logs/pipeline_{timestamp}.log"
+    if not os.path.exists(LOG_DIR):
+        os.makedirs(LOG_DIR)  # Ensure the log directory exists
+
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    log_filename = os.path.join(LOG_DIR, f"pipeline_{timestamp}_{seed}.log")
+
+    # Configure the logging for each seed run
+    logger = logging.getLogger()
+    logger.handlers = []  # Clear existing handlers
+
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s - %(levelname)s - %(message)s",
@@ -30,24 +39,9 @@ def setup_logging():
     )
     return log_filename
 
-def get_user_seed():
-    """Get a seed from the user, or generate a dynamic seed."""
-    while True:
-        user_input = input("Enter a seed number (or press Enter to use a dynamic seed): ")
-        if user_input.strip() == "":
-            # Use dynamic seed
-            return int(datetime.now().timestamp())
-        try:
-            # Validate if input is a valid integer
-            return int(user_input)
-        except ValueError:
-            print("Invalid input. Please enter a valid integer.")
-
-def main():
-    log_filepath = setup_logging()
-
-    # Get seed from the user or use a dynamic one
-    seed = get_user_seed()
+def run_pipeline(seed, selected_outcome):
+    """Run the pipeline using a specific seed."""
+    log_filepath = setup_logging(seed)
 
     # Set the seed for reproducibility
     random.seed(seed)
@@ -56,10 +50,7 @@ def main():
     # Log the seed value
     logging.info(f"Global Seed set to: {seed}")
 
-    # Get the selected outcome
-    selected_outcome = get_outcome_choice()
-
-    # Log the selected outcome on a separate line
+    # Log the selected outcome
     logging.info(f"Outcome Name: {selected_outcome}")
 
     master_path = 'data/master_data.csv'
@@ -78,8 +69,25 @@ def main():
     
     log_pipeline_completion()
 
-    # Scrape the log file and write to CSV
-    scrape_log_to_csv(log_filepath)
+    return log_filepath
+
+def main():
+    # Define a list of seeds to iterate over
+    seed_list = [4, 23, 4]  # Example seeds; replace with your desired values
+
+    # Get the selected outcome
+    selected_outcome = get_outcome_choice()
+
+    # Store the paths of the generated log files
+    log_filepaths = []
+
+    # Loop through each seed and run the pipeline
+    for seed in seed_list:
+        log_filepath = run_pipeline(seed, selected_outcome)
+        log_filepaths.append(log_filepath)
+
+    # Scrape the logs after all pipelines are run
+    scrape_log_to_csv(log_filepaths)
 
 if __name__ == "__main__":
     main()

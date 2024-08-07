@@ -1,0 +1,34 @@
+Pipeline Number,global_seed,Outcome Type,Outcome Name,Pre-processing script name,Model script name,Demog Comparison,Prop(Demog),TP,TN,FP,FN,Precision,Accuracy,Recall,F1
+1,1,Binary,ctn0094_relapse_event,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"500 1, 239 3, 162 2, 99 4",26,114,77,33,0.7755102040816326,0.56,0.5968586387434555,0.6745562130177514
+1,1,Binary,ctn0094_relapse_event,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"550 1, 216 3, 146 2, 88 4",32,114,83,21,0.8444444444444444,0.584,0.5786802030456852,0.6867469879518073
+1,1,Binary,ctn0094_relapse_event,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"600 1, 190 3, 137 2, 73 4",31,102,98,19,0.8429752066115702,0.532,0.51,0.6355140186915887
+1,1,Binary,ctn0094_relapse_event,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"650 1, 169 3, 116 2, 65 4",45,91,106,8,0.9191919191919192,0.544,0.4619289340101523,0.6148648648648648
+1,1,Binary,ctn0094_relapse_event,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"700 1, 147 3, 97 2, 56 4",35,138,48,29,0.8263473053892215,0.692,0.7419354838709677,0.7818696883852692
+1,1,Binary,ctn0094_relapse_event,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"750 1, 125 3, 79 2, 46 4",36,131,62,21,0.8618421052631579,0.668,0.6787564766839378,0.7594202898550725
+1,1,Binary,ctn0094_relapse_event,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"800 1, 101 3, 68 2, 31 4",35,111,86,18,0.8604651162790697,0.584,0.5634517766497462,0.6809815950920246
+1,1,Binary,ctn0094_relapse_event,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"850 1, 78 3, 49 2, 23 4",37,123,61,29,0.8092105263157895,0.64,0.6684782608695652,0.7321428571428571
+1,1,Binary,ctn0094_relapse_event,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"900 1, 55 3, 31 2, 14 4",38,122,71,19,0.8652482269503546,0.64,0.6321243523316062,0.7305389221556886
+1,1,Binary,ctn0094_relapse_event,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"950 1, 28 3, 14 2, 8 4",45,120,62,23,0.8391608391608392,0.66,0.6593406593406593,0.7384615384615386
+1,1,Binary,ctn0094_relapse_event,pipeline 7-2024,TBD,Race: non hispanic white vs minority,1000 1,34,125,65,26,0.8278145695364238,0.636,0.6578947368421053,0.7331378299120235
+2,1,Binary,ctn0094_relapse_event,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"500 1, 239 3, 162 2, 99 4",26,114,77,33,0.7755102040816326,0.56,0.5968586387434555,0.6745562130177514
+2,1,Binary,ctn0094_relapse_event,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"550 1, 216 3, 146 2, 88 4",32,114,83,21,0.8444444444444444,0.584,0.5786802030456852,0.6867469879518073
+2,1,Binary,ctn0094_relapse_event,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"600 1, 190 3, 137 2, 73 4",31,102,98,19,0.8429752066115702,0.532,0.51,0.6355140186915887
+2,1,Binary,ctn0094_relapse_event,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"650 1, 169 3, 116 2, 65 4",45,91,106,8,0.9191919191919192,0.544,0.4619289340101523,0.6148648648648648
+2,1,Binary,ctn0094_relapse_event,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"700 1, 147 3, 97 2, 56 4",35,138,48,29,0.8263473053892215,0.692,0.7419354838709677,0.7818696883852692
+2,1,Binary,ctn0094_relapse_event,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"750 1, 125 3, 79 2, 46 4",36,131,62,21,0.8618421052631579,0.668,0.6787564766839378,0.7594202898550725
+2,1,Binary,ctn0094_relapse_event,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"800 1, 101 3, 68 2, 31 4",35,111,86,18,0.8604651162790697,0.584,0.5634517766497462,0.6809815950920246
+2,1,Binary,ctn0094_relapse_event,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"850 1, 78 3, 49 2, 23 4",37,123,61,29,0.8092105263157895,0.64,0.6684782608695652,0.7321428571428571
+2,1,Binary,ctn0094_relapse_event,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"900 1, 55 3, 31 2, 14 4",38,122,71,19,0.8652482269503546,0.64,0.6321243523316062,0.7305389221556886
+2,1,Binary,ctn0094_relapse_event,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"950 1, 28 3, 14 2, 8 4",45,120,62,23,0.8391608391608392,0.66,0.6593406593406593,0.7384615384615386
+2,1,Binary,ctn0094_relapse_event,pipeline 7-2024,TBD,Race: non hispanic white vs minority,1000 1,34,125,65,26,0.8278145695364238,0.636,0.6578947368421053,0.7331378299120235
+3,1,Binary,ctn0094_relapse_event,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"500 1, 239 3, 162 2, 99 4",26,114,77,33,0.7755102040816326,0.56,0.5968586387434555,0.6745562130177514
+3,1,Binary,ctn0094_relapse_event,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"550 1, 216 3, 146 2, 88 4",32,114,83,21,0.8444444444444444,0.584,0.5786802030456852,0.6867469879518073
+3,1,Binary,ctn0094_relapse_event,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"600 1, 190 3, 137 2, 73 4",31,102,98,19,0.8429752066115702,0.532,0.51,0.6355140186915887
+3,1,Binary,ctn0094_relapse_event,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"650 1, 169 3, 116 2, 65 4",45,91,106,8,0.9191919191919192,0.544,0.4619289340101523,0.6148648648648648
+3,1,Binary,ctn0094_relapse_event,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"700 1, 147 3, 97 2, 56 4",35,138,48,29,0.8263473053892215,0.692,0.7419354838709677,0.7818696883852692
+3,1,Binary,ctn0094_relapse_event,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"750 1, 125 3, 79 2, 46 4",36,131,62,21,0.8618421052631579,0.668,0.6787564766839378,0.7594202898550725
+3,1,Binary,ctn0094_relapse_event,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"800 1, 101 3, 68 2, 31 4",35,111,86,18,0.8604651162790697,0.584,0.5634517766497462,0.6809815950920246
+3,1,Binary,ctn0094_relapse_event,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"850 1, 78 3, 49 2, 23 4",37,123,61,29,0.8092105263157895,0.64,0.6684782608695652,0.7321428571428571
+3,1,Binary,ctn0094_relapse_event,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"900 1, 55 3, 31 2, 14 4",38,122,71,19,0.8652482269503546,0.64,0.6321243523316062,0.7305389221556886
+3,1,Binary,ctn0094_relapse_event,pipeline 7-2024,TBD,Race: non hispanic white vs minority,"950 1, 28 3, 14 2, 8 4",45,120,62,23,0.8391608391608392,0.66,0.6593406593406593,0.7384615384615386
+3,1,Binary,ctn0094_relapse_event,pipeline 7-2024,TBD,Race: non hispanic white vs minority,1000 1,34,125,65,26,0.8278145695364238,0.636,0.6578947368421053,0.7331378299120235

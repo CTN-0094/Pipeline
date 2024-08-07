@@ -1,11 +1,10 @@
 import csv
 import re
 import os
-import time
 from datetime import datetime
 
 # Start time for performance tracking
-start_time = time.time()
+start_time = datetime.now()
 
 # Dictionary of hardcoded variables to include in the CSV output
 hardCodedVars = {
@@ -19,11 +18,12 @@ hardCodedVars = {
 
 # Define the phrases you want to match
 regex_patterns = [
-    re.compile(r'demographic makeup:\s+(.*?)$'),
-    re.compile(r'\[\[\s*(\d+)\s+(\d+)'),  # Confusion matrix first line
-    re.compile(r'\s*\[\s*(\d+)\s+(\d+)\]'),  # Confusion matrix second line
-    re.compile(r'Precision:\s+(\d+\.\d+)'),
-    re.compile(r'Recall:\s+(\d+\.\d+)')
+    re.compile(r'demographic makeup:\s+(.*?)$'),          # demographic makeup
+    re.compile(r'\[\[\s*(\d+)\s+(\d+)\]'),               # Confusion matrix first line
+    re.compile(r'\s*\[\s*(\d+)\s+(\d+)\]'),              # Confusion matrix second line
+    re.compile(r'Precision:\s+(\d+\.\d+)'),              # Precision
+    re.compile(r'Recall:\s+(\d+\.\d+)'),                 # Recall
+    re.compile(r'ROC AUC Score:\s+(\d+\.\d+)')           # ROC AUC Score
 ]
 
 def parse_log_line(line, pattern_idx):
@@ -32,16 +32,16 @@ def parse_log_line(line, pattern_idx):
         return match.groups()
     return None
 
-def scrape_log_to_csv(log_filepath):
-    if not os.path.exists(log_filepath):
-        print("Log file does not exist.")
+def scrape_log_to_csv(log_filepaths):
+    if not log_filepaths:
+        print("No log files provided.")
         return
 
     # Generate a unique CSV filename based on the current timestamp
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     CSVPATH = f"log_data_{timestamp}.csv"
 
-    with open(log_filepath, 'r') as log_file, open(CSVPATH, 'w', newline='') as csv_file:
+    with open(CSVPATH, 'w', newline='') as csv_file:
         csv_writer = csv.writer(csv_file)
 
         # Write the CSV header
@@ -57,57 +57,71 @@ def scrape_log_to_csv(log_filepath):
             'TN',
             'FP',
             'FN',
-            'Precision',
             'Accuracy',
+            'Precision',
             'Recall',
-            'F1'
+            'F1',
+            'ROC AUC Score'
         ])
 
-        pattern_idx = 0
-        csv_line = []
+        for log_filepath in log_filepaths:
+            with open(log_filepath, 'r') as log_file:
+                for line in log_file:
+                    # Extract global seed
+                    if "Global Seed set to:" in line:
+                        hardCodedVars["global_seed"] = line.split(":")[-1].strip()
+                    # Extract outcome name
+                    if "Outcome Name:" in line:
+                        hardCodedVars["outcomeName"] = line.split(":")[-1].strip()
 
-        for line in log_file:
-            # Extract global seed
-            if "Global Seed set to:" in line:
-                hardCodedVars["global_seed"] = line.split(":")[-1].strip()
-            # Extract outcome name
-            if "Outcome Name:" in line:
-                hardCodedVars["outcomeName"] = line.split(":")[-1].strip()
-
-            parsed_line = parse_log_line(line, pattern_idx)
-            if parsed_line:
-                csv_line.extend(parsed_line)
-                pattern_idx += 1
-                if pattern_idx >= len(regex_patterns):
-                    tp, fn, fp, tn = map(int, csv_line[1:5])
-                    precision = float(csv_line[5])
-                    recall = float(csv_line[6])
-                    accuracy = (tp + tn) / (tp + tn + fp + fn)
-                    f1 = 2 * (precision * recall) / (precision + recall)
-
-                    # Write the extracted data to CSV
-                    csv_writer.writerow([
-                        hardCodedVars['global_seed'],
-                        hardCodedVars['outcomeType'],
-                        hardCodedVars['outcomeName'],
-                        hardCodedVars['preProcessScriptName'],
-                        hardCodedVars['modelScriptName'],
-                        hardCodedVars['demoComparison'],
-                        csv_line[0],
-                        tp,
-                        tn,
-                        fp,
-                        fn,
-                        precision,
-                        accuracy,
-                        recall,
-                        f1
-                    ])
-
+                    csv_line = []  # Reset for each block
                     pattern_idx = 0
-                    csv_line = []
+
+                    # Iterate over each line and try to match with the patterns
+                    while pattern_idx < len(regex_patterns):
+                        parsed_line = parse_log_line(line, pattern_idx)
+                        if parsed_line:
+                            csv_line.extend(parsed_line)
+                            pattern_idx += 1
+                            if pattern_idx >= len(regex_patterns):
+                                # Ensure correct extraction for each component
+                                prop_demog = csv_line[0]
+                                tp = int(csv_line[1])
+                                fn = int(csv_line[2])
+                                fp = int(csv_line[3])
+                                tn = int(csv_line[4])
+                                precision = float(csv_line[5])
+                                recall = float(csv_line[6])
+                                roc_auc_score = float(csv_line[7])
+                                accuracy = (tp + tn) / (tp + tn + fp + fn)
+                                f1 = 2 * (precision * recall) / (precision + recall)
+
+                                # Write the extracted data to CSV
+                                csv_writer.writerow([
+                                    hardCodedVars['global_seed'],
+                                    hardCodedVars['outcomeType'],
+                                    hardCodedVars['outcomeName'],
+                                    hardCodedVars['preProcessScriptName'],
+                                    hardCodedVars['modelScriptName'],
+                                    hardCodedVars['demoComparison'],
+                                    prop_demog,  # Correctly placed demographic data
+                                    tp,
+                                    tn,
+                                    fp,
+                                    fn,
+                                    accuracy,
+                                    precision,
+                                    recall,
+                                    f1,
+                                    roc_auc_score
+                                ])
+                                # Reset for the next set of metrics
+                                break  # Exit the while loop to continue reading the log file
+                        line = next(log_file, None)  # Get the next line
+                        if line is None:
+                            break  # End of file
 
 # End time for performance tracking
-end_time = time.time()
-elapsed_time = end_time - start_time
+end_time = datetime.now()
+elapsed_time = (end_time - start_time).total_seconds()
 print(f"Elapsed time: {elapsed_time} seconds")
