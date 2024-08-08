@@ -18,13 +18,12 @@ hardCodedVars = {
 
 # Define the phrases you want to match
 regex_patterns = [
-    re.compile(r'demographic makeup:\s+(.*?)$'),          # demographic makeup
+    re.compile(r'demographic makeup:\s+(.*?)$'),         # demographic makeup
     re.compile(r'ROC AUC Score:\s+(\d+\.\d+)'),          # ROC AUC Score
     re.compile(r'\[\[\s*(\d+)\s+(\d+)\]'),               # Confusion matrix first line
     re.compile(r'\s*\[\s*(\d+)\s+(\d+)\]'),              # Confusion matrix second line
     re.compile(r'Precision:\s+(\d+\.\d+)'),              # Precision
-    re.compile(r'Recall:\s+(\d+\.\d+)')                 # Recall
-    
+    re.compile(r'Recall:\s+(\d+\.\d+)')                  # Recall
 ]
 
 def parse_log_line(line, pattern_idx):
@@ -67,19 +66,19 @@ def scrape_log_to_csv(log_filepaths):
 
         for log_filepath in log_filepaths:
             with open(log_filepath, 'r') as log_file:
-                for line in log_file:
-                    # Extract global seed
-                    if "Global Seed set to:" in line:
-                        hardCodedVars["global_seed"] = line.split(":")[-1].strip()
-                    # Extract outcome name
-                    if "Outcome Name:" in line:
-                        hardCodedVars["outcomeName"] = line.split(":")[-1].strip()
+                line = log_file.readline()
+                hardCodedVars["global_seed"] = line.split(":")[-1].strip()
+                line = log_file.readline()
+                hardCodedVars["outcomeName"] = line.split(":")[-1].strip()
+
+                for i, line in enumerate(log_file):
 
                     csv_line = []  # Reset for each block
                     pattern_idx = 0
 
                     # Iterate over each line and try to match with the patterns
                     while pattern_idx < len(regex_patterns):
+                        
                         parsed_line = parse_log_line(line, pattern_idx)
                         if parsed_line:
                             csv_line.extend(parsed_line)
