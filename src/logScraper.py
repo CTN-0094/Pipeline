@@ -19,11 +19,12 @@ hardCodedVars = {
 # Define the phrases you want to match
 regex_patterns = [
     re.compile(r'demographic makeup:\s+(.*?)$'),          # demographic makeup
+    re.compile(r'ROC AUC Score:\s+(\d+\.\d+)'),          # ROC AUC Score
     re.compile(r'\[\[\s*(\d+)\s+(\d+)\]'),               # Confusion matrix first line
     re.compile(r'\s*\[\s*(\d+)\s+(\d+)\]'),              # Confusion matrix second line
     re.compile(r'Precision:\s+(\d+\.\d+)'),              # Precision
-    re.compile(r'Recall:\s+(\d+\.\d+)'),                 # Recall
-    re.compile(r'ROC AUC Score:\s+(\d+\.\d+)')           # ROC AUC Score
+    re.compile(r'Recall:\s+(\d+\.\d+)')                 # Recall
+    
 ]
 
 def parse_log_line(line, pattern_idx):
@@ -86,13 +87,13 @@ def scrape_log_to_csv(log_filepaths):
                             if pattern_idx >= len(regex_patterns):
                                 # Ensure correct extraction for each component
                                 prop_demog = csv_line[0]
-                                tp = int(csv_line[1])
-                                fn = int(csv_line[2])
-                                fp = int(csv_line[3])
-                                tn = int(csv_line[4])
-                                precision = float(csv_line[5])
-                                recall = float(csv_line[6])
-                                roc_auc_score = float(csv_line[7])
+                                tp = int(csv_line[2])
+                                fn = int(csv_line[3])
+                                fp = int(csv_line[4])
+                                tn = int(csv_line[5])
+                                precision = float(csv_line[6])
+                                recall = float(csv_line[7])
+                                roc_auc_score = float(csv_line[1])
                                 accuracy = (tp + tn) / (tp + tn + fp + fn)
                                 f1 = 2 * (precision * recall) / (precision + recall)
 
