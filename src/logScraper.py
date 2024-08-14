@@ -7,40 +7,49 @@ from datetime import datetime
 start_time = datetime.now()
 
 # Dictionary of hardcoded variables to include in the CSV output
+# These are default values that will be used if not found in the log file
 hardCodedVars = {
-    "global_seed": "N/A",
-    "outcomeType": "Binary",
-    "outcomeName": "",
-    "preProcessScriptName": "pipeline 7-2024",
-    "modelScriptName": "TBD",
-    "demoComparison": "Race: non hispanic white vs minority",
+    "global_seed": "N/A",  # Placeholder for the global seed
+    "outcomeType": "Binary",  # Type of outcome being analyzed
+    "outcomeName": "",  # Placeholder for the outcome name
+    "preProcessScriptName": "pipeline 7-2024",  # Name of the preprocessing script
+    "modelScriptName": "TBD",  # Placeholder for the model script name
+    "demoComparison": "Race: non hispanic white vs minority",  # Demographic comparison being analyzed
 }
 
-# Define the phrases you want to match
+# Define the phrases you want to match in the log files using regular expressions
 regex_patterns = [
-    re.compile(r'demographic makeup:\s+(.*?)$'),          # demographic makeup
-    re.compile(r'ROC AUC Score:\s+(\d+\.\d+)'),          # ROC AUC Score
-    re.compile(r'\[\[\s*(\d+)\s+(\d+)\]'),               # Confusion matrix first line
-    re.compile(r'\s*\[\s*(\d+)\s+(\d+)\]'),              # Confusion matrix second line
-    re.compile(r'Precision:\s+(\d+\.\d+)'),              # Precision
-    re.compile(r'Recall:\s+(\d+\.\d+)')                 # Recall
-    
+    re.compile(r'demographic makeup:\s+(.*?)$'),         # Match demographic makeup
+    re.compile(r'ROC AUC Score:\s+(\d+\.\d+)'),          # Match ROC AUC Score
+    re.compile(r'\[\[\s*(\d+)\s+(\d+)\]'),               # Match the first line of the confusion matrix
+    re.compile(r'\s*\[\s*(\d+)\s+(\d+)\]'),              # Match the second line of the confusion matrix
+    re.compile(r'Precision:\s+(\d+\.\d+)'),              # Match Precision
+    re.compile(r'Recall:\s+(\d+\.\d+)')                  # Match Recall
 ]
 
 def parse_log_line(line, pattern_idx):
+    """Parse a single line of the log file based on the current regex pattern."""
     match = regex_patterns[pattern_idx].search(line)
     if match:
-        return match.groups()
+        return match.groups()  # Return the matched groups from the regex
     return None
 
 def scrape_log_to_csv(log_filepaths):
+    """Scrape data from log files and write the results to a CSV file."""
     if not log_filepaths:
         print("No log files provided.")
         return
 
+    # Define the LogOutput directory path dynamically
+    current_dir = os.path.dirname(os.path.abspath(__file__))  # Get the current directory of the script
+    log_output_dir = os.path.join(current_dir, 'logOutput')
+
+    # Ensure the LogOutput directory exists
+    os.makedirs(log_output_dir, exist_ok=True)
+
     # Generate a unique CSV filename based on the current timestamp
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    CSVPATH = f"log_data_{timestamp}.csv"
+    CSVPATH = os.path.join(log_output_dir, f"log_data_{timestamp}.csv")
 
     with open(CSVPATH, 'w', newline='') as csv_file:
         csv_writer = csv.writer(csv_file)
@@ -65,17 +74,20 @@ def scrape_log_to_csv(log_filepaths):
             'ROC AUC Score'
         ])
 
+        # Process each log file
         for log_filepath in log_filepaths:
             with open(log_filepath, 'r') as log_file:
-                for line in log_file:
-                    # Extract global seed
-                    if "Global Seed set to:" in line:
-                        hardCodedVars["global_seed"] = line.split(":")[-1].strip()
-                    # Extract outcome name
-                    if "Outcome Name:" in line:
-                        hardCodedVars["outcomeName"] = line.split(":")[-1].strip()
+                # Extract the global seed from the first line of the log file
+                line = log_file.readline()
+                hardCodedVars["global_seed"] = line.split(":")[-1].strip()
 
-                    csv_line = []  # Reset for each block
+                # Extract the outcome name from the second line of the log file
+                line = log_file.readline()
+                hardCodedVars["outcomeName"] = line.split(":")[-1].strip()
+
+                # Process each subsequent line in the log file
+                for i, line in enumerate(log_file):
+                    csv_line = []  # Reset for each block of metrics
                     pattern_idx = 0
 
                     # Iterate over each line and try to match with the patterns
@@ -97,7 +109,7 @@ def scrape_log_to_csv(log_filepaths):
                                 accuracy = (tp + tn) / (tp + tn + fp + fn)
                                 f1 = 2 * (precision * recall) / (precision + recall)
 
-                                # Write the extracted data to CSV
+                                # Write the extracted data to the CSV file
                                 csv_writer.writerow([
                                     hardCodedVars['global_seed'],
                                     hardCodedVars['outcomeType'],
@@ -105,7 +117,7 @@ def scrape_log_to_csv(log_filepaths):
                                     hardCodedVars['preProcessScriptName'],
                                     hardCodedVars['modelScriptName'],
                                     hardCodedVars['demoComparison'],
-                                    prop_demog,  # Correctly placed demographic data
+                                    prop_demog,  # Demographic data
                                     tp,
                                     tn,
                                     fp,
@@ -118,7 +130,8 @@ def scrape_log_to_csv(log_filepaths):
                                 ])
                                 # Reset for the next set of metrics
                                 break  # Exit the while loop to continue reading the log file
-                        line = next(log_file, None)  # Get the next line
+                        # Read the next line of the log file
+                        line = next(log_file, None)
                         if line is None:
                             break  # End of file
 
