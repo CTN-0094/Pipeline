@@ -49,7 +49,7 @@ def scrape_log_to_csv(log_filepaths):
 
     # Generate a unique CSV filename based on the current timestamp
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    CSVPATH = os.path.join(log_output_dir, f"log_data_{timestamp}.csv")
+    CSVPATH = os.path.join(log_output_dir, f"log_data_{timestamp}.csv") 
 
     with open(CSVPATH, 'w', newline='') as csv_file:
         csv_writer = csv.writer(csv_file)
