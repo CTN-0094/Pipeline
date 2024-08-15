@@ -3,8 +3,11 @@ import os
 import random
 import numpy as np
 import pandas as pd
+import cProfile
+import pstats
 from datetime import datetime
 import logging
+import io
 
 # Add the 'src' directory to the system path to allow imports from that directory
 sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
@@ -103,4 +106,27 @@ def main():
     scrape_log_to_csv(log_filepaths)
 
 if __name__ == "__main__":
-    main()  # Execute the main function when the script is run directly
+    # Setup profiler
+    pr = cProfile.Profile()
+    pr.enable()
+
+    # Run the main function
+    main()
+
+    # Disable profiler
+    pr.disable()
+
+    # Create a string stream to capture profiler output
+    s = io.StringIO()
+
+    # Create a stats object
+    sortby = 'cumulative'
+    ps = pstats.Stats(pr, stream=s).sort_stats(sortby)
+
+    # Print the stats to the string stream
+    ps.print_stats()
+
+    # Write the profiler results to a file
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    with open("profile_output" + timestamp + ".txt", "w") as f:
+        f.write(s.getvalue())
