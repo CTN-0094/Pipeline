@@ -30,19 +30,6 @@ We aim to improve the performance and efficiency of our pipeline by implementing
 6. **Merge Demographic Data**
    - Merge the demographic subsets
 
-7. **Parallel Processing of Subsets**
-   - Process each subset in parallel using `ProcessPoolExecutor`
-     - Initialize and train logistic model
-     - Feature selection and model fitting
-     - Find the best threshold
-     - Evaluate the model
-
-8. **Memory Management**
-   - Implement memory management to clear memory after processing each subset
-
-9. **Profiling**
-   - Profile the pipeline to identify bottlenecks
-
 10. **Completion**
     - Log the completion of the pipeline
 
@@ -98,21 +85,6 @@ We aim to improve the performance and efficiency of our pipeline by implementing
     ```python
     merged_subsets = merge_demographic_data(subsets, processed_data)
     ```
-
-#### Parallel Processing of Subsets
-- **Goal**: Process each subset in parallel using `ProcessPoolExecutor`.
-- **Status**: Pending
-- **Code**:
-
-#### Memory Management
-- **Goal**: Implement memory management to clear memory after processing each subset.
-- **Status**: Pending
-- **Code**:
-
-#### Profiling
-- **Goal**: Profile the pipeline to identify bottlenecks.
-- **Status**: Pending
-- **Code**:
 
 #### Completion
 - **Goal**: Log the completion of the pipeline.

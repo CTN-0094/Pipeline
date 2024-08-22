@@ -1,0 +1,350 @@
+2024-08-20 14:05:20,598 - INFO - Global Seed set to: 2
+2024-08-20 14:05:20,598 - INFO - Outcome Name: ctn0094_relapse_event
+2024-08-20 14:05:20,648 - INFO - Datasets loaded successfully.
+2024-08-20 14:05:20,657 - INFO - Starting preprocessing of the merged dataset...
+2024-08-20 14:05:20,658 - INFO - ---------------------------------
+2024-08-20 14:05:20,660 - INFO - PRE-PROCESSING STAGE STARTING...
+2024-08-20 14:05:20,660 - INFO - ---------------------------------
+2024-08-20 14:05:20,756 - INFO - Dropped initial columns: ['pain_when', 'is_smoker', 'per_day', 'max', 'amount', 'depression', 'anxiety', 'schizophrenia', 'max', 'amount', 'cocaine_inject_days', 'speedball_inject_days', 'opioid_inject_days', 'speed_inject_days', 'UDS_Alcohol_Count', 'UDS_Mdma/Hallucinogen_Count']
+2024-08-20 14:05:20,793 - INFO - Converted Yes/No to binary.
+2024-08-20 14:05:20,799 - INFO - Processed TLFB columns with specified columns: ['TLFB_Alcohol_Count', 'TLFB_Amphetamine_Count', 'TLFB_Cocaine_Count', 'TLFB_Heroin_Count', 'TLFB_Benzodiazepine_Count', 'TLFB_Opioid_Count', 'TLFB_THC_Count', 'TLFB_Methadone_Count', 'TLFB_Buprenorphine_Count']
+2024-08-20 14:05:20,801 - INFO - Calculated behavioral columns.
+2024-08-20 14:05:20,804 - INFO - Moved 'ctn0094_relapse_event' column to the end.
+2024-08-20 14:05:20,888 - INFO - Dropped initial columns: ['msm_npt', 'msm_frq', 'txx_prt']
+2024-08-20 14:05:20,904 - INFO - transform_data_with_nan_handling success
+2024-08-20 14:05:20,907 - INFO - Renamed columns according to the mapping.
+2024-08-20 14:05:20,932 - INFO - Transformed NaN to 0 for binary columns.
+2024-08-20 14:05:20,933 - INFO - Transformed and renamed 'heroin_inject_days' column to 'rbsivheroin'.
+2024-08-20 14:05:20,935 - INFO - Filled NaN with 0 for 'ftnd' column.
+2024-08-20 14:05:21,018 - INFO - Dropped additional columns: ['rbs_iv_days', 'race', 'RBS_cocaine_Days', 'RBS_heroin_Days', 'RBS_opioid_Days', 'RBS_speed_Days', 'RBS_speedball_Days']
+2024-08-20 14:05:21,031 - INFO - Converted UDS drug counts to binary.
+2024-08-20 14:05:21,088 - INFO - ------------------------------
+2024-08-20 14:05:21,088 - INFO - PRE-PROCESSING STAGE COMPLETED
+2024-08-20 14:05:21,088 - INFO - ------------------------------
+2024-08-20 14:05:21,088 - INFO - Merged dataset preprocessed successfully.
+2024-08-20 14:05:21,088 - INFO - Creating demographic subsets from preprocessed data...
+2024-08-20 14:05:21,227 - INFO - Created 11 subsets successfully.
+2024-08-20 14:05:21,227 - INFO - Creating merged subsets from create_demographics_dfs function
+2024-08-20 14:05:21,337 - INFO - Created 11 merged subsets successfully.
+2024-08-20 14:05:21,342 - INFO - Subset 1 demographic makeup: 500 1, 242 3, 158 2, 100 4
+2024-08-20 14:05:21,342 - INFO - Processing subset 1...
+2024-08-20 14:05:21,343 - INFO - -----------------------------
+2024-08-20 14:05:21,343 - INFO - TRAIN MODEL STAGE STARTING FOR SUBSET 1...
+2024-08-20 14:05:21,343 - INFO - -----------------------------
+2024-08-20 14:05:21,382 - INFO - Scaling features and applying LASSO for feature selection...
+2024-08-20 14:05:21,814 - INFO - Selected features (including required): ['who', 'RaceEth', 'age', 'is_female', 'is_hispanic', 'unemployed', 'unstableliving', 'education', 'marital', 'UDS_Amphetamine_Count', 'UDS_Benzodiazepine_Count', 'UDS_Buprenorphine_Count', 'UDS_Cocaine_Count', 'UDS_Methadone_Count', 'UDS_Opioid_Count', 'UDS_Sedatives_Count', 'UDS_Thc_Count', 'pain', 'has_schizophrenia', 'has_major_dep', 'has_bipolar', 'has_anx_pan', 'has_brain_damage', 'has_epilepsy', 'has_alcol_dx', 'has_amphetamines_dx', 'has_cannabis_dx', 'has_cocaine_dx', 'has_sedatives_dx', 'ftnd', 'XTRT', 'shared', 'rbsivheroin', 'TLFB_Alcohol_Count', 'TLFB_Amphetamine_Count', 'TLFB_Benzodiazepine_Count', 'TLFB_Buprenorphine_Count', 'TLFB_Cocaine_Count', 'TLFB_Heroin_Count', 'TLFB_Methadone_Count', 'TLFB_Opioid_Count', 'TLFB_THC_Count', 'TLFB_Other', 'Homosexual_Behavior', 'Non_monogamous_Relationships']
+2024-08-20 14:05:21,828 - INFO - Fitting logistic regression model with the selected features...
+2024-08-20 14:05:22,757 - INFO - Model training completed successfully.
+2024-08-20 14:05:22,758 - INFO - Calculating the dynamic threshold based on the proportion of positive outcomes...
+2024-08-20 14:05:22,758 - INFO - Ratio of 1s to 0s in the outcome variable: 0.72 : 0.28
+2024-08-20 14:05:22,758 - INFO - Dynamic threshold set to: 0.724
+2024-08-20 14:05:22,758 - INFO - Model trained and saved successfully for subset 1.
+2024-08-20 14:05:22,758 - INFO - ---------------------------
+2024-08-20 14:05:22,758 - INFO - TRAIN MODEL STAGE COMPLETED FOR SUBSET 1
+2024-08-20 14:05:22,758 - INFO - ---------------------------
+2024-08-20 14:05:22,759 - INFO - --------------------------------
+2024-08-20 14:05:22,759 - INFO - EVALUATE MODEL STAGE STARTING FOR SUBSET 1...
+2024-08-20 14:05:22,759 - INFO - --------------------------------
+2024-08-20 14:05:22,770 - INFO - ROC AUC Score: 0.6172631916086155
+2024-08-20 14:05:22,770 - INFO - Confusion Matrix: 
+[[ 25  44]
+ [ 45 136]]
+2024-08-20 14:05:22,770 - INFO - Precision: 0.7555555555555555
+2024-08-20 14:05:22,770 - INFO - Recall: 0.7513812154696132
+2024-08-20 14:05:22,770 - INFO - Model evaluated successfully for subset 1.
+2024-08-20 14:05:22,770 - INFO - ------------------------------
+2024-08-20 14:05:22,770 - INFO - EVALUATE MODEL STAGE COMPLETED FOR SUBSET 1
+2024-08-20 14:05:22,770 - INFO - ------------------------------
+2024-08-20 14:05:22,771 - INFO - Subset 2 demographic makeup: 550 1, 213 3, 147 2, 90 4
+2024-08-20 14:05:22,771 - INFO - Processing subset 2...
+2024-08-20 14:05:22,771 - INFO - -----------------------------
+2024-08-20 14:05:22,771 - INFO - TRAIN MODEL STAGE STARTING FOR SUBSET 2...
+2024-08-20 14:05:22,772 - INFO - -----------------------------
+2024-08-20 14:05:22,778 - INFO - Scaling features and applying LASSO for feature selection...
+2024-08-20 14:05:23,077 - INFO - Selected features (including required): ['who', 'RaceEth', 'age', 'is_female', 'is_hispanic', 'unemployed', 'unstableliving', 'education', 'marital', 'UDS_Amphetamine_Count', 'UDS_Benzodiazepine_Count', 'UDS_Buprenorphine_Count', 'UDS_Cocaine_Count', 'UDS_Methadone_Count', 'UDS_Opioid_Count', 'UDS_Sedatives_Count', 'UDS_Thc_Count', 'pain', 'has_schizophrenia', 'has_major_dep', 'has_bipolar', 'has_anx_pan', 'has_brain_damage', 'has_epilepsy', 'has_alcol_dx', 'has_amphetamines_dx', 'has_cannabis_dx', 'has_cocaine_dx', 'has_sedatives_dx', 'ftnd', 'XTRT', 'shared', 'rbsivheroin', 'TLFB_Alcohol_Count', 'TLFB_Amphetamine_Count', 'TLFB_Benzodiazepine_Count', 'TLFB_Buprenorphine_Count', 'TLFB_Cocaine_Count', 'TLFB_Heroin_Count', 'TLFB_Methadone_Count', 'TLFB_Opioid_Count', 'TLFB_THC_Count', 'TLFB_Other', 'Homosexual_Behavior', 'Non_monogamous_Relationships']
+2024-08-20 14:05:23,082 - INFO - Fitting logistic regression model with the selected features...
+2024-08-20 14:05:23,729 - INFO - Model training completed successfully.
+2024-08-20 14:05:23,729 - INFO - Calculating the dynamic threshold based on the proportion of positive outcomes...
+2024-08-20 14:05:23,730 - INFO - Ratio of 1s to 0s in the outcome variable: 0.76 : 0.24
+2024-08-20 14:05:23,731 - INFO - Dynamic threshold set to: 0.764
+2024-08-20 14:05:23,731 - INFO - Model trained and saved successfully for subset 2.
+2024-08-20 14:05:23,732 - INFO - ---------------------------
+2024-08-20 14:05:23,734 - INFO - TRAIN MODEL STAGE COMPLETED FOR SUBSET 2
+2024-08-20 14:05:23,738 - INFO - ---------------------------
+2024-08-20 14:05:23,738 - INFO - --------------------------------
+2024-08-20 14:05:23,739 - INFO - EVALUATE MODEL STAGE STARTING FOR SUBSET 2...
+2024-08-20 14:05:23,739 - INFO - --------------------------------
+2024-08-20 14:05:23,760 - INFO - ROC AUC Score: 0.6381222823675571
+2024-08-20 14:05:23,761 - INFO - Confusion Matrix: 
+[[ 39  20]
+ [ 79 112]]
+2024-08-20 14:05:23,761 - INFO - Precision: 0.8484848484848485
+2024-08-20 14:05:23,762 - INFO - Recall: 0.5863874345549738
+2024-08-20 14:05:23,762 - INFO - Model evaluated successfully for subset 2.
+2024-08-20 14:05:23,763 - INFO - ------------------------------
+2024-08-20 14:05:23,763 - INFO - EVALUATE MODEL STAGE COMPLETED FOR SUBSET 2
+2024-08-20 14:05:23,763 - INFO - ------------------------------
+2024-08-20 14:05:23,765 - INFO - Subset 3 demographic makeup: 600 1, 188 3, 136 2, 76 4
+2024-08-20 14:05:23,765 - INFO - Processing subset 3...
+2024-08-20 14:05:23,765 - INFO - -----------------------------
+2024-08-20 14:05:23,766 - INFO - TRAIN MODEL STAGE STARTING FOR SUBSET 3...
+2024-08-20 14:05:23,769 - INFO - -----------------------------
+2024-08-20 14:05:23,775 - INFO - Scaling features and applying LASSO for feature selection...
+2024-08-20 14:05:24,099 - INFO - Selected features (including required): ['who', 'RaceEth', 'age', 'is_female', 'is_hispanic', 'unemployed', 'unstableliving', 'education', 'marital', 'UDS_Amphetamine_Count', 'UDS_Benzodiazepine_Count', 'UDS_Buprenorphine_Count', 'UDS_Cocaine_Count', 'UDS_Methadone_Count', 'UDS_Opioid_Count', 'UDS_Sedatives_Count', 'UDS_Thc_Count', 'pain', 'has_schizophrenia', 'has_major_dep', 'has_bipolar', 'has_anx_pan', 'has_brain_damage', 'has_epilepsy', 'has_alcol_dx', 'has_amphetamines_dx', 'has_cannabis_dx', 'has_cocaine_dx', 'has_sedatives_dx', 'ftnd', 'XTRT', 'shared', 'rbsivheroin', 'TLFB_Alcohol_Count', 'TLFB_Amphetamine_Count', 'TLFB_Benzodiazepine_Count', 'TLFB_Buprenorphine_Count', 'TLFB_Cocaine_Count', 'TLFB_Heroin_Count', 'TLFB_Methadone_Count', 'TLFB_Opioid_Count', 'TLFB_THC_Count', 'TLFB_Other', 'Homosexual_Behavior', 'Non_monogamous_Relationships']
+2024-08-20 14:05:24,106 - INFO - Fitting logistic regression model with the selected features...
+2024-08-20 14:05:24,758 - INFO - Model training completed successfully.
+2024-08-20 14:05:24,758 - INFO - Calculating the dynamic threshold based on the proportion of positive outcomes...
+2024-08-20 14:05:24,759 - INFO - Ratio of 1s to 0s in the outcome variable: 0.80 : 0.20
+2024-08-20 14:05:24,759 - INFO - Dynamic threshold set to: 0.8
+2024-08-20 14:05:24,760 - INFO - Model trained and saved successfully for subset 3.
+2024-08-20 14:05:24,761 - INFO - ---------------------------
+2024-08-20 14:05:24,761 - INFO - TRAIN MODEL STAGE COMPLETED FOR SUBSET 3
+2024-08-20 14:05:24,764 - INFO - ---------------------------
+2024-08-20 14:05:24,764 - INFO - --------------------------------
+2024-08-20 14:05:24,765 - INFO - EVALUATE MODEL STAGE STARTING FOR SUBSET 3...
+2024-08-20 14:05:24,765 - INFO - --------------------------------
+2024-08-20 14:05:24,781 - INFO - ROC AUC Score: 0.5987
+2024-08-20 14:05:24,781 - INFO - Confusion Matrix: 
+[[ 37  13]
+ [106  94]]
+2024-08-20 14:05:24,781 - INFO - Precision: 0.8785046728971962
+2024-08-20 14:05:24,781 - INFO - Recall: 0.47
+2024-08-20 14:05:24,782 - INFO - Model evaluated successfully for subset 3.
+2024-08-20 14:05:24,782 - INFO - ------------------------------
+2024-08-20 14:05:24,782 - INFO - EVALUATE MODEL STAGE COMPLETED FOR SUBSET 3
+2024-08-20 14:05:24,782 - INFO - ------------------------------
+2024-08-20 14:05:24,782 - INFO - Subset 4 demographic makeup: 650 1, 164 3, 120 2, 66 4
+2024-08-20 14:05:24,783 - INFO - Processing subset 4...
+2024-08-20 14:05:24,783 - INFO - -----------------------------
+2024-08-20 14:05:24,783 - INFO - TRAIN MODEL STAGE STARTING FOR SUBSET 4...
+2024-08-20 14:05:24,783 - INFO - -----------------------------
+2024-08-20 14:05:24,789 - INFO - Scaling features and applying LASSO for feature selection...
+2024-08-20 14:05:25,223 - INFO - Selected features (including required): ['who', 'RaceEth', 'age', 'is_female', 'is_hispanic', 'unemployed', 'unstableliving', 'education', 'marital', 'UDS_Amphetamine_Count', 'UDS_Benzodiazepine_Count', 'UDS_Buprenorphine_Count', 'UDS_Cocaine_Count', 'UDS_Methadone_Count', 'UDS_Opioid_Count', 'UDS_Sedatives_Count', 'UDS_Thc_Count', 'pain', 'has_schizophrenia', 'has_major_dep', 'has_bipolar', 'has_anx_pan', 'has_brain_damage', 'has_epilepsy', 'has_alcol_dx', 'has_amphetamines_dx', 'has_cannabis_dx', 'has_cocaine_dx', 'has_sedatives_dx', 'ftnd', 'XTRT', 'shared', 'rbsivheroin', 'TLFB_Alcohol_Count', 'TLFB_Amphetamine_Count', 'TLFB_Benzodiazepine_Count', 'TLFB_Buprenorphine_Count', 'TLFB_Cocaine_Count', 'TLFB_Heroin_Count', 'TLFB_Methadone_Count', 'TLFB_Opioid_Count', 'TLFB_THC_Count', 'TLFB_Other', 'Homosexual_Behavior', 'Non_monogamous_Relationships']
+2024-08-20 14:05:25,231 - INFO - Fitting logistic regression model with the selected features...
+2024-08-20 14:05:26,010 - INFO - Model training completed successfully.
+2024-08-20 14:05:26,010 - INFO - Calculating the dynamic threshold based on the proportion of positive outcomes...
+2024-08-20 14:05:26,010 - INFO - Ratio of 1s to 0s in the outcome variable: 0.78 : 0.22
+2024-08-20 14:05:26,010 - INFO - Dynamic threshold set to: 0.776
+2024-08-20 14:05:26,010 - INFO - Model trained and saved successfully for subset 4.
+2024-08-20 14:05:26,010 - INFO - ---------------------------
+2024-08-20 14:05:26,010 - INFO - TRAIN MODEL STAGE COMPLETED FOR SUBSET 4
+2024-08-20 14:05:26,010 - INFO - ---------------------------
+2024-08-20 14:05:26,011 - INFO - --------------------------------
+2024-08-20 14:05:26,011 - INFO - EVALUATE MODEL STAGE STARTING FOR SUBSET 4...
+2024-08-20 14:05:26,011 - INFO - --------------------------------
+2024-08-20 14:05:26,026 - INFO - ROC AUC Score: 0.6466310751104567
+2024-08-20 14:05:26,026 - INFO - Confusion Matrix: 
+[[ 26  30]
+ [ 62 132]]
+2024-08-20 14:05:26,026 - INFO - Precision: 0.8148148148148148
+2024-08-20 14:05:26,026 - INFO - Recall: 0.6804123711340206
+2024-08-20 14:05:26,026 - INFO - Model evaluated successfully for subset 4.
+2024-08-20 14:05:26,027 - INFO - ------------------------------
+2024-08-20 14:05:26,027 - INFO - EVALUATE MODEL STAGE COMPLETED FOR SUBSET 4
+2024-08-20 14:05:26,027 - INFO - ------------------------------
+2024-08-20 14:05:26,027 - INFO - Subset 5 demographic makeup: 700 1, 142 3, 104 2, 54 4
+2024-08-20 14:05:26,028 - INFO - Processing subset 5...
+2024-08-20 14:05:26,030 - INFO - -----------------------------
+2024-08-20 14:05:26,031 - INFO - TRAIN MODEL STAGE STARTING FOR SUBSET 5...
+2024-08-20 14:05:26,031 - INFO - -----------------------------
+2024-08-20 14:05:26,159 - INFO - Scaling features and applying LASSO for feature selection...
+2024-08-20 14:05:26,653 - INFO - Selected features (including required): ['who', 'RaceEth', 'age', 'is_female', 'is_hispanic', 'unemployed', 'unstableliving', 'education', 'marital', 'UDS_Amphetamine_Count', 'UDS_Benzodiazepine_Count', 'UDS_Buprenorphine_Count', 'UDS_Cocaine_Count', 'UDS_Methadone_Count', 'UDS_Opioid_Count', 'UDS_Sedatives_Count', 'UDS_Thc_Count', 'pain', 'has_schizophrenia', 'has_major_dep', 'has_bipolar', 'has_anx_pan', 'has_brain_damage', 'has_epilepsy', 'has_alcol_dx', 'has_amphetamines_dx', 'has_cannabis_dx', 'has_cocaine_dx', 'has_sedatives_dx', 'ftnd', 'XTRT', 'shared', 'rbsivheroin', 'TLFB_Alcohol_Count', 'TLFB_Amphetamine_Count', 'TLFB_Benzodiazepine_Count', 'TLFB_Buprenorphine_Count', 'TLFB_Cocaine_Count', 'TLFB_Heroin_Count', 'TLFB_Methadone_Count', 'TLFB_Opioid_Count', 'TLFB_THC_Count', 'TLFB_Other', 'Homosexual_Behavior', 'Non_monogamous_Relationships']
+2024-08-20 14:05:26,658 - INFO - Fitting logistic regression model with the selected features...
+2024-08-20 14:05:27,272 - INFO - Model training completed successfully.
+2024-08-20 14:05:27,272 - INFO - Calculating the dynamic threshold based on the proportion of positive outcomes...
+2024-08-20 14:05:27,272 - INFO - Ratio of 1s to 0s in the outcome variable: 0.80 : 0.20
+2024-08-20 14:05:27,273 - INFO - Dynamic threshold set to: 0.804
+2024-08-20 14:05:27,273 - INFO - Model trained and saved successfully for subset 5.
+2024-08-20 14:05:27,273 - INFO - ---------------------------
+2024-08-20 14:05:27,273 - INFO - TRAIN MODEL STAGE COMPLETED FOR SUBSET 5
+2024-08-20 14:05:27,273 - INFO - ---------------------------
+2024-08-20 14:05:27,273 - INFO - --------------------------------
+2024-08-20 14:05:27,273 - INFO - EVALUATE MODEL STAGE STARTING FOR SUBSET 5...
+2024-08-20 14:05:27,273 - INFO - --------------------------------
+2024-08-20 14:05:27,288 - INFO - ROC AUC Score: 0.610924967001726
+2024-08-20 14:05:27,290 - INFO - Confusion Matrix: 
+[[ 27  22]
+ [ 90 111]]
+2024-08-20 14:05:27,290 - INFO - Precision: 0.8345864661654135
+2024-08-20 14:05:27,291 - INFO - Recall: 0.5522388059701493
+2024-08-20 14:05:27,291 - INFO - Model evaluated successfully for subset 5.
+2024-08-20 14:05:27,292 - INFO - ------------------------------
+2024-08-20 14:05:27,293 - INFO - EVALUATE MODEL STAGE COMPLETED FOR SUBSET 5
+2024-08-20 14:05:27,293 - INFO - ------------------------------
+2024-08-20 14:05:27,294 - INFO - Subset 6 demographic makeup: 750 1, 114 3, 88 2, 48 4
+2024-08-20 14:05:27,294 - INFO - Processing subset 6...
+2024-08-20 14:05:27,296 - INFO - -----------------------------
+2024-08-20 14:05:27,297 - INFO - TRAIN MODEL STAGE STARTING FOR SUBSET 6...
+2024-08-20 14:05:27,297 - INFO - -----------------------------
+2024-08-20 14:05:27,310 - INFO - Scaling features and applying LASSO for feature selection...
+2024-08-20 14:05:27,686 - INFO - Selected features (including required): ['who', 'RaceEth', 'age', 'is_female', 'is_hispanic', 'unemployed', 'unstableliving', 'education', 'marital', 'UDS_Amphetamine_Count', 'UDS_Benzodiazepine_Count', 'UDS_Buprenorphine_Count', 'UDS_Cocaine_Count', 'UDS_Methadone_Count', 'UDS_Opioid_Count', 'UDS_Sedatives_Count', 'UDS_Thc_Count', 'pain', 'has_schizophrenia', 'has_major_dep', 'has_bipolar', 'has_anx_pan', 'has_brain_damage', 'has_epilepsy', 'has_alcol_dx', 'has_amphetamines_dx', 'has_cannabis_dx', 'has_cocaine_dx', 'has_sedatives_dx', 'ftnd', 'XTRT', 'shared', 'rbsivheroin', 'TLFB_Alcohol_Count', 'TLFB_Amphetamine_Count', 'TLFB_Benzodiazepine_Count', 'TLFB_Buprenorphine_Count', 'TLFB_Cocaine_Count', 'TLFB_Heroin_Count', 'TLFB_Methadone_Count', 'TLFB_Opioid_Count', 'TLFB_THC_Count', 'TLFB_Other', 'Homosexual_Behavior', 'Non_monogamous_Relationships']
+2024-08-20 14:05:27,692 - INFO - Fitting logistic regression model with the selected features...
+2024-08-20 14:05:28,209 - INFO - Model training completed successfully.
+2024-08-20 14:05:28,209 - INFO - Calculating the dynamic threshold based on the proportion of positive outcomes...
+2024-08-20 14:05:28,210 - INFO - Ratio of 1s to 0s in the outcome variable: 0.75 : 0.25
+2024-08-20 14:05:28,210 - INFO - Dynamic threshold set to: 0.752
+2024-08-20 14:05:28,210 - INFO - Model trained and saved successfully for subset 6.
+2024-08-20 14:05:28,210 - INFO - ---------------------------
+2024-08-20 14:05:28,210 - INFO - TRAIN MODEL STAGE COMPLETED FOR SUBSET 6
+2024-08-20 14:05:28,210 - INFO - ---------------------------
+2024-08-20 14:05:28,210 - INFO - --------------------------------
+2024-08-20 14:05:28,210 - INFO - EVALUATE MODEL STAGE STARTING FOR SUBSET 6...
+2024-08-20 14:05:28,210 - INFO - --------------------------------
+2024-08-20 14:05:28,222 - INFO - ROC AUC Score: 0.6103294440631434
+2024-08-20 14:05:28,223 - INFO - Confusion Matrix: 
+[[ 27  35]
+ [ 50 138]]
+2024-08-20 14:05:28,223 - INFO - Precision: 0.7976878612716763
+2024-08-20 14:05:28,223 - INFO - Recall: 0.7340425531914894
+2024-08-20 14:05:28,223 - INFO - Model evaluated successfully for subset 6.
+2024-08-20 14:05:28,223 - INFO - ------------------------------
+2024-08-20 14:05:28,223 - INFO - EVALUATE MODEL STAGE COMPLETED FOR SUBSET 6
+2024-08-20 14:05:28,223 - INFO - ------------------------------
+2024-08-20 14:05:28,224 - INFO - Subset 7 demographic makeup: 800 1, 87 3, 71 2, 42 4
+2024-08-20 14:05:28,224 - INFO - Processing subset 7...
+2024-08-20 14:05:28,224 - INFO - -----------------------------
+2024-08-20 14:05:28,224 - INFO - TRAIN MODEL STAGE STARTING FOR SUBSET 7...
+2024-08-20 14:05:28,224 - INFO - -----------------------------
+2024-08-20 14:05:28,231 - INFO - Scaling features and applying LASSO for feature selection...
+2024-08-20 14:05:30,611 - INFO - Selected features (including required): ['who', 'RaceEth', 'age', 'is_female', 'is_hispanic', 'unemployed', 'unstableliving', 'education', 'marital', 'UDS_Amphetamine_Count', 'UDS_Benzodiazepine_Count', 'UDS_Buprenorphine_Count', 'UDS_Cocaine_Count', 'UDS_Methadone_Count', 'UDS_Opioid_Count', 'UDS_Sedatives_Count', 'UDS_Thc_Count', 'pain', 'has_schizophrenia', 'has_major_dep', 'has_bipolar', 'has_anx_pan', 'has_brain_damage', 'has_epilepsy', 'has_alcol_dx', 'has_amphetamines_dx', 'has_cannabis_dx', 'has_cocaine_dx', 'has_sedatives_dx', 'ftnd', 'XTRT', 'shared', 'rbsivheroin', 'TLFB_Alcohol_Count', 'TLFB_Amphetamine_Count', 'TLFB_Benzodiazepine_Count', 'TLFB_Buprenorphine_Count', 'TLFB_Cocaine_Count', 'TLFB_Heroin_Count', 'TLFB_Methadone_Count', 'TLFB_Opioid_Count', 'TLFB_THC_Count', 'TLFB_Other', 'Homosexual_Behavior', 'Non_monogamous_Relationships']
+2024-08-20 14:05:30,616 - INFO - Fitting logistic regression model with the selected features...
+2024-08-20 14:05:31,063 - INFO - Model training completed successfully.
+2024-08-20 14:05:31,064 - INFO - Calculating the dynamic threshold based on the proportion of positive outcomes...
+2024-08-20 14:05:31,068 - INFO - Ratio of 1s to 0s in the outcome variable: 0.78 : 0.22
+2024-08-20 14:05:31,071 - INFO - Dynamic threshold set to: 0.784
+2024-08-20 14:05:31,072 - INFO - Model trained and saved successfully for subset 7.
+2024-08-20 14:05:31,072 - INFO - ---------------------------
+2024-08-20 14:05:31,073 - INFO - TRAIN MODEL STAGE COMPLETED FOR SUBSET 7
+2024-08-20 14:05:31,073 - INFO - ---------------------------
+2024-08-20 14:05:31,074 - INFO - --------------------------------
+2024-08-20 14:05:31,075 - INFO - EVALUATE MODEL STAGE STARTING FOR SUBSET 7...
+2024-08-20 14:05:31,076 - INFO - --------------------------------
+2024-08-20 14:05:31,092 - INFO - ROC AUC Score: 0.6626039304610732
+2024-08-20 14:05:31,093 - INFO - Confusion Matrix: 
+[[ 38  16]
+ [ 76 120]]
+2024-08-20 14:05:31,093 - INFO - Precision: 0.8823529411764706
+2024-08-20 14:05:31,094 - INFO - Recall: 0.6122448979591837
+2024-08-20 14:05:31,094 - INFO - Model evaluated successfully for subset 7.
+2024-08-20 14:05:31,095 - INFO - ------------------------------
+2024-08-20 14:05:31,095 - INFO - EVALUATE MODEL STAGE COMPLETED FOR SUBSET 7
+2024-08-20 14:05:31,096 - INFO - ------------------------------
+2024-08-20 14:05:31,097 - INFO - Subset 8 demographic makeup: 850 1, 66 3, 53 2, 31 4
+2024-08-20 14:05:31,098 - INFO - Processing subset 8...
+2024-08-20 14:05:31,099 - INFO - -----------------------------
+2024-08-20 14:05:31,100 - INFO - TRAIN MODEL STAGE STARTING FOR SUBSET 8...
+2024-08-20 14:05:31,101 - INFO - -----------------------------
+2024-08-20 14:05:31,111 - INFO - Scaling features and applying LASSO for feature selection...
+2024-08-20 14:05:31,503 - INFO - Selected features (including required): ['who', 'RaceEth', 'age', 'is_female', 'is_hispanic', 'unemployed', 'unstableliving', 'education', 'marital', 'UDS_Amphetamine_Count', 'UDS_Benzodiazepine_Count', 'UDS_Buprenorphine_Count', 'UDS_Cocaine_Count', 'UDS_Methadone_Count', 'UDS_Opioid_Count', 'UDS_Sedatives_Count', 'UDS_Thc_Count', 'pain', 'has_schizophrenia', 'has_major_dep', 'has_bipolar', 'has_anx_pan', 'has_brain_damage', 'has_epilepsy', 'has_alcol_dx', 'has_amphetamines_dx', 'has_cannabis_dx', 'has_cocaine_dx', 'has_sedatives_dx', 'ftnd', 'XTRT', 'shared', 'rbsivheroin', 'TLFB_Alcohol_Count', 'TLFB_Amphetamine_Count', 'TLFB_Benzodiazepine_Count', 'TLFB_Buprenorphine_Count', 'TLFB_Cocaine_Count', 'TLFB_Heroin_Count', 'TLFB_Methadone_Count', 'TLFB_Opioid_Count', 'TLFB_THC_Count', 'TLFB_Other', 'Homosexual_Behavior', 'Non_monogamous_Relationships']
+2024-08-20 14:05:31,509 - INFO - Fitting logistic regression model with the selected features...
+2024-08-20 14:05:31,834 - INFO - Model training completed successfully.
+2024-08-20 14:05:31,835 - INFO - Calculating the dynamic threshold based on the proportion of positive outcomes...
+2024-08-20 14:05:31,835 - INFO - Ratio of 1s to 0s in the outcome variable: 0.79 : 0.21
+2024-08-20 14:05:31,835 - INFO - Dynamic threshold set to: 0.788
+2024-08-20 14:05:31,835 - INFO - Model trained and saved successfully for subset 8.
+2024-08-20 14:05:31,835 - INFO - ---------------------------
+2024-08-20 14:05:31,835 - INFO - TRAIN MODEL STAGE COMPLETED FOR SUBSET 8
+2024-08-20 14:05:31,836 - INFO - ---------------------------
+2024-08-20 14:05:31,836 - INFO - --------------------------------
+2024-08-20 14:05:31,836 - INFO - EVALUATE MODEL STAGE STARTING FOR SUBSET 8...
+2024-08-20 14:05:31,836 - INFO - --------------------------------
+2024-08-20 14:05:31,849 - INFO - ROC AUC Score: 0.6847045302174122
+2024-08-20 14:05:31,850 - INFO - Confusion Matrix: 
+[[ 36  17]
+ [ 82 115]]
+2024-08-20 14:05:31,850 - INFO - Precision: 0.8712121212121212
+2024-08-20 14:05:31,850 - INFO - Recall: 0.583756345177665
+2024-08-20 14:05:31,850 - INFO - Model evaluated successfully for subset 8.
+2024-08-20 14:05:31,850 - INFO - ------------------------------
+2024-08-20 14:05:31,850 - INFO - EVALUATE MODEL STAGE COMPLETED FOR SUBSET 8
+2024-08-20 14:05:31,850 - INFO - ------------------------------
+2024-08-20 14:05:31,851 - INFO - Subset 9 demographic makeup: 900 1, 45 3, 34 2, 21 4
+2024-08-20 14:05:31,851 - INFO - Processing subset 9...
+2024-08-20 14:05:31,851 - INFO - -----------------------------
+2024-08-20 14:05:31,851 - INFO - TRAIN MODEL STAGE STARTING FOR SUBSET 9...
+2024-08-20 14:05:31,851 - INFO - -----------------------------
+2024-08-20 14:05:31,857 - INFO - Scaling features and applying LASSO for feature selection...
+2024-08-20 14:05:32,264 - INFO - Selected features (including required): ['who', 'RaceEth', 'age', 'is_female', 'is_hispanic', 'unemployed', 'unstableliving', 'education', 'marital', 'UDS_Amphetamine_Count', 'UDS_Benzodiazepine_Count', 'UDS_Buprenorphine_Count', 'UDS_Cocaine_Count', 'UDS_Methadone_Count', 'UDS_Opioid_Count', 'UDS_Sedatives_Count', 'UDS_Thc_Count', 'pain', 'has_schizophrenia', 'has_major_dep', 'has_bipolar', 'has_anx_pan', 'has_brain_damage', 'has_epilepsy', 'has_alcol_dx', 'has_amphetamines_dx', 'has_cannabis_dx', 'has_cocaine_dx', 'has_sedatives_dx', 'ftnd', 'XTRT', 'shared', 'rbsivheroin', 'TLFB_Alcohol_Count', 'TLFB_Amphetamine_Count', 'TLFB_Benzodiazepine_Count', 'TLFB_Buprenorphine_Count', 'TLFB_Cocaine_Count', 'TLFB_Heroin_Count', 'TLFB_Methadone_Count', 'TLFB_Opioid_Count', 'TLFB_THC_Count', 'TLFB_Other', 'Homosexual_Behavior', 'Non_monogamous_Relationships']
+2024-08-20 14:05:32,269 - INFO - Fitting logistic regression model with the selected features...
+2024-08-20 14:05:32,786 - INFO - Model training completed successfully.
+2024-08-20 14:05:32,786 - INFO - Calculating the dynamic threshold based on the proportion of positive outcomes...
+2024-08-20 14:05:32,788 - INFO - Ratio of 1s to 0s in the outcome variable: 0.78 : 0.22
+2024-08-20 14:05:32,788 - INFO - Dynamic threshold set to: 0.78
+2024-08-20 14:05:32,789 - INFO - Model trained and saved successfully for subset 9.
+2024-08-20 14:05:32,791 - INFO - ---------------------------
+2024-08-20 14:05:32,793 - INFO - TRAIN MODEL STAGE COMPLETED FOR SUBSET 9
+2024-08-20 14:05:32,794 - INFO - ---------------------------
+2024-08-20 14:05:32,795 - INFO - --------------------------------
+2024-08-20 14:05:32,800 - INFO - EVALUATE MODEL STAGE STARTING FOR SUBSET 9...
+2024-08-20 14:05:32,801 - INFO - --------------------------------
+2024-08-20 14:05:32,816 - INFO - ROC AUC Score: 0.7207459207459208
+2024-08-20 14:05:32,817 - INFO - Confusion Matrix: 
+[[ 34  21]
+ [ 76 119]]
+2024-08-20 14:05:32,819 - INFO - Precision: 0.85
+2024-08-20 14:05:32,820 - INFO - Recall: 0.6102564102564103
+2024-08-20 14:05:32,820 - INFO - Model evaluated successfully for subset 9.
+2024-08-20 14:05:32,821 - INFO - ------------------------------
+2024-08-20 14:05:32,821 - INFO - EVALUATE MODEL STAGE COMPLETED FOR SUBSET 9
+2024-08-20 14:05:32,821 - INFO - ------------------------------
+2024-08-20 14:05:32,823 - INFO - Subset 10 demographic makeup: 950 1, 24 3, 13 2, 13 4
+2024-08-20 14:05:32,823 - INFO - Processing subset 10...
+2024-08-20 14:05:32,823 - INFO - -----------------------------
+2024-08-20 14:05:32,824 - INFO - TRAIN MODEL STAGE STARTING FOR SUBSET 10...
+2024-08-20 14:05:32,824 - INFO - -----------------------------
+2024-08-20 14:05:32,832 - INFO - Scaling features and applying LASSO for feature selection...
+2024-08-20 14:05:33,263 - INFO - Selected features (including required): ['who', 'RaceEth', 'age', 'is_female', 'is_hispanic', 'unemployed', 'unstableliving', 'education', 'marital', 'UDS_Amphetamine_Count', 'UDS_Benzodiazepine_Count', 'UDS_Buprenorphine_Count', 'UDS_Cocaine_Count', 'UDS_Methadone_Count', 'UDS_Opioid_Count', 'UDS_Sedatives_Count', 'UDS_Thc_Count', 'pain', 'has_schizophrenia', 'has_major_dep', 'has_bipolar', 'has_anx_pan', 'has_brain_damage', 'has_epilepsy', 'has_alcol_dx', 'has_amphetamines_dx', 'has_cannabis_dx', 'has_cocaine_dx', 'has_sedatives_dx', 'ftnd', 'XTRT', 'shared', 'rbsivheroin', 'TLFB_Alcohol_Count', 'TLFB_Amphetamine_Count', 'TLFB_Benzodiazepine_Count', 'TLFB_Buprenorphine_Count', 'TLFB_Cocaine_Count', 'TLFB_Heroin_Count', 'TLFB_Methadone_Count', 'TLFB_Opioid_Count', 'TLFB_THC_Count', 'TLFB_Other', 'Homosexual_Behavior', 'Non_monogamous_Relationships']
+2024-08-20 14:05:33,268 - INFO - Fitting logistic regression model with the selected features...
+2024-08-20 14:05:33,747 - INFO - Model training completed successfully.
+2024-08-20 14:05:33,747 - INFO - Calculating the dynamic threshold based on the proportion of positive outcomes...
+2024-08-20 14:05:33,747 - INFO - Ratio of 1s to 0s in the outcome variable: 0.82 : 0.18
+2024-08-20 14:05:33,747 - INFO - Dynamic threshold set to: 0.824
+2024-08-20 14:05:33,747 - INFO - Model trained and saved successfully for subset 10.
+2024-08-20 14:05:33,747 - INFO - ---------------------------
+2024-08-20 14:05:33,747 - INFO - TRAIN MODEL STAGE COMPLETED FOR SUBSET 10
+2024-08-20 14:05:33,748 - INFO - ---------------------------
+2024-08-20 14:05:33,748 - INFO - --------------------------------
+2024-08-20 14:05:33,748 - INFO - EVALUATE MODEL STAGE STARTING FOR SUBSET 10...
+2024-08-20 14:05:33,748 - INFO - --------------------------------
+2024-08-20 14:05:33,762 - INFO - ROC AUC Score: 0.696270962047661
+2024-08-20 14:05:33,762 - INFO - Confusion Matrix: 
+[[ 30  14]
+ [ 94 112]]
+2024-08-20 14:05:33,762 - INFO - Precision: 0.8888888888888888
+2024-08-20 14:05:33,762 - INFO - Recall: 0.5436893203883495
+2024-08-20 14:05:33,762 - INFO - Model evaluated successfully for subset 10.
+2024-08-20 14:05:33,762 - INFO - ------------------------------
+2024-08-20 14:05:33,762 - INFO - EVALUATE MODEL STAGE COMPLETED FOR SUBSET 10
+2024-08-20 14:05:33,762 - INFO - ------------------------------
+2024-08-20 14:05:33,763 - INFO - Subset 11 demographic makeup: 1000 1
+2024-08-20 14:05:33,763 - INFO - Processing subset 11...
+2024-08-20 14:05:33,763 - INFO - -----------------------------
+2024-08-20 14:05:33,763 - INFO - TRAIN MODEL STAGE STARTING FOR SUBSET 11...
+2024-08-20 14:05:33,763 - INFO - -----------------------------
+2024-08-20 14:05:33,769 - INFO - Scaling features and applying LASSO for feature selection...
+2024-08-20 14:05:34,184 - INFO - Selected features (including required): ['who', 'age', 'is_female', 'unemployed', 'unstableliving', 'education', 'marital', 'UDS_Amphetamine_Count', 'UDS_Benzodiazepine_Count', 'UDS_Buprenorphine_Count', 'UDS_Cocaine_Count', 'UDS_Methadone_Count', 'UDS_Opioid_Count', 'UDS_Sedatives_Count', 'UDS_Thc_Count', 'pain', 'has_schizophrenia', 'has_major_dep', 'has_bipolar', 'has_anx_pan', 'has_brain_damage', 'has_epilepsy', 'has_alcol_dx', 'has_amphetamines_dx', 'has_cannabis_dx', 'has_cocaine_dx', 'has_sedatives_dx', 'ftnd', 'XTRT', 'shared', 'rbsivheroin', 'TLFB_Alcohol_Count', 'TLFB_Amphetamine_Count', 'TLFB_Benzodiazepine_Count', 'TLFB_Buprenorphine_Count', 'TLFB_Cocaine_Count', 'TLFB_Heroin_Count', 'TLFB_Methadone_Count', 'TLFB_Opioid_Count', 'TLFB_THC_Count', 'TLFB_Other', 'Homosexual_Behavior', 'Non_monogamous_Relationships']
+2024-08-20 14:05:34,189 - INFO - Fitting logistic regression model with the selected features...
+2024-08-20 14:05:34,645 - INFO - Model training completed successfully.
+2024-08-20 14:05:34,645 - INFO - Calculating the dynamic threshold based on the proportion of positive outcomes...
+2024-08-20 14:05:34,646 - INFO - Ratio of 1s to 0s in the outcome variable: 0.76 : 0.24
+2024-08-20 14:05:34,646 - INFO - Dynamic threshold set to: 0.76
+2024-08-20 14:05:34,646 - INFO - Model trained and saved successfully for subset 11.
+2024-08-20 14:05:34,646 - INFO - ---------------------------
+2024-08-20 14:05:34,646 - INFO - TRAIN MODEL STAGE COMPLETED FOR SUBSET 11
+2024-08-20 14:05:34,646 - INFO - ---------------------------
+2024-08-20 14:05:34,646 - INFO - --------------------------------
+2024-08-20 14:05:34,646 - INFO - EVALUATE MODEL STAGE STARTING FOR SUBSET 11...
+2024-08-20 14:05:34,647 - INFO - --------------------------------
+2024-08-20 14:05:34,662 - INFO - ROC AUC Score: 0.697982456140351
+2024-08-20 14:05:34,662 - INFO - Confusion Matrix: 
+[[ 34  26]
+ [ 52 138]]
+2024-08-20 14:05:34,663 - INFO - Precision: 0.8414634146341463
+2024-08-20 14:05:34,663 - INFO - Recall: 0.7263157894736842
+2024-08-20 14:05:34,663 - INFO - Model evaluated successfully for subset 11.
+2024-08-20 14:05:34,663 - INFO - ------------------------------
+2024-08-20 14:05:34,663 - INFO - EVALUATE MODEL STAGE COMPLETED FOR SUBSET 11
+2024-08-20 14:05:34,663 - INFO - ------------------------------
+2024-08-20 14:05:34,663 - INFO - ------------------
+2024-08-20 14:05:34,663 - INFO - PIPELINE COMPLETED
+2024-08-20 14:05:34,663 - INFO - ------------------

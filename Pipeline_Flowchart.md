@@ -18,18 +18,5 @@ Create Demographic Subsets
 Merge Demographic Data
 |-- Step 8: Merge the demographic subsets
 
-Parallel Processing of Subsets
-|-- Step 9: Process each subset in parallel using ProcessPoolExecutor
-    |-- Step 9.1: Initialize and train logistic model
-    |-- Step 9.2: Feature selection and model fitting
-    |-- Step 9.3: Find the best threshold
-    |-- Step 9.4: Evaluate model
-
-Memory Management
-|-- Step 10: Clear memory after processing each subset
-
-Profiling
-|-- Step 11: Profile the pipeline to identify bottlenecks
-
 Completion
 |-- Step 12: Log the completion of the pipeline

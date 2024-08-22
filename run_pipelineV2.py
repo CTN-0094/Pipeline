@@ -86,7 +86,7 @@ def run_pipeline(seed, selected_outcome):
 
 def main():
     # Define a list of seeds to iterate over
-    seed_list = [2, 4, 2]  # Example seeds; replace with your desired values
+    seed_list = [2]  # Example seeds; replace with your desired values
 
     # Get the selected outcome from the user or another source
     selected_outcome = get_outcome_choice()
