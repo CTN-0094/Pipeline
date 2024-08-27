@@ -46,6 +46,7 @@ class LogisticModel:
 
             # Extract model from pipeline and identify non-zero coefficient features
             model = lasso.named_steps['logisticregressioncv']
+            logging.info("TESTING THIS AARON: ", self.X.columns)
             selected_features = self.X.columns[model.coef_.flatten() != 0].tolist()
 
             # Explicitly include 'who' and 'is_female' in the selected features if they are not already included
@@ -106,7 +107,7 @@ class LogisticModel:
             logging.info(f"Confusion Matrix: \n{confusion}")
             logging.info(f"Precision: {precision}")
             logging.info(f"Recall: {recall}")
-
+            return y_pred_proba
             # # Plot ROC Curve
             # fpr, tpr, _ = roc_curve(self.y_test, y_pred_proba)
             # plt.figure()
@@ -122,3 +123,5 @@ class LogisticModel:
         except Exception as e:
             logging.error(f"An error occurred during model evaluation: {e}")
 
+    #def get_predictions(self):
+    """Return the predictions from the model"""

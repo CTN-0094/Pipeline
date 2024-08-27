@@ -3,8 +3,12 @@ import os
 import random
 import numpy as np
 import pandas as pd
+import cProfile
+import pstats
 from datetime import datetime
 import logging
+import io
+import src.profiling as pf
 
 # Add the 'src' directory to the system path to allow imports from that directory
 sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
@@ -103,4 +107,5 @@ def main():
     scrape_log_to_csv(log_filepaths)
 
 if __name__ == "__main__":
-    main()  # Execute the main function when the script is run directly
+    pf.profileAllOutcomes(run_pipeline)
+    
