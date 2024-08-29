@@ -34,22 +34,19 @@ def parse_log_line(line, pattern_idx):
         return match.groups()  # Return the matched groups from the regex
     return None
 
-def scrape_log_to_csv(log_filepaths):
+def scrape_log_to_csv(log_filepaths, directory):
     """Scrape data from log files and write the results to a CSV file."""
     if not log_filepaths:
         print("No log files provided.")
         return
 
-    # Define the LogOutput directory path dynamically
-    current_dir = os.path.dirname(os.path.abspath(__file__))  # Get the current directory of the script
-    log_output_dir = os.path.join(current_dir, 'logOutput')
+    log_output_dir = os.path.join(directory, 'evaluations')
 
-    # Ensure the LogOutput directory exists
     os.makedirs(log_output_dir, exist_ok=True)
 
     # Generate a unique CSV filename based on the current timestamp
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    CSVPATH = os.path.join(log_output_dir, f"log_data_{timestamp}.csv") 
+    CSVPATH = os.path.join(log_output_dir, f"{timestamp}.csv") 
 
     with open(CSVPATH, 'w', newline='') as csv_file:
         csv_writer = csv.writer(csv_file)

@@ -6,7 +6,7 @@ import os
 from datetime import datetime
 
 
-def train_and_evaluate_models(merged_subsets, selected_outcome, seed):
+def train_and_evaluate_models(merged_subsets, seed, selected_outcome, directory):
     # Set the random seed for reproducibility
     np.random.seed(seed)
     predictions = {}
@@ -55,19 +55,19 @@ def train_and_evaluate_models(merged_subsets, selected_outcome, seed):
         logging.info(f"EVALUATE MODEL STAGE COMPLETED FOR SUBSET {i + 1}")
         logging.info("------------------------------")
         
-    save_predictions_to_csv(predictions, selected_outcome, seed)
+    save_predictions_to_csv(predictions, seed, selected_outcome, directory)
     logging.info(f"Model predictions saved to csv successfully.")
     
 
 
-def save_predictions_to_csv(predictions, selected_outcome, seed):
+def save_predictions_to_csv(predictions, seed, selected_outcome, directory):
     # Define the profiling log file path
-    log_dir = "Predictions"
-    if not os.path.exists(log_dir):
-        os.makedirs(log_dir)
+    directory = os.path.join(directory, "predictions")
+    if not os.path.exists(directory):
+        os.makedirs(directory)
     
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    filename = os.path.join(log_dir, f"predictions_{selected_outcome}_{seed}_{timestamp}.csv")
+    filename = os.path.join(directory, f"{selected_outcome}_{seed}_{timestamp}.csv")
     
     with open(filename, mode='w', newline='') as file:
         writer = csv.writer(file)

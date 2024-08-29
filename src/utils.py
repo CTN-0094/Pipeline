@@ -24,11 +24,8 @@ def log_pipeline_completion():
     logging.info("PIPELINE COMPLETED")
     logging.info("------------------")
 
-def get_outcome_choice():
-    available_outcomes = [
-        'ctn0094_relapse_event', 'Ab_krupitskyA_2011', 'Ab_ling_1998',
-        'Rs_johnson_1992', 'Rs_krupitsky_2004', 'Rd_kostenB_1993'
-    ]
+def get_outcome_choice(available_outcomes):
+    
     while True:
         print("Available outcomes:")
         for i, outcome in enumerate(available_outcomes, 1):

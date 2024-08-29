@@ -5,7 +5,7 @@ import os  # For file and directory operations
 import time
 from datetime import datetime
 
-def profile_pipeline(main_func, label):
+def profile_pipeline(main_func, seed, selected_outcome, directory):
     # Create a Profile object to start profiling
     pr = cProfile.Profile()
     
@@ -13,7 +13,7 @@ def profile_pipeline(main_func, label):
     pr.enable()
     
     # Call the main function of your script that you want to profile
-    main_func(42, label)
+    main_func(seed, selected_outcome, directory)
     
     # Disable the profiler to stop recording profiling data
     pr.disable()
@@ -31,29 +31,28 @@ def profile_pipeline(main_func, label):
     ps.print_stats()
     
     # Define the profiling log file path
-    log_dir = "Profiling_Logs"
+    log_dir = os.path.join(directory, "profiling_logs")
     if not os.path.exists(log_dir):
         os.makedirs(log_dir)
     
-    profile_log_file = os.path.join(log_dir, "profiling_results.log")
-    
     # Write the contents of the in-memory text stream (the profiling results) to the log file
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    with open(profile_log_file + "+" + label + "_" + timestamp + ".txt", "w") as f:
+    fileName = os.path.join(log_dir, f"{selected_outcome}_{seed}_{timestamp}.txt")
+    with open(fileName, "w") as f:
         f.write(s.getvalue())
     
-    print(f"Profiling results written to {profile_log_file}")
+    print(f"Profiling results written to {fileName}")
 
 
 
 
 
-def simple_profile_pipeline(main_func, label):
+def simple_profile_pipeline(main_func, seed, selected_outcome, directory):
 
     
     # Call the main function of your script that you want to profile
     start_time = time.time()  # Start the timer
-    main_func(42, label)
+    main_func(seed, selected_outcome, directory)
     end_time = time.time()    # End the timer
     
     # Calculate the execution time
@@ -65,11 +64,11 @@ def simple_profile_pipeline(main_func, label):
         os.makedirs(log_dir)
     
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    profile_log_file = os.path.join(log_dir, f"profiling_results_{label}_{timestamp}.txt")
+    profile_log_file = os.path.join(log_dir, f"profiling_results_{selected_outcome}_{timestamp}.txt")
     
     # Write the profiling results and the execution time to the log file
     with open(profile_log_file, "w") as f:
-        f.write(f"\nExecution time for {label}: {execution_time:.4f} seconds\n")
+        f.write(f"\nExecution time for {selected_outcome}: {execution_time:.4f} seconds\n")
     
     print(f"Profiling results and execution time written to {profile_log_file}")
 

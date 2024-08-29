@@ -9,6 +9,7 @@ from datetime import datetime
 import logging
 import io
 import src.profiling as pf
+import argparse
 
 # Add the 'src' directory to the system path to allow imports from that directory
 sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
@@ -21,17 +22,18 @@ from demographic_handling import create_and_merge_demographic_subsets
 from model_training import train_and_evaluate_models
 from logScraper import scrape_log_to_csv  # Import the log scraper function
 
-LOG_DIR = "logs"  # Directory to store log files
+#LOG_DIR = "logs"  # Directory to store log files
 
-def setup_logging(seed):
+def setup_logging(seed, selected_outcome, directory):
     """Set up logging for the pipeline, creating a log file specific to each seed."""
     # Ensure the log directory exists
-    if not os.path.exists(LOG_DIR):
-        os.makedirs(LOG_DIR)
+    directory = os.path.join(directory, "logs")
+    if not os.path.exists(directory):
+        os.makedirs(directory)
 
     # Generate a log filename with a timestamp and seed value
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    log_filename = os.path.join(LOG_DIR, f"pipeline_{timestamp}_{seed}.log")
+    log_filename = os.path.join(directory, f"{selected_outcome}_{seed}_{timestamp}.log")
 
     # Configure the logging for the pipeline
     logger = logging.getLogger()
@@ -47,10 +49,10 @@ def setup_logging(seed):
     )
     return log_filename
 
-def run_pipeline(seed, selected_outcome):
+def run_pipeline(seed, selected_outcome, directory):
     """Run the pipeline using a specific seed and selected outcome."""
     # Set up logging and get the path to the log file
-    log_filepath = setup_logging(seed)
+    log_filepath = setup_logging(seed, selected_outcome, directory)
 
     # Set the seed for reproducibility
     random.seed(seed)
@@ -80,7 +82,7 @@ def run_pipeline(seed, selected_outcome):
     merged_subsets = create_and_merge_demographic_subsets(processed_data, seed)
     
     # Train and evaluate the models using the merged subsets
-    train_and_evaluate_models(merged_subsets, selected_outcome, seed)
+    train_and_evaluate_models(merged_subsets, seed, selected_outcome, directory)
     
     # Log the completion of the pipeline
     log_pipeline_completion()
@@ -88,24 +90,60 @@ def run_pipeline(seed, selected_outcome):
     # Return the path to the log file for further processing
     return log_filepath
 
-def main():
-    # Define a list of seeds to iterate over
-    seed_list = [2]  # Example seeds; replace with your desired values
+def argument_handler():
 
-    # Get the selected outcome from the user or another source
-    selected_outcome = get_outcome_choice()
+    # Create the parser
+    parser = argparse.ArgumentParser(description='Pipeline for statistical modeling and machine learning on the CTN-0094 database')
+
+    # Add arguments loop (min and max seed, prompt otherwise) target directory, profile
+    parser.add_argument('-l', '--loop', type=int, nargs='+', help='minimum and maximum seed', default = None)
+    parser.add_argument('-o', '--outcome', '--outcomes', type=int, nargs='+', help='all outcomes to run', default = None)
+    parser.add_argument('-d', '--dir', '--directory', type=str, help='directory to save logs, predictions, and evaluations', default="")
+    parser.add_argument('-p', '--prof', '--profile', type=str, help='type of profiling to run (\'simple\' or \'complex\')', default="None")
+
+    # Parse the arguments
+    args = parser.parse_args()
+
+    return args.loop, args.outcome, args.dir, args.prof
+
+def main():
+
+    available_outcomes = [
+        'ctn0094_relapse_event', 'Ab_krupitskyA_2011', 'Ab_ling_1998',
+        'Rs_johnson_1992', 'Rs_krupitsky_2004', 'Rd_kostenB_1993'
+    ]
+
+    seedRange, outcomes, directory, profile = argument_handler()
+
+    if seedRange is not None:
+        # Define a list of seeds to iterate over
+        seed_list = list(range(min(seedRange), max(seedRange)))
+    else:
+        seed_list = [0]
+        # Get the selected outcome from the user or another source
+        outcome = get_outcome_choice(available_outcomes)
+
+    if outcomes == None:
+        outcomes = available_outcomes
 
     # Store the paths of the generated log files
     log_filepaths = []
 
     # Loop through each seed and run the pipeline
     for seed in seed_list:
-        log_filepath = run_pipeline(seed, selected_outcome)
-        log_filepaths.append(log_filepath)  # Store the log file path for later use
+        for outcome in outcomes:
+            if profile == 'simple' or profile == None:
+                pf.simple_profile_pipeline(run_pipeline, seed, outcome, directory)
+            elif profile == 'complex':
+                pf.profile_pipeline(run_pipeline, seed, outcome, directory)
+            else:
+                log_filepath = run_pipeline(seed, outcome, directory)
+                log_filepaths.append(log_filepath)  # Store the log file path for later use
 
     # Scrape the logs after all pipelines have been run
-    scrape_log_to_csv(log_filepaths)
+    scrape_log_to_csv(log_filepaths, directory)
 
 if __name__ == "__main__":
-    pf.profileAllOutcomes(run_pipeline)
+    main()
+    #pf.profileAllOutcomes(run_pipeline)
     
