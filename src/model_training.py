@@ -4,14 +4,15 @@ import numpy as np
 import csv
 import os
 from datetime import datetime
-import statsmodels.api as sm
+
 
 def train_and_evaluate_models(merged_subsets, selected_outcome, seed):
     # Set the random seed for reproducibility
     np.random.seed(seed)
-    predictions = []
+    predictions = {}
 
-    outcomeModel = logisticOutcome()
+    selectedModel = LogisticModel
+    numOfSubsets = len(merged_subsets)
 
     for i, subset in enumerate(merged_subsets):
         # Log the demographic makeup of each subset
@@ -20,10 +21,40 @@ def train_and_evaluate_models(merged_subsets, selected_outcome, seed):
         logging.info(f"Subset {i + 1} demographic makeup: {demographic_str}")
         logging.info(f"Processing subset {i + 1}...")
 
-        prediction = outcomeModel.trainAndEvaluate(subset, selected_outcome, i)
-        predictions.append(prediction)
-    
-    predictions = [outcomeModel.train_model.X_test['who']] + predictions
+        logging.info("-----------------------------")
+        logging.info(f"TRAIN MODEL STAGE STARTING FOR SUBSET {i + 1}...")
+        logging.info("-----------------------------")
+
+        outcomeModel = selectedModel(subset, selected_outcome)
+        outcomeModel.train()
+        
+        logging.info(f"Model trained and saved successfully for subset {i + 1}.")
+
+        logging.info("---------------------------")
+        logging.info(f"TRAIN MODEL STAGE COMPLETED FOR SUBSET {i + 1}")
+        logging.info("---------------------------")
+
+        logging.info("--------------------------------")
+        logging.info(f"EVALUATE MODEL STAGE STARTING FOR SUBSET {i + 1}...")
+        logging.info("--------------------------------")
+        
+        try:
+            #Write result to dictionary of arrays
+            prediction = outcomeModel.evaluate()
+            for id, result in prediction:
+                if id not in predictions:
+                    predictions[id] = [None] * numOfSubsets
+                predictions[id][i] = result
+
+            logging.info(f"Model evaluated successfully for subset {i + 1}.")
+        except Exception as e:
+            logging.error(f"Error during model evaluation for subset {i + 1}: {e}")
+            return
+
+        logging.info("------------------------------")
+        logging.info(f"EVALUATE MODEL STAGE COMPLETED FOR SUBSET {i + 1}")
+        logging.info("------------------------------")
+        
     save_predictions_to_csv(predictions, selected_outcome, seed)
     logging.info(f"Model predictions saved to csv successfully.")
     
@@ -37,80 +68,18 @@ def save_predictions_to_csv(predictions, selected_outcome, seed):
     
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     filename = os.path.join(log_dir, f"predictions_{selected_outcome}_{seed}_{timestamp}.csv")
-    # Transpose the list of lists to convert rows to columns
-    transposed_predictions = list(zip(*predictions))
     
     with open(filename, mode='w', newline='') as file:
         writer = csv.writer(file)
-        writer.writerows(transposed_predictions)
 
-
-
-class outcomeModel():
-    def trainAndEvaluate(self, subset, selected_outcome, i):
-        logging.info("-----------------------------")
-        logging.info(f"TRAIN MODEL STAGE STARTING FOR SUBSET {i + 1}...")
-        logging.info("-----------------------------")
-        #try:
-        # Initialize and train the logistic model
-        self.train(subset, selected_outcome)
-        logging.info(f"Model trained and saved successfully for subset {i + 1}.")
-        #except Exception as e:
-        #    logging.error(f"Error during model training for subset {i + 1}: {e}")
-        #    return
-
-        logging.info("---------------------------")
-        logging.info(f"TRAIN MODEL STAGE COMPLETED FOR SUBSET {i + 1}")
-        logging.info("---------------------------")
-
-        logging.info("--------------------------------")
-        logging.info(f"EVALUATE MODEL STAGE STARTING FOR SUBSET {i + 1}...")
-        logging.info("--------------------------------")
+         # Write header
+        header = ['who'] + [f'Subset_{i+1}' for i in range(10)]
+        writer.writerow(header)
         
-        try:
-            # Evaluate the model
-            prediction = self.predict()
-            logging.info(f"Model evaluated successfully for subset {i + 1}.")
-        except Exception as e:
-            logging.error(f"Error during model evaluation for subset {i + 1}: {e}")
-            return
-
-        logging.info("------------------------------")
-        logging.info(f"EVALUATE MODEL STAGE COMPLETED FOR SUBSET {i + 1}")
-        logging.info("------------------------------")
-        return prediction
-
-    def train(self, subset, selected_outcome):
-        pass
-
-    def predict(self):
-        pass
+        # Write data rows
+        for id, trials_data in predictions.items():
+            writer.writerow([id] + trials_data)
 
 
 
-class logisticOutcome(outcomeModel):
-    def __init__(self):
-        self.train_model = None
-    def train(self, subset, selected_outcome):
-        self.train_model = LogisticModel(subset, selected_outcome)
-        self.train_model.feature_selection_and_model_fitting()
-        self.train_model.find_best_threshold()
-
-    def predict(self):
-        return self.train_model.evaluate_model()
-    
-
-
-class negativeBinomialOutcome(outcomeModel):
-    def __init__(self):
-        self.train_model = None
-    def train(self, subset, selected_outcome):
-        endog = [selected_outcome]
-        exog = sm.add_constant(subset)
-        self.train_model =model = sm.NegativeBinomial(endog, exog, loglike_method='nb2')
-        self.train_model.fit()
-        logging.info("AARON DEBUG: ", self.train_model.summary())
-
-    def predict(self):
-        return self.train_model.evaluate_model()
         

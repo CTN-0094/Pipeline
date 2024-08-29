@@ -8,13 +8,12 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import make_pipeline
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, roc_curve, roc_auc_score, precision_score, recall_score, f1_score
+import statsmodels.api as sm
 
-# Set seed for reproducibility in numpy and random
-#np.random.seed(42)
-#random.seed(42)
 
-class LogisticModel:
-    def __init__(self, data, target_column, Cs=[1000], cv=5, seed=None):
+
+class OutcomeModel:
+    def __init__(self, data, target_column, seed = None):
         self.data = data  # Full dataset
         self.target_column = target_column  # Target variable for prediction
         self.X = data.drop([target_column], axis=1)  # Features matrix
@@ -24,13 +23,24 @@ class LogisticModel:
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(
             self.X, self.y, test_size=0.25
         )
-        self.Cs = Cs  # Custom regularization strengths for LASSO
-        self.cv = cv  # Number of cross-validation folds
         self.best_threshold = 0.5  # Default threshold
         self.seed = seed
         if seed is not None:
             np.random.seed(seed)
             random.seed(seed)
+
+    def train(self):
+        pass
+    def evaluate(self):
+        pass
+
+
+
+class LogisticModel(OutcomeModel):
+    def __init__(self, data, target_column, Cs=[1000], cv=5, seed=None):
+        super().__init__(data, target_column, seed)
+        self.Cs = Cs  # Regularization strengths for LASSO
+        self.cv = cv  # Number of cross-validation folds
 
     def feature_selection_and_model_fitting(self):
         try:
@@ -92,7 +102,11 @@ class LogisticModel:
         except Exception as e:
             logging.error(f"An error occurred during threshold evaluation: {e}")
 
-    def evaluate_model(self):
+    def train(self):
+        self.feature_selection_and_model_fitting()
+        self.find_best_threshold()
+
+    def evaluate(self):
         """Evaluates the model using various metrics and logs the results."""
         try:
             y_pred_proba = self.model.predict_proba(self.X_test)[:, 1]
@@ -107,7 +121,8 @@ class LogisticModel:
             logging.info(f"Confusion Matrix: \n{confusion}")
             logging.info(f"Precision: {precision}")
             logging.info(f"Recall: {recall}")
-            return y_pred_proba
+            
+            return zip(self.X_test['who'], y_pred_proba)
             # # Plot ROC Curve
             # fpr, tpr, _ = roc_curve(self.y_test, y_pred_proba)
             # plt.figure()
@@ -125,3 +140,17 @@ class LogisticModel:
 
     #def get_predictions(self):
     """Return the predictions from the model"""
+
+
+
+class NegativeBinomialModel(OutcomeModel):
+    def train(self, subset, selected_outcome):
+        endog = [selected_outcome]
+        exog = sm.add_constant(subset)
+        self.model = sm.NegativeBinomial(endog, exog, loglike_method='nb2')
+        self.model.fit()
+        logging.info("AARON DEBUG: ", self.model.summary())
+
+    def predict(self):
+        return self.model.evaluate_model()
+
