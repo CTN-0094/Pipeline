@@ -35,22 +35,19 @@ def profile_pipeline(main_func, label):
     if not os.path.exists(log_dir):
         os.makedirs(log_dir)
     
-    profile_log_file = os.path.join(log_dir, "profiling_results.log")
+    # Add timestamp to the file name
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    profile_log_file = os.path.join(log_dir, f"profiling_results_{label}_{timestamp}.txt")
     
     # Write the contents of the in-memory text stream (the profiling results) to the log file
-    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    with open(profile_log_file + "+" + label + "_" + timestamp + ".txt", "w") as f:
+    with open(profile_log_file, "w") as f:
         f.write(s.getvalue())
     
     print(f"Profiling results written to {profile_log_file}")
 
 
 
-
-
 def simple_profile_pipeline(main_func, label):
-
-    
     # Call the main function of your script that you want to profile
     start_time = time.time()  # Start the timer
     main_func(42, label)
@@ -64,8 +61,9 @@ def simple_profile_pipeline(main_func, label):
     if not os.path.exists(log_dir):
         os.makedirs(log_dir)
     
+    # Add timestamp to the file name
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    profile_log_file = os.path.join(log_dir, f"profiling_results_{label}_{timestamp}.txt")
+    profile_log_file = os.path.join(log_dir, f"prof_res_{label}_{timestamp}.txt")
     
     # Write the profiling results and the execution time to the log file
     with open(profile_log_file, "w") as f:
@@ -77,8 +75,8 @@ def simple_profile_pipeline(main_func, label):
 
 def profileAllOutcomes(main_func):
     available_outcomes = [
-        'ctn0094_relapse_event', 'Ab_krupitskyA_2011', 'Ab_ling_1998',
-        'Rs_johnson_1992', 'Rs_krupitsky_2004', 'Rd_kostenB_1993'
+        
+        'Rd_kostenB_1993'
     ]
     for outcome in available_outcomes:
-        simple_profile_pipeline(main_func, outcome)
+        profile_pipeline(main_func, outcome)
