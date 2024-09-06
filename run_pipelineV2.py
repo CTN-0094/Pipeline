@@ -107,5 +107,6 @@ def main():
     scrape_log_to_csv(log_filepaths)
 
 if __name__ == "__main__":
+    main()
     pf.profileAllOutcomes(run_pipeline)
     
