@@ -17,7 +17,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
 from utils import log_pipeline_completion, get_outcome_choice
 from data_loading import load_datasets
 from data_preprocessing import preprocess_merged_data
-from demographic_handling import create_and_merge_demographic_subsets
+from create_demodf_knn import create_demographic_dfs
 from model_training import train_and_evaluate_models
 from logScraper import scrape_log_to_csv  # Import the log scraper function
 
@@ -76,8 +76,8 @@ def run_pipeline(seed, selected_outcome):
     # Preprocess the merged data based on the selected outcome
     processed_data = preprocess_merged_data(merged_df, selected_outcome)
     
-    # Create and merge demographic subsets using the seed
-    merged_subsets = create_and_merge_demographic_subsets(processed_data, seed)
+    # Create and merge demographic subsets
+    merged_subsets = create_demographic_dfs(processed_data)
     
     # Train and evaluate the models using the merged subsets
     train_and_evaluate_models(merged_subsets, selected_outcome, seed)
