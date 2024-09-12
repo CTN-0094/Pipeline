@@ -1,2 +1,0 @@
-
-Execution time for Rs_johnson_1992: 39.4392 seconds
