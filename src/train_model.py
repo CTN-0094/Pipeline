@@ -56,8 +56,6 @@ class LogisticModel(OutcomeModel):
 
             # Extract model from pipeline and identify non-zero coefficient features
             model = lasso.named_steps['logisticregressioncv']
-            #logging.info("TESTING THIS AARON11111: ", len(self.X.columns))
-            #logging.info("TESTING THIS AARON: ", self.X.columns)
             selected_features = self.X.columns[model.coef_.flatten() != 0].tolist()
 
             # Explicitly include 'who' and 'is_female' in the selected features if they are not already included

@@ -41,7 +41,7 @@ def profile_pipeline(main_func, seed, selected_outcome, directory):
     with open(fileName, "w") as f:
         f.write(s.getvalue())
     
-    print(f"Profiling results written to {fileName}")
+    print(f"Profiling results written to {profile_log_file}")
 
 
 
@@ -63,6 +63,7 @@ def simple_profile_pipeline(main_func, seed, selected_outcome, directory):
     if not os.path.exists(log_dir):
         os.makedirs(log_dir)
     
+    # Add timestamp to the file name
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     profile_log_file = os.path.join(log_dir, f"profiling_results_{selected_outcome}_{timestamp}.txt")
     
@@ -76,8 +77,8 @@ def simple_profile_pipeline(main_func, seed, selected_outcome, directory):
 
 def profileAllOutcomes(main_func):
     available_outcomes = [
-        'ctn0094_relapse_event', 'Ab_krupitskyA_2011', 'Ab_ling_1998',
-        'Rs_johnson_1992', 'Rs_krupitsky_2004', 'Rd_kostenB_1993'
+        
+        'Rd_kostenB_1993'
     ]
     for outcome in available_outcomes:
-        simple_profile_pipeline(main_func, outcome)
+        profile_pipeline(main_func, outcome)

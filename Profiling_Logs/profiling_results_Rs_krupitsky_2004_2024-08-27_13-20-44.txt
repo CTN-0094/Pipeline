@@ -1,0 +1,2 @@
+
+Execution time for Rs_krupitsky_2004: 26.5932 seconds
