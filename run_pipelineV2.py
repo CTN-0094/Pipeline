@@ -30,7 +30,7 @@ from logScraper import scrape_log_to_csv  # Import the log scraper function
 def run_pipeline(seed, selected_outcome, directory):
     """Run the pipeline using a specific seed and selected outcome."""
     # Set up logging and get the path to the log file
-    log_filepath = setup_logging(seed, selected_outcome, directory)
+    log_filepath = setup_logging(seed, selected_outcome, directory, quiet=True)
 
     # Set the seed for reproducibility
     random.seed(seed)
@@ -99,7 +99,7 @@ def main():
     else:
         seed_list = [0]
         # Get the selected outcome from the user or another source
-        outcome = get_outcome_choice(available_outcomes)
+        outcomes = [get_outcome_choice(available_outcomes)]
 
     if outcomes == None:
         outcomes = available_outcomes

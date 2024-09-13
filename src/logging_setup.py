@@ -4,17 +4,17 @@ import os
 from datetime import datetime
 from src.silent_logging import add_silent_handler  # Import SilentHandler from silent_logging.py
 
-LOG_DIR = "logs"  # Directory to store log files
 
-def setup_logging(seed, quiet=False):
+def setup_logging(seed, selected_outcome, directory, quiet=False):
     """Set up logging for the pipeline, creating a log file specific to each seed."""
     # Ensure the log directory exists
-    if not os.path.exists(LOG_DIR):
-        os.makedirs(LOG_DIR)
+    directory = os.path.join(directory, "logs")
+    if not os.path.exists(directory):
+        os.makedirs(directory)
 
     # Generate a log filename with a timestamp and seed value
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    log_filename = os.path.join(LOG_DIR, f"pipeline_{timestamp}_{seed}.log")
+    log_filename = os.path.join(directory, f"{selected_outcome}_{seed}_{timestamp}.log")
 
     # Configure the logging for the pipeline
     logger = logging.getLogger()
