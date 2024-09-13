@@ -5,7 +5,6 @@ def create_demographic_dfs(df, columnToSplit='RaceEth', majorityValue=1, idColum
     
     columnsToExclude = list(df.columns.difference(columnsToMatch).drop(idColumn))
     df['is_minority'] = (df[columnToSplit] != majorityValue).astype(int)
-    print("Count of 1 (is_minority):", df['is_minority'].value_counts().get(1, 0))
 
     # Run propensity score matching
     psm = PsmPy(df, treatment='is_minority', indx=idColumn, exclude=columnsToExclude)
