@@ -6,6 +6,11 @@
 - Team: this work is led by Prof. Laura Brandt (clinical arm) and Prof. Gabriel Odom (computational arm); Mr. Ganesh Jainarain is the primary data scientist and statistical programmer.
 - Funding: this work is towards the successful completion of "Towards a framework for algorithmic bias and fairness in predicting treatment outcome for opioid use disorder" (NIH AIM-AHEAD 1OT2OD032581-02-267) with contact PI Laura Brandt, City College of New York.
 
+## Quick Start
+Enter the command `python3 run_pipelineV2.py --help` for the list of arguments. Predictions, logs, and evaluations folders will be created in the directory specified by `-d`. When running multiple tests at once, specify a a minimum and maximum seed to loop through using the `-l` flag. The default outcomes when using the `-l` flag are all outcomes, if you would like to use only a subset of the outcomes, you can list them after the `-o` flag. 
+- Example: `python3 run_pipelineV2.py -d "C:\Users\John\Desktop\Results" -l 5 10` loops through all integer seeds between 5 and 10 and saves the results folders in the specified path on the desktop.
+
+
 ## Step-by-Step Guide
 
 ### Step 0: Master Dataset
