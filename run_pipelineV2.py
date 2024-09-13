@@ -9,6 +9,8 @@ from datetime import datetime
 import logging
 import io
 import src.profiling as pf
+from src.silent_logging import add_silent_handler
+from src.logging_setup import setup_logging  # Import the logging setup from logging_setup.py
 
 # Add the 'src' directory to the system path to allow imports from that directory
 sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
@@ -23,29 +25,6 @@ from logScraper import scrape_log_to_csv  # Import the log scraper function
 
 LOG_DIR = "logs"  # Directory to store log files
 
-def setup_logging(seed):
-    """Set up logging for the pipeline, creating a log file specific to each seed."""
-    # Ensure the log directory exists
-    if not os.path.exists(LOG_DIR):
-        os.makedirs(LOG_DIR)
-
-    # Generate a log filename with a timestamp and seed value
-    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    log_filename = os.path.join(LOG_DIR, f"pipeline_{timestamp}_{seed}.log")
-
-    # Configure the logging for the pipeline
-    logger = logging.getLogger()
-    logger.handlers = []  # Clear existing handlers to avoid duplicate logs
-
-    logging.basicConfig(
-        level=logging.INFO,  # Set the logging level to INFO
-        format="%(asctime)s - %(levelname)s - %(message)s",  # Set the log message format
-        handlers=[
-            logging.FileHandler(log_filename),  # Log to a file
-            logging.StreamHandler()  # Log to the console
-        ]
-    )
-    return log_filename
 
 def run_pipeline(seed, selected_outcome):
     """Run the pipeline using a specific seed and selected outcome."""
@@ -108,5 +87,5 @@ def main():
 
 if __name__ == "__main__":
     main()
-    pf.profileAllOutcomes(run_pipeline)
+    #pf.profileAllOutcomes(run_pipeline)
     

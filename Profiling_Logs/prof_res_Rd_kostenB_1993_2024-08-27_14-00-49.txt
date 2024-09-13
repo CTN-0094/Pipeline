@@ -1,2 +1,0 @@
-
-Execution time for Rd_kostenB_1993: 14.4853 seconds

@@ -1,2 +1,0 @@
-
-Execution time for Ab_ling_1998: 16.9505 seconds
