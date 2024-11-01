@@ -93,7 +93,7 @@ CONFIG = _cleanup(
             },
         },
         "Python Information": {
-            "path": r"/private/var/folders/m4/5dz5h26x329cqq4fx333f8gm0000gn/T/build-env-5ywd1kcf/bin/python",
+            "path": r"/private/var/folders/0g/hj_q_pzx65bbjnslxz9n0src0000gn/T/build-env-mzo7bhdu/bin/python",
             "version": "3.12",
         },
         "SIMD Extensions": {
