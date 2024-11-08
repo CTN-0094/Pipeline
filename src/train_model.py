@@ -1,81 +1,87 @@
 import logging
 import random
 import numpy as np
-import pandas as pd
-from joblib import dump, load
-from sklearn.linear_model import LogisticRegressionCV, LogisticRegression
+from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
-from sklearn.pipeline import make_pipeline
+from sklearn.pipeline import Pipeline
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import confusion_matrix, roc_curve, roc_auc_score, precision_score, recall_score, f1_score
-import statsmodels.api as sm
-
-
+from sklearn.metrics import confusion_matrix, roc_auc_score, precision_score, recall_score
+from sklearn.exceptions import NotFittedError
 
 class OutcomeModel:
-    def __init__(self, data, target_column, seed = None):
-        self.data = data  # Full dataset
-        self.target_column = target_column  # Target variable for prediction
-        self.X = data.drop([target_column], axis=1)  # Features matrix
+    def __init__(self, data, target_column, seed=None):
+        # Store the full dataset and the name of the target column
+        self.data = data
+        self.target_column = target_column
+
+        # Separate features (X) and target (y) from the dataset
+        self.X = data.drop([target_column], axis=1)  # Features
         self.y = data[target_column]  # Target variable
-        self.model = None  # Placeholder for the trained logistic regression model
-        self.selected_features = None  # Placeholder for features selected by LASSO
+
+        # Initialize placeholders for the model and selected features
+        self.model = None
+        self.selected_features = None
+
+        # Split data into training and testing sets with a 25% test size
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(
-            self.X, self.y, test_size=0.25
+            self.X, self.y, test_size=0.25, random_state=seed
         )
-        self.best_threshold = 0.5  # Default threshold
+
+        # Set a default threshold for classification
+        self.best_threshold = 0.5
+
+        # Set the random seed if specified to ensure reproducibility
         self.seed = seed
         if seed is not None:
             np.random.seed(seed)
             random.seed(seed)
 
     def train(self):
+        """Placeholder method for training; to be implemented in subclasses."""
         pass
+
     def evaluate(self):
+        """Placeholder method for evaluation; to be implemented in subclasses."""
         pass
-
-
 
 class LogisticModel(OutcomeModel):
-    def __init__(self, data, target_column, Cs=[1000], cv=5, seed=None):
+    def __init__(self, data, target_column, Cs=[1.0], seed=None):
+        # Initialize the superclass OutcomeModel with data, target_column, and seed
         super().__init__(data, target_column, seed)
-        self.Cs = Cs  # Regularization strengths for LASSO
-        self.cv = cv  # Number of cross-validation folds
+
+        # Store the regularization strengths for L1 regularization (default is 1.0)
+        self.Cs = Cs
 
     def feature_selection_and_model_fitting(self):
+        """
+        Performs feature selection using L1-regularized logistic regression on training data only,
+        then fits a final logistic regression model on the selected features.
+        """
         try:
-            logging.info("Scaling features and applying LASSO for feature selection...")
-            # Scale features and apply LASSO for feature selection within a pipeline
-            lasso = make_pipeline(
-                StandardScaler(),
-                LogisticRegressionCV(
-                    penalty='l1', solver='saga', Cs=self.Cs, cv=self.cv, max_iter=10000
-                )
-            )
-            lasso.fit(self.X, self.y)
+            logging.info("Scaling features and applying L1-regularized logistic regression for feature selection...")
 
-            # Extract model from pipeline and identify non-zero coefficient features
-            model = lasso.named_steps['logisticregressioncv']
-            selected_features = self.X.columns[model.coef_.flatten() != 0].tolist()
+            # Create a pipeline with scaling and L1-regularized logistic regression for feature selection
+            pipeline = Pipeline([
+                ('scaler', StandardScaler()),  # Step 1: Scale features
+                ('logistic', LogisticRegression(penalty='l1', solver='saga', C=self.Cs[0], max_iter=10000))  # Step 2: L1 regularization
+            ])
 
-            # Explicitly include 'who' and 'is_female' in the selected features if they are not already included
-            required_features = ['who', 'is_female']  # Adjust according to actual column names
-            for feature in required_features:
-                if feature not in selected_features and feature in self.X.columns:
-                    selected_features.append(feature)
+            # Fit the pipeline on the training data (prevents data leakage)
+            pipeline.fit(self.X_train, self.y_train)
 
-            self.selected_features = selected_features
-            logging.info(f"Selected features (including required): {self.selected_features}")
+            # Extract the logistic regression model from the pipeline
+            model = pipeline.named_steps['logistic']
 
-            # Split dataset into training and testing sets using selected features
-            X_selected = self.X[self.selected_features]
-            self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(
-                X_selected, self.y, test_size=0.25
-            )
+            # Select features with non-zero coefficients (those chosen by L1 regularization)
+            self.selected_features = self.X_train.columns[model.coef_.flatten() != 0].tolist()
+            logging.info(f"Selected features: {self.selected_features}")
 
-            # Fit logistic regression model on training data
-            logging.info("Fitting logistic regression model with the selected features...")
-            self.model = LogisticRegression(max_iter=10000)
+            # Update the training and test sets to include only the selected features
+            self.X_train = self.X_train[self.selected_features]
+            self.X_test = self.X_test[self.selected_features]
+
+            # Fit a final logistic regression model using only the selected features
+            self.model = LogisticRegression(max_iter=10000, C=self.Cs[0])
             self.model.fit(self.X_train, self.y_train)
             logging.info("Model training completed successfully.")
         except Exception as e:
@@ -83,73 +89,52 @@ class LogisticModel(OutcomeModel):
 
     def find_best_threshold(self):
         """
-        Sets the threshold based on the proportion of positive outcomes in the test set.
+        Calculates and sets the classification threshold dynamically based on the proportion of positive outcomes
+        in the test set.
         """
         try:
-            logging.info("Calculating the dynamic threshold based on the proportion of positive outcomes...")
+            logging.info("Calculating dynamic threshold based on positive outcome proportion in the test set...")
+
             # Calculate the proportion of positive outcomes in the test set
             positive_proportion = self.y_test.mean()
-            negative_proportion = 1 - positive_proportion
 
-            # Log the ratio of 1s to 0s in the outcome variable
-            logging.info(f"Ratio of 1s to 0s in the outcome variable: {positive_proportion:.2f} : {negative_proportion:.2f}")
-
-            # Set the best threshold based on the proportion of positive outcomes
+            # Use the proportion as the best threshold
             self.best_threshold = positive_proportion
-            
+
             logging.info(f"Dynamic threshold set to: {self.best_threshold}")
         except Exception as e:
             logging.error(f"An error occurred during threshold evaluation: {e}")
 
     def train(self):
+        """Performs feature selection, model fitting, and sets the best threshold."""
         self.feature_selection_and_model_fitting()
         self.find_best_threshold()
 
     def evaluate(self):
-        """Evaluates the model using various metrics and logs the results."""
+        """
+        Evaluates the model on the test set using metrics like ROC AUC, confusion matrix, precision, and recall.
+        Logs each metric to provide detailed performance information.
+        """
         try:
+            # Generate prediction probabilities for the test set
             y_pred_proba = self.model.predict_proba(self.X_test)[:, 1]
+
+            # Apply the best threshold to convert probabilities into binary predictions
             y_pred = (y_pred_proba >= self.best_threshold).astype(int)
 
+            # Calculate various evaluation metrics
             roc_auc = roc_auc_score(self.y_test, y_pred_proba)
             confusion = confusion_matrix(self.y_test, y_pred)
             precision = precision_score(self.y_test, y_pred)
             recall = recall_score(self.y_test, y_pred)
 
+            # Log each metric to help evaluate model performance
             logging.info(f"ROC AUC Score: {roc_auc}")
             logging.info(f"Confusion Matrix: \n{confusion}")
             logging.info(f"Precision: {precision}")
             logging.info(f"Recall: {recall}")
-            
-            return zip(self.X_test['who'], y_pred_proba)
-            # # Plot ROC Curve
-            # fpr, tpr, _ = roc_curve(self.y_test, y_pred_proba)
-            # plt.figure()
-            # plt.plot(fpr, tpr, color='darkorange', lw=2, label=f'ROC curve (area = {roc_auc:.2f})')
-            # plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
-            # plt.xlim([0.0, 1.0])
-            # plt.ylim([0.0, 1.05])
-            # plt.xlabel('False Positive Rate')
-            # plt.ylabel('True Positive Rate')
-            # plt.title('Receiver Operating Characteristic (ROC)')
-            # plt.legend(loc="lower right")
-            # plt.show()
+        except NotFittedError:
+            logging.error("The model is not fitted yet. Please train the model before evaluation.")
         except Exception as e:
             logging.error(f"An error occurred during model evaluation: {e}")
-
-    #def get_predictions(self):
-    """Return the predictions from the model"""
-
-
-
-class NegativeBinomialModel(OutcomeModel):
-    def train(self, subset, selected_outcome):
-        endog = [selected_outcome]
-        exog = sm.add_constant(subset)
-        self.model = sm.NegativeBinomial(endog, exog, loglike_method='nb2')
-        self.model.fit()
-        logging.info("AARON DEBUG: ", self.model.summary())
-
-    def predict(self):
-        return self.model.evaluate_model()
 
