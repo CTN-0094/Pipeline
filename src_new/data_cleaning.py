@@ -45,7 +45,7 @@ class DataCleaner:
         
     def missing_values_report(self) -> pd.Series:
         """
-        Returns a reporty of missing values as percentages for each column.
+        Returns a report of missing values as percentages for each column.
 
         Returns:
             pd.Series: Percentage of missing values per column, sorted in descending order.
@@ -104,6 +104,69 @@ class DataCleaner:
             return self
         
     
+    
+    def drop_duplicates(self) -> "DataCleaner":
+        """
+        Drop duplicate rows from the dataset.
+
+        Returns:
+            DataCleaner: The updated DataCleaner instance.
+        """
+
+        try:
+            # Get the original number of rows
+            original_count = len(self.data)
+            # Drop duplicate rows
+            self.data.drop_duplicates(inplace=True)
+            # Log the number of rows removed
+            logging.info(f"Dropped {original_count - len(self.data)} duplicate rows.")
+            return self
+        except Exception as e:
+            # Log any errors that occur
+            logging.error(f"Error in drop_duplicates: {e}")
+            return self
+        
+    def scale_features(self, method: str = "standard") -> "DataCleaner":
+        """
+        Scale numerical features using the specified method.
+
+        Args:
+            method (str): Scaling method ("standard" for StandardScaler, "min-max" for MinMaxScaler).
+
+        Returns:
+            DataCleaner: The updated DataCleaner instance.
+        """
+        try:
+            # Select the appropriate scaler based on the method
+            scaler = StandardScaler() if method == "standard" else MinMaxScaler()
+            # Identify numerical columns to scale
+            numerical_features = self.data.select_dtypes(include=np.number).columns
+            # Apply scaling to numerical columns
+            self.data[numerical_features] = scaler.fit_transform(self.data[numerical_features])
+            logging.info(f"Scaled numerical features using '{method}' scaling.")
+            return self
+        except Exception as e:
+            # Log any errors that occur
+            logging.error(f"Error in scale_features: {e}")
+            return self
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    def get_data(self) -> pd.DataFrame:
+        """
+        Return the cleaned dataset.
+
+        Returns:
+            pd.Datafram: The cleaned dataset.
+        """
+        # Return the cleaned DataFrame
+        return self.data
 
 
 
