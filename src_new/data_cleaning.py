@@ -150,14 +150,6 @@ class DataCleaner:
             logging.error(f"Error in scale_features: {e}")
             return self
     
-    
-    
-    
-    
-    
-    
-    
-    
     def get_data(self) -> pd.DataFrame:
         """
         Return the cleaned dataset.
