@@ -1,6 +1,8 @@
 # src/preprocess.py
 import pandas as pd
 import numpy as np
+import logging
+
 
 class DataPreprocessor:
 
@@ -28,16 +30,16 @@ class DataPreprocessor:
 
             # Print out valid and invalid columns to drop
             if valid_columns_to_drop:
-                print("Dropping columns:", valid_columns_to_drop)
+                logging.info(f"Dropping columns: {valid_columns_to_drop}")
             if invalid_columns:
-                print("Invalid columns not found in DataFrame:", invalid_columns)
+                logging.info(f"Invalid columns not found in DataFrame: {invalid_columns}")
 
             # Drop the specified columns and update the instance's DataFrame
-            self.dataframe.drop(columns=valid_columns_to_drop, inplace=True)
+            self.dataframe = self.dataframe.drop(columns=valid_columns_to_drop)
             
             # Display a snippet of the new DataFrame
-            print("Snippet of the new DataFrame after dropping columns:")
-            print(self.dataframe)
+            logging.info("Snippet of the new DataFrame after dropping columns:")
+            logging.info(self.dataframe)
 
         except KeyError as e:
             print(f"Column error: {e}. Please check the columns you are trying to drop.")
