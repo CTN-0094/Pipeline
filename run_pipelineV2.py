@@ -75,7 +75,7 @@ def argument_handler():
 
     # Add arguments loop (min and max seed, prompt otherwise) target directory, profile
     parser.add_argument('-l', '--loop', type=int, nargs='+', help='minimum and maximum seed', default = None)
-    parser.add_argument('-o', '--outcome', '--outcomes', type=int, nargs='+', help='all outcomes to run', default = None)
+    parser.add_argument('-o', '--outcome', '--outcomes', type=str, nargs='+', help='all outcomes to run', default = None)
     parser.add_argument('-d', '--dir', '--directory', type=str, help='directory to save logs, predictions, and evaluations', default="")
     parser.add_argument('-p', '--prof', '--profile', type=str, help='type of profiling to run (\'simple\' or \'complex\')', default="None")
 
