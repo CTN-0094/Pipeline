@@ -21,8 +21,10 @@ def create_demographic_dfs(df, columnToSplit='RaceEth', majorityValue=1, idColum
             columns=[idColumn]
         )
         
-        for splitLen in range(0, sampleSize, sampleSize // (splits-1))
+        for splitLen in range(0, sampleSize + 1, sampleSize // (splits-1))
     ]
+
+
     merged_subsets = [
         pd.merge(demo_df, df, on='who', how='left') 
         for demo_df in subsets
