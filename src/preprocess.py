@@ -38,8 +38,8 @@ class DataPreprocessor:
             self.dataframe = self.dataframe.drop(columns=valid_columns_to_drop)
             
             # Display a snippet of the new DataFrame
-            logging.info("Snippet of the new DataFrame after dropping columns:")
-            logging.info(self.dataframe)
+            #logging.info("Snippet of the new DataFrame after dropping columns:")
+            #logging.info(self.dataframe)
 
         except KeyError as e:
             print(f"Column error: {e}. Please check the columns you are trying to drop.")

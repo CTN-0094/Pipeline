@@ -140,8 +140,8 @@ def preprocess_data(subset, selected_outcome):
 
     # After all processing, save the final processed dataframe
     processed_data = preprocessor.dataframe
-    logging.info("Final Processed DataFrame:")
-    logging.info(processed_data.head())
+    #logging.info("Final Processed DataFrame:")
+    #logging.info(processed_data.head())
 
     # Log the end of the pre-processing phase
     logging.info("------------------------------")
