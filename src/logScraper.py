@@ -19,8 +19,8 @@ hardCodedVars = {
 
 # Define the phrases you want to match in the log files using regular expressions
 regex_patterns = [
-    re.compile(r'demographic makeup:\s+(.*?)$'),         # Match demographic makeup
-    re.compile(r'ROC AUC Score:\s+(\d+\.\d+)'),          # Match ROC AUC Score
+    re.compile(r'Subset \d+ demographic makeup:\s+(.*?)$'),         # Match demographic makeup
+    re.compile(r'ROC AUC:\s+(\d+\.\d+)'),          # Match ROC AUC Score
     re.compile(r'\[\[\s*(\d+)\s+(\d+)\]'),               # Match the first line of the confusion matrix
     re.compile(r'\s*\[\s*(\d+)\s+(\d+)\]'),              # Match the second line of the confusion matrix
     re.compile(r'Precision:\s+(\d+\.\d+)'),              # Match Precision
