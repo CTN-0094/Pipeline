@@ -1,0 +1,55 @@
+2024-12-19 12:41:26 - INFO - Global Seed set to: 0
+2024-12-19 12:41:26 - INFO - Outcome Name: Rd_kostenB_1993
+2024-12-19 12:41:26 - INFO - Datasets loaded successfully.
+2024-12-19 12:41:26 - INFO - Starting preprocessing of the merged dataset...
+2024-12-19 12:41:26 - INFO - ---------------------------------
+2024-12-19 12:41:26 - INFO - PRE-PROCESSING STAGE STARTING...
+2024-12-19 12:41:26 - INFO - ---------------------------------
+2024-12-19 12:41:26 - INFO - Dropping columns: ['pain_when', 'is_smoker', 'per_day', 'max', 'amount', 'depression', 'anxiety', 'schizophrenia', 'max', 'amount', 'cocaine_inject_days', 'speedball_inject_days', 'opioid_inject_days', 'speed_inject_days', 'UDS_Alcohol_Count', 'UDS_Mdma/Hallucinogen_Count']
+2024-12-19 12:41:26 - INFO - Dropped initial columns: ['pain_when', 'is_smoker', 'per_day', 'max', 'amount', 'depression', 'anxiety', 'schizophrenia', 'max', 'amount', 'cocaine_inject_days', 'speedball_inject_days', 'opioid_inject_days', 'speed_inject_days', 'UDS_Alcohol_Count', 'UDS_Mdma/Hallucinogen_Count']
+2024-12-19 12:41:26 - INFO - Converted Yes/No to binary.
+2024-12-19 12:41:26 - INFO - Processed TLFB columns with specified columns: ['TLFB_Alcohol_Count', 'TLFB_Amphetamine_Count', 'TLFB_Cocaine_Count', 'TLFB_Heroin_Count', 'TLFB_Benzodiazepine_Count', 'TLFB_Opioid_Count', 'TLFB_THC_Count', 'TLFB_Methadone_Count', 'TLFB_Buprenorphine_Count']
+2024-12-19 12:41:26 - INFO - Calculated behavioral columns.
+2024-12-19 12:41:26 - INFO - Moved 'Rd_kostenB_1993' column to the end.
+2024-12-19 12:41:26 - INFO - Dropping columns: ['msm_npt', 'msm_frq', 'txx_prt']
+2024-12-19 12:41:26 - INFO - Dropped initial columns: ['msm_npt', 'msm_frq', 'txx_prt']
+2024-12-19 12:41:26 - INFO - transform_data_with_nan_handling success
+2024-12-19 12:41:26 - INFO - Renamed columns according to the mapping.
+2024-12-19 12:41:26 - INFO - Transformed NaN to 0 for binary columns.
+2024-12-19 12:41:26 - INFO - Transformed and renamed 'heroin_inject_days' column to 'rbsivheroin'.
+2024-12-19 12:41:26 - INFO - Filled NaN with 0 for 'ftnd' column.
+2024-12-19 12:41:26 - INFO - Dropping columns: ['rbs_iv_days', 'race', 'RBS_cocaine_Days', 'RBS_heroin_Days', 'RBS_opioid_Days', 'RBS_speed_Days', 'RBS_speedball_Days']
+2024-12-19 12:41:26 - INFO - Dropped additional columns: ['rbs_iv_days', 'race', 'RBS_cocaine_Days', 'RBS_heroin_Days', 'RBS_opioid_Days', 'RBS_speed_Days', 'RBS_speedball_Days']
+2024-12-19 12:41:26 - INFO - Converted UDS drug counts to binary.
+2024-12-19 12:41:26 - INFO - ------------------------------
+2024-12-19 12:41:26 - INFO - PRE-PROCESSING STAGE COMPLETED
+2024-12-19 12:41:26 - INFO - ------------------------------
+2024-12-19 12:41:26 - INFO - Merged dataset preprocessed successfully.
+2024-12-19 12:41:28 - INFO - Subset 1 demographic makeup: 1000 1
+2024-12-19 12:41:28 - INFO - Processing subset 1...
+2024-12-19 12:41:28 - INFO - -----------------------------
+2024-12-19 12:41:28 - INFO - TRAIN MODEL STAGE STARTING FOR SUBSET 1...
+2024-12-19 12:41:28 - INFO - -----------------------------
+2024-12-19 12:41:28 - INFO - LogisticModel initialized successfully with Cs=[1.0].
+2024-12-19 12:41:28 - INFO - Starting feature selection using L1 regularization...
+2024-12-19 12:41:29 - INFO - Feature selection and model fitting completed successfully.
+2024-12-19 12:41:29 - INFO - Dynamic threshold set to: 0.616
+2024-12-19 12:41:29 - INFO - Model trained and saved successfully for subset 1.
+2024-12-19 12:41:29 - INFO - ---------------------------
+2024-12-19 12:41:29 - INFO - TRAIN MODEL STAGE COMPLETED FOR SUBSET 1
+2024-12-19 12:41:29 - INFO - ---------------------------
+2024-12-19 12:41:29 - INFO - --------------------------------
+2024-12-19 12:41:29 - INFO - EVALUATE MODEL STAGE STARTING FOR SUBSET 1...
+2024-12-19 12:41:29 - INFO - --------------------------------
+2024-12-19 12:41:29 - INFO - ROC AUC: 0.6492153679653679
+2024-12-19 12:41:29 - INFO - Confusion Matrix:
+[[58 38]
+ [63 91]]
+2024-12-19 12:41:29 - INFO - Precision: 0.7054263565891473
+2024-12-19 12:41:29 - INFO - Recall: 0.5909090909090909
+2024-12-19 12:41:29 - ERROR - Error during model evaluation for subset 1: 'NoneType' object is not iterable
+2024-12-19 12:41:29 - INFO - ------------------
+2024-12-19 12:41:29 - INFO - PIPELINE COMPLETED
+2024-12-19 12:41:29 - INFO - ------------------
+2024-12-19 12:41:29 - INFO - Embedded R ended.
+2024-12-19 12:41:29 - INFO - Embedded R already ended.
