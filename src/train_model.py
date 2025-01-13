@@ -67,49 +67,76 @@ class OutcomeModel:
 
 class LogisticModel(OutcomeModel):
     """Logistic regression model with L1 regularization for feature selection."""
+
     def __init__(self, data: pd.DataFrame, target_column: str, Cs: Optional[list] = None, seed: Optional[int] = None):
         """
         Initialize the LogisticModel class.
 
         Parameters:
-        - data (pd.DataFrame): Full input dataset.
-        - target_column (str): Target variable to predict.
-        - Cs (list, optional): List of C values for L1 regularization (default: [1.0]).
-        - seed (int, optional): Seed for reproducibility.
+        - data (pd.DataFrame): The full dataset containing features and the target column.
+        - target_column (str): The name of the target column for prediction.
+        - Cs (list, optional): List of regularization strengths (C) for L1 regularization. Defaults to [1.0].
+        - seed (int, optional): Random seed for reproducibility.
         """
+        # Call the parent class constructor to handle dataset initialization and seeding
         super().__init__(data, target_column, seed)
-        self.Cs = Cs if Cs is not None else [1.0]  # Default regularization strength (C)
+
+        # Set the regularization strength for L1 regularization. If not provided, defaults to [1.0]
+        self.Cs = Cs if Cs is not None else [1.0]
+
+        # Log the initialization details for traceability and debugging purposes
         logging.info(f"LogisticModel initialized successfully with Cs={self.Cs}.")
 
     def feature_selection_and_model_fitting(self) -> None:
-        """Select features using L1 regularization and fit the logistic regression model."""
+        """
+        Select features using L1 regularization and fit the logistic regression model.
+
+        - L1 regularization is used here to perform feature selection by shrinking some coefficients to zero.
+        """
         logging.info("Starting feature selection using L1 regularization...")
-        
+
         try:
+            # Create a machine learning pipeline with two steps:
+            # 1. Standardize the features using StandardScaler()
+            # 2. Apply logistic regression with L1 penalty for feature selection
             pipeline = Pipeline([
-                ('scaler', StandardScaler()),
+                ('scaler', StandardScaler()),  # Standardize the data
                 ('logistic', LogisticRegression(penalty='l1', solver='saga', C=self.Cs[0], max_iter=10000))
             ])
-            pipeline.fit(self.X_train, self.y_train)  # Fit the pipeline to the training data
 
+            # Fit the pipeline to the training data
+            pipeline.fit(self.X_train, self.y_train)
+
+            # Extract the fitted logistic regression model from the pipeline
             logistic_model = pipeline.named_steps['logistic']
 
+            # Check if the model learned any coefficients; raise an error if not
             if logistic_model.coef_ is None:
                 raise ValueError("The model coefficients are None. The model did not fit properly.")
 
+            # Select the features where the L1 regularization retained non-zero coefficients
             self.selected_features = self.X_train.columns[logistic_model.coef_.flatten() != 0].tolist()
 
+            # If no features were selected, raise an error to signal potential over-regularization
+            if not self.selected_features:
+                raise ValueError("No features were selected. Check your regularization strength.")
+
+            # Filter the training and test sets to only include the selected features
             self.X_train = self.X_train[self.selected_features]
             self.X_test = self.X_test[self.selected_features]
 
-            self.model = LogisticRegression(max_iter=10000, C=self.Cs[0])
-            self.model.fit(self.X_train, self.y_train)
+            # Train a new logistic regression model on the reduced feature set
+            # Note: This logistic regression does not use L1 regularization but the selected features
+            self.model = LogisticRegression(max_iter=10000, C=self.Cs[0])  
+            self.model.fit(self.X_train, self.y_train)  # Fit the final logistic regression model
 
             logging.info("Feature selection and model fitting completed successfully.")
 
+        # Catch and log any errors that occur during the feature selection or model fitting process
         except Exception as e:
             logging.error(f"Error during feature selection and model fitting: {e}")
-            raise
+            raise  # Re-raise the error to ensure it propagates if not handled elsewhere
+
 
     def find_best_threshold(self):
         """Determine the best classification threshold based on positive outcome proportion."""

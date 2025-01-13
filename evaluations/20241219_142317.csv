@@ -1,2 +1,0 @@
-global_seed,Outcome Type,Outcome Name,Pre-processing script name,Model script name,Demog Comparison,Prop(Demog),TP,TN,FP,FN,Accuracy,Precision,Recall,F1,ROC AUC Score
-0,Binary,Rd_kostenB_1993,pipeline 7-2024,TBD,Race: non hispanic white vs minority,1000 1,77,60,94,19,0.548,0.759493670886076,0.38961038961038963,0.5150214592274679,0.6484036796536796

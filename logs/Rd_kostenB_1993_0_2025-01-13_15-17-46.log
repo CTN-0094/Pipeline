@@ -1,0 +1,319 @@
+2025-01-13 15:17:46 - INFO - Global Seed set to: 0
+2025-01-13 15:17:46 - INFO - Outcome Name: Rd_kostenB_1993
+2025-01-13 15:17:46 - INFO - Datasets loaded successfully.
+2025-01-13 15:17:46 - INFO - Starting preprocessing of the merged dataset...
+2025-01-13 15:17:46 - INFO - ---------------------------------
+2025-01-13 15:17:46 - INFO - PRE-PROCESSING STAGE STARTING...
+2025-01-13 15:17:46 - INFO - ---------------------------------
+2025-01-13 15:17:46 - INFO - Dropping columns: ['pain_when', 'is_smoker', 'per_day', 'max', 'amount', 'depression', 'anxiety', 'schizophrenia', 'max', 'amount', 'cocaine_inject_days', 'speedball_inject_days', 'opioid_inject_days', 'speed_inject_days', 'UDS_Alcohol_Count', 'UDS_Mdma/Hallucinogen_Count']
+2025-01-13 15:17:46 - INFO - Dropped initial columns: ['pain_when', 'is_smoker', 'per_day', 'max', 'amount', 'depression', 'anxiety', 'schizophrenia', 'max', 'amount', 'cocaine_inject_days', 'speedball_inject_days', 'opioid_inject_days', 'speed_inject_days', 'UDS_Alcohol_Count', 'UDS_Mdma/Hallucinogen_Count']
+2025-01-13 15:17:46 - INFO - Converted Yes/No to binary.
+2025-01-13 15:17:46 - INFO - Processed TLFB columns with specified columns: ['TLFB_Alcohol_Count', 'TLFB_Amphetamine_Count', 'TLFB_Cocaine_Count', 'TLFB_Heroin_Count', 'TLFB_Benzodiazepine_Count', 'TLFB_Opioid_Count', 'TLFB_THC_Count', 'TLFB_Methadone_Count', 'TLFB_Buprenorphine_Count']
+2025-01-13 15:17:46 - INFO - Calculated behavioral columns.
+2025-01-13 15:17:46 - INFO - Moved 'Rd_kostenB_1993' column to the end.
+2025-01-13 15:17:46 - INFO - Dropping columns: ['msm_npt', 'msm_frq', 'txx_prt']
+2025-01-13 15:17:46 - INFO - Dropped initial columns: ['msm_npt', 'msm_frq', 'txx_prt']
+2025-01-13 15:17:46 - INFO - transform_data_with_nan_handling success
+2025-01-13 15:17:46 - INFO - Renamed columns according to the mapping.
+2025-01-13 15:17:46 - INFO - Transformed NaN to 0 for binary columns.
+2025-01-13 15:17:46 - INFO - Transformed and renamed 'heroin_inject_days' column to 'rbsivheroin'.
+2025-01-13 15:17:46 - INFO - Filled NaN with 0 for 'ftnd' column.
+2025-01-13 15:17:46 - INFO - Dropping columns: ['rbs_iv_days', 'race', 'RBS_cocaine_Days', 'RBS_heroin_Days', 'RBS_opioid_Days', 'RBS_speed_Days', 'RBS_speedball_Days']
+2025-01-13 15:17:46 - INFO - Dropped additional columns: ['rbs_iv_days', 'race', 'RBS_cocaine_Days', 'RBS_heroin_Days', 'RBS_opioid_Days', 'RBS_speed_Days', 'RBS_speedball_Days']
+2025-01-13 15:17:46 - INFO - Converted UDS drug counts to binary.
+2025-01-13 15:17:46 - INFO - ------------------------------
+2025-01-13 15:17:46 - INFO - PRE-PROCESSING STAGE COMPLETED
+2025-01-13 15:17:46 - INFO - ------------------------------
+2025-01-13 15:17:46 - INFO - Merged dataset preprocessed successfully.
+2025-01-13 15:17:49 - INFO - Subset 1 demographic makeup: 1000 1
+2025-01-13 15:17:49 - INFO - Processing subset 1...
+2025-01-13 15:17:49 - INFO - -----------------------------
+2025-01-13 15:17:49 - INFO - TRAIN MODEL STAGE STARTING FOR SUBSET 1...
+2025-01-13 15:17:49 - INFO - -----------------------------
+2025-01-13 15:17:49 - INFO - LogisticModel initialized successfully with Cs=[1.0].
+2025-01-13 15:17:49 - INFO - Starting feature selection using L1 regularization...
+2025-01-13 15:17:49 - INFO - Feature selection and model fitting completed successfully.
+2025-01-13 15:17:49 - INFO - Dynamic threshold set to: 0.616
+2025-01-13 15:17:49 - INFO - Model trained and saved successfully for subset 1.
+2025-01-13 15:17:49 - INFO - ---------------------------
+2025-01-13 15:17:49 - INFO - TRAIN MODEL STAGE COMPLETED FOR SUBSET 1
+2025-01-13 15:17:49 - INFO - ---------------------------
+2025-01-13 15:17:49 - INFO - --------------------------------
+2025-01-13 15:17:49 - INFO - EVALUATE MODEL STAGE STARTING FOR SUBSET 1...
+2025-01-13 15:17:49 - INFO - --------------------------------
+2025-01-13 15:17:49 - INFO - ROC AUC: 0.6484036796536796
+2025-01-13 15:17:49 - INFO - Confusion Matrix:
+[[77 19]
+ [94 60]]
+2025-01-13 15:17:49 - INFO - Precision: 0.759493670886076
+2025-01-13 15:17:49 - INFO - Recall: 0.38961038961038963
+2025-01-13 15:17:49 - INFO - Model evaluated successfully for subset 1.
+2025-01-13 15:17:49 - INFO - ------------------------------
+2025-01-13 15:17:49 - INFO - EVALUATE MODEL STAGE COMPLETED FOR SUBSET 1
+2025-01-13 15:17:49 - INFO - ------------------------------
+2025-01-13 15:17:49 - INFO - Subset 2 demographic makeup: 950 1, 26 3, 15 2, 9 4
+2025-01-13 15:17:49 - INFO - Processing subset 2...
+2025-01-13 15:17:49 - INFO - -----------------------------
+2025-01-13 15:17:49 - INFO - TRAIN MODEL STAGE STARTING FOR SUBSET 2...
+2025-01-13 15:17:49 - INFO - -----------------------------
+2025-01-13 15:17:49 - INFO - LogisticModel initialized successfully with Cs=[1.0].
+2025-01-13 15:17:49 - INFO - Starting feature selection using L1 regularization...
+2025-01-13 15:17:49 - INFO - Feature selection and model fitting completed successfully.
+2025-01-13 15:17:49 - INFO - Dynamic threshold set to: 0.524
+2025-01-13 15:17:49 - INFO - Model trained and saved successfully for subset 2.
+2025-01-13 15:17:49 - INFO - ---------------------------
+2025-01-13 15:17:49 - INFO - TRAIN MODEL STAGE COMPLETED FOR SUBSET 2
+2025-01-13 15:17:49 - INFO - ---------------------------
+2025-01-13 15:17:49 - INFO - --------------------------------
+2025-01-13 15:17:49 - INFO - EVALUATE MODEL STAGE STARTING FOR SUBSET 2...
+2025-01-13 15:17:49 - INFO - --------------------------------
+2025-01-13 15:17:49 - INFO - ROC AUC: 0.6153698120469561
+2025-01-13 15:17:49 - INFO - Confusion Matrix:
+[[63 56]
+ [51 80]]
+2025-01-13 15:17:49 - INFO - Precision: 0.5882352941176471
+2025-01-13 15:17:49 - INFO - Recall: 0.6106870229007634
+2025-01-13 15:17:49 - INFO - Model evaluated successfully for subset 2.
+2025-01-13 15:17:49 - INFO - ------------------------------
+2025-01-13 15:17:49 - INFO - EVALUATE MODEL STAGE COMPLETED FOR SUBSET 2
+2025-01-13 15:17:49 - INFO - ------------------------------
+2025-01-13 15:17:49 - INFO - Subset 3 demographic makeup: 900 1, 52 3, 29 2, 19 4
+2025-01-13 15:17:49 - INFO - Processing subset 3...
+2025-01-13 15:17:49 - INFO - -----------------------------
+2025-01-13 15:17:49 - INFO - TRAIN MODEL STAGE STARTING FOR SUBSET 3...
+2025-01-13 15:17:49 - INFO - -----------------------------
+2025-01-13 15:17:49 - INFO - LogisticModel initialized successfully with Cs=[1.0].
+2025-01-13 15:17:49 - INFO - Starting feature selection using L1 regularization...
+2025-01-13 15:17:49 - INFO - Feature selection and model fitting completed successfully.
+2025-01-13 15:17:49 - INFO - Dynamic threshold set to: 0.56
+2025-01-13 15:17:49 - INFO - Model trained and saved successfully for subset 3.
+2025-01-13 15:17:49 - INFO - ---------------------------
+2025-01-13 15:17:49 - INFO - TRAIN MODEL STAGE COMPLETED FOR SUBSET 3
+2025-01-13 15:17:49 - INFO - ---------------------------
+2025-01-13 15:17:49 - INFO - --------------------------------
+2025-01-13 15:17:49 - INFO - EVALUATE MODEL STAGE STARTING FOR SUBSET 3...
+2025-01-13 15:17:49 - INFO - --------------------------------
+2025-01-13 15:17:49 - INFO - ROC AUC: 0.6562987012987014
+2025-01-13 15:17:49 - INFO - Confusion Matrix:
+[[68 42]
+ [63 77]]
+2025-01-13 15:17:49 - INFO - Precision: 0.6470588235294118
+2025-01-13 15:17:49 - INFO - Recall: 0.55
+2025-01-13 15:17:49 - INFO - Model evaluated successfully for subset 3.
+2025-01-13 15:17:49 - INFO - ------------------------------
+2025-01-13 15:17:49 - INFO - EVALUATE MODEL STAGE COMPLETED FOR SUBSET 3
+2025-01-13 15:17:49 - INFO - ------------------------------
+2025-01-13 15:17:49 - INFO - Subset 4 demographic makeup: 850 1, 74 3, 42 2, 34 4
+2025-01-13 15:17:49 - INFO - Processing subset 4...
+2025-01-13 15:17:49 - INFO - -----------------------------
+2025-01-13 15:17:49 - INFO - TRAIN MODEL STAGE STARTING FOR SUBSET 4...
+2025-01-13 15:17:49 - INFO - -----------------------------
+2025-01-13 15:17:49 - INFO - LogisticModel initialized successfully with Cs=[1.0].
+2025-01-13 15:17:49 - INFO - Starting feature selection using L1 regularization...
+2025-01-13 15:17:49 - INFO - Feature selection and model fitting completed successfully.
+2025-01-13 15:17:49 - INFO - Dynamic threshold set to: 0.516
+2025-01-13 15:17:49 - INFO - Model trained and saved successfully for subset 4.
+2025-01-13 15:17:49 - INFO - ---------------------------
+2025-01-13 15:17:49 - INFO - TRAIN MODEL STAGE COMPLETED FOR SUBSET 4
+2025-01-13 15:17:49 - INFO - ---------------------------
+2025-01-13 15:17:49 - INFO - --------------------------------
+2025-01-13 15:17:49 - INFO - EVALUATE MODEL STAGE STARTING FOR SUBSET 4...
+2025-01-13 15:17:49 - INFO - --------------------------------
+2025-01-13 15:17:49 - INFO - ROC AUC: 0.6833877890960344
+2025-01-13 15:17:49 - INFO - Confusion Matrix:
+[[65 56]
+ [38 91]]
+2025-01-13 15:17:49 - INFO - Precision: 0.6190476190476191
+2025-01-13 15:17:49 - INFO - Recall: 0.7054263565891473
+2025-01-13 15:17:49 - INFO - Model evaluated successfully for subset 4.
+2025-01-13 15:17:49 - INFO - ------------------------------
+2025-01-13 15:17:49 - INFO - EVALUATE MODEL STAGE COMPLETED FOR SUBSET 4
+2025-01-13 15:17:49 - INFO - ------------------------------
+2025-01-13 15:17:49 - INFO - Subset 5 demographic makeup: 800 1, 97 3, 58 2, 45 4
+2025-01-13 15:17:49 - INFO - Processing subset 5...
+2025-01-13 15:17:49 - INFO - -----------------------------
+2025-01-13 15:17:49 - INFO - TRAIN MODEL STAGE STARTING FOR SUBSET 5...
+2025-01-13 15:17:49 - INFO - -----------------------------
+2025-01-13 15:17:49 - INFO - LogisticModel initialized successfully with Cs=[1.0].
+2025-01-13 15:17:49 - INFO - Starting feature selection using L1 regularization...
+2025-01-13 15:17:49 - INFO - Feature selection and model fitting completed successfully.
+2025-01-13 15:17:49 - INFO - Dynamic threshold set to: 0.496
+2025-01-13 15:17:49 - INFO - Model trained and saved successfully for subset 5.
+2025-01-13 15:17:49 - INFO - ---------------------------
+2025-01-13 15:17:49 - INFO - TRAIN MODEL STAGE COMPLETED FOR SUBSET 5
+2025-01-13 15:17:49 - INFO - ---------------------------
+2025-01-13 15:17:49 - INFO - --------------------------------
+2025-01-13 15:17:49 - INFO - EVALUATE MODEL STAGE STARTING FOR SUBSET 5...
+2025-01-13 15:17:49 - INFO - --------------------------------
+2025-01-13 15:17:49 - INFO - ROC AUC: 0.6829237071172555
+2025-01-13 15:17:49 - INFO - Confusion Matrix:
+[[77 49]
+ [48 76]]
+2025-01-13 15:17:49 - INFO - Precision: 0.608
+2025-01-13 15:17:49 - INFO - Recall: 0.6129032258064516
+2025-01-13 15:17:49 - INFO - Model evaluated successfully for subset 5.
+2025-01-13 15:17:49 - INFO - ------------------------------
+2025-01-13 15:17:49 - INFO - EVALUATE MODEL STAGE COMPLETED FOR SUBSET 5
+2025-01-13 15:17:49 - INFO - ------------------------------
+2025-01-13 15:17:49 - INFO - Subset 6 demographic makeup: 750 1, 132 3, 65 2, 53 4
+2025-01-13 15:17:49 - INFO - Processing subset 6...
+2025-01-13 15:17:49 - INFO - -----------------------------
+2025-01-13 15:17:49 - INFO - TRAIN MODEL STAGE STARTING FOR SUBSET 6...
+2025-01-13 15:17:49 - INFO - -----------------------------
+2025-01-13 15:17:49 - INFO - LogisticModel initialized successfully with Cs=[1.0].
+2025-01-13 15:17:49 - INFO - Starting feature selection using L1 regularization...
+2025-01-13 15:17:49 - INFO - Feature selection and model fitting completed successfully.
+2025-01-13 15:17:49 - INFO - Dynamic threshold set to: 0.508
+2025-01-13 15:17:49 - INFO - Model trained and saved successfully for subset 6.
+2025-01-13 15:17:49 - INFO - ---------------------------
+2025-01-13 15:17:49 - INFO - TRAIN MODEL STAGE COMPLETED FOR SUBSET 6
+2025-01-13 15:17:49 - INFO - ---------------------------
+2025-01-13 15:17:49 - INFO - --------------------------------
+2025-01-13 15:17:49 - INFO - EVALUATE MODEL STAGE STARTING FOR SUBSET 6...
+2025-01-13 15:17:49 - INFO - --------------------------------
+2025-01-13 15:17:49 - INFO - ROC AUC: 0.6979066641060111
+2025-01-13 15:17:49 - INFO - Confusion Matrix:
+[[76 47]
+ [48 79]]
+2025-01-13 15:17:49 - INFO - Precision: 0.626984126984127
+2025-01-13 15:17:49 - INFO - Recall: 0.6220472440944882
+2025-01-13 15:17:49 - INFO - Model evaluated successfully for subset 6.
+2025-01-13 15:17:49 - INFO - ------------------------------
+2025-01-13 15:17:49 - INFO - EVALUATE MODEL STAGE COMPLETED FOR SUBSET 6
+2025-01-13 15:17:49 - INFO - ------------------------------
+2025-01-13 15:17:49 - INFO - Subset 7 demographic makeup: 700 1, 159 3, 80 2, 61 4
+2025-01-13 15:17:49 - INFO - Processing subset 7...
+2025-01-13 15:17:49 - INFO - -----------------------------
+2025-01-13 15:17:49 - INFO - TRAIN MODEL STAGE STARTING FOR SUBSET 7...
+2025-01-13 15:17:49 - INFO - -----------------------------
+2025-01-13 15:17:49 - INFO - LogisticModel initialized successfully with Cs=[1.0].
+2025-01-13 15:17:49 - INFO - Starting feature selection using L1 regularization...
+2025-01-13 15:17:49 - INFO - Feature selection and model fitting completed successfully.
+2025-01-13 15:17:49 - INFO - Dynamic threshold set to: 0.52
+2025-01-13 15:17:49 - INFO - Model trained and saved successfully for subset 7.
+2025-01-13 15:17:49 - INFO - ---------------------------
+2025-01-13 15:17:49 - INFO - TRAIN MODEL STAGE COMPLETED FOR SUBSET 7
+2025-01-13 15:17:49 - INFO - ---------------------------
+2025-01-13 15:17:49 - INFO - --------------------------------
+2025-01-13 15:17:49 - INFO - EVALUATE MODEL STAGE STARTING FOR SUBSET 7...
+2025-01-13 15:17:49 - INFO - --------------------------------
+2025-01-13 15:17:49 - INFO - ROC AUC: 0.6495512820512821
+2025-01-13 15:17:49 - INFO - Confusion Matrix:
+[[72 48]
+ [52 78]]
+2025-01-13 15:17:49 - INFO - Precision: 0.6190476190476191
+2025-01-13 15:17:49 - INFO - Recall: 0.6
+2025-01-13 15:17:49 - INFO - Model evaluated successfully for subset 7.
+2025-01-13 15:17:49 - INFO - ------------------------------
+2025-01-13 15:17:49 - INFO - EVALUATE MODEL STAGE COMPLETED FOR SUBSET 7
+2025-01-13 15:17:49 - INFO - ------------------------------
+2025-01-13 15:17:49 - INFO - Subset 8 demographic makeup: 650 1, 179 3, 95 2, 76 4
+2025-01-13 15:17:49 - INFO - Processing subset 8...
+2025-01-13 15:17:49 - INFO - -----------------------------
+2025-01-13 15:17:49 - INFO - TRAIN MODEL STAGE STARTING FOR SUBSET 8...
+2025-01-13 15:17:49 - INFO - -----------------------------
+2025-01-13 15:17:49 - INFO - LogisticModel initialized successfully with Cs=[1.0].
+2025-01-13 15:17:49 - INFO - Starting feature selection using L1 regularization...
+2025-01-13 15:17:49 - INFO - Feature selection and model fitting completed successfully.
+2025-01-13 15:17:49 - INFO - Dynamic threshold set to: 0.508
+2025-01-13 15:17:49 - INFO - Model trained and saved successfully for subset 8.
+2025-01-13 15:17:49 - INFO - ---------------------------
+2025-01-13 15:17:49 - INFO - TRAIN MODEL STAGE COMPLETED FOR SUBSET 8
+2025-01-13 15:17:49 - INFO - ---------------------------
+2025-01-13 15:17:49 - INFO - --------------------------------
+2025-01-13 15:17:49 - INFO - EVALUATE MODEL STAGE STARTING FOR SUBSET 8...
+2025-01-13 15:17:49 - INFO - --------------------------------
+2025-01-13 15:17:49 - INFO - ROC AUC: 0.686191665066257
+2025-01-13 15:17:49 - INFO - Confusion Matrix:
+[[72 51]
+ [40 87]]
+2025-01-13 15:17:49 - INFO - Precision: 0.6304347826086957
+2025-01-13 15:17:49 - INFO - Recall: 0.6850393700787402
+2025-01-13 15:17:49 - INFO - Model evaluated successfully for subset 8.
+2025-01-13 15:17:49 - INFO - ------------------------------
+2025-01-13 15:17:49 - INFO - EVALUATE MODEL STAGE COMPLETED FOR SUBSET 8
+2025-01-13 15:17:49 - INFO - ------------------------------
+2025-01-13 15:17:49 - INFO - Subset 9 demographic makeup: 600 1, 203 3, 115 2, 82 4
+2025-01-13 15:17:49 - INFO - Processing subset 9...
+2025-01-13 15:17:49 - INFO - -----------------------------
+2025-01-13 15:17:49 - INFO - TRAIN MODEL STAGE STARTING FOR SUBSET 9...
+2025-01-13 15:17:49 - INFO - -----------------------------
+2025-01-13 15:17:49 - INFO - LogisticModel initialized successfully with Cs=[1.0].
+2025-01-13 15:17:49 - INFO - Starting feature selection using L1 regularization...
+2025-01-13 15:17:49 - INFO - Feature selection and model fitting completed successfully.
+2025-01-13 15:17:49 - INFO - Dynamic threshold set to: 0.504
+2025-01-13 15:17:49 - INFO - Model trained and saved successfully for subset 9.
+2025-01-13 15:17:49 - INFO - ---------------------------
+2025-01-13 15:17:49 - INFO - TRAIN MODEL STAGE COMPLETED FOR SUBSET 9
+2025-01-13 15:17:49 - INFO - ---------------------------
+2025-01-13 15:17:49 - INFO - --------------------------------
+2025-01-13 15:17:49 - INFO - EVALUATE MODEL STAGE STARTING FOR SUBSET 9...
+2025-01-13 15:17:49 - INFO - --------------------------------
+2025-01-13 15:17:49 - INFO - ROC AUC: 0.6833077316948284
+2025-01-13 15:17:49 - INFO - Confusion Matrix:
+[[75 49]
+ [43 83]]
+2025-01-13 15:17:49 - INFO - Precision: 0.6287878787878788
+2025-01-13 15:17:49 - INFO - Recall: 0.6587301587301587
+2025-01-13 15:17:49 - INFO - Model evaluated successfully for subset 9.
+2025-01-13 15:17:49 - INFO - ------------------------------
+2025-01-13 15:17:49 - INFO - EVALUATE MODEL STAGE COMPLETED FOR SUBSET 9
+2025-01-13 15:17:49 - INFO - ------------------------------
+2025-01-13 15:17:49 - INFO - Subset 10 demographic makeup: 550 1, 226 3, 131 2, 93 4
+2025-01-13 15:17:49 - INFO - Processing subset 10...
+2025-01-13 15:17:49 - INFO - -----------------------------
+2025-01-13 15:17:49 - INFO - TRAIN MODEL STAGE STARTING FOR SUBSET 10...
+2025-01-13 15:17:49 - INFO - -----------------------------
+2025-01-13 15:17:49 - INFO - LogisticModel initialized successfully with Cs=[1.0].
+2025-01-13 15:17:49 - INFO - Starting feature selection using L1 regularization...
+2025-01-13 15:17:50 - INFO - Feature selection and model fitting completed successfully.
+2025-01-13 15:17:50 - INFO - Dynamic threshold set to: 0.56
+2025-01-13 15:17:50 - INFO - Model trained and saved successfully for subset 10.
+2025-01-13 15:17:50 - INFO - ---------------------------
+2025-01-13 15:17:50 - INFO - TRAIN MODEL STAGE COMPLETED FOR SUBSET 10
+2025-01-13 15:17:50 - INFO - ---------------------------
+2025-01-13 15:17:50 - INFO - --------------------------------
+2025-01-13 15:17:50 - INFO - EVALUATE MODEL STAGE STARTING FOR SUBSET 10...
+2025-01-13 15:17:50 - INFO - --------------------------------
+2025-01-13 15:17:50 - INFO - ROC AUC: 0.6224675324675324
+2025-01-13 15:17:50 - INFO - Confusion Matrix:
+[[82 28]
+ [76 64]]
+2025-01-13 15:17:50 - INFO - Precision: 0.6956521739130435
+2025-01-13 15:17:50 - INFO - Recall: 0.45714285714285713
+2025-01-13 15:17:50 - INFO - Model evaluated successfully for subset 10.
+2025-01-13 15:17:50 - INFO - ------------------------------
+2025-01-13 15:17:50 - INFO - EVALUATE MODEL STAGE COMPLETED FOR SUBSET 10
+2025-01-13 15:17:50 - INFO - ------------------------------
+2025-01-13 15:17:50 - INFO - Subset 11 demographic makeup: 500 1, 248 3, 149 2, 103 4
+2025-01-13 15:17:50 - INFO - Processing subset 11...
+2025-01-13 15:17:50 - INFO - -----------------------------
+2025-01-13 15:17:50 - INFO - TRAIN MODEL STAGE STARTING FOR SUBSET 11...
+2025-01-13 15:17:50 - INFO - -----------------------------
+2025-01-13 15:17:50 - INFO - LogisticModel initialized successfully with Cs=[1.0].
+2025-01-13 15:17:50 - INFO - Starting feature selection using L1 regularization...
+2025-01-13 15:17:50 - INFO - Feature selection and model fitting completed successfully.
+2025-01-13 15:17:50 - INFO - Dynamic threshold set to: 0.516
+2025-01-13 15:17:50 - INFO - Model trained and saved successfully for subset 11.
+2025-01-13 15:17:50 - INFO - ---------------------------
+2025-01-13 15:17:50 - INFO - TRAIN MODEL STAGE COMPLETED FOR SUBSET 11
+2025-01-13 15:17:50 - INFO - ---------------------------
+2025-01-13 15:17:50 - INFO - --------------------------------
+2025-01-13 15:17:50 - INFO - EVALUATE MODEL STAGE STARTING FOR SUBSET 11...
+2025-01-13 15:17:50 - INFO - --------------------------------
+2025-01-13 15:17:50 - INFO - ROC AUC: 0.6254084182202575
+2025-01-13 15:17:50 - INFO - Confusion Matrix:
+[[71 50]
+ [54 75]]
+2025-01-13 15:17:50 - INFO - Precision: 0.6
+2025-01-13 15:17:50 - INFO - Recall: 0.5813953488372093
+2025-01-13 15:17:50 - INFO - Model evaluated successfully for subset 11.
+2025-01-13 15:17:50 - INFO - ------------------------------
+2025-01-13 15:17:50 - INFO - EVALUATE MODEL STAGE COMPLETED FOR SUBSET 11
+2025-01-13 15:17:50 - INFO - ------------------------------
+2025-01-13 15:17:50 - INFO - Model predictions saved to csv successfully.
+2025-01-13 15:17:50 - INFO - ------------------
+2025-01-13 15:17:50 - INFO - PIPELINE COMPLETED
+2025-01-13 15:17:50 - INFO - ------------------
+2025-01-13 15:17:50 - INFO - Embedded R ended.
+2025-01-13 15:17:50 - INFO - Embedded R already ended.
