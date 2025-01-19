@@ -3,22 +3,26 @@ import logging
 import numpy as np
 import csv
 import os
+import pandas as pd
 from datetime import datetime
 
 
-def train_and_evaluate_models(merged_subsets, seed, selected_outcome, directory):
-    # Set the random seed for reproducibility
-    np.random.seed(seed)
-    predictions = {}
+
+def train_and_evaluate_models(merged_subsets, selected_outcome, processed_data_heldout):
+    columns = pd.MultiIndex.from_product(
+        [["heldout", "subset"], ["predictions", "evaluations"]],
+        names=["Data Type", "Metric"]
+    )
+    results = pd.DataFrame(columns=columns)
 
     selectedModel = LogisticModel
     numOfSubsets = len(merged_subsets)
 
     for i, subset in enumerate(merged_subsets):
         # Log the demographic makeup of each subset
-        demographic_counts = subset['RaceEth'].value_counts().to_dict()
-        demographic_str = ", ".join([f"{v} {k}" for k, v in demographic_counts.items()])
-        logging.info(f"Subset {i + 1} demographic makeup: {demographic_str}")
+        #demographic_counts = subset['RaceEth'].value_counts().to_dict()
+        #demographicStrings.append[", ".join([f"{v} {k}" for k, v in demographic_counts.items()])]
+        #logging.info(f"Subset {i + 1} demographic makeup: {demographicStrings[-1]}")
         logging.info(f"Processing subset {i + 1}...")
 
         logging.info("-----------------------------")
@@ -38,48 +42,31 @@ def train_and_evaluate_models(merged_subsets, seed, selected_outcome, directory)
         logging.info(f"EVALUATE MODEL STAGE STARTING FOR SUBSET {i + 1}...")
         logging.info("--------------------------------")
         
-        try:
-            #Write result to dictionary of arrays
-            prediction = outcomeModel.evaluate()
-            for id, result in prediction:
-                if id not in predictions:
-                    predictions[id] = [None] * numOfSubsets
-                predictions[id][i] = result
+        #try:
+        #Write result to dictionary of arrays
 
-            logging.info(f"Model evaluated successfully for subset {i + 1}.")
-        except Exception as e:
-            logging.error(f"Error during model evaluation for subset {i + 1}: {e}")
-            return
+        results.loc[len(results)] = outcomeModel.evaluate(processed_data_heldout)
+
+        logging.info(f"Model evaluated successfully for subset {i + 1}.")
+        # except Exception as e:
+        #     logging.error(f"Error during model evaluation for subset {i + 1}: {e}")
+        #     return
 
         logging.info("------------------------------")
         logging.info(f"EVALUATE MODEL STAGE COMPLETED FOR SUBSET {i + 1}")
         logging.info("------------------------------")
-        
-    save_predictions_to_csv(predictions, seed, selected_outcome, directory)
+            
+        '''for id, result in subsetPredsAndResults["predictions"]:
+            if id not in subsetPredictions:
+                subsetPredictions[id] = [None] * numOfSubsets
+            subsetPredictions[id][i] = result
+        for id, result in heldOutPredsAndResults["predictions"]:
+            if id not in heldoutPredictions:
+                heldoutPredictions[id] = [None] * numOfSubsets
+            heldoutPredictions[id][i] = result
+    save_predictions_to_csv(predictions, seed, selected_outcome, directory, "predictions")
+    save_Test_predictions_to_csv(predictions, seed, selected_outcome, directory, testValues)'''
     logging.info(f"Model predictions saved to csv successfully.")
+
+    return results
     
-
-
-def save_predictions_to_csv(predictions, seed, selected_outcome, directory):
-    # Define the profiling log file path
-    directory = os.path.join(directory, "predictions")
-    if not os.path.exists(directory):
-        os.makedirs(directory)
-    
-    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    filename = os.path.join(directory, f"{selected_outcome}_{seed}_{timestamp}.csv")
-    
-    with open(filename, mode='w', newline='') as file:
-        writer = csv.writer(file)
-
-         # Write header
-        header = ['who'] + [f'Subset_{i+1}' for i in range(10)]
-        writer.writerow(header)
-        
-        # Write data rows
-        for id, trials_data in predictions.items():
-            writer.writerow([id] + trials_data)
-
-
-
-        

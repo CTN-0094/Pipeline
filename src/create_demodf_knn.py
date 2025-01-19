@@ -2,33 +2,65 @@ import pandas as pd
 from psmpy import PsmPy
 import rpy2.robjects as robjects
 from rpy2.robjects.packages import importr, PackageNotInstalledError
+from sklearn.model_selection import train_test_split
 import pandas as pd
 from rpy2.robjects.conversion import localconverter
 from rpy2.robjects import r, pandas2ri
 
+
+
 PRINT_SUMMARY = False
 
-def create_demographic_dfs(df, columnToSplit='RaceEth', majorityValue=1, idColumn = 'who', sampleSize=500, splits=11, columnsToMatch = ['age', 'is_female']):
-    
-    df['is_minority'] = (df[columnToSplit] != majorityValue).astype(int)
 
+
+#make comment for what values in matrix mean
+#control percentages of heldout data 58/42 majority/minority
+def holdOutTestData(df, testCount = 100, seed=42):
+    majority_count = 58
+    minority_count = 42
+
+    # Separate DataFrames
+    majority_heldout_df = df[df["RaceEth"] == 1]
+    minority_heldout_df = df[df["RaceEth"] != 1]
+
+    # Sample from each group
+    sample_majority_heldout = majority_heldout_df.sample(n=min(majority_count, len(majority_heldout_df)), random_state=seed)
+    sample_minority_heldout = minority_heldout_df.sample(n=min(minority_count, len(minority_heldout_df)), random_state=seed)
+
+    # Combine the samples
+    test_df = pd.concat([sample_majority_heldout, sample_minority_heldout]).reset_index(drop=True)
+    train_df = df.drop(test_df.index)
+    return train_df, test_df
+
+
+
+def propensityScoreMatch(df, columnToSplit='RaceEth', majorityValue=1, columnsToMatch = ['age', 'is_female'], sampleSize=500):
+    #Propensity Score Match data
+    df['is_minority'] = (df[columnToSplit] != majorityValue).astype(int)
     # Run propensity score matching
     matched_participants =  PropensityScoreMatchRMatchit(df, columnsToMatch, sampleSize)
+    column_dfs = [matched_participants[[col]].rename(columns={col: 'who'}) for col in matched_participants.columns]
+    matched_dfs = [pd.merge(col_df, df.drop(columns=['is_minority']), on='who', how='left') for col_df in column_dfs]
+    #print("TESTING: ", matched_dfs[0])
+    #matched_participants = pd.merge(matched_participants, df, on='who', how='left') 
+    return matched_dfs
 
+
+def create_subsets(dfs, splits=11, sampleSize=500):
+    
     #load all 3 groups (minority + majority + majority) at different ratios for each split
     subsets = [
-        pd.DataFrame(
-            list(matched_participants.iloc[:splitLen, 0]) + 
-            list(matched_participants.iloc[splitLen:, 1]) + 
-            list(matched_participants.iloc[:, 2]), 
-            columns=[idColumn]
+        pd.concat(
+            [dfs[0].iloc[:splitLen], dfs[1].iloc[splitLen:], dfs[2].iloc[:]], 
+            axis=0, 
+            ignore_index=True
         )
         
         for splitLen in range(0, sampleSize + 1, sampleSize // (splits-1))
     ]
 
     merged_subsets = [
-        pd.merge(demo_df, df, on='who', how='left') 
+        demo_df 
         for demo_df in subsets
     ]
 
@@ -44,6 +76,7 @@ def PropensityScoreMatchPsmPy(df, idColumn, columnsToMatch, sampleSize):
     psm.knn_matched_12n(matcher='propensity_logit', how_many=2)
     matched_participants = psm.matched_ids.sample(n=sampleSize)
     return matched_participants
+
 
 
 def PropensityScoreMatchRMatchit(df, columnsToMatch, sampleSize):

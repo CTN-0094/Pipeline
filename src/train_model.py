@@ -16,6 +16,7 @@ from sklearn.metrics import confusion_matrix, roc_auc_score, precision_score, re
 import statsmodels.api as sm  # For statistical models (like Negative Binomial)
 
 
+
 class OutcomeModel:
     """Base class for handling an outcome model."""
     def __init__(self, data: pd.DataFrame, target_column: str, seed: Optional[int] = None):
@@ -121,14 +122,10 @@ class LogisticModel(OutcomeModel):
             if not self.selected_features:
                 raise ValueError("No features were selected. Check your regularization strength.")
 
-            # Filter the training and test sets to only include the selected features
-            self.X_train = self.X_train[self.selected_features]
-            self.X_test = self.X_test[self.selected_features]
-
             # Train a new logistic regression model on the reduced feature set
             # Note: This logistic regression does not use L1 regularization but the selected features
             self.model = LogisticRegression(max_iter=10000, C=self.Cs[0])  
-            self.model.fit(self.X_train, self.y_train)  # Fit the final logistic regression model
+            self.model.fit(self.X_train[self.selected_features], self.y_train)  # Fit the final logistic regression model
 
             logging.info("Feature selection and model fitting completed successfully.")
 
@@ -153,39 +150,81 @@ class LogisticModel(OutcomeModel):
         self.feature_selection_and_model_fitting()
         self.find_best_threshold()
 
-    def evaluate(self) -> None:
-        """Evaluate the logistic model."""
+    def evaluateOverallTest(self) -> None:
+        """Evaluate the logistic model on overall held out test."""
         try:
-            if self.model is None:
-                raise NotFittedError("The model is not fitted. Call train() before evaluation.")
+            heldout_X = processed_data_heldout.drop([target_column, 'who'], axis=1, errors='ignore')  
+        
+            heldout_y = processed_data_heldout[target_column]
 
-            if self.X_test is None or self.X_test.empty:
-                raise ValueError("X_test is empty. Ensure the train-test split was successful.")
-
-            y_pred_proba = self.model.predict_proba(self.X_test)[:, 1]  
+            y_pred_proba = self.model.predict_proba(heldout_X[self.selected_features])[:, 1]  
             
             if y_pred_proba is None:
                 raise ValueError("y_pred_proba is None. This may be caused by a failed model prediction.")
             
             y_pred = (y_pred_proba >= self.best_threshold).astype(int)
 
-            roc_auc = roc_auc_score(self.y_test, y_pred_proba)
-            confusion = confusion_matrix(self.y_test, y_pred)
-            precision = precision_score(self.y_test, y_pred)
-            recall = recall_score(self.y_test, y_pred)
+            roc_auc = roc_auc_score(heldout_y, y_pred_proba)
+            confusion = confusion_matrix(heldout_y, y_pred)
+            precision = precision_score(heldout_y, y_pred)
+            recall = recall_score(heldout_y, y_pred)
 
-            logging.info(f"ROC AUC: {roc_auc}")
-            logging.info(f"Confusion Matrix:\n{confusion}")
-            logging.info(f"Precision: {precision}")
-            logging.info(f"Recall: {recall}")
-
-            # Use self.who_test to track 'who' for test set
-            return zip(self.who_test, y_pred_proba)  # Return the 'who' identifiers and prediction probabilities
+            predsAndResults = {
+                "predictions": zip(self.who_test, y_pred_proba),
+                "roc": roc_auc,
+                "confusion_matrix": confusion,
+                "precision": precision,
+                "recall": recall
+            }
+            return  predsAndResults  # Return the 'who' identifiers and prediction probabilities
 
         except Exception as e:
             logging.error(f"Error during model evaluation: {e}")
             raise
 
+
+
+    def evaluate(self, processed_data_heldout) -> None:
+        """Evaluate the logistic model."""
+        try:
+            if self.model is None: raise NotFittedError("The model is not fitted. Call train() before evaluation.")
+            if self.X_test is None or self.X_test.empty: raise ValueError("X_test is empty. Ensure the train-test split was successful.")
+
+            #Heldout Evaluation
+            heldout_X = processed_data_heldout.drop([self.target_column, 'who'], axis=1, errors='ignore')  
+            heldout_y = processed_data_heldout[self.target_column]
+            heldout_predictions, heldout_evaluations = self._evaluateOnValidation(heldout_X, heldout_y)
+
+            #Subset Evaluation
+            subset_predictions, subset_evaluations = self._evaluateOnValidation(self.X_test, self.y_test)
+            return heldout_predictions, heldout_evaluations, subset_predictions, subset_evaluations  # Return the 'who' identifiers and prediction probabilities
+
+        except Exception as e:
+            logging.error(f"Error during model evaluation: {e}")
+            raise
+
+    def _evaluateOnValidation(self, X, y):
+        y_pred_proba = self.model.predict_proba(X[self.selected_features])[:, 1]
+        if y_pred_proba is None: raise ValueError("y_pred_proba is None. This may be caused by a failed model prediction.")
+        y_pred = (y_pred_proba >= self.best_threshold).astype(int)
+
+        predictions = zip(self.who_test, y_pred_proba)
+        evaluations = {
+            "roc": roc_auc_score(y, y_pred_proba),
+            "confusion_matrix": confusion_matrix(y, y_pred),
+            "precision": precision_score(y, y_pred),
+            "recall": recall_score(y, y_pred),
+            "demographics": self._countDemographic(X)
+        }
+        return predictions, evaluations
+    
+
+    def _countDemographic(self, data):
+        
+        demographic_counts = data['RaceEth'].value_counts().to_dict()
+        dem_string = ", ".join([f"{v} {k}" for k, v in demographic_counts.items()])
+        logging.info(f"demographic makeup: {dem_string}")
+        return dem_string
 
 class NegativeBinomialModel(OutcomeModel):
     """Negative Binomial model implementation."""

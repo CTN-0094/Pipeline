@@ -12,6 +12,8 @@ import src.profiling as pf
 from src.silent_logging import add_silent_handler
 from src.logging_setup import setup_logging  # Import the logging setup from logging_setup.py
 import argparse
+import re
+import csv
 
 # Add the 'src' directory to the system path to allow imports from that directory
 sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
@@ -20,53 +22,39 @@ sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
 from utils import log_pipeline_completion, get_outcome_choice
 from data_loading import load_datasets
 from data_preprocessing import preprocess_merged_data
-from create_demodf_knn import create_demographic_dfs
+from create_demodf_knn import create_subsets, holdOutTestData, propensityScoreMatch
 from model_training import train_and_evaluate_models
 from logScraper import scrape_log_to_csv  # Import the log scraper function
 
-#LOG_DIR = "logs"  # Directory to store log files
+
+AVAILABLE_OUTCOMES = [
+        'ctn0094_relapse_event', 'Ab_krupitskyA_2011', 'Ab_ling_1998',
+        'Rs_johnson_1992', 'Rs_krupitsky_2004', 'Rd_kostenB_1993'
+    ]
 
 
-def run_pipeline(seed, selected_outcome, directory):
-    """Run the pipeline using a specific seed and selected outcome."""
-    # Set up logging and get the path to the log file
-    log_filepath = setup_logging(seed, selected_outcome, directory, quiet=False)
+def main():
+    seedRange, outcomes, directory, profile = argument_handler()
 
-    # Set the seed for reproducibility
-    random.seed(seed)
-    np.random.seed(seed)
+    #Process arguments
+    seed_list = list(range(min(seedRange), max(seedRange))) if seedRange is not None else [0]
+    outcomes = outcomes or [get_outcome_choice(AVAILABLE_OUTCOMES) if seedRange is None else AVAILABLE_OUTCOMES]
 
-    # Log the seed value for tracking
-    logging.info(f"Global Seed set to: {seed}")
+    # Loop through each seed and run the pipeline
+    for outcome in outcomes:
+        
+        #Initialize Pipeline
+        processed_data = initialize_pipeline(outcome)
 
-    # Log the selected outcome for reference
-    logging.info(f"Outcome Name: {selected_outcome}")
+        for seed in seed_list:
+            if profile == 'simple' or profile == None:
+                pf.simple_profile_pipeline(run_pipeline, seed, outcome, directory)
+            elif profile == 'complex':
+                pf.profile_pipeline(run_pipeline, seed, outcome, directory)
+            else:
+                run_pipeline(processed_data, seed, outcome, directory)
 
-    # Paths to the data files
-    master_path = 'data/master_data.csv'
-    outcomes_path = 'data/all_binary_selected_outcomes.csv'
-    
-    # Load the datasets
-    master_df, outcomes_df = load_datasets(master_path, outcomes_path)
-    
-    # Extract the outcome column from the outcomes dataframe and merge it with the master dataframe
-    outcome_column = outcomes_df[['who', selected_outcome]]
-    merged_df = pd.merge(master_df, outcome_column, on='who', how='inner')
-    
-    # Preprocess the merged data based on the selected outcome
-    processed_data = preprocess_merged_data(merged_df, selected_outcome)
-    
-    # Create and merge demographic subsets
-    merged_subsets = create_demographic_dfs(processed_data)
-    
-    # Train and evaluate the models using the merged subsets
-    train_and_evaluate_models(merged_subsets, seed, selected_outcome, directory)
-    
-    # Log the completion of the pipeline
-    log_pipeline_completion()
 
-    # Return the path to the log file for further processing
-    return log_filepath
 
 def argument_handler():
 
@@ -84,44 +72,148 @@ def argument_handler():
 
     return args.loop, args.outcome, args.dir, args.prof
 
-def main():
 
-    available_outcomes = [
-        'ctn0094_relapse_event', 'Ab_krupitskyA_2011', 'Ab_ling_1998',
-        'Rs_johnson_1992', 'Rs_krupitsky_2004', 'Rd_kostenB_1993'
-    ]
 
-    seedRange, outcomes, directory, profile = argument_handler()
+def initialize_pipeline(selected_outcome):
 
-    if seedRange is not None:
-        # Define a list of seeds to iterate over
-        seed_list = list(range(min(seedRange), max(seedRange)))
-    else:
-        seed_list = [0]
-        # Get the selected outcome from the user or another source
-        outcomes = [get_outcome_choice(available_outcomes)]
+    # Paths to the data files
+    #TODO: MAKE THIS DATA NOT HARD CODED!!!!!!!!!!!!!!!!!!!!!!
+    master_path = 'data/master_data.csv'
+    outcomes_path = 'data/all_binary_selected_outcomes.csv'
+    columnToSplitOn = "RaceEth"
+    
+    # Load the data with the outcome
+    demographic_df, outcomes_df = load_datasets(master_path, outcomes_path)
+    outcome_column = outcomes_df[['who', selected_outcome]]
+    merged_df = pd.merge(demographic_df, outcome_column, on='who', how='inner')
 
-    if outcomes == None:
-        outcomes = available_outcomes
+    # Preprocess the merged data based on the selected outcome
+    processed_data = preprocess_merged_data(merged_df, selected_outcome)
 
-    # Store the paths of the generated log files
-    log_filepaths = []
+    return processed_data
+    
 
-    # Loop through each seed and run the pipeline
-    for seed in seed_list:
-        for outcome in outcomes:
-            if profile == 'simple' or profile == None:
-                pf.simple_profile_pipeline(run_pipeline, seed, outcome, directory)
-            elif profile == 'complex':
-                pf.profile_pipeline(run_pipeline, seed, outcome, directory)
-            else:
-                log_filepath = run_pipeline(seed, outcome, directory)
-                log_filepaths.append(log_filepath)  # Store the log file path for later use
 
-    # Scrape the logs after all pipelines have been run
-    scrape_log_to_csv(log_filepaths, directory)
+def run_pipeline(processed_data, seed, selected_outcome, directory):
+
+    # Set the seed for reproducibility
+    random.seed(seed)
+    np.random.seed(seed)
+    logging.info(f"Global Seed set to: {seed}")
+
+    setup_logging(seed, selected_outcome, directory, quiet=False)
+
+    #Make demographic subsets
+    processed_data, processed_data_heldout = holdOutTestData(processed_data) #Move to saving to file, but also dont ovewrite current file if run again.
+
+    matched_dataframes = propensityScoreMatch(processed_data)
+
+    # Create and merge demographic subsets
+    merged_subsets = create_subsets(matched_dataframes)
+
+    # Train and evaluate the models using the merged subsets
+    results = train_and_evaluate_models(merged_subsets, selected_outcome, processed_data_heldout)
+    
+    save_predictions_to_csv(results.loc[:, ("subset", "predictions")], seed, selected_outcome, directory, 'subset_predictions')
+    save_predictions_to_csv(results.loc[:, ("heldout", "predictions")], seed, selected_outcome, directory, 'heldout_predictions')
+    save_evaluations_to_csv(results.loc[:, ("subset", "evaluations")], seed, selected_outcome, directory, 'subset_evaluations')
+    save_evaluations_to_csv(results.loc[:, ("heldout", "evaluations")], seed, selected_outcome, directory, 'heldout_evaluations')
+
+    # Log the completion of the pipeline
+    log_pipeline_completion()
+
+
+
+def save_evaluations_to_csv(results, seed, selected_outcome, directory, name):
+
+    directory = os.path.join(directory, name)
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    filename = os.path.join(directory, f"{selected_outcome}_{seed}_{timestamp}.csv")
+
+    with open(filename, mode='w', newline='') as file:
+        writer = csv.writer(file)
+
+         # Write header
+        writer.writerow([
+            'global_seed',
+            'Outcome Type',
+            'Outcome Name',
+            'Pre-processing script name',
+            'Model script name',
+            'Demog Comparison',
+            'Prop(Demog)',
+            'TP',
+            'TN',
+            'FP',
+            'FN',
+            'Accuracy',
+            'Precision',
+            'Recall',
+            'F1',
+            'ROC AUC Score'
+        ])
+        
+        # Write data rows
+        for id, trials_data in enumerate(results):
+            tp = trials_data['confusion_matrix'][0][0]
+            fn = trials_data['confusion_matrix'][1][0]
+            fp = trials_data['confusion_matrix'][0][1]
+            tn = trials_data['confusion_matrix'][1][1]
+            accuracy = (tp + tn) / (tp + tn + fp + fn)
+            f1 = 2 * (trials_data['precision'] * trials_data['recall']) / (trials_data['precision'] + trials_data['recall'])
+            writer.writerow([
+                seed, 
+                "Binary",
+                selected_outcome, 
+                "pipeline 1-2025",
+                "TBD",
+                "Race: non hispanic white vs minority",
+                trials_data['demographics'],
+                tp, 
+                fn, 
+                fp, 
+                tn, 
+                accuracy,
+                trials_data['precision'], 
+                trials_data['recall'], 
+                f1, 
+                trials_data['roc'], ])
+
+
+
+def save_predictions_to_csv(data, seed, selected_outcome, directory, name):
+
+    predictions = {}
+    for subsetNum, predictData in enumerate(data):
+        for id, predScore in list(predictData):
+            if id not in predictions:
+                predictions[id] = [None] * data.shape[0]
+            predictions[id][subsetNum] = predScore
+
+    # Define the profiling log file path
+    directory = os.path.join(directory, name)
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    filename = os.path.join(directory, f"{selected_outcome}_{seed}_{timestamp}.csv")
+    
+    with open(filename, mode='w', newline='') as file:
+        writer = csv.writer(file)
+
+         # Write header
+        header = ['who'] + [f'Subset_{i+1}' for i in range(10)]
+        writer.writerow(header)
+        
+        # Write data rows
+        for id, trials_data in predictions.items():
+            writer.writerow([id] + trials_data)
+
+
+
 
 if __name__ == "__main__":
     main()
-    #pf.profileAllOutcomes(run_pipeline)
     
