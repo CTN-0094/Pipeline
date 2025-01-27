@@ -38,11 +38,15 @@ def main():
 
     #Process arguments
     seed_list = list(range(min(seedRange), max(seedRange))) if seedRange is not None else [0]
-    outcomes = outcomes or [get_outcome_choice(AVAILABLE_OUTCOMES) if seedRange is None else AVAILABLE_OUTCOMES]
+    
+    if outcomes is None:
+        if(seedRange is None):
+            outcomes = [get_outcome_choice(AVAILABLE_OUTCOMES)]
+        else:
+            outcomes = AVAILABLE_OUTCOMES
 
     # Loop through each seed and run the pipeline
     for outcome in outcomes:
-        
         #Initialize Pipeline
         processed_data = initialize_pipeline(outcome)
 
@@ -84,6 +88,7 @@ def initialize_pipeline(selected_outcome):
     
     # Load the data with the outcome
     demographic_df, outcomes_df = load_datasets(master_path, outcomes_path)
+    
     outcome_column = outcomes_df[['who', selected_outcome]]
     merged_df = pd.merge(demographic_df, outcome_column, on='who', how='inner')
 
