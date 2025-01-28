@@ -1,3 +1,4 @@
+
 import sys
 import os
 import random
@@ -130,17 +131,30 @@ def run_pipeline(processed_data, seed, selected_outcome, directory):
 
 
 def save_evaluations_to_csv(results, seed, selected_outcome, directory, name):
+    """
+    Save the evaluation results to a CSV file, including training demographics.
 
+    Parameters:
+    - results: Evaluation results containing metrics and demographics.
+    - seed: The random seed used for the run.
+    - selected_outcome: The outcome being analyzed.
+    - directory: The directory where the CSV file should be saved.
+    - name: The name of the subfolder to save the file in.
+    """
+    # Ensure the directory exists
     directory = os.path.join(directory, name)
     if not os.path.exists(directory):
         os.makedirs(directory)
+
+    # Generate the filename
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     filename = os.path.join(directory, f"{selected_outcome}_{seed}_{timestamp}.csv")
 
+    # Open the file for writing
     with open(filename, mode='w', newline='') as file:
         writer = csv.writer(file)
 
-         # Write header
+        # Write the header with the new "Training Demographics" column
         writer.writerow([
             'global_seed',
             'Outcome Type',
@@ -149,6 +163,7 @@ def save_evaluations_to_csv(results, seed, selected_outcome, directory, name):
             'Model script name',
             'Demog Comparison',
             'Prop(Demog)',
+            'Training Demographics',  # New column
             'TP',
             'TN',
             'FP',
@@ -159,7 +174,7 @@ def save_evaluations_to_csv(results, seed, selected_outcome, directory, name):
             'F1',
             'ROC AUC Score'
         ])
-        
+
         # Write data rows
         for id, trials_data in enumerate(results):
             tp = trials_data['confusion_matrix'][0][0]
@@ -168,23 +183,29 @@ def save_evaluations_to_csv(results, seed, selected_outcome, directory, name):
             tn = trials_data['confusion_matrix'][1][1]
             accuracy = (tp + tn) / (tp + tn + fp + fn)
             f1 = 2 * (trials_data['precision'] * trials_data['recall']) / (trials_data['precision'] + trials_data['recall'])
+
+            # Fetch training demographics
+            training_demographics = trials_data['training_demographics']
+
             writer.writerow([
-                seed, 
+                seed,
                 "Binary",
-                selected_outcome, 
+                selected_outcome,
                 "pipeline 1-2025",
                 "TBD",
                 "Race: non hispanic white vs minority",
-                trials_data['demographics'],
-                tp, 
-                fn, 
-                fp, 
-                tn, 
+                trials_data['demographics'],  # Prop(Demog)
+                training_demographics,  # New column
+                tp,
+                fn,
+                fp,
+                tn,
                 accuracy,
-                trials_data['precision'], 
-                trials_data['recall'], 
-                f1, 
-                trials_data['roc'], ])
+                trials_data['precision'],
+                trials_data['recall'],
+                f1,
+                trials_data['roc']
+            ])
 
 
 

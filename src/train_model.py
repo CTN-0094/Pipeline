@@ -187,17 +187,26 @@ class LogisticModel(OutcomeModel):
     def evaluate(self, processed_data_heldout) -> None:
         """Evaluate the logistic model."""
         try:
-            if self.model is None: raise NotFittedError("The model is not fitted. Call train() before evaluation.")
-            if self.X_test is None or self.X_test.empty: raise ValueError("X_test is empty. Ensure the train-test split was successful.")
+            if self.model is None:
+                raise NotFittedError("The model is not fitted. Call train() before evaluation.")
+            if self.X_test is None or self.X_test.empty:
+                raise ValueError("X_test is empty. Ensure the train-test split was successful.")
 
-            #Heldout Evaluation
+            # Heldout Evaluation
             heldout_X = processed_data_heldout.drop([self.target_column, 'who'], axis=1, errors='ignore')  
             heldout_y = processed_data_heldout[self.target_column]
             heldout_predictions, heldout_evaluations = self._evaluateOnValidation(heldout_X, heldout_y)
 
-            #Subset Evaluation
+            # Subset Evaluation
             subset_predictions, subset_evaluations = self._evaluateOnValidation(self.X_test, self.y_test)
-            return heldout_predictions, heldout_evaluations, subset_predictions, subset_evaluations  # Return the 'who' identifiers and prediction probabilities
+
+            # Calculate and add training demographics *new*
+            training_demographics = self._countDemographic(self.X_train)
+            subset_evaluations["training_demographics"] = training_demographics
+            heldout_evaluations["training_demographics"] = training_demographics
+
+            # Return all evaluations, including training demographics
+            return heldout_predictions, heldout_evaluations, subset_predictions, subset_evaluations
 
         except Exception as e:
             logging.error(f"Error during model evaluation: {e}")
@@ -238,4 +247,4 @@ class NegativeBinomialModel(OutcomeModel):
 
     def predict(self):
         """Make predictions with the trained Negative Binomial model."""
-        return self.model.evaluate_model()
+        return self.model.evaluate_model() 
