@@ -45,16 +45,8 @@ def train_and_evaluate_models(merged_subsets, selected_outcome, processed_data_h
         #try:
         #Write result to dictionary of arrays
 
-        # Evaluate the model
-        heldout_predictions, heldout_evaluations, subset_predictions, subset_evaluations = outcomeModel.evaluate(processed_data_heldout)
+        results.loc[len(results)] = outcomeModel.evaluate(processed_data_heldout)
 
-        # Populate the results DataFrame
-        results.loc[len(results)] = {
-            ("heldout", "predictions"): heldout_predictions,
-            ("heldout", "evaluations"): heldout_evaluations,
-            ("subset", "predictions"): subset_predictions,
-            ("subset", "evaluations"): subset_evaluations,
-        }
         logging.info(f"Model evaluated successfully for subset {i + 1}.")
         # except Exception as e:
         #     logging.error(f"Error during model evaluation for subset {i + 1}: {e}")
