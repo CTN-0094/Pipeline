@@ -193,12 +193,13 @@ class LogisticModel(OutcomeModel):
                 raise ValueError("X_test is empty. Ensure the train-test split was successful.")
 
             # Heldout Evaluation
+            id = processed_data_heldout['who']
             heldout_X = processed_data_heldout.drop([self.target_column, 'who'], axis=1, errors='ignore')  
             heldout_y = processed_data_heldout[self.target_column]
-            heldout_predictions, heldout_evaluations = self._evaluateOnValidation(heldout_X, heldout_y)
+            heldout_predictions, heldout_evaluations = self._evaluateOnValidation(heldout_X, heldout_y, id)
 
             # Subset Evaluation
-            subset_predictions, subset_evaluations = self._evaluateOnValidation(self.X_test, self.y_test)
+            subset_predictions, subset_evaluations = self._evaluateOnValidation(self.X_test, self.y_test, self.who_test)
 
             # Calculate and add training demographics *new*
             training_demographics = self._countDemographic(self.X_train)
@@ -212,12 +213,12 @@ class LogisticModel(OutcomeModel):
             logging.error(f"Error during model evaluation: {e}")
             raise
 
-    def _evaluateOnValidation(self, X, y):
+    def _evaluateOnValidation(self, X, y, id):
         y_pred_proba = self.model.predict_proba(X[self.selected_features])[:, 1]
         if y_pred_proba is None: raise ValueError("y_pred_proba is None. This may be caused by a failed model prediction.")
         y_pred = (y_pred_proba >= self.best_threshold).astype(int)
 
-        predictions = zip(self.who_test, y_pred_proba)
+        predictions = zip(id, y_pred_proba)
         evaluations = {
             "roc": roc_auc_score(y, y_pred_proba),
             "confusion_matrix": confusion_matrix(y, y_pred),
