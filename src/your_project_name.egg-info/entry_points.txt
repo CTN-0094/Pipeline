@@ -1,0 +1,2 @@
+[console_scripts]
+run-pipeline-v2 = run_pipelineV2:main

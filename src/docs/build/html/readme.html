@@ -1,0 +1,234 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>README &mdash; DAB Pipeline 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b20cc3f5" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=551bf383" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=d45e8c67"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Data Overview" href="data.html" />
+    <link rel="prev" title="Getting Started with the CTN-0094 Pipeline (Beginner Tutorial)" href="quickstart.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            DAB Pipeline
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Getting Started with the CTN-0094 Pipeline (Beginner Tutorial)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html#understanding-the-pipeline-help-commands">Understanding the Pipeline Help Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html#what-happens-behind-the-scenes">What Happens Behind the Scenes</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">README</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#quick-start">Quick Start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-by-step-guide">Step-by-Step Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#step-0-master-dataset">Step 0: Master Dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-1-sampling">Step 1: Sampling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-2-data-pre-processing">Step 2: Data Pre-Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-3-join-dependent-variables">Step 3: Join Dependent Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-4-machine-learning-model-selection">Step 4: Machine Learning Model Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-5-model-evaluation">Step 5: Model Evaluation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-6-iterative-design-points">Step 6: Iterative Design Points</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#target-outcome-buckets">Target Outcome Buckets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#model-prioritization">Model Prioritization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#future-direction">Future Direction</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">Data Overview</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DAB Pipeline</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">README</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/readme.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="readme">
+<h1>README<a class="headerlink" href="#readme" title="Link to this heading"></a></h1>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Purpose</strong>: The purpose of this project is to establish a modular, scalable data pipeline for statistical modeling and machine learning on the CTN-0094 database. The pipeline will support various modeling strategies and evaluation metrics to deliver insights into the relationship between demographics and different target outcomes.</p></li>
+<li><p><strong>Team</strong>: This work is led by Prof. Laura Brandt (clinical arm) and Prof. Gabriel Odom (computational arm); Mr. Ganesh Jainarain is the primary data scientist and statistical programmer.</p></li>
+<li><p><strong>Funding</strong>: This work is towards the successful completion of <em>“Towards a framework for algorithmic bias and fairness in predicting treatment outcome for opioid use disorder”</em> (NIH AIM-AHEAD 1OT2OD032581-02-267) with contact PI Laura Brandt, City College of New York.</p></li>
+</ul>
+</section>
+<section id="quick-start">
+<h2>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading"></a></h2>
+<p>To see the list of arguments available, run:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="n">run_pipelineV2</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">help</span>
+</pre></div>
+</div>
+<p>Predictions, logs, and evaluations folders will be created in the directory specified by the <cite>-d</cite> flag. When running multiple tests, you can loop through a range of seeds using the <cite>-l</cite> flag. By default, all outcomes will be considered unless specified using the <cite>-o</cite> flag.</p>
+<p><strong>Example Usage</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="n">run_pipelineV2</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">d</span> <span class="s2">&quot;C:</span><span class="se">\\</span><span class="s2">Users</span><span class="se">\\</span><span class="s2">John</span><span class="se">\\</span><span class="s2">Desktop</span><span class="se">\\</span><span class="s2">Results&quot;</span> <span class="o">-</span><span class="n">l</span> <span class="mi">5</span> <span class="mi">10</span>
+</pre></div>
+</div>
+<p>This command loops through all integer seeds between 5 and 10 and saves the results in the specified directory.</p>
+</section>
+<section id="step-by-step-guide">
+<h2>Step-by-Step Guide<a class="headerlink" href="#step-by-step-guide" title="Link to this heading"></a></h2>
+<section id="step-0-master-dataset">
+<h3>Step 0: Master Dataset<a class="headerlink" href="#step-0-master-dataset" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Task</strong>: Maintain the “master” dataset created by joining tables from the CTN-0094 database.</p></li>
+<li><p><strong>Note</strong>: This dataset remains unchanged throughout the pipeline.</p></li>
+</ul>
+</section>
+<section id="step-1-sampling">
+<h3>Step 1: Sampling<a class="headerlink" href="#step-1-sampling" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Task</strong>: Generate a dataset of 1000 samples with a specified demographic distribution.</p></li>
+<li><p><strong>Methods</strong>:
+- Random sampling
+- Partial matching
+- Sophisticated matching (future implementation)</p></li>
+</ul>
+</section>
+<section id="step-2-data-pre-processing">
+<h3>Step 2: Data Pre-Processing<a class="headerlink" href="#step-2-data-pre-processing" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Task</strong>: Apply standard feature engineering and data preparation.</p></li>
+<li><p><strong>Note</strong>: The pre-processing script will likely remain stable.</p></li>
+</ul>
+</section>
+<section id="step-3-join-dependent-variables">
+<h3>Step 3: Join Dependent Variables<a class="headerlink" href="#step-3-join-dependent-variables" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Task</strong>: Merge a chosen target variable (dependent variable) with the processed independent variables.</p></li>
+<li><p><strong>Selection</strong>: Choose from 11 predefined target variables.</p></li>
+</ul>
+</section>
+<section id="step-4-machine-learning-model-selection">
+<h3>Step 4: Machine Learning Model Selection<a class="headerlink" href="#step-4-machine-learning-model-selection" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Task</strong>: Select an appropriate machine learning model and use it to predict target values.</p></li>
+</ul>
+</section>
+<section id="step-5-model-evaluation">
+<h3>Step 5: Model Evaluation<a class="headerlink" href="#step-5-model-evaluation" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Task</strong>: Evaluate model performance using the following metrics:
+- AUC
+- F1 score
+- RMSE
+- Fairness (currently undefined)</p></li>
+<li><p><strong>Output</strong>: Return a tuple containing demographic composition, target variable, machine learning model, and metrics.</p></li>
+</ul>
+</section>
+<section id="step-6-iterative-design-points">
+<h3>Step 6: Iterative Design Points<a class="headerlink" href="#step-6-iterative-design-points" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Task</strong>: Repeat Steps 1–5 across various design points.</p></li>
+</ul>
+</section>
+</section>
+<section id="target-outcome-buckets">
+<h2>Target Outcome Buckets<a class="headerlink" href="#target-outcome-buckets" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Binary</strong></p></li>
+<li><p><strong>Count (with a fixed max)</strong></p></li>
+<li><p><strong>Proportion</strong></p></li>
+</ol>
+</section>
+<section id="model-prioritization">
+<h2>Model Prioritization<a class="headerlink" href="#model-prioritization" title="Link to this heading"></a></h2>
+<p>The models will be implemented in the following order:</p>
+<ol class="arabic simple">
+<li><p><strong>Logistic LASSO (Binary Outcomes)</strong>
+- Port existing code into the pipeline.
+- Save the <cite>.job</cite> file trained on the full cohort.</p></li>
+<li><p><strong>Random Forests (All Outcomes)</strong></p></li>
+<li><p><strong>Negative Binomial Regression (Count Outcomes)</strong></p></li>
+<li><p><strong>Sigmoidal Regression (Proportion Outcomes)</strong></p></li>
+<li><p><strong>Beta Regression (Proportion Outcomes)</strong></p></li>
+</ol>
+</section>
+<section id="future-direction">
+<h2>Future Direction<a class="headerlink" href="#future-direction" title="Link to this heading"></a></h2>
+<p>The immediate goal is to develop a proof-of-concept pipeline using logistic LASSO, followed by an expansion to random forests. Additional models will be integrated as needed.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="quickstart.html" class="btn btn-neutral float-left" title="Getting Started with the CTN-0094 Pipeline (Beginner Tutorial)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="data.html" class="btn btn-neutral float-right" title="Data Overview" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Ganesh Jainarain, Aaron Marker.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

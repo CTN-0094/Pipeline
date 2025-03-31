@@ -1,0 +1,11 @@
+README.md
+pyproject.toml
+setup.py
+src/docs/source/conf.py
+src/your_project_name.egg-info/PKG-INFO
+src/your_project_name.egg-info/SOURCES.txt
+src/your_project_name.egg-info/dependency_links.txt
+src/your_project_name.egg-info/entry_points.txt
+src/your_project_name.egg-info/requires.txt
+src/your_project_name.egg-info/top_level.txt
+tests/test_pipeline.py

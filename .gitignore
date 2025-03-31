@@ -18,3 +18,4 @@ __pycache__/
 .DS_Store
 Thumbs.db
 test_venv/
+venv_2/

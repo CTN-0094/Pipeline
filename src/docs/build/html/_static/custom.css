@@ -1,0 +1,40 @@
+.wy-nav-content {
+    max-width: none !important;
+    max-height: none !important;
+    background-color: white;
+}
+/* Make sidebar TOC entries bold and larger */
+.wy-menu-vertical a {
+    font-weight: bold;
+    font-size: 1.25em;
+}
+
+/* Optionally increase section font size too */
+.rst-content .section {
+    font-size: 1.25em;
+}
+/* Increase base font size for everything */
+body,
+.rst-content,
+.wy-nav-content {
+    font-size: 20px; /* or 1.05em, 110%, etc. */
+    line-height: 1.6;
+}
+
+/* Sidebar font (optional, adjust as needed) */
+.wy-menu-vertical a {
+    font-size: 15px;
+}
+
+/* Code blocks */
+.rst-content code,
+.rst-content pre {
+    font-size: 15px;
+}
+
+/* Headings (optional for larger section titles) */
+.rst-content h1,
+.rst-content h2,
+.rst-content h3 {
+    font-size: 1.4em;
+}

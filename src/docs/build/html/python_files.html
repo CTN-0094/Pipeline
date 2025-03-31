@@ -1,0 +1,551 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Python Modules &mdash; DAB Pipeline 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b20cc3f5" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=551bf383" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=d45e8c67"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            DAB Pipeline
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Getting Started with the CTN-0094 Pipeline (Beginner Tutorial)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html#understanding-the-pipeline-help-commands">Understanding the Pipeline Help Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html#what-happens-behind-the-scenes">What Happens Behind the Scenes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="readme.html">README</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">Data Overview</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DAB Pipeline</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Python Modules</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/python_files.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="python-modules">
+<h1>Python Modules<a class="headerlink" href="#python-modules" title="Link to this heading"></a></h1>
+<hr class="docutils" />
+<section id="train-model-py">
+<h2>train_model.py<a class="headerlink" href="#train-model-py" title="Link to this heading"></a></h2>
+<p>This module defines classes for training models on various types of outcomes (binary and count-based) using logistic regression and negative binomial regression. These classes are integrated into the pipeline for training and evaluation.</p>
+<section id="outcomemodel">
+<h3>OutcomeModel<a class="headerlink" href="#outcomemodel" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="OutcomeModel">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">OutcomeModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OutcomeModel" title="Link to this definition"></a></dt>
+<dd><p>Base class for modeling an outcome from a dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>pandas.DataFrame</em>) – The input dataset.</p></li>
+<li><p><strong>target_column</strong> (<em>str</em>) – The name of the column to predict.</p></li>
+<li><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em>) – Random seed for reproducibility.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="OutcomeModel.train">
+<span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#OutcomeModel.train" title="Link to this definition"></a></dt>
+<dd><p>Placeholder method to train a model.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="OutcomeModel.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#OutcomeModel.evaluate" title="Link to this definition"></a></dt>
+<dd><p>Placeholder method to evaluate a model.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="logisticmodel">
+<h3>LogisticModel<a class="headerlink" href="#logisticmodel" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="LogisticModel">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">LogisticModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Cs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[1.0]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#LogisticModel" title="Link to this definition"></a></dt>
+<dd><p>Logistic regression model with L1 regularization for feature selection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>pandas.DataFrame</em>) – The input dataset.</p></li>
+<li><p><strong>target_column</strong> (<em>str</em>) – The name of the target column.</p></li>
+<li><p><strong>Cs</strong> (<em>list</em>) – List of inverse regularization strengths.</p></li>
+<li><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em>) – Random seed.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="LogisticModel.feature_selection_and_model_fitting">
+<span class="sig-name descname"><span class="pre">feature_selection_and_model_fitting</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#LogisticModel.feature_selection_and_model_fitting" title="Link to this definition"></a></dt>
+<dd><p>Perform feature selection using L1 regularization and fit logistic regression model.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="LogisticModel.find_best_threshold">
+<span class="sig-name descname"><span class="pre">find_best_threshold</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#LogisticModel.find_best_threshold" title="Link to this definition"></a></dt>
+<dd><p>Determine the optimal classification threshold based on the proportion of positive outcomes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="LogisticModel.train">
+<span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#LogisticModel.train" title="Link to this definition"></a></dt>
+<dd><p>Train the logistic regression model.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="LogisticModel.evaluateOverallTest">
+<span class="sig-name descname"><span class="pre">evaluateOverallTest</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#LogisticModel.evaluateOverallTest" title="Link to this definition"></a></dt>
+<dd><p>Evaluate the model on the overall test set.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="LogisticModel.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#LogisticModel.evaluate" title="Link to this definition"></a></dt>
+<dd><p>Evaluate the logistic model using chosen performance metrics.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="LogisticModel._evaluateOnValidation">
+<span class="sig-name descname"><span class="pre">_evaluateOnValidation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#LogisticModel._evaluateOnValidation" title="Link to this definition"></a></dt>
+<dd><p>Internal method to evaluate performance on a validation split.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="LogisticModel._countDemographic">
+<span class="sig-name descname"><span class="pre">_countDemographic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#LogisticModel._countDemographic" title="Link to this definition"></a></dt>
+<dd><p>Count demographic group membership for fairness evaluation.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="negativebinomialmodel">
+<h3>NegativeBinomialModel<a class="headerlink" href="#negativebinomialmodel" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="NegativeBinomialModel">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">NegativeBinomialModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#NegativeBinomialModel" title="Link to this definition"></a></dt>
+<dd><p>Negative Binomial model for count-based outcomes using statsmodels.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="NegativeBinomialModel.train">
+<span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NegativeBinomialModel.train" title="Link to this definition"></a></dt>
+<dd><p>Train a Negative Binomial regression model using statsmodels.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="NegativeBinomialModel.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NegativeBinomialModel.predict" title="Link to this definition"></a></dt>
+<dd><p>Make predictions using the trained Negative Binomial model.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+<hr class="docutils" />
+<section id="create-demodf-knn-py">
+<h2>create_demodf_knn.py<a class="headerlink" href="#create-demodf-knn-py" title="Link to this heading"></a></h2>
+<p>This module provides tools for creating balanced demographic datasets using propensity score matching and data splitting techniques. It supports both Python-based (PsmPy) and R-based (MatchIt) methods for matching.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="holdOutTestData">
+<span class="sig-name descname"><span class="pre">holdOutTestData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">testCount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">42</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#holdOutTestData" title="Link to this definition"></a></dt>
+<dd><p>Hold out test data by sampling a fixed number of majority and minority cases.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pandas.DataFrame</em>) – Full dataset.</p></li>
+<li><p><strong>testCount</strong> (<em>int</em>) – Total number of test samples.</p></li>
+<li><p><strong>seed</strong> (<em>int</em>) – Random seed.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Combined test set with both majority and minority samples.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="propensityScoreMatch">
+<span class="sig-name descname"><span class="pre">propensityScoreMatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#propensityScoreMatch" title="Link to this definition"></a></dt>
+<dd><p>Perform a simple train/test split for race-ethnicity classification.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pandas.DataFrame</em>) – Full dataset.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tuple of train and test sets.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[pandas.DataFrame, pandas.DataFrame]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="create_subsets">
+<span class="sig-name descname"><span class="pre">create_subsets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">demographic_col</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'RaceEth'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#create_subsets" title="Link to this definition"></a></dt>
+<dd><p>Split dataset into majority and minority subsets based on a demographic column.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pandas.DataFrame</em>) – Full dataset.</p></li>
+<li><p><strong>demographic_col</strong> (<em>str</em>) – Column used for splitting groups.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tuple of (majority_df, minority_df)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[pandas.DataFrame, pandas.DataFrame]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PropensityScoreMatchPsmPy">
+<span class="sig-name descname"><span class="pre">PropensityScoreMatchPsmPy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PropensityScoreMatchPsmPy" title="Link to this definition"></a></dt>
+<dd><p>Apply Propensity Score Matching using the PsmPy library.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pandas.DataFrame</em>) – Full dataset.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Matched dataset.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PropensityScoreMatchRMatchit">
+<span class="sig-name descname"><span class="pre">PropensityScoreMatchRMatchit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PropensityScoreMatchRMatchit" title="Link to this definition"></a></dt>
+<dd><p>Apply Propensity Score Matching using the R MatchIt package via rpy2.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pandas.DataFrame</em>) – Full dataset.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Matched dataset using R’s MatchIt.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<hr class="docutils" />
+<section id="preprocess-py">
+<h2>preprocess.py<a class="headerlink" href="#preprocess-py" title="Link to this heading"></a></h2>
+<p>This module includes a <cite>DataPreprocessor</cite> class and various helper functions for transforming, cleaning, and preparing clinical and behavioral data for analysis.</p>
+<section id="datapreprocessor">
+<h3>DataPreprocessor<a class="headerlink" href="#datapreprocessor" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="DataPreprocessor">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DataPreprocessor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataframe</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataPreprocessor" title="Link to this definition"></a></dt>
+<dd><p>A class to preprocess pandas DataFrames by handling column drops and validation checks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dataframe</strong> (<em>pandas.DataFrame</em>) – The pandas DataFrame to preprocess.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="DataPreprocessor.drop_columns_and_return">
+<span class="sig-name descname"><span class="pre">drop_columns_and_return</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">columns_to_drop</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DataPreprocessor.drop_columns_and_return" title="Link to this definition"></a></dt>
+<dd><p>Drops specified columns from the DataFrame and returns the modified DataFrame.
+Logs both successful drops and invalid column names.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>columns_to_drop</strong> (<em>list</em><em> of </em><em>str</em>) – List of column names to drop.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Modified DataFrame.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="convert_yes_no_to_binary">
+<span class="sig-name descname"><span class="pre">convert_yes_no_to_binary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#convert_yes_no_to_binary" title="Link to this definition"></a></dt>
+<dd><p>Convert ‘Yes’/’No’ categorical values to 1/0 binary in specified columns.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> – Input DataFrame.</p></li>
+<li><p><strong>columns</strong> – List of column names to convert.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Updated DataFrame.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="process_tlfb_columns">
+<span class="sig-name descname"><span class="pre">process_tlfb_columns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#process_tlfb_columns" title="Link to this definition"></a></dt>
+<dd><p>Normalize TLFB (Timeline Follow-Back) columns using binary encoding.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df</strong> – Input DataFrame.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Updated DataFrame.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="calculate_behavioral_columns">
+<span class="sig-name descname"><span class="pre">calculate_behavioral_columns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calculate_behavioral_columns" title="Link to this definition"></a></dt>
+<dd><p>Generate and normalize behavioral columns like opioid use frequency.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df</strong> – Input DataFrame.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Updated DataFrame.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="move_column_to_end">
+<span class="sig-name descname"><span class="pre">move_column_to_end</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#move_column_to_end" title="Link to this definition"></a></dt>
+<dd><p>Move the specified column to the end of the DataFrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> – Input DataFrame.</p></li>
+<li><p><strong>column_name</strong> – Name of the column to move.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Updated DataFrame.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rename_columns">
+<span class="sig-name descname"><span class="pre">rename_columns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rename_dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rename_columns" title="Link to this definition"></a></dt>
+<dd><p>Rename columns in the DataFrame using a provided mapping.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> – Input DataFrame.</p></li>
+<li><p><strong>rename_dict</strong> – Dictionary of old-to-new column names.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Updated DataFrame.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="transform_nan_to_zero_for_binary_columns">
+<span class="sig-name descname"><span class="pre">transform_nan_to_zero_for_binary_columns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#transform_nan_to_zero_for_binary_columns" title="Link to this definition"></a></dt>
+<dd><p>Replace NaN values with 0 in binary columns.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> – Input DataFrame.</p></li>
+<li><p><strong>columns</strong> – List of column names.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Updated DataFrame.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="transform_and_rename_column">
+<span class="sig-name descname"><span class="pre">transform_and_rename_column</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">original_col</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_col</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#transform_and_rename_column" title="Link to this definition"></a></dt>
+<dd><p>Rename a column and fill missing values with 0.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> – Input DataFrame.</p></li>
+<li><p><strong>original_col</strong> – Original column name.</p></li>
+<li><p><strong>new_col</strong> – New column name.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Updated DataFrame.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fill_nan_with_zero">
+<span class="sig-name descname"><span class="pre">fill_nan_with_zero</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fill_nan_with_zero" title="Link to this definition"></a></dt>
+<dd><p>Fill NaNs with 0 for specified columns.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> – Input DataFrame.</p></li>
+<li><p><strong>columns</strong> – List of column names.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Updated DataFrame.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="transform_data_with_nan_handling">
+<span class="sig-name descname"><span class="pre">transform_data_with_nan_handling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#transform_data_with_nan_handling" title="Link to this definition"></a></dt>
+<dd><p>Replace NaNs with 0 and standardize column values to 1.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> – Input DataFrame.</p></li>
+<li><p><strong>columns</strong> – List of column names.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Updated DataFrame.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="convert_uds_to_binary">
+<span class="sig-name descname"><span class="pre">convert_uds_to_binary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#convert_uds_to_binary" title="Link to this definition"></a></dt>
+<dd><p>Convert Urine Drug Screen (UDS) result columns from text to binary values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df</strong> – Input DataFrame.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Updated DataFrame.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<hr class="docutils" />
+<section id="preprocess-pipeline-py">
+<h2>preprocess_pipeline.py<a class="headerlink" href="#preprocess-pipeline-py" title="Link to this heading"></a></h2>
+<p>This module provides a single entry point for preprocessing data within the modeling pipeline.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="preprocess_data">
+<span class="sig-name descname"><span class="pre">preprocess_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#preprocess_data" title="Link to this definition"></a></dt>
+<dd><p>Preprocesses a dataset by cleaning, transforming, and formatting features for modeling.</p>
+<p>This function performs operations such as:
+- Dropping irrelevant or highly sparse columns
+- Converting categorical values to binary
+- Normalizing behavioral features
+- Handling missing values
+- Renaming columns for consistency
+- Converting drug test results to binary format</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pandas.DataFrame</em>) – The raw input DataFrame from the master dataset.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Preprocessed DataFrame ready for modeling.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Ganesh Jainarain, Aaron Marker.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
