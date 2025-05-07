@@ -65,8 +65,9 @@ def preprocess_data(subset, selected_outcome):
         logging.error(f"Error calculating behavioral columns: {e}")
 
     # Move the selected outcome column to the end of the DataFrame
+    preprocessor.move_column_to_end(selected_outcome)
     try:
-        preprocessor.move_column_to_end(selected_outcome)
+        
         logging.info(f"Moved '{selected_outcome}' column to the end.")
     except Exception as e:
         logging.error(f"Error moving '{selected_outcome}' column to the end: {e}")

@@ -159,7 +159,7 @@ class DataPreprocessor:
         # print(preprocessor.dataframe.head())
 
 
-    def move_column_to_end(self, column_name):
+    def move_column_to_end(self, column_names):
         """
         Moves a specified column to the end of the DataFrame, if the column exists.
 
@@ -167,19 +167,17 @@ class DataPreprocessor:
         - column_name: The name of the column to move to the end of the DataFrame.
         """
         # Check if the specified column is in the DataFrame
-        if column_name in self.dataframe.columns:
-            # Get a list of all columns excluding the specified column
-            columns_except_target = [col for col in self.dataframe.columns if col != column_name]
-            
-            # Add the specified column to the end of the list
-            reordered_columns = columns_except_target + [column_name]
-            
-            # Reorder the DataFrame according to the new columns order
-            self.dataframe = self.dataframe[reordered_columns]
-            
-        else:
-            # Optionally, you can print a message if the column is not found
-            print(f"Column '{column_name}' not found in the DataFrame.")
+        # Ensure the columns to move exist in the DataFrame
+        valid_columns = [col for col in column_names if col in self.dataframe.columns]
+        
+        # Get all columns except the ones to move
+        columns_except_target = [col for col in self.dataframe.columns if col not in valid_columns]
+        
+        # Combine the remaining columns with the columns to move at the end
+        reordered_columns = columns_except_target + valid_columns
+        
+        # Reorder the DataFrame
+        self.dataframe = self.dataframe[reordered_columns]
 
         # '''Example usage:'''
         # # Assuming transformed_df is your DataFrame loaded into a pandas DataFrame

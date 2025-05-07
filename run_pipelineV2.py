@@ -1,4 +1,3 @@
-
 import sys
 import os
 import random
@@ -7,6 +6,7 @@ import pandas as pd
 import cProfile
 import pstats
 from datetime import datetime
+from src.constants import EndpointType
 import logging
 import io
 import src.profiling as pf
@@ -26,12 +26,53 @@ from data_preprocessing import preprocess_merged_data
 from create_demodf_knn import create_subsets, holdOutTestData, propensityScoreMatch
 from model_training import train_and_evaluate_models
 from logScraper import scrape_log_to_csv  # Import the log scraper function
+from enum import Enum
+
 
 
 AVAILABLE_OUTCOMES = [
-        'ctn0094_relapse_event', 'Ab_krupitskyA_2011', 'Ab_ling_1998',
-        'Rs_johnson_1992', 'Rs_krupitsky_2004', 'Rd_kostenB_1993'
-    ]
+    {
+        'name': 'ctn0094_relapse_event',
+        'columnsToUse': ['ctn0094_relapse_event'],
+        'endpointType': EndpointType.LOGICAL
+    },
+    {
+        'name': 'Ab_krupitskyA_2011',
+        'columnsToUse': ['Ab_krupitskyA_2011'],
+        'endpointType': EndpointType.LOGICAL
+    },
+    {
+        'name': 'Ab_ling_1998',
+        'columnsToUse': ['Ab_ling_1998'],
+        'endpointType': EndpointType.LOGICAL
+    },
+    {
+        'name': 'Rs_johnson_1992',
+        'columnsToUse': ['Rs_johnson_1992'],
+        'endpointType': EndpointType.LOGICAL
+    },
+    {
+        'name': 'Rs_krupitsky_2004',
+        'columnsToUse': ['Rs_krupitsky_2004'],
+        'endpointType': EndpointType.LOGICAL
+    },
+    {
+        'name': 'Rd_kostenB_1993',
+        'columnsToUse': ['Rd_kostenB_1993'],
+        'endpointType': EndpointType.LOGICAL
+    },
+    {
+        'name': 'Ab_schottenfeldB_2008',
+        'columnsToUse': ['Ab_schottenfeldB_2008'],
+        'endpointType': EndpointType.INTEGER
+    },
+    {
+        'name': 'Ab_mokri_2016',
+        'columnsToUse': ['AbT_mokri_2016', 'AbE_mokri_2016'],
+        'endpointType': EndpointType.SURVIVAL
+    }
+]
+
 
 
 def main():
@@ -84,17 +125,20 @@ def initialize_pipeline(selected_outcome):
     # Paths to the data files
     #TODO: MAKE THIS DATA NOT HARD CODED!!!!!!!!!!!!!!!!!!!!!!
     master_path = 'data/master_data.csv'
-    outcomes_path = 'data/all_binary_selected_outcomes.csv'
+    outcomes_path = ['data/outcomesCTN0094.csv', 'data/all_binary_selected_outcomes.csv']
     columnToSplitOn = "RaceEth"
+    columnToDrop= "is_hispanic"
     
     # Load the data with the outcome
     demographic_df, outcomes_df = load_datasets(master_path, outcomes_path)
+    outcome_column = outcomes_df[['who'] + selected_outcome['columnsToUse']]
     
-    outcome_column = outcomes_df[['who', selected_outcome]]
     merged_df = pd.merge(demographic_df, outcome_column, on='who', how='inner')
 
     # Preprocess the merged data based on the selected outcome
-    processed_data = preprocess_merged_data(merged_df, selected_outcome)
+    processed_data = preprocess_merged_data(merged_df, selected_outcome['columnsToUse'])
+
+    processed_data = processed_data.drop(columnToDrop, axis=1)
 
     return processed_data
     
@@ -107,7 +151,7 @@ def run_pipeline(processed_data, seed, selected_outcome, directory):
     np.random.seed(seed)
     logging.info(f"Global Seed set to: {seed}")
 
-    setup_logging(seed, selected_outcome, directory, quiet=False)
+    setup_logging(seed, selected_outcome['name'], directory, quiet=False)
 
     #Make demographic subsets
     processed_data, processed_data_heldout = holdOutTestData(processed_data) #Move to saving to file, but also dont ovewrite current file if run again.
@@ -141,6 +185,7 @@ def save_evaluations_to_csv(results, seed, selected_outcome, directory, name):
     - directory: The directory where the CSV file should be saved.
     - name: The name of the subfolder to save the file in.
     """
+    
     # Ensure the directory exists
     directory = os.path.join(directory, name)
     if not os.path.exists(directory):
@@ -148,14 +193,13 @@ def save_evaluations_to_csv(results, seed, selected_outcome, directory, name):
 
     # Generate the filename
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    filename = os.path.join(directory, f"{selected_outcome}_{seed}_{timestamp}.csv")
+    filename = os.path.join(directory, f"{selected_outcome['name']}_{seed}_{timestamp}.csv")
 
     # Open the file for writing
     with open(filename, mode='w', newline='') as file:
         writer = csv.writer(file)
 
-        # Write the header with the new "Training Demographics" column
-        writer.writerow([
+        headers = [
             'global_seed',
             'Outcome Type',
             'Outcome Name',
@@ -163,49 +207,84 @@ def save_evaluations_to_csv(results, seed, selected_outcome, directory, name):
             'Model script name',
             'Demog Comparison',
             'Prop(Demog)',
-            'Training Demographics',  # New column
-            'TP',
-            'TN',
-            'FP',
-            'FN',
-            'Accuracy',
-            'Precision',
-            'Recall',
-            'F1',
-            'ROC AUC Score'
-        ])
+            'Training Demographics'  # New column
+        ]
+
+        if selected_outcome['endpointType'] == EndpointType.LOGICAL:
+            # Write the header with the new "Training Demographics" column
+            writer.writerow(headers + [
+                'TP',
+                'TN',
+                'FP',
+                'FN',
+                'Accuracy',
+                'Precision',
+                'Recall',
+                'F1',
+                'ROC AUC Score'
+            ])
+        elif selected_outcome['endpointType'] == EndpointType.INTEGER:
+            writer.writerow(headers + [
+                'MSE',
+                'RMSE',
+                'MAE',
+                'pseudo_r2',
+                'mcfadden_r2'
+            ])
+        elif selected_outcome['endpointType'] == EndpointType.SURVIVAL:
+            writer.writerow(headers + [
+                'C_Index'
+            ])
 
         # Write data rows
         for id, trials_data in enumerate(results):
-            tp = trials_data['confusion_matrix'][0][0]
-            fn = trials_data['confusion_matrix'][1][0]
-            fp = trials_data['confusion_matrix'][0][1]
-            tn = trials_data['confusion_matrix'][1][1]
-            accuracy = (tp + tn) / (tp + tn + fp + fn)
-            f1 = 2 * (trials_data['precision'] * trials_data['recall']) / (trials_data['precision'] + trials_data['recall'])
 
             # Fetch training demographics
             training_demographics = trials_data['training_demographics']
 
-            writer.writerow([
+            sections = [
                 seed,
-                "Binary",
-                selected_outcome,
+                selected_outcome['endpointType'],
+                selected_outcome['name'],
                 "pipeline 1-2025",
                 "TBD",
                 "Race: non hispanic white vs minority",
                 trials_data['demographics'],  # Prop(Demog)
-                training_demographics,  # New column
-                tp,
-                fn,
-                fp,
-                tn,
-                accuracy,
-                trials_data['precision'],
-                trials_data['recall'],
-                f1,
-                trials_data['roc']
-            ])
+                training_demographics  # New column
+            ]
+
+            if selected_outcome['endpointType'] == EndpointType.LOGICAL:
+                tp = trials_data['confusion_matrix'][0][0]
+                fn = trials_data['confusion_matrix'][1][0]
+                fp = trials_data['confusion_matrix'][0][1]
+                tn = trials_data['confusion_matrix'][1][1]
+                accuracy = (tp + tn) / (tp + tn + fp + fn)
+                f1 = 2 * (trials_data['precision'] * trials_data['recall']) / (trials_data['precision'] + trials_data['recall'])
+
+                writer.writerow(sections + [
+                    tp,
+                    fn,
+                    fp,
+                    tn,
+                    accuracy,
+                    trials_data['precision'],
+                    trials_data['recall'],
+                    f1,
+                    trials_data['roc']
+                ])
+            elif selected_outcome['endpointType'] == EndpointType.INTEGER:
+                writer.writerow(sections + [
+                    trials_data['mse'],
+                    trials_data['rmse'],
+                    trials_data['mae'],
+                    trials_data['pseudo_r2'],
+                    trials_data['mcfadden_r2']
+                ])
+            elif selected_outcome['endpointType'] == EndpointType.SURVIVAL:
+                print("AARON DEBUG INSIDE")
+                writer.writerow(sections + [
+                    trials_data['concordance_index']
+                ])
 
 
 
@@ -224,7 +303,7 @@ def save_predictions_to_csv(data, seed, selected_outcome, directory, name):
         os.makedirs(directory)
     
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    filename = os.path.join(directory, f"{selected_outcome}_{seed}_{timestamp}.csv")
+    filename = os.path.join(directory, f"{selected_outcome['name']}_{seed}_{timestamp}.csv")
     
     with open(filename, mode='w', newline='') as file:
         writer = csv.writer(file)
