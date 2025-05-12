@@ -1,0 +1,4692 @@
+"who","treatment","which","when"
+2,"Outpatient BUP + EMM","1",7
+3,"Inpatient BUP","1",13
+3,"Inpatient BUP","2",13
+4,"Inpatient NR-NTX","1",1
+4,"Inpatient NR-NTX","2",1
+6,"Outpatient BUP + SMM","1",16
+7,"Inpatient NR-NTX","1",5
+7,"Inpatient NR-NTX","2",5
+9,"Inpatient NR-NTX","1",15
+9,"Inpatient NR-NTX","2",15
+10,"Outpatient BUP","1",19
+10,"Outpatient BUP","2",19
+11,"Methadone","1",7
+11,"Methadone","2",7
+12,"Outpatient BUP","1",7
+12,"Outpatient BUP","2",7
+13,"Outpatient BUP","1",4
+13,"Outpatient BUP","2",4
+14,"Outpatient BUP","1",29
+14,"Outpatient BUP","2",29
+16,"Methadone","1",2
+16,"Methadone","2",2
+17,"Methadone","1",13
+17,"Methadone","2",13
+19,"Outpatient BUP + SMM","1",5
+21,"Outpatient BUP + SMM","1",6
+22,"Inpatient BUP","1",1
+22,"Inpatient BUP","2",1
+23,"Inpatient NR-NTX","1",2
+23,"Inpatient NR-NTX","2",2
+24,"Methadone","1",5
+24,"Methadone","2",5
+25,"Inpatient NR-NTX","1",4
+25,"Inpatient NR-NTX","2",4
+27,"Outpatient BUP + EMM","1",7
+27,"Outpatient BUP + EMM","2",56
+29,"Outpatient BUP","1",26
+29,"Outpatient BUP","2",26
+30,"Outpatient BUP","1",5
+30,"Outpatient BUP","2",5
+31,"Inpatient NR-NTX","1",4
+31,"Inpatient NR-NTX","2",4
+32,"Methadone","1",4
+32,"Methadone","2",4
+33,"Outpatient BUP + EMM","1",0
+33,"Outpatient BUP + EMM","2",77
+34,"Outpatient BUP + EMM","1",4
+36,"Outpatient BUP","1",2
+36,"Outpatient BUP","2",2
+38,"Outpatient BUP + EMM","1",2
+38,"Outpatient BUP + EMM","2",43
+39,"Inpatient NR-NTX","1",5
+39,"Inpatient NR-NTX","2",5
+40,"Inpatient NR-NTX","1",6
+40,"Inpatient NR-NTX","2",6
+42,"Methadone","1",2
+42,"Methadone","2",2
+46,"Outpatient BUP","1",2
+46,"Outpatient BUP","2",2
+47,"Outpatient BUP + SMM","1",7
+47,"Outpatient BUP + SMM","2",35
+48,"Outpatient BUP + EMM","1",1
+48,"Outpatient BUP + EMM","2",36
+49,"Inpatient BUP","1",7
+49,"Inpatient BUP","2",7
+52,"Outpatient BUP + SMM","1",1
+52,"Outpatient BUP + EMM","2",36
+53,"Inpatient BUP","1",7
+53,"Inpatient BUP","2",7
+54,"Outpatient BUP","1",7
+54,"Outpatient BUP","2",7
+55,"Outpatient BUP + EMM","1",2
+55,"Outpatient BUP + SMM","2",42
+58,"Inpatient BUP","1",9
+58,"Inpatient BUP","2",9
+59,"Outpatient BUP","1",16
+59,"Outpatient BUP","2",16
+60,"Outpatient BUP + SMM","1",1
+60,"Outpatient BUP + SMM","2",52
+61,"Outpatient BUP","1",2
+61,"Outpatient BUP","2",2
+63,"Outpatient BUP","1",11
+63,"Outpatient BUP","2",11
+65,"Inpatient BUP","1",5
+65,"Inpatient BUP","2",5
+66,"Outpatient BUP","1",7
+66,"Outpatient BUP","2",7
+67,"Inpatient BUP","1",7
+67,"Inpatient BUP","2",7
+68,"Outpatient BUP","1",13
+68,"Outpatient BUP","2",13
+69,"Outpatient BUP + SMM","1",0
+70,"Methadone","1",5
+70,"Methadone","2",5
+72,"Methadone","1",5
+72,"Methadone","2",5
+73,"Outpatient BUP + EMM","1",4
+75,"Outpatient BUP","1",3
+75,"Outpatient BUP","2",3
+77,"Outpatient BUP + EMM","1",1
+77,"Outpatient BUP + EMM","2",65
+78,"Outpatient BUP","1",19
+78,"Outpatient BUP","2",19
+80,"Outpatient BUP","1",5
+80,"Outpatient BUP","2",5
+81,"Outpatient BUP","1",21
+81,"Outpatient BUP","2",21
+83,"Outpatient BUP + EMM","1",6
+84,"Outpatient BUP + SMM","1",14
+86,"Inpatient NR-NTX","1",1
+86,"Inpatient NR-NTX","2",1
+88,"Outpatient BUP","1",11
+88,"Outpatient BUP","2",11
+92,"Outpatient BUP","1",2
+92,"Outpatient BUP","2",2
+94,"Outpatient BUP + EMM","1",1
+94,"Outpatient BUP + SMM","2",44
+95,"Methadone","1",5
+95,"Methadone","2",5
+96,"Methadone","1",3
+96,"Methadone","2",3
+97,"Outpatient BUP + EMM","1",2
+97,"Outpatient BUP + SMM","2",65
+98,"Outpatient BUP","1",6
+98,"Outpatient BUP","2",6
+99,"Outpatient BUP","1",4
+99,"Outpatient BUP","2",4
+101,"Outpatient BUP","1",11
+101,"Outpatient BUP","2",11
+103,"Methadone","1",4
+103,"Methadone","2",4
+104,"Methadone","1",4
+104,"Methadone","2",4
+105,"Outpatient BUP + SMM","1",7
+106,"Inpatient BUP","1",13
+106,"Inpatient BUP","2",13
+107,"Outpatient BUP","1",5
+107,"Outpatient BUP","2",5
+108,"Outpatient BUP","1",8
+108,"Outpatient BUP","2",8
+109,"Inpatient NR-NTX","1",2
+109,"Inpatient NR-NTX","2",2
+110,"Outpatient BUP","1",6
+110,"Outpatient BUP","2",6
+111,"Outpatient BUP","1",5
+111,"Outpatient BUP","2",5
+112,"Outpatient BUP + EMM","1",2
+112,"Outpatient BUP + EMM","2",72
+113,"Outpatient BUP","1",5
+113,"Outpatient BUP","2",5
+114,"Methadone","1",2
+114,"Methadone","2",2
+115,"Outpatient BUP + EMM","1",1
+115,"Outpatient BUP + SMM","2",24
+116,"Outpatient BUP + SMM","1",7
+119,"Outpatient BUP","1",3
+119,"Outpatient BUP","2",3
+120,"Outpatient BUP","1",2
+120,"Outpatient BUP","2",2
+124,"Inpatient BUP","1",3
+124,"Inpatient BUP","2",3
+125,"Outpatient BUP","1",28
+125,"Outpatient BUP","2",28
+127,"Outpatient BUP","1",6
+127,"Outpatient BUP","2",6
+128,"Methadone","1",20
+128,"Methadone","2",20
+130,"Methadone","1",6
+130,"Methadone","2",6
+131,"Outpatient BUP + EMM","1",1
+131,"Outpatient BUP + EMM","2",30
+132,"Inpatient NR-NTX","1",4
+132,"Inpatient NR-NTX","2",4
+134,"Outpatient BUP","1",9
+134,"Outpatient BUP","2",9
+135,"Outpatient BUP","1",7
+135,"Outpatient BUP","2",7
+136,"Inpatient NR-NTX","1",2
+136,"Inpatient NR-NTX","2",2
+137,"Methadone","1",13
+137,"Methadone","2",13
+138,"Outpatient BUP + SMM","1",1
+138,"Outpatient BUP + SMM","2",48
+139,"Outpatient BUP + SMM","1",2
+141,"Outpatient BUP","1",8
+141,"Outpatient BUP","2",8
+142,"Inpatient BUP","1",5
+142,"Inpatient BUP","2",5
+143,"Outpatient BUP + SMM","1",7
+143,"Outpatient BUP + SMM","2",49
+144,"Outpatient BUP + SMM","1",6
+146,"Outpatient BUP","1",6
+146,"Outpatient BUP","2",6
+147,"Inpatient NR-NTX","1",4
+147,"Inpatient NR-NTX","2",4
+148,"Outpatient BUP + SMM","1",0
+150,"Outpatient BUP + EMM","1",1
+151,"Methadone","1",2
+151,"Methadone","2",2
+153,"Inpatient BUP","1",1
+153,"Inpatient BUP","2",1
+154,"Inpatient NR-NTX","1",2
+154,"Inpatient NR-NTX","2",2
+155,"Methadone","1",11
+155,"Methadone","2",11
+156,"Outpatient BUP","1",5
+156,"Outpatient BUP","2",5
+157,"Outpatient BUP + SMM","1",2
+158,"Outpatient BUP","1",5
+158,"Outpatient BUP","2",5
+159,"Outpatient BUP + SMM","1",7
+160,"Methadone","1",2
+160,"Methadone","2",2
+161,"Inpatient NR-NTX","1",4
+161,"Inpatient NR-NTX","2",4
+162,"Methadone","1",5
+162,"Methadone","2",5
+163,"Outpatient BUP","1",6
+163,"Outpatient BUP","2",6
+165,"Outpatient BUP","1",2
+165,"Outpatient BUP","2",2
+166,"Inpatient BUP","1",4
+166,"Inpatient BUP","2",4
+167,"Methadone","1",3
+167,"Methadone","2",3
+168,"Methadone","1",4
+168,"Methadone","2",4
+169,"Outpatient BUP","1",13
+169,"Outpatient BUP","2",13
+170,"Inpatient NR-NTX","1",9
+170,"Inpatient NR-NTX","2",9
+171,"Outpatient BUP","1",3
+171,"Outpatient BUP","2",3
+172,"Outpatient BUP + EMM","1",7
+174,"Inpatient BUP","1",6
+174,"Inpatient BUP","2",6
+175,"Inpatient NR-NTX","1",11
+175,"Inpatient NR-NTX","2",11
+176,"Outpatient BUP + EMM","1",2
+177,"Methadone","1",5
+177,"Methadone","2",5
+178,"Methadone","1",12
+178,"Methadone","2",12
+179,"Methadone","1",5
+179,"Methadone","2",5
+181,"Outpatient BUP + SMM","1",1
+182,"Outpatient BUP","1",6
+182,"Outpatient BUP","2",6
+187,"Inpatient NR-NTX","1",2
+187,"Inpatient NR-NTX","2",2
+189,"Inpatient NR-NTX","1",1
+189,"Inpatient NR-NTX","2",1
+191,"Outpatient BUP + SMM","1",4
+192,"Inpatient BUP","1",5
+192,"Inpatient BUP","2",5
+193,"Outpatient BUP + SMM","1",2
+193,"Outpatient BUP + SMM","2",29
+194,"Outpatient BUP","1",15
+194,"Outpatient BUP","2",15
+195,"Methadone","1",2
+195,"Methadone","2",2
+196,"Methadone","1",14
+196,"Methadone","2",14
+197,"Inpatient NR-NTX","1",5
+197,"Inpatient NR-NTX","2",5
+198,"Outpatient BUP + SMM","1",6
+200,"Methadone","1",11
+200,"Methadone","2",11
+203,"Outpatient BUP + EMM","1",6
+204,"Methadone","1",7
+204,"Methadone","2",7
+208,"Methadone","1",3
+208,"Methadone","2",3
+209,"Outpatient BUP","1",3
+209,"Outpatient BUP","2",3
+210,"Methadone","1",5
+210,"Methadone","2",5
+211,"Methadone","1",3
+211,"Methadone","2",3
+213,"Methadone","1",3
+213,"Methadone","2",3
+214,"Outpatient BUP + SMM","1",2
+214,"Outpatient BUP + EMM","2",30
+215,"Outpatient BUP + SMM","1",4
+216,"Methadone","1",2
+216,"Methadone","2",2
+218,"Outpatient BUP + EMM","1",2
+219,"Outpatient BUP + EMM","1",1
+219,"Outpatient BUP + EMM","2",30
+221,"Outpatient BUP","1",6
+221,"Outpatient BUP","2",6
+224,"Inpatient BUP","1",7
+224,"Inpatient BUP","2",7
+225,"Outpatient BUP + SMM","1",8
+225,"Outpatient BUP + SMM","2",45
+226,"Outpatient BUP + SMM","1",6
+226,"Outpatient BUP + SMM","2",69
+227,"Inpatient NR-NTX","1",3
+227,"Inpatient NR-NTX","2",3
+229,"Outpatient BUP","1",10
+229,"Outpatient BUP","2",10
+231,"Inpatient NR-NTX","1",13
+231,"Inpatient NR-NTX","2",13
+233,"Outpatient BUP","1",4
+233,"Outpatient BUP","2",4
+234,"Methadone","1",2
+234,"Methadone","2",2
+237,"Methadone","1",6
+237,"Methadone","2",6
+238,"Outpatient BUP + SMM","1",6
+240,"Inpatient NR-NTX","1",5
+240,"Inpatient NR-NTX","2",5
+241,"Outpatient BUP + SMM","1",6
+242,"Inpatient NR-NTX","1",8
+242,"Inpatient NR-NTX","2",8
+243,"Outpatient BUP","1",14
+243,"Outpatient BUP","2",14
+244,"Outpatient BUP","1",8
+244,"Outpatient BUP","2",8
+246,"Outpatient BUP","1",3
+246,"Outpatient BUP","2",3
+248,"Outpatient BUP + SMM","1",4
+248,"Outpatient BUP + EMM","2",21
+249,"Outpatient BUP","1",3
+249,"Outpatient BUP","2",3
+250,"Inpatient BUP","1",1
+250,"Inpatient BUP","2",1
+251,"Outpatient BUP + EMM","1",6
+252,"Methadone","1",28
+252,"Methadone","2",28
+253,"Methadone","1",6
+253,"Methadone","2",6
+254,"Outpatient BUP + SMM","1",1
+254,"Outpatient BUP + EMM","2",36
+255,"Inpatient BUP","1",1
+255,"Inpatient BUP","2",1
+256,"Inpatient BUP","1",1
+256,"Inpatient BUP","2",1
+257,"Outpatient BUP","1",3
+257,"Outpatient BUP","2",3
+258,"Inpatient NR-NTX","1",11
+258,"Inpatient NR-NTX","2",11
+259,"Methadone","1",14
+259,"Methadone","2",14
+260,"Inpatient NR-NTX","1",2
+260,"Inpatient NR-NTX","2",2
+261,"Outpatient BUP + SMM","1",1
+261,"Outpatient BUP + EMM","2",44
+263,"Methadone","1",6
+263,"Methadone","2",6
+264,"Methadone","1",3
+264,"Methadone","2",3
+265,"Outpatient BUP + SMM","1",4
+265,"Outpatient BUP + SMM","2",56
+267,"Outpatient BUP","1",2
+267,"Outpatient BUP","2",2
+268,"Inpatient NR-NTX","1",0
+268,"Inpatient NR-NTX","2",0
+269,"Inpatient BUP","1",3
+269,"Inpatient BUP","2",3
+270,"Outpatient BUP + EMM","1",7
+271,"Outpatient BUP","1",8
+271,"Outpatient BUP","2",8
+274,"Outpatient BUP","1",6
+274,"Outpatient BUP","2",6
+275,"Outpatient BUP","1",6
+275,"Outpatient BUP","2",6
+276,"Outpatient BUP + SMM","1",19
+277,"Outpatient BUP","1",8
+277,"Outpatient BUP","2",8
+278,"Outpatient BUP","1",8
+278,"Outpatient BUP","2",8
+279,"Outpatient BUP + SMM","1",6
+279,"Outpatient BUP + SMM","2",65
+280,"Outpatient BUP","1",2
+280,"Outpatient BUP","2",2
+281,"Outpatient BUP","1",5
+281,"Outpatient BUP","2",5
+283,"Methadone","1",5
+283,"Methadone","2",5
+285,"Outpatient BUP","1",4
+285,"Outpatient BUP","2",4
+286,"Outpatient BUP","1",6
+286,"Outpatient BUP","2",6
+287,"Outpatient BUP + EMM","1",5
+289,"Methadone","1",2
+289,"Methadone","2",2
+291,"Inpatient BUP","1",7
+291,"Inpatient BUP","2",7
+292,"Outpatient BUP","1",6
+292,"Outpatient BUP","2",6
+295,"Inpatient BUP","1",6
+295,"Inpatient BUP","2",6
+296,"Outpatient BUP + SMM","1",2
+296,"Outpatient BUP + SMM","2",57
+297,"Methadone","1",2
+297,"Methadone","2",2
+298,"Inpatient BUP","1",2
+298,"Inpatient BUP","2",2
+299,"Outpatient BUP","1",6
+299,"Outpatient BUP","2",6
+301,"Outpatient BUP","1",13
+301,"Outpatient BUP","2",13
+302,"Methadone","1",6
+302,"Methadone","2",6
+303,"Outpatient BUP + SMM","1",6
+303,"Outpatient BUP + EMM","2",55
+304,"Outpatient BUP + EMM","1",4
+305,"Inpatient BUP","1",2
+305,"Inpatient BUP","2",2
+307,"Outpatient BUP","1",18
+307,"Outpatient BUP","2",18
+308,"Inpatient NR-NTX","1",2
+308,"Inpatient NR-NTX","2",2
+309,"Inpatient NR-NTX","1",2
+309,"Inpatient NR-NTX","2",2
+310,"Methadone","1",13
+310,"Methadone","2",13
+314,"Outpatient BUP + EMM","1",1
+316,"Inpatient NR-NTX","1",6
+316,"Inpatient NR-NTX","2",6
+317,"Outpatient BUP","1",8
+317,"Outpatient BUP","2",8
+318,"Outpatient BUP","1",5
+318,"Outpatient BUP","2",5
+320,"Outpatient BUP","1",2
+320,"Outpatient BUP","2",2
+326,"Outpatient BUP + EMM","1",0
+330,"Outpatient BUP","1",7
+330,"Outpatient BUP","2",7
+331,"Outpatient BUP","1",18
+331,"Outpatient BUP","2",18
+332,"Inpatient NR-NTX","1",3
+332,"Inpatient NR-NTX","2",3
+333,"Outpatient BUP","1",8
+333,"Outpatient BUP","2",8
+334,"Inpatient BUP","1",2
+334,"Inpatient BUP","2",2
+336,"Outpatient BUP","1",5
+336,"Outpatient BUP","2",5
+337,"Methadone","1",8
+337,"Methadone","2",8
+340,"Inpatient NR-NTX","1",2
+340,"Inpatient NR-NTX","2",2
+341,"Methadone","1",6
+341,"Methadone","2",6
+342,"Inpatient NR-NTX","1",4
+342,"Inpatient NR-NTX","2",4
+343,"Outpatient BUP + EMM","1",3
+344,"Methadone","1",8
+344,"Methadone","2",8
+345,"Outpatient BUP + EMM","1",0
+347,"Inpatient NR-NTX","1",8
+347,"Inpatient NR-NTX","2",8
+348,"Outpatient BUP","1",12
+348,"Outpatient BUP","2",12
+349,"Outpatient BUP + EMM","1",1
+349,"Outpatient BUP + SMM","2",25
+350,"Methadone","1",3
+350,"Methadone","2",3
+351,"Outpatient BUP","1",2
+351,"Outpatient BUP","2",2
+352,"Inpatient BUP","1",5
+352,"Inpatient BUP","2",5
+353,"Outpatient BUP + SMM","1",7
+355,"Methadone","1",8
+355,"Methadone","2",8
+356,"Inpatient NR-NTX","1",5
+356,"Inpatient NR-NTX","2",5
+357,"Inpatient BUP","1",2
+357,"Inpatient BUP","2",2
+358,"Outpatient BUP + SMM","1",1
+358,"Outpatient BUP + SMM","2",28
+359,"Inpatient BUP","1",6
+359,"Inpatient BUP","2",6
+360,"Methadone","1",8
+360,"Methadone","2",8
+361,"Outpatient BUP + SMM","1",14
+362,"Methadone","1",2
+362,"Methadone","2",2
+363,"Outpatient BUP + SMM","1",4
+364,"Outpatient BUP + SMM","1",1
+365,"Outpatient BUP + EMM","1",1
+366,"Methadone","1",4
+366,"Methadone","2",4
+370,"Outpatient BUP + SMM","1",3
+370,"Outpatient BUP + SMM","2",41
+371,"Methadone","1",7
+371,"Methadone","2",7
+372,"Methadone","1",12
+372,"Methadone","2",12
+373,"Inpatient BUP","1",5
+373,"Inpatient BUP","2",5
+374,"Outpatient BUP","1",3
+374,"Outpatient BUP","2",3
+376,"Outpatient BUP","1",5
+376,"Outpatient BUP","2",5
+378,"Outpatient BUP + SMM","1",2
+378,"Outpatient BUP + EMM","2",57
+379,"Methadone","1",24
+379,"Methadone","2",24
+380,"Inpatient BUP","1",7
+380,"Inpatient BUP","2",7
+382,"Inpatient BUP","1",3
+382,"Inpatient BUP","2",3
+383,"Inpatient NR-NTX","1",3
+383,"Inpatient NR-NTX","2",3
+384,"Inpatient BUP","1",5
+384,"Inpatient BUP","2",5
+385,"Inpatient NR-NTX","1",5
+385,"Inpatient NR-NTX","2",5
+387,"Outpatient BUP + SMM","1",5
+387,"Outpatient BUP + EMM","2",43
+388,"Outpatient BUP","1",8
+388,"Outpatient BUP","2",8
+389,"Methadone","1",2
+389,"Methadone","2",2
+390,"Outpatient BUP + SMM","1",5
+392,"Methadone","1",3
+392,"Methadone","2",3
+394,"Methadone","1",12
+394,"Methadone","2",12
+396,"Outpatient BUP","1",9
+396,"Outpatient BUP","2",9
+397,"Outpatient BUP + EMM","1",1
+397,"Outpatient BUP + EMM","2",36
+398,"Inpatient NR-NTX","1",2
+398,"Inpatient NR-NTX","2",2
+399,"Outpatient BUP","1",14
+399,"Outpatient BUP","2",14
+400,"Inpatient BUP","1",4
+400,"Inpatient BUP","2",4
+401,"Methadone","1",3
+401,"Methadone","2",3
+403,"Outpatient BUP + EMM","1",2
+404,"Outpatient BUP","1",2
+404,"Outpatient BUP","2",2
+405,"Outpatient BUP","1",2
+405,"Outpatient BUP","2",2
+406,"Outpatient BUP + EMM","1",1
+406,"Outpatient BUP + SMM","2",27
+407,"Methadone","1",12
+407,"Methadone","2",12
+409,"Outpatient BUP + EMM","1",4
+409,"Outpatient BUP + SMM","2",57
+410,"Outpatient BUP","1",14
+410,"Outpatient BUP","2",14
+412,"Inpatient NR-NTX","1",3
+412,"Inpatient NR-NTX","2",3
+413,"Outpatient BUP + SMM","1",2
+413,"Outpatient BUP + SMM","2",42
+414,"Inpatient BUP","1",4
+414,"Inpatient BUP","2",4
+415,"Inpatient NR-NTX","1",3
+415,"Inpatient NR-NTX","2",3
+416,"Outpatient BUP","1",14
+416,"Outpatient BUP","2",14
+420,"Inpatient NR-NTX","1",3
+420,"Inpatient NR-NTX","2",3
+421,"Outpatient BUP","1",3
+421,"Outpatient BUP","2",3
+422,"Inpatient BUP","1",4
+422,"Inpatient BUP","2",4
+423,"Outpatient BUP","1",10
+423,"Outpatient BUP","2",10
+424,"Outpatient BUP","1",11
+424,"Outpatient BUP","2",11
+425,"Inpatient BUP","1",7
+425,"Inpatient BUP","2",7
+426,"Outpatient BUP","1",3
+426,"Outpatient BUP","2",3
+427,"Inpatient NR-NTX","1",2
+427,"Inpatient NR-NTX","2",2
+428,"Outpatient BUP","1",3
+428,"Outpatient BUP","2",3
+429,"Outpatient BUP","1",15
+429,"Outpatient BUP","2",15
+430,"Methadone","1",2
+430,"Methadone","2",2
+432,"Methadone","1",8
+432,"Methadone","2",8
+433,"Outpatient BUP + SMM","1",15
+437,"Outpatient BUP","1",2
+437,"Outpatient BUP","2",2
+438,"Methadone","1",6
+438,"Methadone","2",6
+439,"Outpatient BUP + EMM","1",7
+439,"Outpatient BUP + SMM","2",61
+440,"Outpatient BUP","1",5
+440,"Outpatient BUP","2",5
+441,"Outpatient BUP","1",14
+441,"Outpatient BUP","2",14
+442,"Outpatient BUP","1",5
+442,"Outpatient BUP","2",5
+443,"Outpatient BUP + SMM","1",6
+443,"Outpatient BUP + EMM","2",35
+444,"Methadone","1",4
+444,"Methadone","2",4
+446,"Outpatient BUP","1",6
+446,"Outpatient BUP","2",6
+447,"Inpatient NR-NTX","1",7
+447,"Inpatient NR-NTX","2",7
+448,"Methadone","1",12
+448,"Methadone","2",12
+449,"Outpatient BUP + EMM","1",6
+449,"Outpatient BUP + EMM","2",48
+450,"Methadone","1",2
+450,"Methadone","2",2
+451,"Outpatient BUP + SMM","1",5
+451,"Outpatient BUP + SMM","2",67
+452,"Methadone","1",14
+452,"Methadone","2",14
+453,"Outpatient BUP + SMM","1",0
+453,"Outpatient BUP + EMM","2",41
+454,"Outpatient BUP","1",13
+454,"Outpatient BUP","2",13
+455,"Inpatient BUP","1",5
+455,"Inpatient BUP","2",5
+459,"Outpatient BUP","1",5
+459,"Outpatient BUP","2",5
+461,"Inpatient NR-NTX","1",7
+461,"Inpatient NR-NTX","2",7
+462,"Outpatient BUP","1",21
+462,"Outpatient BUP","2",21
+464,"Inpatient NR-NTX","1",4
+464,"Inpatient NR-NTX","2",4
+466,"Outpatient BUP","1",13
+466,"Outpatient BUP","2",13
+467,"Outpatient BUP + EMM","1",22
+468,"Outpatient BUP","1",13
+468,"Outpatient BUP","2",13
+469,"Inpatient NR-NTX","1",4
+469,"Inpatient NR-NTX","2",4
+470,"Inpatient BUP","1",6
+470,"Inpatient BUP","2",6
+471,"Outpatient BUP + EMM","1",0
+473,"Methadone","1",16
+473,"Methadone","2",16
+474,"Outpatient BUP + EMM","1",3
+474,"Outpatient BUP + SMM","2",42
+475,"Inpatient BUP","1",5
+475,"Inpatient BUP","2",5
+477,"Outpatient BUP","1",6
+477,"Outpatient BUP","2",6
+478,"Outpatient BUP + SMM","1",4
+478,"Outpatient BUP + EMM","2",28
+479,"Inpatient BUP","1",6
+479,"Inpatient BUP","2",6
+481,"Outpatient BUP","1",5
+481,"Outpatient BUP","2",5
+482,"Outpatient BUP","1",3
+482,"Outpatient BUP","2",3
+483,"Outpatient BUP","1",4
+483,"Outpatient BUP","2",4
+484,"Inpatient NR-NTX","1",4
+484,"Inpatient NR-NTX","2",4
+486,"Methadone","1",6
+486,"Methadone","2",6
+487,"Methadone","1",2
+487,"Methadone","2",2
+488,"Methadone","1",3
+488,"Methadone","2",3
+489,"Outpatient BUP","1",11
+489,"Outpatient BUP","2",11
+491,"Methadone","1",7
+491,"Methadone","2",7
+492,"Methadone","1",7
+492,"Methadone","2",7
+493,"Inpatient BUP","1",4
+493,"Inpatient BUP","2",4
+495,"Outpatient BUP + EMM","1",2
+501,"Outpatient BUP + EMM","1",6
+503,"Outpatient BUP + SMM","1",12
+503,"Outpatient BUP + EMM","2",112
+504,"Outpatient BUP + EMM","1",20
+504,"Outpatient BUP + SMM","2",56
+506,"Methadone","1",3
+506,"Methadone","2",3
+507,"Outpatient BUP + SMM","1",13
+507,"Outpatient BUP + EMM","2",38
+509,"Outpatient BUP + SMM","1",0
+509,"Outpatient BUP + EMM","2",20
+511,"Inpatient NR-NTX","1",6
+511,"Inpatient NR-NTX","2",6
+512,"Inpatient BUP","1",4
+512,"Inpatient BUP","2",4
+513,"Outpatient BUP + EMM","1",6
+514,"Outpatient BUP + SMM","1",4
+515,"Methadone","1",9
+515,"Methadone","2",9
+516,"Outpatient BUP","1",14
+516,"Outpatient BUP","2",14
+517,"Outpatient BUP","1",27
+517,"Outpatient BUP","2",27
+518,"Outpatient BUP","1",19
+518,"Outpatient BUP","2",19
+519,"Outpatient BUP + SMM","1",2
+519,"Outpatient BUP + EMM","2",29
+520,"Outpatient BUP + SMM","1",3
+520,"Outpatient BUP + EMM","2",31
+521,"Outpatient BUP + EMM","1",1
+521,"Outpatient BUP + EMM","2",30
+523,"Outpatient BUP","1",15
+523,"Outpatient BUP","2",15
+525,"Outpatient BUP + SMM","1",7
+525,"Outpatient BUP + SMM","2",52
+526,"Methadone","1",5
+526,"Methadone","2",5
+527,"Outpatient BUP + EMM","1",8
+528,"Outpatient BUP","1",4
+528,"Outpatient BUP","2",4
+529,"Methadone","1",6
+529,"Methadone","2",6
+530,"Inpatient BUP","1",7
+530,"Inpatient BUP","2",7
+531,"Inpatient NR-NTX","1",6
+531,"Inpatient NR-NTX","2",6
+532,"Inpatient NR-NTX","1",5
+532,"Inpatient NR-NTX","2",5
+533,"Inpatient BUP","1",4
+533,"Inpatient BUP","2",4
+534,"Outpatient BUP","1",4
+534,"Outpatient BUP","2",4
+536,"Methadone","1",2
+536,"Methadone","2",2
+537,"Methadone","1",8
+537,"Methadone","2",8
+539,"Outpatient BUP + EMM","1",6
+541,"Outpatient BUP + SMM","1",6
+541,"Outpatient BUP + EMM","2",37
+542,"Methadone","1",5
+542,"Methadone","2",5
+543,"Inpatient BUP","1",4
+543,"Inpatient BUP","2",4
+544,"Outpatient BUP + SMM","1",2
+544,"Outpatient BUP + SMM","2",57
+546,"Methadone","1",6
+546,"Methadone","2",6
+547,"Outpatient BUP","1",5
+547,"Outpatient BUP","2",5
+548,"Outpatient BUP","1",5
+548,"Outpatient BUP","2",5
+549,"Outpatient BUP + EMM","1",4
+549,"Outpatient BUP + EMM","2",47
+550,"Outpatient BUP","1",12
+550,"Outpatient BUP","2",12
+551,"Inpatient BUP","1",7
+551,"Inpatient BUP","2",7
+553,"Outpatient BUP","1",2
+553,"Outpatient BUP","2",2
+554,"Methadone","1",6
+554,"Methadone","2",6
+555,"Inpatient NR-NTX","1",11
+555,"Inpatient NR-NTX","2",11
+556,"Outpatient BUP + EMM","1",1
+557,"Inpatient BUP","1",4
+557,"Inpatient BUP","2",4
+559,"Outpatient BUP","1",9
+559,"Outpatient BUP","2",9
+561,"Methadone","1",20
+561,"Methadone","2",20
+562,"Outpatient BUP + SMM","1",1
+564,"Inpatient NR-NTX","1",6
+564,"Inpatient NR-NTX","2",6
+566,"Inpatient NR-NTX","1",3
+566,"Inpatient NR-NTX","2",3
+568,"Outpatient BUP","1",5
+568,"Outpatient BUP","2",5
+571,"Inpatient BUP","1",7
+571,"Inpatient BUP","2",7
+572,"Outpatient BUP + SMM","1",4
+572,"Outpatient BUP + SMM","2",47
+573,"Outpatient BUP","1",7
+573,"Outpatient BUP","2",7
+574,"Inpatient NR-NTX","1",5
+574,"Inpatient NR-NTX","2",5
+575,"Inpatient BUP","1",11
+575,"Inpatient BUP","2",11
+576,"Inpatient NR-NTX","1",2
+576,"Inpatient NR-NTX","2",2
+578,"Inpatient BUP","1",4
+578,"Inpatient BUP","2",4
+579,"Outpatient BUP + SMM","1",5
+579,"Outpatient BUP + SMM","2",91
+580,"Inpatient BUP","1",2
+580,"Inpatient BUP","2",2
+581,"Inpatient BUP","1",1
+581,"Inpatient BUP","2",1
+584,"Methadone","1",4
+584,"Methadone","2",4
+587,"Outpatient BUP + EMM","1",4
+588,"Outpatient BUP + EMM","1",2
+588,"Outpatient BUP + EMM","2",57
+589,"Outpatient BUP","1",13
+589,"Outpatient BUP","2",13
+591,"Outpatient BUP","1",28
+591,"Outpatient BUP","2",28
+592,"Outpatient BUP + SMM","1",5
+593,"Methadone","1",27
+593,"Methadone","2",27
+595,"Methadone","1",16
+595,"Methadone","2",16
+596,"Inpatient NR-NTX","1",1
+596,"Inpatient NR-NTX","2",1
+597,"Inpatient BUP","1",5
+597,"Inpatient BUP","2",5
+599,"Outpatient BUP","1",13
+599,"Outpatient BUP","2",13
+601,"Inpatient BUP","1",10
+601,"Inpatient BUP","2",10
+602,"Outpatient BUP","1",6
+602,"Outpatient BUP","2",6
+605,"Outpatient BUP","1",2
+605,"Outpatient BUP","2",2
+610,"Outpatient BUP","1",16
+610,"Outpatient BUP","2",16
+611,"Inpatient BUP","1",3
+611,"Inpatient BUP","2",3
+612,"Inpatient BUP","1",0
+612,"Inpatient BUP","2",0
+614,"Inpatient NR-NTX","1",5
+614,"Inpatient NR-NTX","2",5
+615,"Methadone","1",5
+615,"Methadone","2",5
+616,"Methadone","1",21
+616,"Methadone","2",21
+617,"Outpatient BUP + EMM","1",6
+617,"Outpatient BUP + EMM","2",51
+619,"Outpatient BUP","1",6
+619,"Outpatient BUP","2",6
+620,"Outpatient BUP","1",12
+620,"Outpatient BUP","2",12
+621,"Inpatient BUP","1",7
+621,"Inpatient BUP","2",7
+622,"Outpatient BUP","1",2
+622,"Outpatient BUP","2",2
+623,"Inpatient NR-NTX","1",6
+623,"Inpatient NR-NTX","2",6
+627,"Inpatient NR-NTX","1",2
+627,"Inpatient NR-NTX","2",2
+629,"Outpatient BUP","1",5
+629,"Outpatient BUP","2",5
+631,"Outpatient BUP","1",7
+631,"Outpatient BUP","2",7
+632,"Outpatient BUP","1",3
+632,"Outpatient BUP","2",3
+633,"Outpatient BUP + SMM","1",1
+633,"Outpatient BUP + EMM","2",21
+635,"Outpatient BUP + EMM","1",7
+635,"Outpatient BUP + SMM","2",45
+637,"Inpatient BUP","1",6
+637,"Inpatient BUP","2",6
+638,"Inpatient NR-NTX","1",6
+638,"Inpatient NR-NTX","2",6
+639,"Outpatient BUP + SMM","1",1
+642,"Methadone","1",3
+642,"Methadone","2",3
+643,"Outpatient BUP + EMM","1",1
+643,"Outpatient BUP + EMM","2",27
+644,"Outpatient BUP + SMM","1",13
+644,"Outpatient BUP + EMM","2",103
+645,"Inpatient BUP","1",2
+645,"Inpatient BUP","2",2
+646,"Outpatient BUP","1",19
+646,"Outpatient BUP","2",19
+648,"Outpatient BUP","1",5
+648,"Outpatient BUP","2",5
+649,"Outpatient BUP","1",3
+649,"Outpatient BUP","2",3
+651,"Outpatient BUP + SMM","1",30
+652,"Outpatient BUP + EMM","1",4
+653,"Outpatient BUP + EMM","1",11
+655,"Outpatient BUP","1",6
+655,"Outpatient BUP","2",6
+657,"Inpatient NR-NTX","1",7
+657,"Inpatient NR-NTX","2",7
+658,"Outpatient BUP","1",7
+658,"Outpatient BUP","2",7
+659,"Methadone","1",7
+659,"Methadone","2",7
+665,"Outpatient BUP","1",3
+665,"Outpatient BUP","2",3
+667,"Outpatient BUP + EMM","1",1
+668,"Methadone","1",3
+668,"Methadone","2",3
+669,"Methadone","1",5
+669,"Methadone","2",5
+670,"Inpatient BUP","1",4
+670,"Inpatient BUP","2",4
+672,"Outpatient BUP + EMM","1",1
+672,"Outpatient BUP + EMM","2",37
+673,"Inpatient NR-NTX","1",4
+673,"Inpatient NR-NTX","2",4
+675,"Outpatient BUP + SMM","1",7
+675,"Outpatient BUP + SMM","2",49
+676,"Inpatient NR-NTX","1",1
+676,"Inpatient NR-NTX","2",1
+677,"Methadone","1",9
+677,"Methadone","2",9
+678,"Outpatient BUP + SMM","1",7
+678,"Outpatient BUP + EMM","2",86
+679,"Methadone","1",11
+679,"Methadone","2",11
+680,"Methadone","1",3
+680,"Methadone","2",3
+681,"Inpatient BUP","1",2
+681,"Inpatient BUP","2",2
+684,"Outpatient BUP + EMM","1",5
+684,"Outpatient BUP + SMM","2",48
+685,"Outpatient BUP","1",3
+685,"Outpatient BUP","2",3
+686,"Outpatient BUP","1",9
+686,"Outpatient BUP","2",9
+687,"Methadone","1",3
+687,"Methadone","2",3
+689,"Outpatient BUP","1",4
+689,"Outpatient BUP","2",4
+690,"Outpatient BUP + EMM","1",4
+691,"Inpatient NR-NTX","1",6
+691,"Inpatient NR-NTX","2",6
+693,"Outpatient BUP","1",2
+693,"Outpatient BUP","2",2
+694,"Inpatient BUP","1",1
+694,"Inpatient BUP","2",1
+695,"Methadone","1",2
+695,"Methadone","2",2
+696,"Outpatient BUP + SMM","1",19
+697,"Outpatient BUP","1",16
+697,"Outpatient BUP","2",16
+698,"Outpatient BUP + SMM","1",2
+700,"Outpatient BUP","1",3
+700,"Outpatient BUP","2",3
+701,"Inpatient BUP","1",2
+701,"Inpatient BUP","2",2
+702,"Methadone","1",13
+702,"Methadone","2",13
+703,"Inpatient BUP","1",3
+703,"Inpatient BUP","2",3
+704,"Outpatient BUP","1",7
+704,"Outpatient BUP","2",7
+705,"Inpatient BUP","1",3
+705,"Inpatient BUP","2",3
+706,"Outpatient BUP + EMM","1",6
+706,"Outpatient BUP + EMM","2",29
+707,"Inpatient NR-NTX","1",2
+707,"Inpatient NR-NTX","2",2
+708,"Inpatient BUP","1",11
+708,"Inpatient BUP","2",11
+709,"Outpatient BUP + SMM","1",4
+709,"Outpatient BUP + SMM","2",34
+710,"Methadone","1",6
+710,"Methadone","2",6
+711,"Methadone","1",11
+711,"Methadone","2",11
+712,"Outpatient BUP + SMM","1",2
+713,"Methadone","1",2
+713,"Methadone","2",2
+714,"Inpatient BUP","1",7
+714,"Inpatient BUP","2",7
+715,"Outpatient BUP","1",2
+715,"Outpatient BUP","2",2
+716,"Outpatient BUP + SMM","1",14
+716,"Outpatient BUP + EMM","2",56
+718,"Outpatient BUP + SMM","1",7
+718,"Outpatient BUP + SMM","2",31
+720,"Inpatient BUP","1",6
+720,"Inpatient BUP","2",6
+721,"Outpatient BUP","1",13
+721,"Outpatient BUP","2",13
+722,"Inpatient NR-NTX","1",8
+722,"Inpatient NR-NTX","2",8
+723,"Inpatient BUP","1",1
+723,"Inpatient BUP","2",1
+724,"Outpatient BUP + EMM","1",2
+725,"Outpatient BUP","1",3
+725,"Outpatient BUP","2",3
+726,"Inpatient NR-NTX","1",8
+726,"Inpatient NR-NTX","2",8
+727,"Methadone","1",3
+727,"Methadone","2",3
+728,"Methadone","1",21
+728,"Methadone","2",21
+729,"Outpatient BUP + EMM","1",6
+729,"Outpatient BUP + EMM","2",54
+730,"Outpatient BUP","1",5
+730,"Outpatient BUP","2",5
+732,"Inpatient BUP","1",4
+732,"Inpatient BUP","2",4
+734,"Methadone","1",13
+734,"Methadone","2",13
+735,"Outpatient BUP + SMM","1",1
+737,"Inpatient BUP","1",3
+737,"Inpatient BUP","2",3
+738,"Outpatient BUP","1",3
+738,"Outpatient BUP","2",3
+739,"Outpatient BUP","1",2
+739,"Outpatient BUP","2",2
+740,"Inpatient BUP","1",2
+740,"Inpatient BUP","2",2
+742,"Outpatient BUP","1",7
+742,"Outpatient BUP","2",7
+743,"Outpatient BUP","1",14
+743,"Outpatient BUP","2",14
+744,"Outpatient BUP + EMM","1",5
+746,"Methadone","1",10
+746,"Methadone","2",10
+747,"Inpatient BUP","1",5
+747,"Inpatient BUP","2",5
+749,"Methadone","1",2
+749,"Methadone","2",2
+751,"Outpatient BUP + EMM","1",7
+752,"Outpatient BUP + EMM","1",5
+753,"Outpatient BUP","1",2
+753,"Outpatient BUP","2",2
+756,"Inpatient BUP","1",4
+756,"Inpatient BUP","2",4
+757,"Methadone","1",2
+757,"Methadone","2",2
+758,"Outpatient BUP + EMM","1",6
+758,"Outpatient BUP + SMM","2",35
+759,"Methadone","1",3
+759,"Methadone","2",3
+760,"Outpatient BUP","1",7
+760,"Outpatient BUP","2",7
+762,"Outpatient BUP","1",12
+762,"Outpatient BUP","2",12
+769,"Inpatient NR-NTX","1",2
+769,"Inpatient NR-NTX","2",2
+770,"Outpatient BUP","1",15
+770,"Outpatient BUP","2",15
+772,"Methadone","1",5
+772,"Methadone","2",5
+773,"Outpatient BUP + SMM","1",5
+774,"Outpatient BUP","1",2
+774,"Outpatient BUP","2",2
+775,"Outpatient BUP","1",8
+775,"Outpatient BUP","2",8
+776,"Outpatient BUP","1",18
+776,"Outpatient BUP","2",18
+777,"Outpatient BUP + SMM","1",8
+778,"Inpatient NR-NTX","1",1
+778,"Inpatient NR-NTX","2",1
+779,"Inpatient BUP","1",1
+779,"Inpatient BUP","2",1
+781,"Outpatient BUP","1",15
+781,"Outpatient BUP","2",15
+784,"Methadone","1",12
+784,"Methadone","2",12
+785,"Outpatient BUP","1",6
+785,"Outpatient BUP","2",6
+786,"Outpatient BUP + SMM","1",13
+786,"Outpatient BUP + SMM","2",56
+788,"Inpatient BUP","1",2
+788,"Inpatient BUP","2",2
+790,"Outpatient BUP","1",2
+790,"Outpatient BUP","2",2
+792,"Outpatient BUP + EMM","1",1
+793,"Outpatient BUP","1",2
+793,"Outpatient BUP","2",2
+794,"Outpatient BUP + EMM","1",7
+794,"Outpatient BUP + SMM","2",49
+795,"Outpatient BUP","1",12
+795,"Outpatient BUP","2",12
+799,"Inpatient BUP","1",5
+799,"Inpatient BUP","2",5
+800,"Outpatient BUP","1",2
+800,"Outpatient BUP","2",2
+801,"Inpatient NR-NTX","1",2
+801,"Inpatient NR-NTX","2",2
+804,"Inpatient BUP","1",4
+804,"Inpatient BUP","2",4
+805,"Outpatient BUP","1",13
+805,"Outpatient BUP","2",13
+806,"Methadone","1",6
+806,"Methadone","2",6
+807,"Inpatient NR-NTX","1",2
+807,"Inpatient NR-NTX","2",2
+809,"Inpatient NR-NTX","1",7
+809,"Inpatient NR-NTX","2",7
+811,"Outpatient BUP","1",2
+811,"Outpatient BUP","2",2
+813,"Outpatient BUP + SMM","1",2
+813,"Outpatient BUP + EMM","2",66
+814,"Methadone","1",12
+814,"Methadone","2",12
+816,"Outpatient BUP + EMM","1",2
+817,"Methadone","1",3
+817,"Methadone","2",3
+818,"Outpatient BUP + SMM","1",7
+818,"Outpatient BUP + EMM","2",31
+819,"Methadone","1",8
+819,"Methadone","2",8
+821,"Inpatient NR-NTX","1",10
+821,"Inpatient NR-NTX","2",10
+824,"Methadone","1",4
+824,"Methadone","2",4
+827,"Outpatient BUP","1",2
+827,"Outpatient BUP","2",2
+828,"Inpatient BUP","1",7
+828,"Inpatient BUP","2",7
+829,"Outpatient BUP","1",2
+829,"Outpatient BUP","2",2
+830,"Methadone","1",4
+830,"Methadone","2",4
+831,"Outpatient BUP","1",3
+831,"Outpatient BUP","2",3
+832,"Methadone","1",4
+832,"Methadone","2",4
+833,"Inpatient NR-NTX","1",3
+833,"Inpatient NR-NTX","2",3
+834,"Methadone","1",2
+834,"Methadone","2",2
+835,"Inpatient NR-NTX","1",1
+835,"Inpatient NR-NTX","2",1
+837,"Inpatient NR-NTX","1",4
+837,"Inpatient NR-NTX","2",4
+838,"Outpatient BUP","1",8
+838,"Outpatient BUP","2",8
+840,"Outpatient BUP + SMM","1",6
+840,"Outpatient BUP + SMM","2",75
+841,"Outpatient BUP + SMM","1",2
+841,"Outpatient BUP + EMM","2",43
+843,"Outpatient BUP","1",3
+843,"Outpatient BUP","2",3
+844,"Outpatient BUP","1",2
+844,"Outpatient BUP","2",2
+849,"Methadone","1",2
+849,"Methadone","2",2
+850,"Outpatient BUP + SMM","1",10
+851,"Outpatient BUP + EMM","1",0
+851,"Outpatient BUP + EMM","2",24
+852,"Outpatient BUP","1",5
+852,"Outpatient BUP","2",5
+853,"Methadone","1",4
+853,"Methadone","2",4
+854,"Outpatient BUP","1",10
+854,"Outpatient BUP","2",10
+855,"Methadone","1",3
+855,"Methadone","2",3
+856,"Outpatient BUP","1",17
+856,"Outpatient BUP","2",17
+858,"Outpatient BUP","1",7
+858,"Outpatient BUP","2",7
+860,"Outpatient BUP + EMM","1",2
+862,"Outpatient BUP","1",5
+862,"Outpatient BUP","2",5
+864,"Methadone","1",5
+864,"Methadone","2",5
+865,"Methadone","1",3
+865,"Methadone","2",3
+866,"Inpatient NR-NTX","1",5
+866,"Inpatient NR-NTX","2",5
+867,"Outpatient BUP + SMM","1",0
+867,"Outpatient BUP + SMM","2",27
+868,"Methadone","1",28
+868,"Methadone","2",28
+870,"Outpatient BUP","1",6
+870,"Outpatient BUP","2",6
+871,"Outpatient BUP","1",8
+871,"Outpatient BUP","2",8
+872,"Outpatient BUP","1",18
+872,"Outpatient BUP","2",18
+873,"Outpatient BUP","1",2
+873,"Outpatient BUP","2",2
+875,"Inpatient BUP","1",5
+875,"Inpatient BUP","2",5
+878,"Outpatient BUP","1",2
+878,"Outpatient BUP","2",2
+880,"Inpatient NR-NTX","1",7
+880,"Inpatient NR-NTX","2",7
+881,"Outpatient BUP","1",5
+881,"Outpatient BUP","2",5
+883,"Outpatient BUP + EMM","1",1
+884,"Outpatient BUP + EMM","1",14
+885,"Outpatient BUP + EMM","1",7
+886,"Outpatient BUP","1",6
+886,"Outpatient BUP","2",6
+887,"Outpatient BUP","1",4
+887,"Outpatient BUP","2",4
+888,"Outpatient BUP + EMM","1",2
+890,"Outpatient BUP + EMM","1",2
+890,"Outpatient BUP + EMM","2",37
+891,"Outpatient BUP","1",6
+891,"Outpatient BUP","2",6
+892,"Outpatient BUP + SMM","1",6
+892,"Outpatient BUP + EMM","2",50
+893,"Outpatient BUP + EMM","1",2
+893,"Outpatient BUP + EMM","2",54
+894,"Methadone","1",2
+894,"Methadone","2",2
+895,"Inpatient BUP","1",2
+895,"Inpatient BUP","2",2
+899,"Inpatient BUP","1",13
+899,"Inpatient BUP","2",13
+900,"Outpatient BUP","1",6
+900,"Outpatient BUP","2",6
+902,"Outpatient BUP","1",6
+902,"Outpatient BUP","2",6
+903,"Outpatient BUP + EMM","1",13
+903,"Outpatient BUP + SMM","2",48
+904,"Methadone","1",7
+904,"Methadone","2",7
+905,"Outpatient BUP + SMM","1",3
+908,"Outpatient BUP + SMM","1",10
+908,"Outpatient BUP + EMM","2",45
+909,"Methadone","1",6
+909,"Methadone","2",6
+910,"Inpatient NR-NTX","1",3
+910,"Inpatient NR-NTX","2",3
+914,"Outpatient BUP","1",3
+914,"Outpatient BUP","2",3
+917,"Methadone","1",2
+917,"Methadone","2",2
+918,"Outpatient BUP + EMM","1",0
+919,"Methadone","1",6
+919,"Methadone","2",6
+921,"Outpatient BUP","1",3
+921,"Outpatient BUP","2",3
+924,"Outpatient BUP + EMM","1",1
+925,"Inpatient NR-NTX","1",2
+925,"Inpatient NR-NTX","2",2
+926,"Outpatient BUP + SMM","1",0
+926,"Outpatient BUP + SMM","2",26
+927,"Inpatient BUP","1",2
+927,"Inpatient BUP","2",2
+929,"Methadone","1",7
+929,"Methadone","2",7
+931,"Inpatient BUP","1",5
+931,"Inpatient BUP","2",5
+933,"Inpatient BUP","1",6
+933,"Inpatient BUP","2",6
+934,"Outpatient BUP + EMM","1",4
+934,"Outpatient BUP + EMM","2",56
+935,"Methadone","1",2
+935,"Methadone","2",2
+936,"Outpatient BUP","1",8
+936,"Outpatient BUP","2",8
+939,"Inpatient BUP","1",2
+939,"Inpatient BUP","2",2
+942,"Outpatient BUP","1",7
+942,"Outpatient BUP","2",7
+945,"Outpatient BUP","1",5
+945,"Outpatient BUP","2",5
+946,"Outpatient BUP + EMM","1",5
+947,"Outpatient BUP + SMM","1",9
+949,"Outpatient BUP + EMM","1",1
+949,"Outpatient BUP + EMM","2",29
+950,"Outpatient BUP","1",2
+950,"Outpatient BUP","2",2
+951,"Inpatient BUP","1",1
+951,"Inpatient BUP","2",1
+952,"Outpatient BUP + EMM","1",7
+952,"Outpatient BUP + SMM","2",84
+953,"Outpatient BUP","1",3
+953,"Outpatient BUP","2",3
+954,"Methadone","1",2
+954,"Methadone","2",2
+955,"Outpatient BUP + SMM","1",1
+956,"Methadone","1",2
+956,"Methadone","2",2
+957,"Methadone","1",12
+957,"Methadone","2",12
+958,"Methadone","1",9
+958,"Methadone","2",9
+959,"Inpatient BUP","1",1
+959,"Inpatient BUP","2",1
+960,"Inpatient BUP","1",4
+960,"Inpatient BUP","2",4
+961,"Outpatient BUP","1",2
+961,"Outpatient BUP","2",2
+962,"Outpatient BUP + EMM","1",1
+962,"Outpatient BUP + EMM","2",31
+963,"Inpatient NR-NTX","1",4
+963,"Inpatient NR-NTX","2",4
+966,"Methadone","1",9
+966,"Methadone","2",9
+967,"Outpatient BUP + EMM","1",7
+967,"Outpatient BUP + SMM","2",34
+970,"Outpatient BUP","1",3
+970,"Outpatient BUP","2",3
+971,"Outpatient BUP + SMM","1",2
+972,"Inpatient BUP","1",5
+972,"Inpatient BUP","2",5
+973,"Outpatient BUP + SMM","1",20
+974,"Inpatient BUP","1",4
+974,"Inpatient BUP","2",4
+976,"Outpatient BUP + EMM","1",6
+976,"Outpatient BUP + EMM","2",50
+977,"Outpatient BUP","1",2
+977,"Outpatient BUP","2",2
+978,"Methadone","1",6
+978,"Methadone","2",6
+979,"Outpatient BUP + SMM","1",2
+979,"Outpatient BUP + EMM","2",52
+980,"Methadone","1",2
+980,"Methadone","2",2
+981,"Outpatient BUP","1",7
+981,"Outpatient BUP","2",7
+982,"Inpatient NR-NTX","1",6
+982,"Inpatient NR-NTX","2",6
+985,"Outpatient BUP + EMM","1",2
+985,"Outpatient BUP + SMM","2",35
+988,"Inpatient BUP","1",1
+988,"Inpatient BUP","2",1
+989,"Methadone","1",15
+989,"Methadone","2",15
+990,"Inpatient NR-NTX","1",0
+990,"Inpatient NR-NTX","2",0
+993,"Inpatient NR-NTX","1",3
+993,"Inpatient NR-NTX","2",3
+997,"Outpatient BUP","1",4
+997,"Outpatient BUP","2",4
+1000,"Outpatient BUP","1",8
+1000,"Outpatient BUP","2",8
+1001,"Inpatient BUP","1",7
+1001,"Inpatient BUP","2",7
+1005,"Outpatient BUP + SMM","1",0
+1005,"Outpatient BUP + EMM","2",29
+1006,"Outpatient BUP","1",14
+1006,"Outpatient BUP","2",14
+1007,"Outpatient BUP","1",2
+1007,"Outpatient BUP","2",2
+1008,"Outpatient BUP + EMM","1",2
+1011,"Outpatient BUP","1",6
+1011,"Outpatient BUP","2",6
+1012,"Inpatient BUP","1",7
+1012,"Inpatient BUP","2",7
+1014,"Outpatient BUP + EMM","1",1
+1014,"Outpatient BUP + EMM","2",86
+1015,"Outpatient BUP","1",6
+1015,"Outpatient BUP","2",6
+1018,"Methadone","1",6
+1018,"Methadone","2",6
+1019,"Methadone","1",5
+1019,"Methadone","2",5
+1020,"Outpatient BUP","1",7
+1020,"Outpatient BUP","2",7
+1021,"Methadone","1",2
+1021,"Methadone","2",2
+1022,"Outpatient BUP","1",11
+1022,"Outpatient BUP","2",11
+1024,"Outpatient BUP + SMM","1",0
+1026,"Outpatient BUP + EMM","1",7
+1026,"Outpatient BUP + SMM","2",22
+1029,"Inpatient BUP","1",8
+1029,"Inpatient BUP","2",8
+1030,"Outpatient BUP + SMM","1",6
+1030,"Outpatient BUP + EMM","2",75
+1031,"Methadone","1",3
+1031,"Methadone","2",3
+1033,"Outpatient BUP","1",2
+1033,"Outpatient BUP","2",2
+1034,"Outpatient BUP","1",6
+1034,"Outpatient BUP","2",6
+1035,"Outpatient BUP","1",7
+1035,"Outpatient BUP","2",7
+1036,"Methadone","1",6
+1036,"Methadone","2",6
+1037,"Inpatient BUP","1",1
+1037,"Inpatient BUP","2",1
+1038,"Outpatient BUP + EMM","1",5
+1038,"Outpatient BUP + SMM","2",40
+1039,"Outpatient BUP","1",12
+1039,"Outpatient BUP","2",12
+1040,"Methadone","1",3
+1040,"Methadone","2",3
+1041,"Outpatient BUP + EMM","1",15
+1041,"Outpatient BUP + SMM","2",97
+1042,"Outpatient BUP","1",6
+1042,"Outpatient BUP","2",6
+1043,"Outpatient BUP + EMM","1",9
+1043,"Outpatient BUP + SMM","2",63
+1044,"Inpatient NR-NTX","1",5
+1044,"Inpatient NR-NTX","2",5
+1045,"Outpatient BUP + SMM","1",6
+1045,"Outpatient BUP + SMM","2",86
+1046,"Outpatient BUP + EMM","1",7
+1047,"Methadone","1",6
+1047,"Methadone","2",6
+1048,"Inpatient BUP","1",3
+1048,"Inpatient BUP","2",3
+1050,"Methadone","1",3
+1050,"Methadone","2",3
+1054,"Outpatient BUP","1",2
+1054,"Outpatient BUP","2",2
+1055,"Outpatient BUP","1",14
+1055,"Outpatient BUP","2",14
+1056,"Outpatient BUP + EMM","1",4
+1056,"Outpatient BUP + SMM","2",45
+1057,"Methadone","1",4
+1057,"Methadone","2",4
+1058,"Inpatient NR-NTX","1",3
+1058,"Inpatient NR-NTX","2",3
+1059,"Outpatient BUP","1",3
+1059,"Outpatient BUP","2",3
+1060,"Outpatient BUP","1",6
+1060,"Outpatient BUP","2",6
+1061,"Methadone","1",2
+1061,"Methadone","2",2
+1062,"Outpatient BUP","1",6
+1062,"Outpatient BUP","2",6
+1063,"Outpatient BUP + EMM","1",1
+1064,"Outpatient BUP","1",2
+1064,"Outpatient BUP","2",2
+1065,"Inpatient BUP","1",9
+1065,"Inpatient BUP","2",9
+1066,"Inpatient BUP","1",2
+1066,"Inpatient BUP","2",2
+1067,"Outpatient BUP","1",6
+1067,"Outpatient BUP","2",6
+1070,"Outpatient BUP + SMM","1",1
+1070,"Outpatient BUP + SMM","2",36
+1071,"Outpatient BUP","1",2
+1071,"Outpatient BUP","2",2
+1074,"Methadone","1",6
+1074,"Methadone","2",6
+1076,"Methadone","1",2
+1076,"Methadone","2",2
+1079,"Outpatient BUP","1",7
+1079,"Outpatient BUP","2",7
+1080,"Methadone","1",6
+1080,"Methadone","2",6
+1081,"Outpatient BUP + SMM","1",7
+1082,"Inpatient NR-NTX","1",12
+1082,"Inpatient NR-NTX","2",12
+1083,"Methadone","1",5
+1083,"Methadone","2",5
+1084,"Methadone","1",2
+1084,"Methadone","2",2
+1085,"Inpatient NR-NTX","1",2
+1085,"Inpatient NR-NTX","2",2
+1086,"Inpatient BUP","1",1
+1086,"Inpatient BUP","2",1
+1087,"Inpatient NR-NTX","1",2
+1087,"Inpatient NR-NTX","2",2
+1088,"Methadone","1",11
+1088,"Methadone","2",11
+1089,"Inpatient BUP","1",5
+1089,"Inpatient BUP","2",5
+1090,"Outpatient BUP + SMM","1",1
+1090,"Outpatient BUP + SMM","2",67
+1091,"Outpatient BUP","1",5
+1091,"Outpatient BUP","2",5
+1094,"Inpatient BUP","1",4
+1094,"Inpatient BUP","2",4
+1096,"Inpatient NR-NTX","1",4
+1096,"Inpatient NR-NTX","2",4
+1097,"Methadone","1",20
+1097,"Methadone","2",20
+1099,"Inpatient NR-NTX","1",3
+1099,"Inpatient NR-NTX","2",3
+1100,"Methadone","1",4
+1100,"Methadone","2",4
+1102,"Methadone","1",8
+1102,"Methadone","2",8
+1103,"Outpatient BUP + EMM","1",4
+1103,"Outpatient BUP + EMM","2",74
+1104,"Outpatient BUP + EMM","1",7
+1105,"Methadone","1",7
+1105,"Methadone","2",7
+1106,"Outpatient BUP + SMM","1",6
+1107,"Outpatient BUP + SMM","1",4
+1111,"Outpatient BUP","1",3
+1111,"Outpatient BUP","2",3
+1113,"Outpatient BUP + EMM","1",6
+1113,"Outpatient BUP + EMM","2",27
+1114,"Outpatient BUP","1",7
+1114,"Outpatient BUP","2",7
+1115,"Outpatient BUP","1",10
+1115,"Outpatient BUP","2",10
+1116,"Inpatient BUP","1",8
+1116,"Inpatient BUP","2",8
+1117,"Outpatient BUP","1",2
+1117,"Outpatient BUP","2",2
+1118,"Outpatient BUP + EMM","1",8
+1119,"Methadone","1",5
+1119,"Methadone","2",5
+1120,"Outpatient BUP","1",6
+1120,"Outpatient BUP","2",6
+1122,"Inpatient NR-NTX","1",8
+1122,"Inpatient NR-NTX","2",8
+1123,"Inpatient BUP","1",6
+1123,"Inpatient BUP","2",6
+1124,"Outpatient BUP + EMM","1",2
+1124,"Outpatient BUP + EMM","2",48
+1125,"Outpatient BUP + EMM","1",1
+1125,"Outpatient BUP + EMM","2",36
+1126,"Outpatient BUP","1",6
+1126,"Outpatient BUP","2",6
+1127,"Methadone","1",3
+1127,"Methadone","2",3
+1128,"Methadone","1",6
+1128,"Methadone","2",6
+1129,"Outpatient BUP + SMM","1",5
+1129,"Outpatient BUP + SMM","2",83
+1131,"Methadone","1",2
+1131,"Methadone","2",2
+1135,"Outpatient BUP","1",2
+1135,"Outpatient BUP","2",2
+1139,"Outpatient BUP","1",8
+1139,"Outpatient BUP","2",8
+1141,"Outpatient BUP + SMM","1",2
+1141,"Outpatient BUP + SMM","2",50
+1142,"Outpatient BUP + SMM","1",12
+1143,"Outpatient BUP + EMM","1",4
+1145,"Outpatient BUP","1",4
+1145,"Outpatient BUP","2",4
+1146,"Outpatient BUP + SMM","1",4
+1147,"Outpatient BUP","1",8
+1147,"Outpatient BUP","2",8
+1148,"Methadone","1",5
+1148,"Methadone","2",5
+1149,"Inpatient NR-NTX","1",3
+1149,"Inpatient NR-NTX","2",3
+1151,"Outpatient BUP + EMM","1",4
+1151,"Outpatient BUP + SMM","2",65
+1152,"Methadone","1",7
+1152,"Methadone","2",7
+1154,"Outpatient BUP + SMM","1",1
+1155,"Outpatient BUP + EMM","1",14
+1155,"Outpatient BUP + EMM","2",61
+1156,"Methadone","1",3
+1156,"Methadone","2",3
+1157,"Outpatient BUP","1",2
+1157,"Outpatient BUP","2",2
+1158,"Outpatient BUP","1",2
+1158,"Outpatient BUP","2",2
+1159,"Outpatient BUP","1",3
+1159,"Outpatient BUP","2",3
+1162,"Inpatient BUP","1",3
+1162,"Inpatient BUP","2",3
+1164,"Outpatient BUP + SMM","1",0
+1164,"Outpatient BUP + SMM","2",34
+1165,"Methadone","1",7
+1165,"Methadone","2",7
+1166,"Inpatient BUP","1",7
+1166,"Inpatient BUP","2",7
+1167,"Methadone","1",6
+1167,"Methadone","2",6
+1168,"Inpatient BUP","1",4
+1168,"Inpatient BUP","2",4
+1169,"Inpatient BUP","1",2
+1169,"Inpatient BUP","2",2
+1170,"Outpatient BUP","1",5
+1170,"Outpatient BUP","2",5
+1172,"Outpatient BUP","1",2
+1172,"Outpatient BUP","2",2
+1173,"Methadone","1",4
+1173,"Methadone","2",4
+1176,"Methadone","1",3
+1176,"Methadone","2",3
+1178,"Outpatient BUP + SMM","1",1
+1178,"Outpatient BUP + EMM","2",27
+1181,"Outpatient BUP + SMM","1",2
+1181,"Outpatient BUP + SMM","2",55
+1183,"Methadone","1",4
+1183,"Methadone","2",4
+1185,"Methadone","1",2
+1185,"Methadone","2",2
+1186,"Outpatient BUP","1",7
+1186,"Outpatient BUP","2",7
+1187,"Outpatient BUP","1",9
+1187,"Outpatient BUP","2",9
+1188,"Inpatient BUP","1",2
+1188,"Inpatient BUP","2",2
+1189,"Outpatient BUP","1",3
+1189,"Outpatient BUP","2",3
+1190,"Inpatient NR-NTX","1",6
+1190,"Inpatient NR-NTX","2",6
+1192,"Inpatient NR-NTX","1",4
+1192,"Inpatient NR-NTX","2",4
+1193,"Outpatient BUP + EMM","1",4
+1195,"Methadone","1",6
+1195,"Methadone","2",6
+1196,"Outpatient BUP","1",5
+1196,"Outpatient BUP","2",5
+1197,"Outpatient BUP","1",3
+1197,"Outpatient BUP","2",3
+1199,"Inpatient BUP","1",3
+1199,"Inpatient BUP","2",3
+1200,"Outpatient BUP","1",4
+1200,"Outpatient BUP","2",4
+1201,"Outpatient BUP","1",3
+1201,"Outpatient BUP","2",3
+1203,"Inpatient BUP","1",5
+1203,"Inpatient BUP","2",5
+1205,"Inpatient NR-NTX","1",8
+1205,"Inpatient NR-NTX","2",8
+1206,"Outpatient BUP + EMM","1",4
+1206,"Outpatient BUP + EMM","2",53
+1208,"Methadone","1",5
+1208,"Methadone","2",5
+1210,"Methadone","1",5
+1210,"Methadone","2",5
+1212,"Outpatient BUP + SMM","1",1
+1212,"Outpatient BUP + EMM","2",45
+1213,"Inpatient NR-NTX","1",2
+1213,"Inpatient NR-NTX","2",2
+1214,"Outpatient BUP","1",8
+1214,"Outpatient BUP","2",8
+1215,"Outpatient BUP","1",4
+1215,"Outpatient BUP","2",4
+1218,"Outpatient BUP","1",3
+1218,"Outpatient BUP","2",3
+1219,"Inpatient NR-NTX","1",7
+1219,"Inpatient NR-NTX","2",7
+1220,"Inpatient NR-NTX","1",7
+1220,"Inpatient NR-NTX","2",7
+1221,"Methadone","1",10
+1221,"Methadone","2",10
+1223,"Outpatient BUP + SMM","1",2
+1223,"Outpatient BUP + EMM","2",41
+1225,"Outpatient BUP + EMM","1",1
+1226,"Inpatient BUP","1",7
+1226,"Inpatient BUP","2",7
+1227,"Methadone","1",7
+1227,"Methadone","2",7
+1228,"Outpatient BUP + EMM","1",2
+1228,"Outpatient BUP + SMM","2",27
+1230,"Outpatient BUP","1",2
+1230,"Outpatient BUP","2",2
+1231,"Outpatient BUP + EMM","1",1
+1231,"Outpatient BUP + SMM","2",21
+1232,"Outpatient BUP","1",3
+1232,"Outpatient BUP","2",3
+1233,"Outpatient BUP","1",6
+1233,"Outpatient BUP","2",6
+1234,"Methadone","1",6
+1234,"Methadone","2",6
+1235,"Methadone","1",2
+1235,"Methadone","2",2
+1236,"Methadone","1",14
+1236,"Methadone","2",14
+1237,"Outpatient BUP","1",4
+1237,"Outpatient BUP","2",4
+1238,"Outpatient BUP","1",4
+1238,"Outpatient BUP","2",4
+1239,"Outpatient BUP","1",13
+1239,"Outpatient BUP","2",13
+1240,"Outpatient BUP","1",5
+1240,"Outpatient BUP","2",5
+1241,"Inpatient BUP","1",3
+1241,"Inpatient BUP","2",3
+1243,"Outpatient BUP + EMM","1",4
+1245,"Methadone","1",2
+1245,"Methadone","2",2
+1246,"Outpatient BUP + EMM","1",4
+1246,"Outpatient BUP + EMM","2",31
+1250,"Outpatient BUP + EMM","1",5
+1251,"Outpatient BUP","1",6
+1251,"Outpatient BUP","2",6
+1254,"Inpatient NR-NTX","1",4
+1254,"Inpatient NR-NTX","2",4
+1255,"Inpatient NR-NTX","1",6
+1255,"Inpatient NR-NTX","2",6
+1256,"Outpatient BUP","1",5
+1256,"Outpatient BUP","2",5
+1257,"Outpatient BUP","1",2
+1257,"Outpatient BUP","2",2
+1258,"Outpatient BUP + SMM","1",3
+1259,"Outpatient BUP + SMM","1",1
+1260,"Outpatient BUP + EMM","1",2
+1260,"Outpatient BUP + EMM","2",79
+1262,"Outpatient BUP","1",13
+1262,"Outpatient BUP","2",13
+1263,"Outpatient BUP + EMM","1",2
+1264,"Outpatient BUP","1",15
+1264,"Outpatient BUP","2",15
+1265,"Outpatient BUP","1",7
+1265,"Outpatient BUP","2",7
+1266,"Inpatient NR-NTX","1",3
+1266,"Inpatient NR-NTX","2",3
+1270,"Outpatient BUP + SMM","1",2
+1270,"Outpatient BUP + EMM","2",28
+1272,"Outpatient BUP","1",2
+1272,"Outpatient BUP","2",2
+1273,"Outpatient BUP","1",6
+1273,"Outpatient BUP","2",6
+1274,"Outpatient BUP","1",6
+1274,"Outpatient BUP","2",6
+1275,"Methadone","1",6
+1275,"Methadone","2",6
+1276,"Outpatient BUP + SMM","1",5
+1280,"Outpatient BUP","1",7
+1280,"Outpatient BUP","2",7
+1281,"Outpatient BUP","1",3
+1281,"Outpatient BUP","2",3
+1283,"Outpatient BUP + EMM","1",1
+1283,"Outpatient BUP + SMM","2",49
+1285,"Outpatient BUP","1",2
+1285,"Outpatient BUP","2",2
+1286,"Methadone","1",13
+1286,"Methadone","2",13
+1287,"Outpatient BUP + EMM","1",1
+1288,"Inpatient NR-NTX","1",2
+1288,"Inpatient NR-NTX","2",2
+1289,"Inpatient NR-NTX","1",6
+1289,"Inpatient NR-NTX","2",6
+1290,"Outpatient BUP + SMM","1",11
+1290,"Outpatient BUP + SMM","2",39
+1291,"Inpatient NR-NTX","1",1
+1291,"Inpatient NR-NTX","2",1
+1293,"Inpatient NR-NTX","1",2
+1293,"Inpatient NR-NTX","2",2
+1294,"Inpatient BUP","1",2
+1294,"Inpatient BUP","2",2
+1295,"Inpatient BUP","1",3
+1295,"Inpatient BUP","2",3
+1296,"Outpatient BUP","1",5
+1296,"Outpatient BUP","2",5
+1297,"Outpatient BUP + EMM","1",10
+1300,"Outpatient BUP","1",2
+1300,"Outpatient BUP","2",2
+1301,"Methadone","1",6
+1301,"Methadone","2",6
+1302,"Methadone","1",11
+1302,"Methadone","2",11
+1303,"Inpatient NR-NTX","1",5
+1303,"Inpatient NR-NTX","2",5
+1305,"Outpatient BUP + SMM","1",0
+1305,"Outpatient BUP + EMM","2",35
+1307,"Inpatient BUP","1",5
+1307,"Inpatient BUP","2",5
+1308,"Methadone","1",2
+1308,"Methadone","2",2
+1309,"Outpatient BUP + SMM","1",4
+1309,"Outpatient BUP + EMM","2",21
+1311,"Outpatient BUP + SMM","1",7
+1311,"Outpatient BUP + SMM","2",33
+1312,"Outpatient BUP","1",6
+1312,"Outpatient BUP","2",6
+1313,"Inpatient NR-NTX","1",5
+1313,"Inpatient NR-NTX","2",5
+1315,"Outpatient BUP","1",7
+1315,"Outpatient BUP","2",7
+1316,"Outpatient BUP","1",7
+1316,"Outpatient BUP","2",7
+1318,"Outpatient BUP","1",3
+1318,"Outpatient BUP","2",3
+1320,"Inpatient BUP","1",5
+1320,"Inpatient BUP","2",5
+1321,"Outpatient BUP","1",3
+1321,"Outpatient BUP","2",3
+1323,"Outpatient BUP","1",7
+1323,"Outpatient BUP","2",7
+1324,"Outpatient BUP + EMM","1",1
+1326,"Outpatient BUP","1",5
+1326,"Outpatient BUP","2",5
+1327,"Outpatient BUP","1",7
+1327,"Outpatient BUP","2",7
+1329,"Outpatient BUP","1",2
+1329,"Outpatient BUP","2",2
+1330,"Methadone","1",8
+1330,"Methadone","2",8
+1331,"Outpatient BUP + SMM","1",3
+1331,"Outpatient BUP + SMM","2",43
+1332,"Methadone","1",7
+1332,"Methadone","2",7
+1333,"Outpatient BUP + SMM","1",23
+1333,"Outpatient BUP + SMM","2",60
+1335,"Outpatient BUP + EMM","1",5
+1337,"Outpatient BUP","1",4
+1337,"Outpatient BUP","2",4
+1338,"Outpatient BUP + SMM","1",2
+1339,"Outpatient BUP","1",2
+1339,"Outpatient BUP","2",2
+1340,"Outpatient BUP","1",5
+1340,"Outpatient BUP","2",5
+1341,"Outpatient BUP + EMM","1",3
+1341,"Outpatient BUP + SMM","2",42
+1342,"Outpatient BUP","1",5
+1342,"Outpatient BUP","2",5
+1343,"Inpatient NR-NTX","1",2
+1343,"Inpatient NR-NTX","2",2
+1344,"Outpatient BUP","1",14
+1344,"Outpatient BUP","2",14
+1345,"Outpatient BUP + EMM","1",3
+1346,"Inpatient NR-NTX","1",6
+1346,"Inpatient NR-NTX","2",6
+1348,"Outpatient BUP","1",13
+1348,"Outpatient BUP","2",13
+1349,"Outpatient BUP + SMM","1",5
+1349,"Outpatient BUP + SMM","2",33
+1350,"Methadone","1",4
+1350,"Methadone","2",4
+1351,"Inpatient BUP","1",4
+1351,"Inpatient BUP","2",4
+1352,"Outpatient BUP","1",7
+1352,"Outpatient BUP","2",7
+1353,"Methadone","1",13
+1353,"Methadone","2",13
+1354,"Inpatient BUP","1",1
+1354,"Inpatient BUP","2",1
+1355,"Outpatient BUP + SMM","1",2
+1356,"Outpatient BUP + EMM","1",1
+1357,"Outpatient BUP","1",2
+1357,"Outpatient BUP","2",2
+1358,"Outpatient BUP","1",13
+1358,"Outpatient BUP","2",13
+1359,"Outpatient BUP + EMM","1",6
+1360,"Outpatient BUP","1",7
+1360,"Outpatient BUP","2",7
+1361,"Outpatient BUP + SMM","1",6
+1361,"Outpatient BUP + SMM","2",98
+1365,"Methadone","1",5
+1365,"Methadone","2",5
+1366,"Outpatient BUP + SMM","1",1
+1366,"Outpatient BUP + EMM","2",45
+1367,"Methadone","1",7
+1367,"Methadone","2",7
+1368,"Methadone","1",6
+1368,"Methadone","2",6
+1370,"Outpatient BUP","1",27
+1370,"Outpatient BUP","2",27
+1372,"Outpatient BUP + EMM","1",1
+1373,"Outpatient BUP + SMM","1",0
+1373,"Outpatient BUP + EMM","2",37
+1375,"Outpatient BUP","1",10
+1375,"Outpatient BUP","2",10
+1379,"Outpatient BUP","1",7
+1379,"Outpatient BUP","2",7
+1380,"Outpatient BUP","1",3
+1380,"Outpatient BUP","2",3
+1381,"Outpatient BUP + SMM","1",10
+1381,"Outpatient BUP + SMM","2",59
+1382,"Inpatient BUP","1",4
+1382,"Inpatient BUP","2",4
+1383,"Outpatient BUP + EMM","1",2
+1385,"Outpatient BUP + EMM","1",0
+1386,"Inpatient NR-NTX","1",3
+1386,"Inpatient NR-NTX","2",3
+1387,"Methadone","1",22
+1387,"Methadone","2",22
+1388,"Outpatient BUP + EMM","1",0
+1388,"Outpatient BUP + SMM","2",29
+1389,"Methadone","1",2
+1389,"Methadone","2",2
+1390,"Outpatient BUP","1",2
+1390,"Outpatient BUP","2",2
+1391,"Methadone","1",2
+1391,"Methadone","2",2
+1392,"Outpatient BUP","1",5
+1392,"Outpatient BUP","2",5
+1393,"Methadone","1",2
+1393,"Methadone","2",2
+1395,"Methadone","1",3
+1395,"Methadone","2",3
+1396,"Methadone","1",2
+1396,"Methadone","2",2
+1398,"Methadone","1",7
+1398,"Methadone","2",7
+1400,"Inpatient NR-NTX","1",2
+1400,"Inpatient NR-NTX","2",2
+1401,"Inpatient BUP","1",5
+1401,"Inpatient BUP","2",5
+1402,"Methadone","1",6
+1402,"Methadone","2",6
+1403,"Inpatient NR-NTX","1",2
+1403,"Inpatient NR-NTX","2",2
+1404,"Methadone","1",5
+1404,"Methadone","2",5
+1406,"Inpatient NR-NTX","1",5
+1406,"Inpatient NR-NTX","2",5
+1407,"Outpatient BUP","1",3
+1407,"Outpatient BUP","2",3
+1408,"Outpatient BUP + SMM","1",3
+1408,"Outpatient BUP + EMM","2",92
+1409,"Methadone","1",3
+1409,"Methadone","2",3
+1410,"Outpatient BUP","1",5
+1410,"Outpatient BUP","2",5
+1411,"Outpatient BUP","1",3
+1411,"Outpatient BUP","2",3
+1412,"Outpatient BUP + EMM","1",9
+1413,"Outpatient BUP + SMM","1",4
+1413,"Outpatient BUP + EMM","2",46
+1414,"Inpatient BUP","1",2
+1414,"Inpatient BUP","2",2
+1415,"Outpatient BUP","1",6
+1415,"Outpatient BUP","2",6
+1416,"Inpatient BUP","1",2
+1416,"Inpatient BUP","2",2
+1417,"Methadone","1",4
+1417,"Methadone","2",4
+1421,"Inpatient NR-NTX","1",7
+1421,"Inpatient NR-NTX","2",7
+1423,"Outpatient BUP + EMM","1",1
+1424,"Inpatient BUP","1",6
+1424,"Inpatient BUP","2",6
+1425,"Methadone","1",5
+1425,"Methadone","2",5
+1426,"Outpatient BUP","1",2
+1426,"Outpatient BUP","2",2
+1428,"Inpatient BUP","1",3
+1428,"Inpatient BUP","2",3
+1429,"Methadone","1",2
+1429,"Methadone","2",2
+1431,"Methadone","1",8
+1431,"Methadone","2",8
+1432,"Outpatient BUP","1",2
+1432,"Outpatient BUP","2",2
+1433,"Methadone","1",4
+1433,"Methadone","2",4
+1434,"Inpatient NR-NTX","1",6
+1434,"Inpatient NR-NTX","2",6
+1435,"Methadone","1",3
+1435,"Methadone","2",3
+1437,"Outpatient BUP","1",2
+1437,"Outpatient BUP","2",2
+1440,"Outpatient BUP + SMM","1",4
+1440,"Outpatient BUP + EMM","2",41
+1441,"Outpatient BUP","1",2
+1441,"Outpatient BUP","2",2
+1443,"Outpatient BUP + EMM","1",5
+1444,"Outpatient BUP + SMM","1",13
+1445,"Outpatient BUP","1",2
+1445,"Outpatient BUP","2",2
+1446,"Inpatient BUP","1",2
+1446,"Inpatient BUP","2",2
+1449,"Methadone","1",3
+1449,"Methadone","2",3
+1450,"Outpatient BUP + SMM","1",1
+1450,"Outpatient BUP + EMM","2",44
+1451,"Outpatient BUP","1",15
+1451,"Outpatient BUP","2",15
+1454,"Methadone","1",9
+1454,"Methadone","2",9
+1455,"Methadone","1",7
+1455,"Methadone","2",7
+1456,"Inpatient BUP","1",7
+1456,"Inpatient BUP","2",7
+1457,"Inpatient NR-NTX","1",7
+1457,"Inpatient NR-NTX","2",7
+1458,"Methadone","1",8
+1458,"Methadone","2",8
+1461,"Methadone","1",8
+1461,"Methadone","2",8
+1462,"Inpatient BUP","1",4
+1462,"Inpatient BUP","2",4
+1463,"Methadone","1",7
+1463,"Methadone","2",7
+1464,"Outpatient BUP + EMM","1",7
+1464,"Outpatient BUP + SMM","2",54
+1466,"Outpatient BUP + SMM","1",8
+1469,"Outpatient BUP","1",29
+1469,"Outpatient BUP","2",29
+1470,"Inpatient BUP","1",2
+1470,"Inpatient BUP","2",2
+1471,"Inpatient BUP","1",4
+1471,"Inpatient BUP","2",4
+1472,"Outpatient BUP + SMM","1",0
+1472,"Outpatient BUP + EMM","2",36
+1473,"Outpatient BUP + SMM","1",5
+1474,"Methadone","1",7
+1474,"Methadone","2",7
+1475,"Outpatient BUP","1",7
+1475,"Outpatient BUP","2",7
+1476,"Outpatient BUP + EMM","1",7
+1479,"Outpatient BUP + SMM","1",0
+1480,"Inpatient BUP","1",13
+1480,"Inpatient BUP","2",13
+1483,"Inpatient BUP","1",3
+1483,"Inpatient BUP","2",3
+1484,"Outpatient BUP","1",7
+1484,"Outpatient BUP","2",7
+1485,"Inpatient NR-NTX","1",4
+1485,"Inpatient NR-NTX","2",4
+1486,"Outpatient BUP","1",8
+1486,"Outpatient BUP","2",8
+1487,"Outpatient BUP + EMM","1",4
+1487,"Outpatient BUP + SMM","2",42
+1489,"Outpatient BUP","1",9
+1489,"Outpatient BUP","2",9
+1491,"Outpatient BUP + SMM","1",2
+1492,"Outpatient BUP","1",3
+1492,"Outpatient BUP","2",3
+1494,"Inpatient BUP","1",2
+1494,"Inpatient BUP","2",2
+1495,"Inpatient BUP","1",6
+1495,"Inpatient BUP","2",6
+1496,"Outpatient BUP","1",9
+1496,"Outpatient BUP","2",9
+1497,"Methadone","1",2
+1497,"Methadone","2",2
+1498,"Outpatient BUP + SMM","1",7
+1498,"Outpatient BUP + SMM","2",56
+1499,"Inpatient BUP","1",4
+1499,"Inpatient BUP","2",4
+1500,"Outpatient BUP + EMM","1",4
+1500,"Outpatient BUP + EMM","2",56
+1502,"Outpatient BUP + SMM","1",2
+1502,"Outpatient BUP + SMM","2",42
+1503,"Inpatient NR-NTX","1",7
+1503,"Inpatient NR-NTX","2",7
+1504,"Inpatient NR-NTX","1",6
+1504,"Inpatient NR-NTX","2",6
+1505,"Inpatient BUP","1",5
+1505,"Inpatient BUP","2",5
+1506,"Methadone","1",2
+1506,"Methadone","2",2
+1507,"Methadone","1",2
+1507,"Methadone","2",2
+1508,"Outpatient BUP","1",2
+1508,"Outpatient BUP","2",2
+1510,"Methadone","1",7
+1510,"Methadone","2",7
+1511,"Inpatient NR-NTX","1",4
+1511,"Inpatient NR-NTX","2",4
+1512,"Inpatient BUP","1",2
+1512,"Inpatient BUP","2",2
+1514,"Inpatient BUP","1",4
+1514,"Inpatient BUP","2",4
+1515,"Outpatient BUP","1",8
+1515,"Outpatient BUP","2",8
+1516,"Outpatient BUP + EMM","1",0
+1517,"Methadone","1",15
+1517,"Methadone","2",15
+1518,"Methadone","1",3
+1518,"Methadone","2",3
+1519,"Inpatient NR-NTX","1",2
+1519,"Inpatient NR-NTX","2",2
+1520,"Methadone","1",2
+1520,"Methadone","2",2
+1521,"Outpatient BUP + EMM","1",4
+1523,"Inpatient NR-NTX","1",5
+1523,"Inpatient NR-NTX","2",5
+1524,"Methadone","1",6
+1524,"Methadone","2",6
+1525,"Outpatient BUP + EMM","1",7
+1526,"Methadone","1",6
+1526,"Methadone","2",6
+1527,"Outpatient BUP","1",3
+1527,"Outpatient BUP","2",3
+1528,"Methadone","1",4
+1528,"Methadone","2",4
+1530,"Methadone","1",14
+1530,"Methadone","2",14
+1531,"Methadone","1",2
+1531,"Methadone","2",2
+1532,"Outpatient BUP","1",6
+1532,"Outpatient BUP","2",6
+1533,"Outpatient BUP","1",4
+1533,"Outpatient BUP","2",4
+1534,"Outpatient BUP + SMM","1",1
+1535,"Outpatient BUP","1",5
+1535,"Outpatient BUP","2",5
+1537,"Outpatient BUP + EMM","1",2
+1538,"Outpatient BUP","1",2
+1538,"Outpatient BUP","2",2
+1541,"Outpatient BUP + EMM","1",5
+1541,"Outpatient BUP + SMM","2",42
+1543,"Outpatient BUP","1",7
+1543,"Outpatient BUP","2",7
+1544,"Outpatient BUP","1",14
+1544,"Outpatient BUP","2",14
+1545,"Outpatient BUP + SMM","1",2
+1545,"Outpatient BUP + SMM","2",37
+1546,"Outpatient BUP + SMM","1",2
+1547,"Outpatient BUP + SMM","1",2
+1547,"Outpatient BUP + EMM","2",50
+1550,"Methadone","1",3
+1550,"Methadone","2",3
+1551,"Inpatient BUP","1",2
+1551,"Inpatient BUP","2",2
+1552,"Outpatient BUP + EMM","1",14
+1553,"Outpatient BUP + SMM","1",7
+1553,"Outpatient BUP + EMM","2",80
+1555,"Methadone","1",2
+1555,"Methadone","2",2
+1556,"Outpatient BUP + SMM","1",2
+1556,"Outpatient BUP + EMM","2",29
+1557,"Inpatient BUP","1",1
+1557,"Inpatient BUP","2",1
+1558,"Methadone","1",5
+1558,"Methadone","2",5
+1559,"Outpatient BUP + EMM","1",2
+1559,"Outpatient BUP + EMM","2",28
+1562,"Inpatient NR-NTX","1",9
+1562,"Inpatient NR-NTX","2",9
+1565,"Outpatient BUP + SMM","1",4
+1565,"Outpatient BUP + EMM","2",28
+1566,"Outpatient BUP","1",7
+1566,"Outpatient BUP","2",7
+1567,"Methadone","1",5
+1567,"Methadone","2",5
+1568,"Inpatient BUP","1",2
+1568,"Inpatient BUP","2",2
+1569,"Outpatient BUP","1",2
+1569,"Outpatient BUP","2",2
+1571,"Outpatient BUP","1",5
+1571,"Outpatient BUP","2",5
+1572,"Outpatient BUP","1",3
+1572,"Outpatient BUP","2",3
+1573,"Outpatient BUP + SMM","1",1
+1573,"Outpatient BUP + SMM","2",35
+1574,"Methadone","1",16
+1574,"Methadone","2",16
+1575,"Inpatient BUP","1",7
+1575,"Inpatient BUP","2",7
+1576,"Methadone","1",5
+1576,"Methadone","2",5
+1577,"Inpatient BUP","1",6
+1577,"Inpatient BUP","2",6
+1579,"Inpatient BUP","1",2
+1579,"Inpatient BUP","2",2
+1580,"Outpatient BUP","1",4
+1580,"Outpatient BUP","2",4
+1582,"Methadone","1",7
+1582,"Methadone","2",7
+1583,"Inpatient NR-NTX","1",3
+1583,"Inpatient NR-NTX","2",3
+1584,"Outpatient BUP + SMM","1",6
+1585,"Outpatient BUP + SMM","1",7
+1588,"Outpatient BUP","1",5
+1588,"Outpatient BUP","2",5
+1589,"Outpatient BUP","1",7
+1589,"Outpatient BUP","2",7
+1592,"Inpatient NR-NTX","1",6
+1592,"Inpatient NR-NTX","2",6
+1593,"Outpatient BUP","1",10
+1593,"Outpatient BUP","2",10
+1595,"Outpatient BUP + SMM","1",1
+1595,"Outpatient BUP + SMM","2",36
+1596,"Outpatient BUP","1",8
+1596,"Outpatient BUP","2",8
+1597,"Methadone","1",9
+1597,"Methadone","2",9
+1599,"Outpatient BUP + SMM","1",1
+1599,"Outpatient BUP + SMM","2",36
+1601,"Methadone","1",12
+1601,"Methadone","2",12
+1602,"Outpatient BUP + SMM","1",1
+1602,"Outpatient BUP + EMM","2",28
+1603,"Outpatient BUP + EMM","1",2
+1609,"Outpatient BUP","1",12
+1609,"Outpatient BUP","2",12
+1610,"Inpatient NR-NTX","1",4
+1610,"Inpatient NR-NTX","2",4
+1611,"Outpatient BUP","1",14
+1611,"Outpatient BUP","2",14
+1613,"Outpatient BUP + EMM","1",7
+1614,"Outpatient BUP","1",7
+1614,"Outpatient BUP","2",7
+1616,"Methadone","1",6
+1616,"Methadone","2",6
+1617,"Outpatient BUP + SMM","1",13
+1617,"Outpatient BUP + SMM","2",55
+1618,"Inpatient BUP","1",9
+1618,"Inpatient BUP","2",9
+1619,"Inpatient BUP","1",6
+1619,"Inpatient BUP","2",6
+1621,"Methadone","1",5
+1621,"Methadone","2",5
+1622,"Methadone","1",2
+1622,"Methadone","2",2
+1623,"Inpatient BUP","1",5
+1623,"Inpatient BUP","2",5
+1624,"Outpatient BUP + SMM","1",6
+1624,"Outpatient BUP + EMM","2",16
+1625,"Outpatient BUP + SMM","1",1
+1625,"Outpatient BUP + SMM","2",43
+1626,"Methadone","1",5
+1626,"Methadone","2",5
+1627,"Outpatient BUP","1",11
+1627,"Outpatient BUP","2",11
+1628,"Outpatient BUP + SMM","1",6
+1628,"Outpatient BUP + SMM","2",35
+1629,"Outpatient BUP","1",2
+1629,"Outpatient BUP","2",2
+1630,"Inpatient NR-NTX","1",6
+1630,"Inpatient NR-NTX","2",6
+1632,"Outpatient BUP + SMM","1",7
+1632,"Outpatient BUP + EMM","2",48
+1633,"Outpatient BUP","1",2
+1633,"Outpatient BUP","2",2
+1634,"Outpatient BUP","1",5
+1634,"Outpatient BUP","2",5
+1635,"Inpatient BUP","1",3
+1635,"Inpatient BUP","2",3
+1636,"Outpatient BUP","1",33
+1636,"Outpatient BUP","2",33
+1637,"Outpatient BUP","1",4
+1637,"Outpatient BUP","2",4
+1638,"Inpatient NR-NTX","1",2
+1638,"Inpatient NR-NTX","2",2
+1640,"Methadone","1",4
+1640,"Methadone","2",4
+1642,"Outpatient BUP","1",2
+1642,"Outpatient BUP","2",2
+1644,"Outpatient BUP + EMM","1",4
+1645,"Outpatient BUP","1",6
+1645,"Outpatient BUP","2",6
+1646,"Outpatient BUP + SMM","1",2
+1646,"Outpatient BUP + SMM","2",38
+1647,"Outpatient BUP","1",2
+1647,"Outpatient BUP","2",2
+1648,"Inpatient BUP","1",2
+1648,"Inpatient BUP","2",2
+1649,"Outpatient BUP","1",3
+1649,"Outpatient BUP","2",3
+1650,"Inpatient BUP","1",2
+1650,"Inpatient BUP","2",2
+1651,"Outpatient BUP","1",6
+1651,"Outpatient BUP","2",6
+1652,"Methadone","1",6
+1652,"Methadone","2",6
+1653,"Inpatient BUP","1",2
+1653,"Inpatient BUP","2",2
+1656,"Outpatient BUP","1",5
+1656,"Outpatient BUP","2",5
+1657,"Outpatient BUP","1",5
+1657,"Outpatient BUP","2",5
+1659,"Outpatient BUP","1",8
+1659,"Outpatient BUP","2",8
+1660,"Outpatient BUP + EMM","1",2
+1661,"Outpatient BUP + EMM","1",1
+1661,"Outpatient BUP + SMM","2",36
+1664,"Methadone","1",5
+1664,"Methadone","2",5
+1665,"Outpatient BUP","1",5
+1665,"Outpatient BUP","2",5
+1667,"Outpatient BUP + EMM","1",7
+1667,"Outpatient BUP + EMM","2",40
+1668,"Outpatient BUP + EMM","1",7
+1669,"Outpatient BUP + SMM","1",5
+1669,"Outpatient BUP + EMM","2",35
+1670,"Outpatient BUP","1",16
+1670,"Outpatient BUP","2",16
+1673,"Inpatient BUP","1",1
+1673,"Inpatient BUP","2",1
+1674,"Methadone","1",6
+1674,"Methadone","2",6
+1675,"Outpatient BUP + EMM","1",14
+1676,"Outpatient BUP + SMM","1",6
+1676,"Outpatient BUP + SMM","2",40
+1677,"Outpatient BUP + SMM","1",6
+1677,"Outpatient BUP + SMM","2",72
+1678,"Outpatient BUP","1",2
+1678,"Outpatient BUP","2",2
+1680,"Methadone","1",3
+1680,"Methadone","2",3
+1681,"Inpatient NR-NTX","1",1
+1681,"Inpatient NR-NTX","2",1
+1682,"Outpatient BUP + EMM","1",1
+1682,"Outpatient BUP + SMM","2",31
+1683,"Outpatient BUP","1",2
+1683,"Outpatient BUP","2",2
+1685,"Inpatient NR-NTX","1",4
+1685,"Inpatient NR-NTX","2",4
+1686,"Outpatient BUP + EMM","1",11
+1686,"Outpatient BUP + SMM","2",57
+1687,"Methadone","1",19
+1687,"Methadone","2",19
+1690,"Outpatient BUP","1",6
+1690,"Outpatient BUP","2",6
+1691,"Inpatient BUP","1",3
+1691,"Inpatient BUP","2",3
+1692,"Outpatient BUP","1",7
+1692,"Outpatient BUP","2",7
+1693,"Outpatient BUP","1",5
+1693,"Outpatient BUP","2",5
+1694,"Methadone","1",2
+1694,"Methadone","2",2
+1696,"Inpatient NR-NTX","1",2
+1696,"Inpatient NR-NTX","2",2
+1700,"Methadone","1",3
+1700,"Methadone","2",3
+1703,"Inpatient NR-NTX","1",14
+1703,"Inpatient NR-NTX","2",14
+1704,"Outpatient BUP","1",6
+1704,"Outpatient BUP","2",6
+1705,"Inpatient NR-NTX","1",4
+1705,"Inpatient NR-NTX","2",4
+1708,"Outpatient BUP","1",5
+1708,"Outpatient BUP","2",5
+1709,"Outpatient BUP + SMM","1",8
+1710,"Methadone","1",5
+1710,"Methadone","2",5
+1712,"Outpatient BUP + SMM","1",5
+1712,"Outpatient BUP + EMM","2",43
+1713,"Outpatient BUP + SMM","1",1
+1713,"Outpatient BUP + SMM","2",37
+1714,"Methadone","1",2
+1714,"Methadone","2",2
+1715,"Inpatient NR-NTX","1",4
+1715,"Inpatient NR-NTX","2",4
+1716,"Inpatient BUP","1",1
+1716,"Inpatient BUP","2",1
+1717,"Outpatient BUP + SMM","1",2
+1718,"Methadone","1",3
+1718,"Methadone","2",3
+1719,"Inpatient BUP","1",2
+1719,"Inpatient BUP","2",2
+1721,"Inpatient NR-NTX","1",12
+1721,"Inpatient NR-NTX","2",12
+1723,"Outpatient BUP + SMM","1",9
+1723,"Outpatient BUP + SMM","2",44
+1724,"Outpatient BUP","1",6
+1724,"Outpatient BUP","2",6
+1726,"Outpatient BUP + SMM","1",4
+1726,"Outpatient BUP + SMM","2",46
+1727,"Outpatient BUP + EMM","1",1
+1727,"Outpatient BUP + SMM","2",37
+1728,"Inpatient BUP","1",5
+1728,"Inpatient BUP","2",5
+1729,"Methadone","1",7
+1729,"Methadone","2",7
+1731,"Inpatient BUP","1",5
+1731,"Inpatient BUP","2",5
+1732,"Outpatient BUP + EMM","1",3
+1732,"Outpatient BUP + EMM","2",46
+1733,"Outpatient BUP","1",6
+1733,"Outpatient BUP","2",6
+1734,"Inpatient BUP","1",7
+1734,"Inpatient BUP","2",7
+1736,"Outpatient BUP + EMM","1",7
+1736,"Outpatient BUP + EMM","2",44
+1737,"Outpatient BUP + SMM","1",9
+1738,"Inpatient BUP","1",7
+1738,"Inpatient BUP","2",7
+1739,"Outpatient BUP","1",5
+1739,"Outpatient BUP","2",5
+1740,"Outpatient BUP","1",7
+1740,"Outpatient BUP","2",7
+1742,"Methadone","1",6
+1742,"Methadone","2",6
+1743,"Outpatient BUP","1",3
+1743,"Outpatient BUP","2",3
+1744,"Inpatient BUP","1",1
+1744,"Inpatient BUP","2",1
+1745,"Methadone","1",2
+1745,"Methadone","2",2
+1746,"Inpatient NR-NTX","1",3
+1746,"Inpatient NR-NTX","2",3
+1747,"Inpatient NR-NTX","1",2
+1747,"Inpatient NR-NTX","2",2
+1748,"Outpatient BUP + SMM","1",3
+1750,"Methadone","1",28
+1750,"Methadone","2",28
+1751,"Outpatient BUP","1",13
+1751,"Outpatient BUP","2",13
+1754,"Outpatient BUP + SMM","1",1
+1754,"Outpatient BUP + SMM","2",59
+1755,"Outpatient BUP + EMM","1",2
+1756,"Methadone","1",6
+1756,"Methadone","2",6
+1758,"Methadone","1",20
+1758,"Methadone","2",20
+1759,"Outpatient BUP + SMM","1",14
+1760,"Outpatient BUP + EMM","1",7
+1761,"Outpatient BUP","1",8
+1761,"Outpatient BUP","2",8
+1762,"Methadone","1",8
+1762,"Methadone","2",8
+1763,"Methadone","1",14
+1763,"Methadone","2",14
+1764,"Methadone","1",2
+1764,"Methadone","2",2
+1765,"Methadone","1",8
+1765,"Methadone","2",8
+1768,"Outpatient BUP","1",4
+1768,"Outpatient BUP","2",4
+1770,"Outpatient BUP","1",3
+1770,"Outpatient BUP","2",3
+1771,"Outpatient BUP + EMM","1",0
+1771,"Outpatient BUP + EMM","2",38
+1772,"Methadone","1",14
+1772,"Methadone","2",14
+1775,"Outpatient BUP + EMM","1",6
+1775,"Outpatient BUP + EMM","2",92
+1777,"Outpatient BUP + EMM","1",5
+1777,"Outpatient BUP + SMM","2",27
+1779,"Outpatient BUP + SMM","1",4
+1779,"Outpatient BUP + SMM","2",41
+1780,"Outpatient BUP","1",6
+1780,"Outpatient BUP","2",6
+1781,"Outpatient BUP + EMM","1",4
+1784,"Methadone","1",3
+1784,"Methadone","2",3
+1785,"Outpatient BUP + SMM","1",0
+1786,"Outpatient BUP","1",2
+1786,"Outpatient BUP","2",2
+1789,"Outpatient BUP + EMM","1",2
+1789,"Outpatient BUP + EMM","2",42
+1790,"Inpatient NR-NTX","1",5
+1790,"Inpatient NR-NTX","2",5
+1791,"Outpatient BUP + SMM","1",3
+1792,"Methadone","1",12
+1792,"Methadone","2",12
+1793,"Methadone","1",3
+1793,"Methadone","2",3
+1794,"Methadone","1",3
+1794,"Methadone","2",3
+1796,"Outpatient BUP","1",5
+1796,"Outpatient BUP","2",5
+1797,"Outpatient BUP","1",2
+1797,"Outpatient BUP","2",2
+1799,"Methadone","1",5
+1799,"Methadone","2",5
+1801,"Inpatient NR-NTX","1",6
+1801,"Inpatient NR-NTX","2",6
+1802,"Outpatient BUP","1",2
+1802,"Outpatient BUP","2",2
+1803,"Outpatient BUP","1",6
+1803,"Outpatient BUP","2",6
+1804,"Outpatient BUP","1",2
+1804,"Outpatient BUP","2",2
+1805,"Outpatient BUP","1",5
+1805,"Outpatient BUP","2",5
+1806,"Methadone","1",6
+1806,"Methadone","2",6
+1807,"Methadone","1",5
+1807,"Methadone","2",5
+1808,"Inpatient NR-NTX","1",3
+1808,"Inpatient NR-NTX","2",3
+1809,"Outpatient BUP","1",9
+1809,"Outpatient BUP","2",9
+1811,"Outpatient BUP","1",5
+1811,"Outpatient BUP","2",5
+1812,"Outpatient BUP + SMM","1",3
+1812,"Outpatient BUP + SMM","2",31
+1813,"Outpatient BUP","1",4
+1813,"Outpatient BUP","2",4
+1814,"Methadone","1",2
+1814,"Methadone","2",2
+1815,"Outpatient BUP + EMM","1",2
+1815,"Outpatient BUP + EMM","2",30
+1816,"Inpatient NR-NTX","1",2
+1816,"Inpatient NR-NTX","2",2
+1818,"Outpatient BUP","1",3
+1818,"Outpatient BUP","2",3
+1819,"Methadone","1",7
+1819,"Methadone","2",7
+1820,"Outpatient BUP","1",14
+1820,"Outpatient BUP","2",14
+1821,"Outpatient BUP","1",25
+1821,"Outpatient BUP","2",25
+1822,"Outpatient BUP","1",2
+1822,"Outpatient BUP","2",2
+1824,"Outpatient BUP","1",5
+1824,"Outpatient BUP","2",5
+1825,"Outpatient BUP + EMM","1",4
+1825,"Outpatient BUP + EMM","2",33
+1826,"Methadone","1",5
+1826,"Methadone","2",5
+1827,"Outpatient BUP","1",13
+1827,"Outpatient BUP","2",13
+1829,"Outpatient BUP + SMM","1",13
+1830,"Outpatient BUP","1",4
+1830,"Outpatient BUP","2",4
+1832,"Methadone","1",2
+1832,"Methadone","2",2
+1833,"Inpatient BUP","1",8
+1833,"Inpatient BUP","2",8
+1834,"Outpatient BUP","1",20
+1834,"Outpatient BUP","2",20
+1835,"Methadone","1",5
+1835,"Methadone","2",5
+1836,"Inpatient NR-NTX","1",6
+1836,"Inpatient NR-NTX","2",6
+1837,"Methadone","1",11
+1837,"Methadone","2",11
+1838,"Inpatient BUP","1",7
+1838,"Inpatient BUP","2",7
+1839,"Methadone","1",8
+1839,"Methadone","2",8
+1840,"Outpatient BUP","1",2
+1840,"Outpatient BUP","2",2
+1841,"Outpatient BUP","1",8
+1841,"Outpatient BUP","2",8
+1842,"Methadone","1",3
+1842,"Methadone","2",3
+1845,"Inpatient BUP","1",12
+1845,"Inpatient BUP","2",12
+1846,"Outpatient BUP + EMM","1",14
+1846,"Outpatient BUP + EMM","2",56
+1847,"Inpatient NR-NTX","1",2
+1847,"Inpatient NR-NTX","2",2
+1848,"Methadone","1",2
+1848,"Methadone","2",2
+1849,"Inpatient BUP","1",4
+1849,"Inpatient BUP","2",4
+1850,"Outpatient BUP + SMM","1",4
+1850,"Outpatient BUP + SMM","2",63
+1853,"Methadone","1",21
+1853,"Methadone","2",21
+1854,"Outpatient BUP + EMM","1",3
+1855,"Outpatient BUP","1",21
+1855,"Outpatient BUP","2",21
+1857,"Outpatient BUP","1",3
+1857,"Outpatient BUP","2",3
+1858,"Outpatient BUP + SMM","1",8
+1859,"Outpatient BUP","1",6
+1859,"Outpatient BUP","2",6
+1860,"Methadone","1",2
+1860,"Methadone","2",2
+1861,"Outpatient BUP + SMM","1",2
+1862,"Inpatient BUP","1",2
+1862,"Inpatient BUP","2",2
+1863,"Outpatient BUP","1",5
+1863,"Outpatient BUP","2",5
+1864,"Outpatient BUP","1",10
+1864,"Outpatient BUP","2",10
+1865,"Inpatient NR-NTX","1",3
+1865,"Inpatient NR-NTX","2",3
+1866,"Methadone","1",3
+1866,"Methadone","2",3
+1867,"Outpatient BUP + SMM","1",2
+1867,"Outpatient BUP + SMM","2",35
+1868,"Inpatient BUP","1",4
+1868,"Inpatient BUP","2",4
+1869,"Outpatient BUP + EMM","1",2
+1870,"Methadone","1",3
+1870,"Methadone","2",3
+1873,"Outpatient BUP","1",4
+1873,"Outpatient BUP","2",4
+1874,"Methadone","1",3
+1874,"Methadone","2",3
+1875,"Outpatient BUP","1",3
+1875,"Outpatient BUP","2",3
+1876,"Outpatient BUP + EMM","1",3
+1877,"Outpatient BUP + SMM","1",5
+1877,"Outpatient BUP + EMM","2",34
+1878,"Outpatient BUP + SMM","1",5
+1878,"Outpatient BUP + EMM","2",57
+1880,"Inpatient BUP","1",5
+1880,"Inpatient BUP","2",5
+1881,"Methadone","1",7
+1881,"Methadone","2",7
+1882,"Methadone","1",11
+1882,"Methadone","2",11
+1883,"Methadone","1",3
+1883,"Methadone","2",3
+1884,"Inpatient BUP","1",1
+1884,"Inpatient BUP","2",1
+1885,"Inpatient BUP","1",3
+1885,"Inpatient BUP","2",3
+1886,"Methadone","1",12
+1886,"Methadone","2",12
+1887,"Outpatient BUP + EMM","1",3
+1887,"Outpatient BUP + SMM","2",27
+1888,"Outpatient BUP + SMM","1",2
+1888,"Outpatient BUP + SMM","2",85
+1889,"Outpatient BUP + SMM","1",5
+1889,"Outpatient BUP + EMM","2",47
+1892,"Outpatient BUP + EMM","1",2
+1892,"Outpatient BUP + EMM","2",42
+1893,"Methadone","1",3
+1893,"Methadone","2",3
+1894,"Outpatient BUP","1",8
+1894,"Outpatient BUP","2",8
+1895,"Outpatient BUP + EMM","1",1
+1895,"Outpatient BUP + SMM","2",64
+1896,"Methadone","1",7
+1896,"Methadone","2",7
+1897,"Inpatient BUP","1",1
+1897,"Inpatient BUP","2",1
+1899,"Inpatient NR-NTX","1",2
+1899,"Inpatient NR-NTX","2",2
+1900,"Outpatient BUP","1",6
+1900,"Outpatient BUP","2",6
+1901,"Outpatient BUP + EMM","1",3
+1902,"Outpatient BUP + SMM","1",1
+1902,"Outpatient BUP + SMM","2",45
+1903,"Methadone","1",6
+1903,"Methadone","2",6
+1904,"Methadone","1",2
+1904,"Methadone","2",2
+1905,"Methadone","1",3
+1905,"Methadone","2",3
+1906,"Inpatient NR-NTX","1",6
+1906,"Inpatient NR-NTX","2",6
+1908,"Methadone","1",2
+1908,"Methadone","2",2
+1910,"Outpatient BUP + SMM","1",6
+1910,"Outpatient BUP + EMM","2",33
+1911,"Inpatient NR-NTX","1",4
+1911,"Inpatient NR-NTX","2",4
+1912,"Methadone","1",6
+1912,"Methadone","2",6
+1913,"Outpatient BUP","1",21
+1913,"Outpatient BUP","2",21
+1914,"Methadone","1",12
+1914,"Methadone","2",12
+1916,"Inpatient NR-NTX","1",5
+1916,"Inpatient NR-NTX","2",5
+1917,"Outpatient BUP","1",2
+1917,"Outpatient BUP","2",2
+1919,"Outpatient BUP","1",6
+1919,"Outpatient BUP","2",6
+1920,"Inpatient BUP","1",2
+1920,"Inpatient BUP","2",2
+1921,"Outpatient BUP + EMM","1",4
+1921,"Outpatient BUP + SMM","2",47
+1922,"Outpatient BUP","1",8
+1922,"Outpatient BUP","2",8
+1923,"Outpatient BUP + SMM","1",7
+1924,"Outpatient BUP","1",7
+1924,"Outpatient BUP","2",7
+1925,"Outpatient BUP + SMM","1",9
+1925,"Outpatient BUP + SMM","2",65
+1928,"Methadone","1",5
+1928,"Methadone","2",5
+1929,"Methadone","1",8
+1929,"Methadone","2",8
+1930,"Outpatient BUP + EMM","1",8
+1931,"Inpatient NR-NTX","1",5
+1931,"Inpatient NR-NTX","2",5
+1933,"Methadone","1",5
+1933,"Methadone","2",5
+1935,"Inpatient BUP","1",3
+1935,"Inpatient BUP","2",3
+1936,"Outpatient BUP","1",3
+1936,"Outpatient BUP","2",3
+1937,"Outpatient BUP + EMM","1",4
+1938,"Outpatient BUP","1",2
+1938,"Outpatient BUP","2",2
+1939,"Inpatient NR-NTX","1",2
+1939,"Inpatient NR-NTX","2",2
+1941,"Outpatient BUP","1",2
+1941,"Outpatient BUP","2",2
+1942,"Outpatient BUP + SMM","1",1
+1943,"Outpatient BUP + EMM","1",8
+1943,"Outpatient BUP + SMM","2",91
+1944,"Inpatient NR-NTX","1",2
+1944,"Inpatient NR-NTX","2",2
+1945,"Methadone","1",7
+1945,"Methadone","2",7
+1946,"Methadone","1",3
+1946,"Methadone","2",3
+1949,"Outpatient BUP + EMM","1",0
+1949,"Outpatient BUP + SMM","2",36
+1952,"Inpatient BUP","1",6
+1952,"Inpatient BUP","2",6
+1953,"Outpatient BUP + EMM","1",1
+1954,"Methadone","1",8
+1954,"Methadone","2",8
+1956,"Inpatient NR-NTX","1",2
+1956,"Inpatient NR-NTX","2",2
+1957,"Methadone","1",2
+1957,"Methadone","2",2
+1958,"Methadone","1",6
+1958,"Methadone","2",6
+1959,"Methadone","1",3
+1959,"Methadone","2",3
+1962,"Outpatient BUP","1",2
+1962,"Outpatient BUP","2",2
+1964,"Outpatient BUP + EMM","1",6
+1967,"Outpatient BUP","1",27
+1967,"Outpatient BUP","2",27
+1968,"Inpatient NR-NTX","1",5
+1968,"Inpatient NR-NTX","2",5
+1969,"Outpatient BUP","1",3
+1969,"Outpatient BUP","2",3
+1970,"Outpatient BUP","1",6
+1970,"Outpatient BUP","2",6
+1972,"Outpatient BUP + SMM","1",2
+1972,"Outpatient BUP + SMM","2",54
+1974,"Outpatient BUP","1",9
+1974,"Outpatient BUP","2",9
+1977,"Outpatient BUP + SMM","1",1
+1979,"Outpatient BUP","1",3
+1979,"Outpatient BUP","2",3
+1981,"Methadone","1",6
+1981,"Methadone","2",6
+1985,"Outpatient BUP + SMM","1",8
+1986,"Outpatient BUP + EMM","1",8
+1986,"Outpatient BUP + EMM","2",55
+1987,"Methadone","1",6
+1987,"Methadone","2",6
+1988,"Inpatient BUP","1",3
+1988,"Inpatient BUP","2",3
+1989,"Outpatient BUP","1",4
+1989,"Outpatient BUP","2",4
+1990,"Methadone","1",7
+1990,"Methadone","2",7
+1991,"Methadone","1",2
+1991,"Methadone","2",2
+1992,"Outpatient BUP","1",6
+1992,"Outpatient BUP","2",6
+1997,"Outpatient BUP","1",9
+1997,"Outpatient BUP","2",9
+1998,"Inpatient BUP","1",5
+1998,"Inpatient BUP","2",5
+2000,"Outpatient BUP","1",2
+2000,"Outpatient BUP","2",2
+2001,"Inpatient NR-NTX","1",2
+2001,"Inpatient NR-NTX","2",2
+2004,"Outpatient BUP + EMM","1",1
+2006,"Outpatient BUP","1",4
+2006,"Outpatient BUP","2",4
+2007,"Outpatient BUP","1",9
+2007,"Outpatient BUP","2",9
+2008,"Outpatient BUP + EMM","1",8
+2008,"Outpatient BUP + EMM","2",47
+2009,"Inpatient BUP","1",4
+2009,"Inpatient BUP","2",4
+2011,"Methadone","1",6
+2011,"Methadone","2",6
+2012,"Methadone","1",6
+2012,"Methadone","2",6
+2014,"Outpatient BUP + SMM","1",5
+2015,"Inpatient NR-NTX","1",3
+2015,"Inpatient NR-NTX","2",3
+2017,"Inpatient NR-NTX","1",3
+2017,"Inpatient NR-NTX","2",3
+2018,"Outpatient BUP + EMM","1",0
+2018,"Outpatient BUP + SMM","2",35
+2019,"Inpatient NR-NTX","1",9
+2019,"Inpatient NR-NTX","2",9
+2020,"Outpatient BUP + EMM","1",4
+2020,"Outpatient BUP + EMM","2",25
+2021,"Outpatient BUP","1",2
+2021,"Outpatient BUP","2",2
+2022,"Methadone","1",13
+2022,"Methadone","2",13
+2023,"Outpatient BUP","1",7
+2023,"Outpatient BUP","2",7
+2024,"Outpatient BUP + SMM","1",0
+2024,"Outpatient BUP + SMM","2",43
+2025,"Outpatient BUP","1",2
+2025,"Outpatient BUP","2",2
+2026,"Outpatient BUP + EMM","1",5
+2027,"Outpatient BUP + EMM","1",1
+2027,"Outpatient BUP + SMM","2",42
+2031,"Methadone","1",7
+2031,"Methadone","2",7
+2033,"Outpatient BUP + EMM","1",2
+2033,"Outpatient BUP + SMM","2",49
+2035,"Outpatient BUP + SMM","1",7
+2036,"Methadone","1",6
+2036,"Methadone","2",6
+2038,"Outpatient BUP + SMM","1",6
+2038,"Outpatient BUP + EMM","2",30
+2039,"Outpatient BUP","1",8
+2039,"Outpatient BUP","2",8
+2040,"Inpatient NR-NTX","1",2
+2040,"Inpatient NR-NTX","2",2
+2041,"Outpatient BUP + EMM","1",3
+2043,"Outpatient BUP","1",2
+2043,"Outpatient BUP","2",2
+2044,"Outpatient BUP","1",3
+2044,"Outpatient BUP","2",3
+2045,"Outpatient BUP + EMM","1",8
+2046,"Outpatient BUP + EMM","1",1
+2048,"Inpatient NR-NTX","1",1
+2048,"Inpatient NR-NTX","2",1
+2050,"Outpatient BUP","1",2
+2050,"Outpatient BUP","2",2
+2051,"Outpatient BUP + SMM","1",7
+2051,"Outpatient BUP + EMM","2",45
+2052,"Outpatient BUP + EMM","1",5
+2052,"Outpatient BUP + SMM","2",62
+2054,"Outpatient BUP","1",11
+2054,"Outpatient BUP","2",11
+2055,"Inpatient NR-NTX","1",4
+2055,"Inpatient NR-NTX","2",4
+2056,"Outpatient BUP + SMM","1",2
+2056,"Outpatient BUP + EMM","2",40
+2058,"Outpatient BUP + SMM","1",1
+2060,"Inpatient BUP","1",3
+2060,"Inpatient BUP","2",3
+2061,"Outpatient BUP + SMM","1",3
+2061,"Outpatient BUP + SMM","2",45
+2063,"Inpatient NR-NTX","1",7
+2063,"Inpatient NR-NTX","2",7
+2064,"Methadone","1",8
+2064,"Methadone","2",8
+2065,"Inpatient NR-NTX","1",3
+2065,"Inpatient NR-NTX","2",3
+2066,"Outpatient BUP","1",2
+2066,"Outpatient BUP","2",2
+2067,"Outpatient BUP","1",9
+2067,"Outpatient BUP","2",9
+2068,"Methadone","1",4
+2068,"Methadone","2",4
+2070,"Methadone","1",6
+2070,"Methadone","2",6
+2071,"Outpatient BUP","1",2
+2071,"Outpatient BUP","2",2
+2073,"Outpatient BUP + EMM","1",5
+2073,"Outpatient BUP + SMM","2",49
+2075,"Outpatient BUP","1",6
+2075,"Outpatient BUP","2",6
+2078,"Outpatient BUP","1",2
+2078,"Outpatient BUP","2",2
+2080,"Inpatient NR-NTX","1",2
+2080,"Inpatient NR-NTX","2",2
+2082,"Inpatient NR-NTX","1",2
+2082,"Inpatient NR-NTX","2",2
+2083,"Outpatient BUP","1",25
+2083,"Outpatient BUP","2",25
+2084,"Inpatient BUP","1",7
+2084,"Inpatient BUP","2",7
+2085,"Outpatient BUP + EMM","1",5
+2085,"Outpatient BUP + SMM","2",33
+2086,"Methadone","1",3
+2086,"Methadone","2",3
+2087,"Inpatient BUP","1",6
+2087,"Inpatient BUP","2",6
+2088,"Outpatient BUP","1",8
+2088,"Outpatient BUP","2",8
+2089,"Outpatient BUP","1",2
+2089,"Outpatient BUP","2",2
+2090,"Methadone","1",21
+2090,"Methadone","2",21
+2091,"Outpatient BUP","1",10
+2091,"Outpatient BUP","2",10
+2093,"Methadone","1",6
+2093,"Methadone","2",6
+2098,"Outpatient BUP + EMM","1",1
+2098,"Outpatient BUP + SMM","2",29
+2099,"Outpatient BUP","1",6
+2099,"Outpatient BUP","2",6
+2101,"Inpatient BUP","1",7
+2101,"Inpatient BUP","2",7
+2103,"Methadone","1",14
+2103,"Methadone","2",14
+2105,"Outpatient BUP + SMM","1",2
+2105,"Outpatient BUP + EMM","2",42
+2106,"Inpatient BUP","1",2
+2106,"Inpatient BUP","2",2
+2107,"Inpatient BUP","1",2
+2107,"Inpatient BUP","2",2
+2110,"Outpatient BUP + EMM","1",1
+2110,"Outpatient BUP + SMM","2",69
+2112,"Inpatient NR-NTX","1",3
+2112,"Inpatient NR-NTX","2",3
+2113,"Outpatient BUP","1",8
+2113,"Outpatient BUP","2",8
+2115,"Outpatient BUP + SMM","1",1
+2115,"Outpatient BUP + EMM","2",23
+2117,"Inpatient BUP","1",3
+2117,"Inpatient BUP","2",3
+2119,"Inpatient NR-NTX","1",2
+2119,"Inpatient NR-NTX","2",2
+2120,"Outpatient BUP + SMM","1",0
+2121,"Inpatient BUP","1",5
+2121,"Inpatient BUP","2",5
+2123,"Outpatient BUP + SMM","1",6
+2123,"Outpatient BUP + EMM","2",34
+2124,"Outpatient BUP","1",3
+2124,"Outpatient BUP","2",3
+2125,"Outpatient BUP","1",3
+2125,"Outpatient BUP","2",3
+2126,"Outpatient BUP","1",2
+2126,"Outpatient BUP","2",2
+2128,"Outpatient BUP","1",3
+2128,"Outpatient BUP","2",3
+2129,"Outpatient BUP + SMM","1",2
+2129,"Outpatient BUP + SMM","2",44
+2131,"Outpatient BUP","1",13
+2131,"Outpatient BUP","2",13
+2132,"Inpatient BUP","1",5
+2132,"Inpatient BUP","2",5
+2133,"Inpatient BUP","1",5
+2133,"Inpatient BUP","2",5
+2135,"Outpatient BUP","1",3
+2135,"Outpatient BUP","2",3
+2138,"Outpatient BUP","1",4
+2138,"Outpatient BUP","2",4
+2140,"Methadone","1",2
+2140,"Methadone","2",2
+2142,"Outpatient BUP","1",9
+2142,"Outpatient BUP","2",9
+2144,"Methadone","1",3
+2144,"Methadone","2",3
+2145,"Outpatient BUP + SMM","1",6
+2146,"Outpatient BUP","1",8
+2146,"Outpatient BUP","2",8
+2147,"Inpatient NR-NTX","1",1
+2147,"Inpatient NR-NTX","2",1
+2148,"Outpatient BUP + SMM","1",5
+2148,"Outpatient BUP + EMM","2",29
+2149,"Outpatient BUP + EMM","1",21
+2150,"Outpatient BUP","1",8
+2150,"Outpatient BUP","2",8
+2151,"Methadone","1",16
+2151,"Methadone","2",16
+2153,"Methadone","1",6
+2153,"Methadone","2",6
+2154,"Outpatient BUP","1",4
+2154,"Outpatient BUP","2",4
+2156,"Inpatient BUP","1",4
+2156,"Inpatient BUP","2",4
+2157,"Outpatient BUP + SMM","1",1
+2157,"Outpatient BUP + SMM","2",44
+2158,"Inpatient NR-NTX","1",4
+2158,"Inpatient NR-NTX","2",4
+2159,"Methadone","1",3
+2159,"Methadone","2",3
+2160,"Methadone","1",8
+2160,"Methadone","2",8
+2161,"Outpatient BUP","1",6
+2161,"Outpatient BUP","2",6
+2162,"Outpatient BUP","1",2
+2162,"Outpatient BUP","2",2
+2163,"Outpatient BUP","1",7
+2163,"Outpatient BUP","2",7
+2164,"Inpatient BUP","1",3
+2164,"Inpatient BUP","2",3
+2165,"Methadone","1",4
+2165,"Methadone","2",4
+2167,"Methadone","1",2
+2167,"Methadone","2",2
+2170,"Outpatient BUP + EMM","1",27
+2171,"Methadone","1",10
+2171,"Methadone","2",10
+2172,"Methadone","1",5
+2172,"Methadone","2",5
+2174,"Methadone","1",5
+2174,"Methadone","2",5
+2175,"Outpatient BUP + SMM","1",12
+2175,"Outpatient BUP + EMM","2",97
+2176,"Inpatient NR-NTX","1",8
+2176,"Inpatient NR-NTX","2",8
+2178,"Outpatient BUP + EMM","1",0
+2178,"Outpatient BUP + SMM","2",30
+2179,"Outpatient BUP + EMM","1",5
+2180,"Methadone","1",3
+2180,"Methadone","2",3
+2181,"Outpatient BUP","1",2
+2181,"Outpatient BUP","2",2
+2182,"Outpatient BUP + EMM","1",0
+2182,"Outpatient BUP + EMM","2",54
+2183,"Outpatient BUP + EMM","1",7
+2183,"Outpatient BUP + SMM","2",56
+2184,"Outpatient BUP + SMM","1",2
+2184,"Outpatient BUP + SMM","2",38
+2186,"Inpatient BUP","1",3
+2186,"Inpatient BUP","2",3
+2187,"Inpatient NR-NTX","1",4
+2187,"Inpatient NR-NTX","2",4
+2188,"Outpatient BUP","1",8
+2188,"Outpatient BUP","2",8
+2189,"Outpatient BUP","1",5
+2189,"Outpatient BUP","2",5
+2193,"Inpatient BUP","1",4
+2193,"Inpatient BUP","2",4
+2194,"Inpatient NR-NTX","1",2
+2194,"Inpatient NR-NTX","2",2
+2196,"Outpatient BUP","1",29
+2196,"Outpatient BUP","2",29
+2197,"Inpatient NR-NTX","1",2
+2197,"Inpatient NR-NTX","2",2
+2199,"Outpatient BUP","1",3
+2199,"Outpatient BUP","2",3
+2201,"Inpatient BUP","1",2
+2201,"Inpatient BUP","2",2
+2202,"Outpatient BUP","1",4
+2202,"Outpatient BUP","2",4
+2204,"Outpatient BUP + SMM","1",6
+2205,"Outpatient BUP","1",20
+2205,"Outpatient BUP","2",20
+2206,"Outpatient BUP","1",8
+2206,"Outpatient BUP","2",8
+2207,"Outpatient BUP","1",2
+2207,"Outpatient BUP","2",2
+2208,"Outpatient BUP + EMM","1",7
+2208,"Outpatient BUP + SMM","2",42
+2209,"Inpatient NR-NTX","1",4
+2209,"Inpatient NR-NTX","2",4
+2210,"Outpatient BUP","1",12
+2210,"Outpatient BUP","2",12
+2211,"Inpatient BUP","1",5
+2211,"Inpatient BUP","2",5
+2212,"Outpatient BUP + SMM","1",2
+2212,"Outpatient BUP + EMM","2",37
+2215,"Inpatient BUP","1",3
+2215,"Inpatient BUP","2",3
+2217,"Outpatient BUP","1",4
+2217,"Outpatient BUP","2",4
+2218,"Outpatient BUP + SMM","1",4
+2218,"Outpatient BUP + EMM","2",33
+2219,"Methadone","1",3
+2219,"Methadone","2",3
+2220,"Outpatient BUP","1",6
+2220,"Outpatient BUP","2",6
+2221,"Outpatient BUP + EMM","1",7
+2221,"Outpatient BUP + EMM","2",55
+2222,"Outpatient BUP","1",3
+2222,"Outpatient BUP","2",3
+2223,"Outpatient BUP","1",2
+2223,"Outpatient BUP","2",2
+2224,"Methadone","1",2
+2224,"Methadone","2",2
+2225,"Inpatient BUP","1",3
+2225,"Inpatient BUP","2",3
+2226,"Outpatient BUP","1",8
+2226,"Outpatient BUP","2",8
+2227,"Outpatient BUP","1",15
+2227,"Outpatient BUP","2",15
+2228,"Outpatient BUP","1",10
+2228,"Outpatient BUP","2",10
+2230,"Inpatient NR-NTX","1",2
+2230,"Inpatient NR-NTX","2",2
+2231,"Outpatient BUP","1",3
+2231,"Outpatient BUP","2",3
+2233,"Inpatient NR-NTX","1",4
+2233,"Inpatient NR-NTX","2",4
+2234,"Outpatient BUP + EMM","1",9
+2235,"Outpatient BUP","1",8
+2235,"Outpatient BUP","2",8
+2238,"Outpatient BUP + SMM","1",1
+2239,"Methadone","1",4
+2239,"Methadone","2",4
+2243,"Inpatient BUP","1",2
+2243,"Inpatient BUP","2",2
+2244,"Methadone","1",5
+2244,"Methadone","2",5
+2245,"Inpatient NR-NTX","1",2
+2245,"Inpatient NR-NTX","2",2
+2248,"Outpatient BUP","1",6
+2248,"Outpatient BUP","2",6
+2249,"Inpatient NR-NTX","1",3
+2249,"Inpatient NR-NTX","2",3
+2251,"Outpatient BUP + EMM","1",7
+2251,"Outpatient BUP + SMM","2",24
+2252,"Outpatient BUP","1",2
+2252,"Outpatient BUP","2",2
+2254,"Inpatient NR-NTX","1",3
+2254,"Inpatient NR-NTX","2",3
+2255,"Outpatient BUP","1",4
+2255,"Outpatient BUP","2",4
+2256,"Methadone","1",2
+2256,"Methadone","2",2
+2258,"Outpatient BUP","1",7
+2258,"Outpatient BUP","2",7
+2259,"Inpatient BUP","1",5
+2259,"Inpatient BUP","2",5
+2261,"Inpatient NR-NTX","1",1
+2261,"Inpatient NR-NTX","2",1
+2262,"Outpatient BUP","1",7
+2262,"Outpatient BUP","2",7
+2263,"Outpatient BUP + SMM","1",7
+2264,"Methadone","1",14
+2264,"Methadone","2",14
+2265,"Inpatient NR-NTX","1",7
+2265,"Inpatient NR-NTX","2",7
+2266,"Methadone","1",12
+2266,"Methadone","2",12
+2267,"Methadone","1",8
+2267,"Methadone","2",8
+2268,"Inpatient NR-NTX","1",1
+2268,"Inpatient NR-NTX","2",1
+2269,"Outpatient BUP","1",22
+2269,"Outpatient BUP","2",22
+2270,"Methadone","1",2
+2270,"Methadone","2",2
+2272,"Methadone","1",2
+2272,"Methadone","2",2
+2273,"Outpatient BUP","1",7
+2273,"Outpatient BUP","2",7
+2274,"Outpatient BUP","1",2
+2274,"Outpatient BUP","2",2
+2276,"Outpatient BUP","1",6
+2276,"Outpatient BUP","2",6
+2279,"Outpatient BUP + EMM","1",11
+2279,"Outpatient BUP + SMM","2",67
+2280,"Outpatient BUP + SMM","1",7
+2280,"Outpatient BUP + EMM","2",84
+2281,"Outpatient BUP","1",10
+2281,"Outpatient BUP","2",10
+2282,"Methadone","1",2
+2282,"Methadone","2",2
+2283,"Outpatient BUP","1",6
+2283,"Outpatient BUP","2",6
+2284,"Inpatient NR-NTX","1",5
+2284,"Inpatient NR-NTX","2",5
+2285,"Methadone","1",7
+2285,"Methadone","2",7
+2286,"Outpatient BUP","1",13
+2286,"Outpatient BUP","2",13
+2288,"Outpatient BUP","1",9
+2288,"Outpatient BUP","2",9
+2289,"Outpatient BUP + EMM","1",4
+2289,"Outpatient BUP + SMM","2",67
+2293,"Methadone","1",8
+2293,"Methadone","2",8
+2297,"Outpatient BUP","1",8
+2297,"Outpatient BUP","2",8
+2300,"Methadone","1",5
+2300,"Methadone","2",5
+2302,"Outpatient BUP","1",7
+2302,"Outpatient BUP","2",7
+2305,"Outpatient BUP","1",5
+2305,"Outpatient BUP","2",5
+2307,"Methadone","1",5
+2307,"Methadone","2",5
+2309,"Inpatient BUP","1",7
+2309,"Inpatient BUP","2",7
+2310,"Inpatient BUP","1",5
+2310,"Inpatient BUP","2",5
+2311,"Outpatient BUP + EMM","1",2
+2312,"Inpatient NR-NTX","1",3
+2312,"Inpatient NR-NTX","2",3
+2314,"Outpatient BUP + SMM","1",7
+2315,"Outpatient BUP + EMM","1",0
+2315,"Outpatient BUP + SMM","2",37
+2317,"Outpatient BUP + EMM","1",2
+2317,"Outpatient BUP + EMM","2",38
+2318,"Outpatient BUP","1",4
+2318,"Outpatient BUP","2",4
+2319,"Outpatient BUP","1",16
+2319,"Outpatient BUP","2",16
+2320,"Inpatient NR-NTX","1",6
+2320,"Inpatient NR-NTX","2",6
+2321,"Inpatient NR-NTX","1",11
+2321,"Inpatient NR-NTX","2",11
+2322,"Outpatient BUP","1",2
+2322,"Outpatient BUP","2",2
+2324,"Outpatient BUP","1",6
+2324,"Outpatient BUP","2",6
+2326,"Outpatient BUP + EMM","1",0
+2326,"Outpatient BUP + EMM","2",32
+2327,"Outpatient BUP + SMM","1",6
+2329,"Inpatient NR-NTX","1",3
+2329,"Inpatient NR-NTX","2",3
+2330,"Outpatient BUP","1",2
+2330,"Outpatient BUP","2",2
+2333,"Outpatient BUP","1",2
+2333,"Outpatient BUP","2",2
+2334,"Outpatient BUP","1",2
+2334,"Outpatient BUP","2",2
+2335,"Outpatient BUP","1",7
+2335,"Outpatient BUP","2",7
+2337,"Inpatient NR-NTX","1",7
+2337,"Inpatient NR-NTX","2",7
+2339,"Outpatient BUP","1",6
+2339,"Outpatient BUP","2",6
+2341,"Inpatient NR-NTX","1",1
+2341,"Inpatient NR-NTX","2",1
+2343,"Outpatient BUP + SMM","1",7
+2343,"Outpatient BUP + SMM","2",35
+2345,"Methadone","1",2
+2345,"Methadone","2",2
+2346,"Inpatient BUP","1",11
+2346,"Inpatient BUP","2",11
+2349,"Outpatient BUP + SMM","1",27
+2349,"Outpatient BUP + EMM","2",61
+2350,"Inpatient NR-NTX","1",2
+2350,"Inpatient NR-NTX","2",2
+2352,"Methadone","1",3
+2352,"Methadone","2",3
+2353,"Outpatient BUP + EMM","1",3
+2354,"Methadone","1",6
+2354,"Methadone","2",6
+2355,"Inpatient BUP","1",5
+2355,"Inpatient BUP","2",5
+2357,"Outpatient BUP + SMM","1",7
+2359,"Inpatient NR-NTX","1",1
+2359,"Inpatient NR-NTX","2",1
+2360,"Inpatient BUP","1",6
+2360,"Inpatient BUP","2",6
+2362,"Outpatient BUP + EMM","1",13
+2362,"Outpatient BUP + SMM","2",55
+2365,"Outpatient BUP","1",7
+2365,"Outpatient BUP","2",7
+2366,"Outpatient BUP","1",23
+2366,"Outpatient BUP","2",23
+2367,"Outpatient BUP","1",6
+2367,"Outpatient BUP","2",6
+2369,"Outpatient BUP","1",5
+2369,"Outpatient BUP","2",5
+2370,"Outpatient BUP + SMM","1",1
+2370,"Outpatient BUP + SMM","2",39
+2372,"Inpatient BUP","1",5
+2372,"Inpatient BUP","2",5
+2373,"Outpatient BUP","1",3
+2373,"Outpatient BUP","2",3
+2374,"Outpatient BUP","1",2
+2374,"Outpatient BUP","2",2
+2377,"Outpatient BUP","1",6
+2377,"Outpatient BUP","2",6
+2382,"Inpatient BUP","1",4
+2382,"Inpatient BUP","2",4
+2383,"Outpatient BUP","1",21
+2383,"Outpatient BUP","2",21
+2384,"Outpatient BUP","1",7
+2384,"Outpatient BUP","2",7
+2385,"Outpatient BUP + EMM","1",4
+2387,"Methadone","1",7
+2387,"Methadone","2",7
+2389,"Outpatient BUP + EMM","1",10
+2389,"Outpatient BUP + EMM","2",59
+2392,"Outpatient BUP","1",5
+2392,"Outpatient BUP","2",5
+2394,"Methadone","1",2
+2394,"Methadone","2",2
+2395,"Outpatient BUP + EMM","1",6
+2395,"Outpatient BUP + EMM","2",65
+2396,"Outpatient BUP","1",3
+2396,"Outpatient BUP","2",3
+2397,"Inpatient BUP","1",8
+2397,"Inpatient BUP","2",8
+2398,"Outpatient BUP + EMM","1",7
+2400,"Outpatient BUP + EMM","1",1
+2401,"Outpatient BUP","1",4
+2401,"Outpatient BUP","2",4
+2402,"Outpatient BUP","1",3
+2402,"Outpatient BUP","2",3
+2403,"Outpatient BUP","1",11
+2403,"Outpatient BUP","2",11
+2404,"Outpatient BUP","1",6
+2404,"Outpatient BUP","2",6
+2405,"Methadone","1",8
+2405,"Methadone","2",8
+2407,"Inpatient NR-NTX","1",3
+2407,"Inpatient NR-NTX","2",3
+2409,"Methadone","1",3
+2409,"Methadone","2",3
+2410,"Outpatient BUP + EMM","1",7
+2411,"Outpatient BUP","1",2
+2411,"Outpatient BUP","2",2
+2415,"Outpatient BUP + EMM","1",4
+2417,"Outpatient BUP + EMM","1",7
+2419,"Outpatient BUP + SMM","1",0
+2419,"Outpatient BUP + SMM","2",36
+2422,"Outpatient BUP + EMM","1",0
+2422,"Outpatient BUP + EMM","2",30
+2423,"Inpatient BUP","1",3
+2423,"Inpatient BUP","2",3
+2424,"Outpatient BUP","1",2
+2424,"Outpatient BUP","2",2
+2427,"Outpatient BUP + SMM","1",7
+2429,"Methadone","1",7
+2429,"Methadone","2",7
+2430,"Outpatient BUP + SMM","1",2
+2431,"Outpatient BUP","1",8
+2431,"Outpatient BUP","2",8
+2432,"Outpatient BUP","1",7
+2432,"Outpatient BUP","2",7
+2434,"Inpatient NR-NTX","1",2
+2434,"Inpatient NR-NTX","2",2
+2435,"Methadone","1",13
+2435,"Methadone","2",13
+2438,"Methadone","1",4
+2438,"Methadone","2",4
+2439,"Methadone","1",9
+2439,"Methadone","2",9
+2440,"Outpatient BUP + SMM","1",11
+2441,"Methadone","1",6
+2441,"Methadone","2",6
+2443,"Methadone","1",19
+2443,"Methadone","2",19
+2444,"Outpatient BUP","1",6
+2444,"Outpatient BUP","2",6
+2445,"Methadone","1",3
+2445,"Methadone","2",3
+2447,"Inpatient BUP","1",3
+2447,"Inpatient BUP","2",3
+2448,"Inpatient BUP","1",5
+2448,"Inpatient BUP","2",5
+2449,"Outpatient BUP + EMM","1",6
+2452,"Outpatient BUP","1",8
+2452,"Outpatient BUP","2",8
+2454,"Outpatient BUP + SMM","1",6
+2454,"Outpatient BUP + EMM","2",58
+2455,"Outpatient BUP","1",8
+2455,"Outpatient BUP","2",8
+2456,"Methadone","1",4
+2456,"Methadone","2",4
+2457,"Inpatient NR-NTX","1",5
+2457,"Inpatient NR-NTX","2",5
+2458,"Methadone","1",5
+2458,"Methadone","2",5
+2461,"Outpatient BUP","1",7
+2461,"Outpatient BUP","2",7
+2463,"Outpatient BUP + SMM","1",5
+2464,"Outpatient BUP + SMM","1",4
+2466,"Outpatient BUP","1",8
+2466,"Outpatient BUP","2",8
+2468,"Outpatient BUP + EMM","1",4
+2468,"Outpatient BUP + EMM","2",46
+2471,"Outpatient BUP","1",3
+2471,"Outpatient BUP","2",3
+2473,"Inpatient BUP","1",3
+2473,"Inpatient BUP","2",3
+2475,"Outpatient BUP","1",27
+2475,"Outpatient BUP","2",27
+2476,"Outpatient BUP + SMM","1",7
+2476,"Outpatient BUP + SMM","2",61
+2478,"Outpatient BUP + SMM","1",6
+2478,"Outpatient BUP + EMM","2",36
+2479,"Inpatient BUP","1",6
+2479,"Inpatient BUP","2",6
+2480,"Outpatient BUP","1",3
+2480,"Outpatient BUP","2",3
+2481,"Methadone","1",9
+2481,"Methadone","2",9
+2482,"Outpatient BUP","1",13
+2482,"Outpatient BUP","2",13
+2484,"Outpatient BUP","1",7
+2484,"Outpatient BUP","2",7
+2485,"Outpatient BUP + SMM","1",4
+2486,"Outpatient BUP","1",8
+2486,"Outpatient BUP","2",8
+2487,"Inpatient NR-NTX","1",4
+2487,"Inpatient NR-NTX","2",4
+2488,"Outpatient BUP","1",5
+2488,"Outpatient BUP","2",5
+2489,"Inpatient NR-NTX","1",5
+2489,"Inpatient NR-NTX","2",5
+2491,"Inpatient BUP","1",4
+2491,"Inpatient BUP","2",4
+2492,"Outpatient BUP","1",8
+2492,"Outpatient BUP","2",8
+2493,"Inpatient BUP","1",9
+2493,"Inpatient BUP","2",9
+2494,"Methadone","1",4
+2494,"Methadone","2",4
+2495,"Methadone","1",15
+2495,"Methadone","2",15
+2497,"Methadone","1",5
+2497,"Methadone","2",5
+2498,"Outpatient BUP + SMM","1",3
+2500,"Outpatient BUP + EMM","1",1
+2500,"Outpatient BUP + EMM","2",29
+2501,"Inpatient NR-NTX","1",2
+2501,"Inpatient NR-NTX","2",2
+2502,"Methadone","1",8
+2502,"Methadone","2",8
+2503,"Inpatient NR-NTX","1",6
+2503,"Inpatient NR-NTX","2",6
+2506,"Outpatient BUP","1",2
+2506,"Outpatient BUP","2",2
+2508,"Methadone","1",7
+2508,"Methadone","2",7
+2509,"Methadone","1",12
+2509,"Methadone","2",12
+2510,"Methadone","1",28
+2510,"Methadone","2",28
+2511,"Outpatient BUP + SMM","1",7
+2516,"Inpatient BUP","1",1
+2516,"Inpatient BUP","2",1
+2518,"Inpatient BUP","1",2
+2518,"Inpatient BUP","2",2
+2519,"Outpatient BUP","1",2
+2519,"Outpatient BUP","2",2
+2521,"Methadone","1",11
+2521,"Methadone","2",11
+2522,"Outpatient BUP","1",3
+2522,"Outpatient BUP","2",3
+2524,"Methadone","1",3
+2524,"Methadone","2",3
+2525,"Inpatient NR-NTX","1",4
+2525,"Inpatient NR-NTX","2",4
+2526,"Methadone","1",7
+2526,"Methadone","2",7
+2528,"Methadone","1",6
+2528,"Methadone","2",6
+2529,"Outpatient BUP","1",10
+2529,"Outpatient BUP","2",10
+2530,"Methadone","1",2
+2530,"Methadone","2",2
+2532,"Methadone","1",11
+2532,"Methadone","2",11
+2535,"Methadone","1",2
+2535,"Methadone","2",2
+2537,"Outpatient BUP + SMM","1",6
+2538,"Methadone","1",4
+2538,"Methadone","2",4
+2539,"Inpatient BUP","1",5
+2539,"Inpatient BUP","2",5
+2540,"Outpatient BUP","1",14
+2540,"Outpatient BUP","2",14
+2542,"Outpatient BUP + EMM","1",3
+2542,"Outpatient BUP + EMM","2",43
+2543,"Methadone","1",5
+2543,"Methadone","2",5
+2547,"Inpatient NR-NTX","1",8
+2547,"Inpatient NR-NTX","2",8
+2548,"Methadone","1",5
+2548,"Methadone","2",5
+2550,"Methadone","1",6
+2550,"Methadone","2",6
+2552,"Inpatient NR-NTX","1",6
+2552,"Inpatient NR-NTX","2",6
+2553,"Outpatient BUP","1",7
+2553,"Outpatient BUP","2",7
+2554,"Methadone","1",4
+2554,"Methadone","2",4
+2555,"Outpatient BUP","1",3
+2555,"Outpatient BUP","2",3
+2556,"Outpatient BUP","1",7
+2556,"Outpatient BUP","2",7
+2558,"Inpatient BUP","1",11
+2558,"Inpatient BUP","2",11
+2559,"Outpatient BUP","1",13
+2559,"Outpatient BUP","2",13
+2560,"Outpatient BUP + SMM","1",4
+2560,"Outpatient BUP + EMM","2",21
+2561,"Outpatient BUP + EMM","1",2
+2562,"Outpatient BUP","1",5
+2562,"Outpatient BUP","2",5
+2563,"Outpatient BUP","1",6
+2563,"Outpatient BUP","2",6
+2564,"Outpatient BUP","1",5
+2564,"Outpatient BUP","2",5
+2565,"Outpatient BUP","1",11
+2565,"Outpatient BUP","2",11
+2566,"Outpatient BUP","1",2
+2566,"Outpatient BUP","2",2
+2567,"Outpatient BUP","1",2
+2567,"Outpatient BUP","2",2
+2569,"Outpatient BUP + SMM","1",10
+2572,"Inpatient BUP","1",12
+2572,"Inpatient BUP","2",12
+2573,"Outpatient BUP + EMM","1",6
+2573,"Outpatient BUP + SMM","2",44
+2575,"Outpatient BUP + EMM","1",0
+2575,"Outpatient BUP + SMM","2",48
+2576,"Outpatient BUP + EMM","1",1
+2576,"Outpatient BUP + SMM","2",27
+2578,"Outpatient BUP + EMM","1",1
+2578,"Outpatient BUP + EMM","2",43
+2579,"Outpatient BUP + SMM","1",11
+2581,"Outpatient BUP","1",5
+2581,"Outpatient BUP","2",5
+2582,"Outpatient BUP","1",2
+2582,"Outpatient BUP","2",2
+2584,"Methadone","1",2
+2584,"Methadone","2",2
+2585,"Outpatient BUP + EMM","1",3
+2586,"Outpatient BUP + SMM","1",6
+2587,"Outpatient BUP","1",2
+2587,"Outpatient BUP","2",2
+2591,"Outpatient BUP + SMM","1",3
+2592,"Inpatient NR-NTX","1",7
+2592,"Inpatient NR-NTX","2",7
+2593,"Methadone","1",7
+2593,"Methadone","2",7
+2597,"Inpatient BUP","1",8
+2597,"Inpatient BUP","2",8
+2599,"Outpatient BUP","1",6
+2599,"Outpatient BUP","2",6
+2601,"Outpatient BUP + EMM","1",2
+2601,"Outpatient BUP + EMM","2",77
+2602,"Inpatient NR-NTX","1",3
+2602,"Inpatient NR-NTX","2",3
+2603,"Outpatient BUP + SMM","1",1
+2603,"Outpatient BUP + SMM","2",43
+2604,"Inpatient NR-NTX","1",6
+2604,"Inpatient NR-NTX","2",6
+2605,"Methadone","1",7
+2605,"Methadone","2",7
+2607,"Inpatient NR-NTX","1",3
+2607,"Inpatient NR-NTX","2",3
+2610,"Outpatient BUP + SMM","1",5
+2612,"Inpatient BUP","1",5
+2612,"Inpatient BUP","2",5
+2613,"Outpatient BUP","1",3
+2613,"Outpatient BUP","2",3
+2615,"Outpatient BUP + SMM","1",7
+2615,"Outpatient BUP + SMM","2",52
+2618,"Outpatient BUP + EMM","1",7
+2619,"Methadone","1",2
+2619,"Methadone","2",2
+2622,"Methadone","1",3
+2622,"Methadone","2",3
+2623,"Outpatient BUP","1",13
+2623,"Outpatient BUP","2",13
+2624,"Outpatient BUP + SMM","1",7
+2624,"Outpatient BUP + EMM","2",51
+2625,"Outpatient BUP + EMM","1",5
+2626,"Inpatient NR-NTX","1",5
+2626,"Inpatient NR-NTX","2",5
+2627,"Inpatient BUP","1",1
+2627,"Inpatient BUP","2",1
+2632,"Inpatient BUP","1",2
+2632,"Inpatient BUP","2",2
+2633,"Methadone","1",21
+2633,"Methadone","2",21
+2634,"Inpatient NR-NTX","1",2
+2634,"Inpatient NR-NTX","2",2
+2635,"Inpatient NR-NTX","1",2
+2635,"Inpatient NR-NTX","2",2
+2636,"Methadone","1",2
+2636,"Methadone","2",2
+2637,"Outpatient BUP","1",2
+2637,"Outpatient BUP","2",2
+2639,"Outpatient BUP","1",6
+2639,"Outpatient BUP","2",6
+2640,"Outpatient BUP","1",30
+2640,"Outpatient BUP","2",30
+2641,"Outpatient BUP","1",2
+2641,"Outpatient BUP","2",2
+2643,"Methadone","1",28
+2643,"Methadone","2",28
+2647,"Inpatient NR-NTX","1",1
+2647,"Inpatient NR-NTX","2",1
+2648,"Inpatient NR-NTX","1",8
+2648,"Inpatient NR-NTX","2",8
+2649,"Inpatient BUP","1",6
+2649,"Inpatient BUP","2",6
+2650,"Outpatient BUP","1",7
+2650,"Outpatient BUP","2",7
+2652,"Outpatient BUP","1",7
+2652,"Outpatient BUP","2",7
+2653,"Outpatient BUP","1",3
+2653,"Outpatient BUP","2",3
+2654,"Methadone","1",10
+2654,"Methadone","2",10
+2655,"Outpatient BUP + EMM","1",5
+2655,"Outpatient BUP + EMM","2",42
+2657,"Outpatient BUP","1",2
+2657,"Outpatient BUP","2",2
+2658,"Outpatient BUP","1",11
+2658,"Outpatient BUP","2",11
+2659,"Inpatient NR-NTX","1",2
+2659,"Inpatient NR-NTX","2",2
+2660,"Outpatient BUP","1",2
+2660,"Outpatient BUP","2",2
+2661,"Outpatient BUP","1",6
+2661,"Outpatient BUP","2",6
+2662,"Methadone","1",2
+2662,"Methadone","2",2
+2665,"Outpatient BUP","1",5
+2665,"Outpatient BUP","2",5
+2666,"Outpatient BUP + EMM","1",1
+2666,"Outpatient BUP + EMM","2",21
+2668,"Outpatient BUP + EMM","1",0
+2668,"Outpatient BUP + EMM","2",44
+2670,"Inpatient BUP","1",1
+2670,"Inpatient BUP","2",1
+2671,"Outpatient BUP","1",2
+2671,"Outpatient BUP","2",2
+2673,"Inpatient BUP","1",8
+2673,"Inpatient BUP","2",8
+2675,"Inpatient BUP","1",7
+2675,"Inpatient BUP","2",7
+2681,"Outpatient BUP","1",6
+2681,"Outpatient BUP","2",6
+2682,"Outpatient BUP","1",6
+2682,"Outpatient BUP","2",6
+2683,"Inpatient BUP","1",1
+2683,"Inpatient BUP","2",1
+2684,"Methadone","1",2
+2684,"Methadone","2",2
+2686,"Inpatient NR-NTX","1",2
+2686,"Inpatient NR-NTX","2",2
+2687,"Inpatient BUP","1",4
+2687,"Inpatient BUP","2",4
+2689,"Methadone","1",8
+2689,"Methadone","2",8
+2690,"Inpatient BUP","1",4
+2690,"Inpatient BUP","2",4
+2692,"Outpatient BUP","1",28
+2692,"Outpatient BUP","2",28
+2693,"Outpatient BUP + EMM","1",2
+2696,"Outpatient BUP + EMM","1",6
+2697,"Methadone","1",10
+2697,"Methadone","2",10
+2698,"Inpatient NR-NTX","1",3
+2698,"Inpatient NR-NTX","2",3
+2700,"Inpatient NR-NTX","1",3
+2700,"Inpatient NR-NTX","2",3
+2702,"Inpatient NR-NTX","1",3
+2702,"Inpatient NR-NTX","2",3
+2703,"Methadone","1",11
+2703,"Methadone","2",11
+2704,"Outpatient BUP","1",5
+2704,"Outpatient BUP","2",5
+2705,"Inpatient BUP","1",4
+2705,"Inpatient BUP","2",4
+2706,"Outpatient BUP","1",2
+2706,"Outpatient BUP","2",2
+2707,"Outpatient BUP + EMM","1",9
+2708,"Inpatient BUP","1",5
+2708,"Inpatient BUP","2",5
+2710,"Methadone","1",8
+2710,"Methadone","2",8
+2712,"Outpatient BUP + EMM","1",2
+2713,"Outpatient BUP + EMM","1",0
+2713,"Outpatient BUP + SMM","2",42
+2714,"Outpatient BUP + EMM","1",2
+2714,"Outpatient BUP + SMM","2",23
+2715,"Outpatient BUP","1",5
+2715,"Outpatient BUP","2",5
+2716,"Methadone","1",15
+2716,"Methadone","2",15
+2717,"Outpatient BUP","1",5
+2717,"Outpatient BUP","2",5
+2718,"Outpatient BUP + EMM","1",6
+2719,"Inpatient NR-NTX","1",6
+2719,"Inpatient NR-NTX","2",6
+2721,"Outpatient BUP","1",4
+2721,"Outpatient BUP","2",4
+2723,"Outpatient BUP + SMM","1",3
+2727,"Outpatient BUP + EMM","1",6
+2729,"Inpatient BUP","1",3
+2729,"Inpatient BUP","2",3
+2730,"Methadone","1",3
+2730,"Methadone","2",3
+2731,"Methadone","1",8
+2731,"Methadone","2",8
+2733,"Outpatient BUP + SMM","1",6
+2733,"Outpatient BUP + SMM","2",70
+2734,"Outpatient BUP","1",15
+2734,"Outpatient BUP","2",15
+2735,"Outpatient BUP","1",7
+2735,"Outpatient BUP","2",7
+2736,"Methadone","1",2
+2736,"Methadone","2",2
+2737,"Outpatient BUP + EMM","1",7
+2737,"Outpatient BUP + SMM","2",52
+2738,"Outpatient BUP + EMM","1",7
+2740,"Methadone","1",5
+2740,"Methadone","2",5
+2743,"Outpatient BUP","1",9
+2743,"Outpatient BUP","2",9
+2745,"Outpatient BUP","1",8
+2745,"Outpatient BUP","2",8
+2746,"Methadone","1",3
+2746,"Methadone","2",3
+2747,"Outpatient BUP","1",5
+2747,"Outpatient BUP","2",5
+2748,"Outpatient BUP + EMM","1",11
+2748,"Outpatient BUP + EMM","2",42
+2749,"Outpatient BUP + SMM","1",4
+2749,"Outpatient BUP + SMM","2",40
+2750,"Outpatient BUP + EMM","1",5
+2750,"Outpatient BUP + SMM","2",71
+2751,"Outpatient BUP","1",6
+2751,"Outpatient BUP","2",6
+2752,"Outpatient BUP + SMM","1",1
+2752,"Outpatient BUP + EMM","2",29
+2753,"Methadone","1",6
+2753,"Methadone","2",6
+2754,"Outpatient BUP","1",3
+2754,"Outpatient BUP","2",3
+2755,"Outpatient BUP + EMM","1",10
+2757,"Outpatient BUP","1",18
+2757,"Outpatient BUP","2",18
+2760,"Inpatient BUP","1",8
+2760,"Inpatient BUP","2",8
+2761,"Outpatient BUP + SMM","1",2
+2762,"Outpatient BUP","1",7
+2762,"Outpatient BUP","2",7
+2765,"Outpatient BUP","1",2
+2765,"Outpatient BUP","2",2
+2767,"Inpatient BUP","1",6
+2767,"Inpatient BUP","2",6
+2768,"Outpatient BUP","1",8
+2768,"Outpatient BUP","2",8
+2770,"Outpatient BUP + SMM","1",7
+2773,"Outpatient BUP + SMM","1",0
+2773,"Outpatient BUP + EMM","2",34
+2774,"Inpatient NR-NTX","1",4
+2774,"Inpatient NR-NTX","2",4
+2775,"Inpatient NR-NTX","1",4
+2775,"Inpatient NR-NTX","2",4
+2776,"Inpatient BUP","1",10
+2776,"Inpatient BUP","2",10
+2777,"Methadone","1",13
+2777,"Methadone","2",13
+2778,"Outpatient BUP + EMM","1",0
+2778,"Outpatient BUP + SMM","2",44
+2779,"Methadone","1",2
+2779,"Methadone","2",2
+2780,"Inpatient BUP","1",8
+2780,"Inpatient BUP","2",8
+2781,"Outpatient BUP","1",2
+2781,"Outpatient BUP","2",2
+2782,"Methadone","1",6
+2782,"Methadone","2",6
+2783,"Methadone","1",17
+2783,"Methadone","2",17
+2785,"Outpatient BUP + EMM","1",1
+2785,"Outpatient BUP + SMM","2",36
+2786,"Outpatient BUP","1",10
+2786,"Outpatient BUP","2",10
+2787,"Methadone","1",8
+2787,"Methadone","2",8
+2790,"Outpatient BUP + EMM","1",0
+2790,"Outpatient BUP + SMM","2",42
+2791,"Outpatient BUP + EMM","1",0
+2791,"Outpatient BUP + SMM","2",60
+2793,"Outpatient BUP + SMM","1",0
+2793,"Outpatient BUP + SMM","2",85
+2794,"Outpatient BUP","1",11
+2794,"Outpatient BUP","2",11
+2795,"Outpatient BUP","1",4
+2795,"Outpatient BUP","2",4
+2796,"Inpatient NR-NTX","1",7
+2796,"Inpatient NR-NTX","2",7
+2797,"Inpatient BUP","1",1
+2797,"Inpatient BUP","2",1
+2798,"Inpatient BUP","1",3
+2798,"Inpatient BUP","2",3
+2799,"Outpatient BUP","1",3
+2799,"Outpatient BUP","2",3
+2802,"Outpatient BUP","1",11
+2802,"Outpatient BUP","2",11
+2803,"Inpatient NR-NTX","1",4
+2803,"Inpatient NR-NTX","2",4
+2805,"Outpatient BUP + EMM","1",1
+2805,"Outpatient BUP + EMM","2",54
+2807,"Inpatient NR-NTX","1",1
+2807,"Inpatient NR-NTX","2",1
+2808,"Outpatient BUP","1",2
+2808,"Outpatient BUP","2",2
+2809,"Inpatient BUP","1",4
+2809,"Inpatient BUP","2",4
+2810,"Outpatient BUP + EMM","1",1
+2811,"Inpatient BUP","1",7
+2811,"Inpatient BUP","2",7
+2812,"Outpatient BUP + EMM","1",2
+2815,"Outpatient BUP","1",5
+2815,"Outpatient BUP","2",5
+2817,"Methadone","1",2
+2817,"Methadone","2",2
+2818,"Outpatient BUP + EMM","1",5
+2819,"Outpatient BUP","1",25
+2819,"Outpatient BUP","2",25
+2821,"Outpatient BUP + EMM","1",3
+2822,"Methadone","1",2
+2822,"Methadone","2",2
+2823,"Methadone","1",10
+2823,"Methadone","2",10
+2824,"Outpatient BUP + EMM","1",7
+2824,"Outpatient BUP + EMM","2",42
+2825,"Inpatient BUP","1",2
+2825,"Inpatient BUP","2",2
+2826,"Outpatient BUP + SMM","1",7
+2827,"Inpatient NR-NTX","1",8
+2827,"Inpatient NR-NTX","2",8
+2829,"Inpatient NR-NTX","1",3
+2829,"Inpatient NR-NTX","2",3
+2831,"Inpatient BUP","1",2
+2831,"Inpatient BUP","2",2
+2832,"Outpatient BUP","1",10
+2832,"Outpatient BUP","2",10
+2833,"Outpatient BUP + SMM","1",2
+2833,"Outpatient BUP + EMM","2",56
+2835,"Methadone","1",5
+2835,"Methadone","2",5
+2836,"Outpatient BUP + SMM","1",1
+2837,"Outpatient BUP + EMM","1",3
+2839,"Methadone","1",2
+2839,"Methadone","2",2
+2840,"Methadone","1",2
+2840,"Methadone","2",2
+2841,"Outpatient BUP","1",7
+2841,"Outpatient BUP","2",7
+2842,"Outpatient BUP + EMM","1",2
+2846,"Outpatient BUP","1",6
+2846,"Outpatient BUP","2",6
+2847,"Inpatient BUP","1",2
+2847,"Inpatient BUP","2",2
+2848,"Outpatient BUP","1",2
+2848,"Outpatient BUP","2",2
+2849,"Outpatient BUP","1",18
+2849,"Outpatient BUP","2",18
+2850,"Outpatient BUP","1",3
+2850,"Outpatient BUP","2",3
+2851,"Methadone","1",21
+2851,"Methadone","2",21
+2853,"Outpatient BUP + EMM","1",5
+2853,"Outpatient BUP + EMM","2",56
+2854,"Outpatient BUP","1",7
+2854,"Outpatient BUP","2",7
+2858,"Methadone","1",12
+2858,"Methadone","2",12
+2859,"Outpatient BUP + EMM","1",7
+2859,"Outpatient BUP + EMM","2",45
+2860,"Outpatient BUP + SMM","1",2
+2860,"Outpatient BUP + EMM","2",44
+2861,"Outpatient BUP","1",3
+2861,"Outpatient BUP","2",3
+2862,"Outpatient BUP","1",11
+2862,"Outpatient BUP","2",11
+2864,"Inpatient NR-NTX","1",2
+2864,"Inpatient NR-NTX","2",2
+2866,"Outpatient BUP","1",4
+2866,"Outpatient BUP","2",4
+2867,"Methadone","1",8
+2867,"Methadone","2",8
+2868,"Methadone","1",6
+2868,"Methadone","2",6
+2869,"Inpatient NR-NTX","1",7
+2869,"Inpatient NR-NTX","2",7
+2870,"Outpatient BUP","1",7
+2870,"Outpatient BUP","2",7
+2871,"Outpatient BUP + SMM","1",1
+2873,"Inpatient NR-NTX","1",3
+2873,"Inpatient NR-NTX","2",3
+2875,"Outpatient BUP + EMM","1",3
+2879,"Methadone","1",28
+2879,"Methadone","2",28
+2881,"Outpatient BUP + EMM","1",0
+2881,"Outpatient BUP + EMM","2",45
+2883,"Outpatient BUP","1",27
+2883,"Outpatient BUP","2",27
+2885,"Methadone","1",5
+2885,"Methadone","2",5
+2886,"Inpatient NR-NTX","1",5
+2886,"Inpatient NR-NTX","2",5
+2888,"Outpatient BUP + EMM","1",7
+2889,"Outpatient BUP + EMM","1",6
+2890,"Inpatient BUP","1",4
+2890,"Inpatient BUP","2",4
+2892,"Outpatient BUP + SMM","1",3
+2892,"Outpatient BUP + SMM","2",32
+2894,"Methadone","1",22
+2894,"Methadone","2",22
+2895,"Inpatient NR-NTX","1",5
+2895,"Inpatient NR-NTX","2",5
+2896,"Outpatient BUP + EMM","1",1
+2896,"Outpatient BUP + EMM","2",79
+2898,"Outpatient BUP","1",2
+2898,"Outpatient BUP","2",2
+2899,"Methadone","1",12
+2899,"Methadone","2",12
+2900,"Methadone","1",5
+2900,"Methadone","2",5
+2901,"Methadone","1",7
+2901,"Methadone","2",7
+2902,"Outpatient BUP + EMM","1",6
+2903,"Outpatient BUP","1",9
+2903,"Outpatient BUP","2",9
+2904,"Inpatient BUP","1",6
+2904,"Inpatient BUP","2",6
+2906,"Outpatient BUP","1",2
+2906,"Outpatient BUP","2",2
+2907,"Outpatient BUP","1",2
+2907,"Outpatient BUP","2",2
+2908,"Outpatient BUP","1",2
+2908,"Outpatient BUP","2",2
+2909,"Inpatient NR-NTX","1",6
+2909,"Inpatient NR-NTX","2",6
+2910,"Outpatient BUP","1",7
+2910,"Outpatient BUP","2",7
+2911,"Outpatient BUP","1",4
+2911,"Outpatient BUP","2",4
+2913,"Outpatient BUP","1",2
+2913,"Outpatient BUP","2",2
+2914,"Outpatient BUP","1",2
+2914,"Outpatient BUP","2",2
+2915,"Outpatient BUP + SMM","1",4
+2915,"Outpatient BUP + EMM","2",35
+2916,"Outpatient BUP + SMM","1",7
+2918,"Inpatient NR-NTX","1",3
+2918,"Inpatient NR-NTX","2",3
+2919,"Methadone","1",3
+2919,"Methadone","2",3
+2923,"Outpatient BUP + EMM","1",4
+2923,"Outpatient BUP + EMM","2",33
+2924,"Outpatient BUP","1",8
+2924,"Outpatient BUP","2",8
+2926,"Inpatient BUP","1",8
+2926,"Inpatient BUP","2",8
+2929,"Outpatient BUP + SMM","1",1
+2929,"Outpatient BUP + SMM","2",36
+2931,"Methadone","1",3
+2931,"Methadone","2",3
+2932,"Inpatient NR-NTX","1",4
+2932,"Inpatient NR-NTX","2",4
+2933,"Inpatient NR-NTX","1",4
+2933,"Inpatient NR-NTX","2",4
+2935,"Outpatient BUP + EMM","1",0
+2935,"Outpatient BUP + EMM","2",33
+2937,"Outpatient BUP + SMM","1",5
+2938,"Outpatient BUP","1",2
+2938,"Outpatient BUP","2",2
+2939,"Methadone","1",8
+2939,"Methadone","2",8
+2940,"Outpatient BUP","1",11
+2940,"Outpatient BUP","2",11
+2941,"Methadone","1",7
+2941,"Methadone","2",7
+2942,"Inpatient NR-NTX","1",3
+2942,"Inpatient NR-NTX","2",3
+2943,"Outpatient BUP + SMM","1",6
+2944,"Outpatient BUP + SMM","1",0
+2944,"Outpatient BUP + SMM","2",53
+2945,"Outpatient BUP + SMM","1",5
+2946,"Inpatient NR-NTX","1",5
+2946,"Inpatient NR-NTX","2",5
+2948,"Outpatient BUP","1",6
+2948,"Outpatient BUP","2",6
+2953,"Methadone","1",6
+2953,"Methadone","2",6
+2954,"Outpatient BUP","1",5
+2954,"Outpatient BUP","2",5
+2955,"Inpatient BUP","1",6
+2955,"Inpatient BUP","2",6
+2956,"Outpatient BUP + SMM","1",0
+2958,"Methadone","1",6
+2958,"Methadone","2",6
+2960,"Outpatient BUP + SMM","1",8
+2961,"Inpatient NR-NTX","1",5
+2961,"Inpatient NR-NTX","2",5
+2962,"Outpatient BUP + EMM","1",1
+2962,"Outpatient BUP + SMM","2",29
+2963,"Methadone","1",2
+2963,"Methadone","2",2
+2964,"Outpatient BUP + SMM","1",2
+2964,"Outpatient BUP + EMM","2",35
+2965,"Methadone","1",20
+2965,"Methadone","2",20
+2966,"Outpatient BUP","1",6
+2966,"Outpatient BUP","2",6
+2967,"Inpatient BUP","1",5
+2967,"Inpatient BUP","2",5
+2968,"Outpatient BUP","1",8
+2968,"Outpatient BUP","2",8
+2969,"Outpatient BUP","1",2
+2969,"Outpatient BUP","2",2
+2971,"Outpatient BUP + SMM","1",12
+2972,"Outpatient BUP + EMM","1",1
+2972,"Outpatient BUP + EMM","2",86
+2974,"Outpatient BUP","1",5
+2974,"Outpatient BUP","2",5
+2975,"Outpatient BUP + EMM","1",6
+2976,"Outpatient BUP + SMM","1",5
+2979,"Outpatient BUP","1",4
+2979,"Outpatient BUP","2",4
+2980,"Methadone","1",12
+2980,"Methadone","2",12
+2981,"Outpatient BUP + EMM","1",5
+2982,"Methadone","1",6
+2982,"Methadone","2",6
+2985,"Methadone","1",3
+2985,"Methadone","2",3
+2987,"Inpatient BUP","1",14
+2987,"Inpatient BUP","2",14
+2988,"Methadone","1",9
+2988,"Methadone","2",9
+2989,"Outpatient BUP","1",2
+2989,"Outpatient BUP","2",2
+2991,"Inpatient NR-NTX","1",1
+2991,"Inpatient NR-NTX","2",1
+2992,"Outpatient BUP","1",6
+2992,"Outpatient BUP","2",6
+2994,"Outpatient BUP","1",7
+2994,"Outpatient BUP","2",7
+2995,"Methadone","1",9
+2995,"Methadone","2",9
+2996,"Outpatient BUP + SMM","1",2
+2996,"Outpatient BUP + EMM","2",30
+2998,"Outpatient BUP","1",2
+2998,"Outpatient BUP","2",2
+2999,"Outpatient BUP","1",4
+2999,"Outpatient BUP","2",4
+3001,"Methadone","1",2
+3001,"Methadone","2",2
+3003,"Outpatient BUP","1",9
+3003,"Outpatient BUP","2",9
+3004,"Outpatient BUP","1",7
+3004,"Outpatient BUP","2",7
+3007,"Methadone","1",5
+3007,"Methadone","2",5
+3008,"Methadone","1",4
+3008,"Methadone","2",4
+3009,"Outpatient BUP","1",3
+3009,"Outpatient BUP","2",3
+3010,"Outpatient BUP","1",6
+3010,"Outpatient BUP","2",6
+3012,"Outpatient BUP","1",6
+3012,"Outpatient BUP","2",6
+3013,"Outpatient BUP","1",7
+3013,"Outpatient BUP","2",7
+3017,"Outpatient BUP + EMM","1",7
+3017,"Outpatient BUP + EMM","2",25
+3019,"Outpatient BUP + SMM","1",14
+3019,"Outpatient BUP + EMM","2",45
+3020,"Outpatient BUP","1",4
+3020,"Outpatient BUP","2",4
+3021,"Outpatient BUP","1",2
+3021,"Outpatient BUP","2",2
+3022,"Methadone","1",2
+3022,"Methadone","2",2
+3024,"Outpatient BUP","1",12
+3024,"Outpatient BUP","2",12
+3025,"Inpatient BUP","1",5
+3025,"Inpatient BUP","2",5
+3026,"Outpatient BUP","1",5
+3026,"Outpatient BUP","2",5
+3029,"Methadone","1",3
+3029,"Methadone","2",3
+3033,"Outpatient BUP","1",6
+3033,"Outpatient BUP","2",6
+3034,"Inpatient NR-NTX","1",4
+3034,"Inpatient NR-NTX","2",4
+3035,"Methadone","1",2
+3035,"Methadone","2",2
+3036,"Methadone","1",11
+3036,"Methadone","2",11
+3038,"Outpatient BUP","1",20
+3038,"Outpatient BUP","2",20
+3039,"Outpatient BUP","1",7
+3039,"Outpatient BUP","2",7
+3042,"Outpatient BUP + EMM","1",2
+3042,"Outpatient BUP + SMM","2",70
+3043,"Outpatient BUP","1",6
+3043,"Outpatient BUP","2",6
+3045,"Inpatient BUP","1",3
+3045,"Inpatient BUP","2",3
+3046,"Inpatient BUP","1",4
+3046,"Inpatient BUP","2",4
+3047,"Outpatient BUP","1",18
+3047,"Outpatient BUP","2",18
+3048,"Inpatient BUP","1",1
+3048,"Inpatient BUP","2",1
+3050,"Outpatient BUP + SMM","1",2
+3050,"Outpatient BUP + SMM","2",43
+3052,"Methadone","1",2
+3052,"Methadone","2",2
+3053,"Methadone","1",2
+3053,"Methadone","2",2
+3054,"Methadone","1",5
+3054,"Methadone","2",5
+3055,"Outpatient BUP + EMM","1",5
+3056,"Outpatient BUP + SMM","1",5
+3058,"Outpatient BUP","1",6
+3058,"Outpatient BUP","2",6
+3060,"Methadone","1",2
+3060,"Methadone","2",2
+3061,"Methadone","1",5
+3061,"Methadone","2",5
+3064,"Methadone","1",6
+3064,"Methadone","2",6
+3065,"Outpatient BUP + EMM","1",7
+3066,"Outpatient BUP","1",14
+3066,"Outpatient BUP","2",14
+3068,"Outpatient BUP","1",3
+3068,"Outpatient BUP","2",3
+3069,"Outpatient BUP + SMM","1",2
+3069,"Outpatient BUP + EMM","2",27
+3070,"Methadone","1",5
+3070,"Methadone","2",5
+3071,"Outpatient BUP","1",20
+3071,"Outpatient BUP","2",20
+3073,"Outpatient BUP + SMM","1",2
+3073,"Outpatient BUP + SMM","2",30
+3075,"Methadone","1",6
+3075,"Methadone","2",6
+3080,"Outpatient BUP","1",8
+3080,"Outpatient BUP","2",8
+3081,"Outpatient BUP","1",6
+3081,"Outpatient BUP","2",6
+3083,"Inpatient NR-NTX","1",11
+3083,"Inpatient NR-NTX","2",11
+3084,"Methadone","1",24
+3084,"Methadone","2",24
+3086,"Outpatient BUP","1",11
+3086,"Outpatient BUP","2",11
+3087,"Outpatient BUP + EMM","1",6
+3088,"Inpatient NR-NTX","1",5
+3088,"Inpatient NR-NTX","2",5
+3090,"Outpatient BUP + SMM","1",0
+3091,"Outpatient BUP","1",9
+3091,"Outpatient BUP","2",9
+3093,"Outpatient BUP","1",5
+3093,"Outpatient BUP","2",5
+3094,"Inpatient BUP","1",3
+3094,"Inpatient BUP","2",3
+3095,"Outpatient BUP + EMM","1",2
+3095,"Outpatient BUP + SMM","2",55
+3096,"Outpatient BUP + SMM","1",6
+3098,"Methadone","1",6
+3098,"Methadone","2",6
+3100,"Inpatient NR-NTX","1",2
+3100,"Inpatient NR-NTX","2",2
+3101,"Inpatient NR-NTX","1",3
+3101,"Inpatient NR-NTX","2",3
+3103,"Outpatient BUP + EMM","1",3
+3105,"Inpatient NR-NTX","1",8
+3105,"Inpatient NR-NTX","2",8
+3106,"Outpatient BUP","1",7
+3106,"Outpatient BUP","2",7
+3107,"Inpatient NR-NTX","1",10
+3107,"Inpatient NR-NTX","2",10
+3109,"Outpatient BUP","1",2
+3109,"Outpatient BUP","2",2
+3110,"Outpatient BUP","1",23
+3110,"Outpatient BUP","2",23
+3111,"Methadone","1",5
+3111,"Methadone","2",5
+3112,"Outpatient BUP","1",8
+3112,"Outpatient BUP","2",8
+3113,"Inpatient NR-NTX","1",2
+3113,"Inpatient NR-NTX","2",2
+3115,"Outpatient BUP","1",3
+3115,"Outpatient BUP","2",3
+3116,"Inpatient NR-NTX","1",2
+3116,"Inpatient NR-NTX","2",2
+3118,"Methadone","1",13
+3118,"Methadone","2",13
+3120,"Inpatient BUP","1",8
+3120,"Inpatient BUP","2",8
+3121,"Outpatient BUP","1",23
+3121,"Outpatient BUP","2",23
+3122,"Outpatient BUP + SMM","1",15
+3123,"Outpatient BUP + EMM","1",7
+3123,"Outpatient BUP + EMM","2",59
+3125,"Outpatient BUP","1",2
+3125,"Outpatient BUP","2",2
+3126,"Outpatient BUP + SMM","1",2
+3127,"Outpatient BUP","1",5
+3127,"Outpatient BUP","2",5
+3129,"Methadone","1",2
+3129,"Methadone","2",2
+3130,"Inpatient BUP","1",2
+3130,"Inpatient BUP","2",2
+3131,"Outpatient BUP","1",6
+3131,"Outpatient BUP","2",6
+3132,"Inpatient NR-NTX","1",7
+3132,"Inpatient NR-NTX","2",7
+3133,"Outpatient BUP + EMM","1",0
+3134,"Methadone","1",21
+3134,"Methadone","2",21
+3135,"Outpatient BUP + EMM","1",6
+3136,"Outpatient BUP + SMM","1",6
+3137,"Outpatient BUP + EMM","1",1
+3137,"Outpatient BUP + EMM","2",42
+3139,"Methadone","1",13
+3139,"Methadone","2",13
+3140,"Methadone","1",6
+3140,"Methadone","2",6
+3141,"Outpatient BUP + SMM","1",5
+3141,"Outpatient BUP + SMM","2",29
+3142,"Inpatient NR-NTX","1",1
+3142,"Inpatient NR-NTX","2",1
+3143,"Outpatient BUP","1",7
+3143,"Outpatient BUP","2",7
+3144,"Inpatient NR-NTX","1",8
+3144,"Inpatient NR-NTX","2",8
+3146,"Outpatient BUP + SMM","1",4
+3146,"Outpatient BUP + EMM","2",39
+3147,"Inpatient BUP","1",2
+3147,"Inpatient BUP","2",2
+3148,"Outpatient BUP + EMM","1",16
+3150,"Inpatient NR-NTX","1",2
+3150,"Inpatient NR-NTX","2",2
+3151,"Methadone","1",4
+3151,"Methadone","2",4
+3152,"Outpatient BUP + EMM","1",6
+3154,"Methadone","1",6
+3154,"Methadone","2",6
+3155,"Inpatient NR-NTX","1",5
+3155,"Inpatient NR-NTX","2",5
+3156,"Outpatient BUP","1",10
+3156,"Outpatient BUP","2",10
+3157,"Outpatient BUP","1",6
+3157,"Outpatient BUP","2",6
+3159,"Outpatient BUP","1",3
+3159,"Outpatient BUP","2",3
+3160,"Methadone","1",2
+3160,"Methadone","2",2
+3165,"Outpatient BUP + EMM","1",10
+3165,"Outpatient BUP + EMM","2",48
+3166,"Outpatient BUP","1",14
+3166,"Outpatient BUP","2",14
+3167,"Methadone","1",2
+3167,"Methadone","2",2
+3168,"Inpatient NR-NTX","1",6
+3168,"Inpatient NR-NTX","2",6
+3170,"Inpatient BUP","1",11
+3170,"Inpatient BUP","2",11
+3172,"Outpatient BUP + EMM","1",1
+3172,"Outpatient BUP + EMM","2",45
+3173,"Outpatient BUP + SMM","1",2
+3175,"Inpatient NR-NTX","1",3
+3175,"Inpatient NR-NTX","2",3
+3176,"Outpatient BUP + EMM","1",5
+3176,"Outpatient BUP + EMM","2",35
+3178,"Methadone","1",2
+3178,"Methadone","2",2
+3180,"Outpatient BUP","1",6
+3180,"Outpatient BUP","2",6
+3181,"Outpatient BUP","1",2
+3181,"Outpatient BUP","2",2
+3186,"Inpatient NR-NTX","1",3
+3186,"Inpatient NR-NTX","2",3
+3188,"Methadone","1",4
+3188,"Methadone","2",4
+3189,"Methadone","1",6
+3189,"Methadone","2",6
+3191,"Inpatient BUP","1",7
+3191,"Inpatient BUP","2",7
+3192,"Outpatient BUP","1",7
+3192,"Outpatient BUP","2",7
+3193,"Outpatient BUP","1",2
+3193,"Outpatient BUP","2",2
+3195,"Outpatient BUP","1",7
+3195,"Outpatient BUP","2",7
+3197,"Inpatient NR-NTX","1",4
+3197,"Inpatient NR-NTX","2",4
+3198,"Outpatient BUP + EMM","1",1
+3198,"Outpatient BUP + SMM","2",38
+3199,"Methadone","1",9
+3199,"Methadone","2",9
+3200,"Methadone","1",2
+3200,"Methadone","2",2
+3201,"Outpatient BUP + EMM","1",7
+3205,"Inpatient NR-NTX","1",1
+3205,"Inpatient NR-NTX","2",1
+3206,"Outpatient BUP + EMM","1",1
+3206,"Outpatient BUP + SMM","2",27
+3207,"Outpatient BUP + SMM","1",1
+3209,"Inpatient NR-NTX","1",1
+3209,"Inpatient NR-NTX","2",1
+3210,"Outpatient BUP","1",7
+3210,"Outpatient BUP","2",7
+3211,"Methadone","1",2
+3211,"Methadone","2",2
+3212,"Outpatient BUP","1",2
+3212,"Outpatient BUP","2",2
+3214,"Outpatient BUP","1",4
+3214,"Outpatient BUP","2",4
+3217,"Methadone","1",2
+3217,"Methadone","2",2
+3218,"Outpatient BUP","1",5
+3218,"Outpatient BUP","2",5
+3219,"Outpatient BUP + EMM","1",5
+3220,"Inpatient BUP","1",4
+3220,"Inpatient BUP","2",4
+3221,"Outpatient BUP","1",7
+3221,"Outpatient BUP","2",7
+3225,"Inpatient NR-NTX","1",2
+3225,"Inpatient NR-NTX","2",2
+3226,"Outpatient BUP","1",23
+3226,"Outpatient BUP","2",23
+3227,"Outpatient BUP + SMM","1",6
+3229,"Outpatient BUP + EMM","1",4
+3229,"Outpatient BUP + EMM","2",48
+3231,"Inpatient BUP","1",0
+3231,"Inpatient BUP","2",0
+3234,"Outpatient BUP + SMM","1",6
+3234,"Outpatient BUP + SMM","2",56
+3235,"Outpatient BUP","1",7
+3235,"Outpatient BUP","2",7
+3236,"Outpatient BUP + EMM","1",16
+3237,"Methadone","1",2
+3237,"Methadone","2",2
+3238,"Inpatient BUP","1",9
+3238,"Inpatient BUP","2",9
+3239,"Outpatient BUP + SMM","1",5
+3239,"Outpatient BUP + SMM","2",62
+3240,"Outpatient BUP + SMM","1",10
+3240,"Outpatient BUP + SMM","2",47
+3242,"Outpatient BUP + EMM","1",6
+3242,"Outpatient BUP + SMM","2",42
+3243,"Outpatient BUP","1",2
+3243,"Outpatient BUP","2",2
+3245,"Outpatient BUP + EMM","1",6
+3245,"Outpatient BUP + EMM","2",69
+3248,"Outpatient BUP","1",13
+3248,"Outpatient BUP","2",13
+3249,"Inpatient NR-NTX","1",9
+3249,"Inpatient NR-NTX","2",9
+3250,"Inpatient NR-NTX","1",6
+3250,"Inpatient NR-NTX","2",6
+3251,"Methadone","1",4
+3251,"Methadone","2",4
+3252,"Outpatient BUP","1",5
+3252,"Outpatient BUP","2",5
+3253,"Outpatient BUP + SMM","1",11
+3253,"Outpatient BUP + EMM","2",55
+3254,"Outpatient BUP","1",2
+3254,"Outpatient BUP","2",2
+3256,"Methadone","1",8
+3256,"Methadone","2",8
+3257,"Inpatient BUP","1",0
+3257,"Inpatient BUP","2",0
+3258,"Inpatient NR-NTX","1",7
+3258,"Inpatient NR-NTX","2",7
+3259,"Outpatient BUP","1",5
+3259,"Outpatient BUP","2",5
+3260,"Methadone","1",4
+3260,"Methadone","2",4
+3262,"Outpatient BUP","1",5
+3262,"Outpatient BUP","2",5
+3263,"Outpatient BUP","1",6
+3263,"Outpatient BUP","2",6
+3264,"Methadone","1",11
+3264,"Methadone","2",11
+3265,"Outpatient BUP","1",6
+3265,"Outpatient BUP","2",6
+3266,"Methadone","1",13
+3266,"Methadone","2",13
+3267,"Outpatient BUP + EMM","1",6
+3267,"Outpatient BUP + EMM","2",29
+3268,"Outpatient BUP","1",22
+3268,"Outpatient BUP","2",22
+3269,"Outpatient BUP","1",7
+3269,"Outpatient BUP","2",7
+3270,"Outpatient BUP + SMM","1",2
+3270,"Outpatient BUP + SMM","2",38
+3272,"Outpatient BUP","1",27
+3272,"Outpatient BUP","2",27
+3273,"Outpatient BUP","1",20
+3273,"Outpatient BUP","2",20
+3274,"Outpatient BUP","1",2
+3274,"Outpatient BUP","2",2
+3276,"Outpatient BUP","1",5
+3276,"Outpatient BUP","2",5
+3277,"Outpatient BUP + SMM","1",1
+3277,"Outpatient BUP + SMM","2",25
+3278,"Methadone","1",10
+3278,"Methadone","2",10
+3279,"Inpatient BUP","1",7
+3279,"Inpatient BUP","2",7
+3280,"Inpatient BUP","1",3
+3280,"Inpatient BUP","2",3
+3281,"Methadone","1",3
+3281,"Methadone","2",3
+3282,"Outpatient BUP","1",3
+3282,"Outpatient BUP","2",3
+3284,"Outpatient BUP + SMM","1",9
+3284,"Outpatient BUP + EMM","2",45
+3285,"Outpatient BUP","1",3
+3285,"Outpatient BUP","2",3
+3286,"Outpatient BUP","1",5
+3286,"Outpatient BUP","2",5
+3287,"Inpatient BUP","1",5
+3287,"Inpatient BUP","2",5
+3288,"Inpatient NR-NTX","1",7
+3288,"Inpatient NR-NTX","2",7
+3291,"Outpatient BUP + SMM","1",6
+3293,"Outpatient BUP + SMM","1",3
+3294,"Inpatient NR-NTX","1",5
+3294,"Inpatient NR-NTX","2",5
+3296,"Methadone","1",9
+3296,"Methadone","2",9
+3297,"Methadone","1",2
+3297,"Methadone","2",2
+3298,"Methadone","1",6
+3298,"Methadone","2",6
+3299,"Methadone","1",11
+3299,"Methadone","2",11
+3302,"Outpatient BUP + EMM","1",24
+3302,"Outpatient BUP + SMM","2",66
+3303,"Inpatient NR-NTX","1",5
+3303,"Inpatient NR-NTX","2",5
+3304,"Methadone","1",2
+3304,"Methadone","2",2
+3305,"Inpatient BUP","1",5
+3305,"Inpatient BUP","2",5
+3306,"Outpatient BUP + SMM","1",2
+3307,"Methadone","1",2
+3307,"Methadone","2",2
+3310,"Methadone","1",2
+3310,"Methadone","2",2
+3313,"Outpatient BUP + SMM","1",3
+3313,"Outpatient BUP + EMM","2",60
+3316,"Methadone","1",7
+3316,"Methadone","2",7
+3317,"Outpatient BUP + EMM","1",2
+3317,"Outpatient BUP + SMM","2",37
+3319,"Methadone","1",5
+3319,"Methadone","2",5
+3320,"Outpatient BUP","1",7
+3320,"Outpatient BUP","2",7
+3321,"Outpatient BUP + SMM","1",1
+3322,"Outpatient BUP","1",7
+3322,"Outpatient BUP","2",7
+3323,"Methadone","1",12
+3323,"Methadone","2",12
+3324,"Outpatient BUP + EMM","1",14
+3325,"Outpatient BUP + SMM","1",4
+3325,"Outpatient BUP + SMM","2",25
+3326,"Outpatient BUP","1",4
+3326,"Outpatient BUP","2",4
+3327,"Inpatient BUP","1",7
+3327,"Inpatient BUP","2",7
+3329,"Methadone","1",6
+3329,"Methadone","2",6
+3330,"Methadone","1",4
+3330,"Methadone","2",4
+3331,"Methadone","1",16
+3331,"Methadone","2",16
+3332,"Inpatient BUP","1",5
+3332,"Inpatient BUP","2",5
+3333,"Outpatient BUP + SMM","1",2
+3336,"Outpatient BUP","1",3
+3336,"Outpatient BUP","2",3
+3337,"Outpatient BUP","1",8
+3337,"Outpatient BUP","2",8
+3338,"Inpatient BUP","1",2
+3338,"Inpatient BUP","2",2
+3339,"Methadone","1",7
+3339,"Methadone","2",7
+3342,"Outpatient BUP","1",2
+3342,"Outpatient BUP","2",2
+3343,"Inpatient BUP","1",3
+3343,"Inpatient BUP","2",3
+3344,"Methadone","1",7
+3344,"Methadone","2",7
+3346,"Outpatient BUP","1",10
+3346,"Outpatient BUP","2",10
+3347,"Outpatient BUP","1",5
+3347,"Outpatient BUP","2",5
+3348,"Outpatient BUP","1",2
+3348,"Outpatient BUP","2",2
+3349,"Methadone","1",11
+3349,"Methadone","2",11
+3350,"Inpatient BUP","1",4
+3350,"Inpatient BUP","2",4
+3352,"Methadone","1",11
+3352,"Methadone","2",11
+3353,"Outpatient BUP + SMM","1",1
+3353,"Outpatient BUP + SMM","2",43
+3355,"Outpatient BUP","1",4
+3355,"Outpatient BUP","2",4
+3356,"Inpatient NR-NTX","1",2
+3356,"Inpatient NR-NTX","2",2
+3359,"Inpatient BUP","1",6
+3359,"Inpatient BUP","2",6
+3360,"Inpatient BUP","1",2
+3360,"Inpatient BUP","2",2
+3361,"Outpatient BUP + EMM","1",2
+3364,"Inpatient NR-NTX","1",4
+3364,"Inpatient NR-NTX","2",4
+3365,"Inpatient BUP","1",7
+3365,"Inpatient BUP","2",7
+3366,"Methadone","1",3
+3366,"Methadone","2",3
+3367,"Inpatient NR-NTX","1",2
+3367,"Inpatient NR-NTX","2",2
+3369,"Outpatient BUP","1",12
+3369,"Outpatient BUP","2",12
+3371,"Outpatient BUP + SMM","1",16
+3371,"Outpatient BUP + EMM","2",55
+3372,"Outpatient BUP + SMM","1",2
+3372,"Outpatient BUP + SMM","2",35
+3373,"Outpatient BUP","1",6
+3373,"Outpatient BUP","2",6
+3374,"Inpatient BUP","1",8
+3374,"Inpatient BUP","2",8
+3375,"Outpatient BUP + EMM","1",0
+3375,"Outpatient BUP + SMM","2",55
+3376,"Outpatient BUP","1",2
+3376,"Outpatient BUP","2",2
+3378,"Outpatient BUP","1",3
+3378,"Outpatient BUP","2",3
+3379,"Outpatient BUP","1",8
+3379,"Outpatient BUP","2",8
+3380,"Outpatient BUP + EMM","1",3
+3384,"Inpatient NR-NTX","1",2
+3384,"Inpatient NR-NTX","2",2
+3385,"Outpatient BUP","1",8
+3385,"Outpatient BUP","2",8
+3386,"Methadone","1",27
+3386,"Methadone","2",27
+3387,"Methadone","1",2
+3387,"Methadone","2",2
+3388,"Methadone","1",2
+3388,"Methadone","2",2
+3389,"Outpatient BUP","1",9
+3389,"Outpatient BUP","2",9
+3391,"Inpatient NR-NTX","1",1
+3391,"Inpatient NR-NTX","2",1
+3392,"Outpatient BUP + EMM","1",1
+3394,"Methadone","1",7
+3394,"Methadone","2",7
+3397,"Outpatient BUP + EMM","1",7
+3398,"Outpatient BUP + EMM","1",1
+3398,"Outpatient BUP + EMM","2",83
+3399,"Methadone","1",2
+3399,"Methadone","2",2
+3401,"Outpatient BUP","1",6
+3401,"Outpatient BUP","2",6
+3403,"Inpatient BUP","1",2
+3403,"Inpatient BUP","2",2
+3404,"Outpatient BUP + EMM","1",4
+3406,"Outpatient BUP","1",3
+3406,"Outpatient BUP","2",3
+3407,"Outpatient BUP + SMM","1",7
+3407,"Outpatient BUP + EMM","2",56
+3408,"Outpatient BUP","1",3
+3408,"Outpatient BUP","2",3
+3409,"Inpatient NR-NTX","1",1
+3409,"Inpatient NR-NTX","2",1
+3410,"Inpatient BUP","1",4
+3410,"Inpatient BUP","2",4
+3411,"Inpatient BUP","1",3
+3411,"Inpatient BUP","2",3
+3412,"Outpatient BUP + SMM","1",11
+3413,"Outpatient BUP + SMM","1",1
+3413,"Outpatient BUP + EMM","2",56
+3414,"Outpatient BUP","1",7
+3414,"Outpatient BUP","2",7
+3415,"Outpatient BUP","1",2
+3415,"Outpatient BUP","2",2
+3416,"Inpatient BUP","1",6
+3416,"Inpatient BUP","2",6
+3417,"Inpatient BUP","1",1
+3417,"Inpatient BUP","2",1
+3419,"Methadone","1",6
+3419,"Methadone","2",6
+3420,"Inpatient NR-NTX","1",5
+3420,"Inpatient NR-NTX","2",5
+3422,"Outpatient BUP + SMM","1",4
+3422,"Outpatient BUP + EMM","2",46
+3424,"Outpatient BUP","1",8
+3424,"Outpatient BUP","2",8
+3425,"Inpatient NR-NTX","1",2
+3425,"Inpatient NR-NTX","2",2
+3427,"Outpatient BUP + EMM","1",2
+3427,"Outpatient BUP + EMM","2",58
+3428,"Outpatient BUP","1",2
+3428,"Outpatient BUP","2",2
+3430,"Outpatient BUP","1",6
+3430,"Outpatient BUP","2",6
+3431,"Outpatient BUP","1",5
+3431,"Outpatient BUP","2",5
+3432,"Outpatient BUP + SMM","1",7
+3433,"Outpatient BUP","1",7
+3433,"Outpatient BUP","2",7
+3434,"Outpatient BUP","1",13
+3434,"Outpatient BUP","2",13
+3435,"Inpatient NR-NTX","1",5
+3435,"Inpatient NR-NTX","2",5
+3441,"Methadone","1",2
+3441,"Methadone","2",2
+3442,"Inpatient NR-NTX","1",1
+3442,"Inpatient NR-NTX","2",1
+3444,"Outpatient BUP + SMM","1",2
+3444,"Outpatient BUP + SMM","2",44
+3446,"Outpatient BUP","1",5
+3446,"Outpatient BUP","2",5
+3447,"Methadone","1",2
+3447,"Methadone","2",2
+3448,"Inpatient BUP","1",6
+3448,"Inpatient BUP","2",6
+3449,"Outpatient BUP + EMM","1",1
+3449,"Outpatient BUP + SMM","2",37
+3450,"Outpatient BUP + EMM","1",8
+3452,"Outpatient BUP + SMM","1",5
+3452,"Outpatient BUP + SMM","2",32
+3454,"Methadone","1",3
+3454,"Methadone","2",3
+3455,"Inpatient NR-NTX","1",5
+3455,"Inpatient NR-NTX","2",5
+3457,"Outpatient BUP","1",6
+3457,"Outpatient BUP","2",6
+3458,"Outpatient BUP","1",6
+3458,"Outpatient BUP","2",6
+3459,"Outpatient BUP + SMM","1",5
+3460,"Inpatient BUP","1",7
+3460,"Inpatient BUP","2",7
+3461,"Methadone","1",6
+3461,"Methadone","2",6
+3462,"Methadone","1",2
+3462,"Methadone","2",2
+3463,"Outpatient BUP + EMM","1",1
+3463,"Outpatient BUP + SMM","2",49
+3464,"Inpatient NR-NTX","1",4
+3464,"Inpatient NR-NTX","2",4
+3465,"Outpatient BUP","1",5
+3465,"Outpatient BUP","2",5
+3466,"Outpatient BUP","1",17
+3466,"Outpatient BUP","2",17
+3467,"Outpatient BUP + SMM","1",11
+3467,"Outpatient BUP + EMM","2",83
+3468,"Outpatient BUP","1",8
+3468,"Outpatient BUP","2",8
+3469,"Outpatient BUP + EMM","1",7
+3470,"Methadone","1",4
+3470,"Methadone","2",4
+3471,"Methadone","1",7
+3471,"Methadone","2",7
+3472,"Outpatient BUP","1",9
+3472,"Outpatient BUP","2",9
+3473,"Outpatient BUP","1",22
+3473,"Outpatient BUP","2",22
+3474,"Inpatient BUP","1",2
+3474,"Inpatient BUP","2",2
+3475,"Methadone","1",3
+3475,"Methadone","2",3
+3478,"Outpatient BUP + SMM","1",4
+3478,"Outpatient BUP + EMM","2",61
+3480,"Outpatient BUP + SMM","1",1
+3481,"Methadone","1",2
+3481,"Methadone","2",2
+3482,"Outpatient BUP","1",14
+3482,"Outpatient BUP","2",14
+3483,"Outpatient BUP + EMM","1",14
+3483,"Outpatient BUP + SMM","2",97
+3485,"Outpatient BUP + SMM","1",1
+3485,"Outpatient BUP + EMM","2",80
+3487,"Outpatient BUP","1",2
+3487,"Outpatient BUP","2",2
+3488,"Outpatient BUP","1",5
+3488,"Outpatient BUP","2",5
+3489,"Inpatient BUP","1",3
+3489,"Inpatient BUP","2",3
+3490,"Outpatient BUP","1",2
+3490,"Outpatient BUP","2",2
+3491,"Outpatient BUP","1",6
+3491,"Outpatient BUP","2",6
+3492,"Outpatient BUP","1",7
+3492,"Outpatient BUP","2",7
+3493,"Outpatient BUP + SMM","1",0
+3493,"Outpatient BUP + EMM","2",85
+3494,"Outpatient BUP + EMM","1",28
+3496,"Outpatient BUP + EMM","1",4
+3497,"Outpatient BUP","1",2
+3497,"Outpatient BUP","2",2
+3498,"Inpatient BUP","1",6
+3498,"Inpatient BUP","2",6
+3500,"Inpatient NR-NTX","1",5
+3500,"Inpatient NR-NTX","2",5
+3501,"Outpatient BUP + SMM","1",5
+3501,"Outpatient BUP + SMM","2",55
+3503,"Outpatient BUP","1",6
+3503,"Outpatient BUP","2",6
+3504,"Outpatient BUP + EMM","1",6
+3504,"Outpatient BUP + SMM","2",37
+3505,"Methadone","1",3
+3505,"Methadone","2",3
+3507,"Outpatient BUP","1",3
+3507,"Outpatient BUP","2",3
+3508,"Inpatient BUP","1",3
+3508,"Inpatient BUP","2",3
+3511,"Outpatient BUP","1",4
+3511,"Outpatient BUP","2",4
+3512,"Outpatient BUP + EMM","1",9
+3512,"Outpatient BUP + EMM","2",72
+3513,"Outpatient BUP","1",4
+3513,"Outpatient BUP","2",4
+3514,"Outpatient BUP + EMM","1",7
+3517,"Methadone","1",7
+3517,"Methadone","2",7
+3519,"Outpatient BUP","1",29
+3519,"Outpatient BUP","2",29
+3520,"Inpatient NR-NTX","1",1
+3520,"Inpatient NR-NTX","2",1
+3521,"Methadone","1",6
+3521,"Methadone","2",6
+3522,"Methadone","1",4
+3522,"Methadone","2",4
+3525,"Methadone","1",6
+3525,"Methadone","2",6
+3527,"Outpatient BUP","1",2
+3527,"Outpatient BUP","2",2
+3528,"Methadone","1",6
+3528,"Methadone","2",6
+3530,"Inpatient NR-NTX","1",4
+3530,"Inpatient NR-NTX","2",4
+3531,"Methadone","1",22
+3531,"Methadone","2",22
+3532,"Outpatient BUP","1",13
+3532,"Outpatient BUP","2",13
+3533,"Outpatient BUP","1",6
+3533,"Outpatient BUP","2",6
+3535,"Outpatient BUP + EMM","1",2
+3536,"Outpatient BUP + EMM","1",1
+3536,"Outpatient BUP + EMM","2",42
+3537,"Inpatient NR-NTX","1",3
+3537,"Inpatient NR-NTX","2",3
+3538,"Methadone","1",3
+3538,"Methadone","2",3
+3539,"Outpatient BUP + EMM","1",7
+3539,"Outpatient BUP + SMM","2",56
+3540,"Inpatient BUP","1",6
+3540,"Inpatient BUP","2",6
+3541,"Inpatient NR-NTX","1",2
+3541,"Inpatient NR-NTX","2",2
+3542,"Inpatient BUP","1",2
+3542,"Inpatient BUP","2",2
+3543,"Outpatient BUP + SMM","1",0
+3543,"Outpatient BUP + SMM","2",29
+3545,"Outpatient BUP + SMM","1",3
+3545,"Outpatient BUP + EMM","2",48
+3547,"Inpatient NR-NTX","1",5
+3547,"Inpatient NR-NTX","2",5
+3549,"Inpatient BUP","1",5
+3549,"Inpatient BUP","2",5
+3550,"Methadone","1",9
+3550,"Methadone","2",9
+3552,"Inpatient NR-NTX","1",2
+3552,"Inpatient NR-NTX","2",2
+3553,"Methadone","1",5
+3553,"Methadone","2",5
+3554,"Outpatient BUP + SMM","1",0
+3555,"Methadone","1",7
+3555,"Methadone","2",7
+3556,"Outpatient BUP + SMM","1",8
+3556,"Outpatient BUP + SMM","2",49
+3557,"Outpatient BUP","1",12
+3557,"Outpatient BUP","2",12
+3558,"Methadone","1",4
+3558,"Methadone","2",4
+3559,"Inpatient NR-NTX","1",5
+3559,"Inpatient NR-NTX","2",5
+3560,"Outpatient BUP + EMM","1",1
+3560,"Outpatient BUP + SMM","2",49
