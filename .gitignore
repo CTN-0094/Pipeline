@@ -10,6 +10,7 @@ lib/
 .idea/
 
 # Ignore __pycache__ files
+src/__pycache__/*
 __pycache__/
 *.pyc
 *.pyo
