@@ -27,7 +27,7 @@ from logScraper import scrape_log_to_csv  # Import the log scraper function
 #LOG_DIR = "logs"  # Directory to store log files
 
 
-def run_pipeline(seed, selected_outcome, directory):
+def run_pipeline(seed, selected_outcome, directory, split_col="RaceEth"):
     """Run the pipeline using a specific seed and selected outcome."""
     # Set up logging and get the path to the log file
     log_filepath = setup_logging(seed, selected_outcome, directory, quiet=False)
@@ -45,19 +45,24 @@ def run_pipeline(seed, selected_outcome, directory):
     # Paths to the data files
     master_path = 'data/master_data.csv'
     outcomes_path = 'data/all_binary_selected_outcomes.csv'
+    # binary disparity indicator and subject ID; the minority group should be coded as 1, 0 otherwise
+    bdi_path = 'data/inpatient_care.csv'
     
     # Load the datasets
-    master_df, outcomes_df = load_datasets(master_path, outcomes_path)
+    master_df, outcomes_df, bdi_df = load_datasets(master_path, outcomes_path, bdi_path)
     
     # Extract the outcome column from the outcomes dataframe and merge it with the master dataframe
     outcome_column = outcomes_df[['who', selected_outcome]]
     merged_df = pd.merge(master_df, outcome_column, on='who', how='inner')
+    # Add the binary disparity indicator
+    merged_df = pd.merge(merged_df, bdi_df, on='who', how='left')
     
     # Preprocess the merged data based on the selected outcome
     processed_data = preprocess_merged_data(merged_df, selected_outcome)
     
     # Create and merge demographic subsets
-    merged_subsets = create_demographic_dfs(processed_data)
+    # split_col is a string with the name of the column in bdi_df
+    merged_subsets = create_demographic_dfs(processed_data, columnToSplit=split_col)
     
     # Train and evaluate the models using the merged subsets
     train_and_evaluate_models(merged_subsets, seed, selected_outcome, directory)
@@ -78,11 +83,13 @@ def argument_handler():
     parser.add_argument('-o', '--outcome', '--outcomes', type=str, nargs='+', help='all outcomes to run', default = None)
     parser.add_argument('-d', '--dir', '--directory', type=str, help='directory to save logs, predictions, and evaluations', default="")
     parser.add_argument('-p', '--prof', '--profile', type=str, help='type of profiling to run (\'simple\' or \'complex\')', default="None")
+    parser.add_argument('-s', '--split-col', type=str, help='column to split on (e.g., "RaceEth" or "is_inpatient" from the bdi_df data)', default='RaceEth')
+
 
     # Parse the arguments
     args = parser.parse_args()
 
-    return args.loop, args.outcome, args.dir, args.prof
+    return args.loop, args.outcome, args.dir, args.prof, args.split_col
 
 def main():
 
@@ -91,7 +98,7 @@ def main():
         'Rs_johnson_1992', 'Rs_krupitsky_2004', 'Rd_kostenB_1993'
     ]
 
-    seedRange, outcomes, directory, profile = argument_handler()
+    seedRange, outcomes, directory, profile, split_col = argument_handler()
 
     if seedRange is not None:
         # Define a list of seeds to iterate over
@@ -111,11 +118,11 @@ def main():
     for seed in seed_list:
         for outcome in outcomes:
             if profile == 'simple' or profile == None:
-                pf.simple_profile_pipeline(run_pipeline, seed, outcome, directory)
+                pf.simple_profile_pipeline(run_pipeline, seed, outcome, directory, split_col)
             elif profile == 'complex':
-                pf.profile_pipeline(run_pipeline, seed, outcome, directory)
+                pf.profile_pipeline(run_pipeline, seed, outcome, directory, split_col)
             else:
-                log_filepath = run_pipeline(seed, outcome, directory)
+                log_filepath = run_pipeline(seed, outcome, directory, split_col)
                 log_filepaths.append(log_filepath)  # Store the log file path for later use
 
     # Scrape the logs after all pipelines have been run
