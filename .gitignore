@@ -1,6 +1,7 @@
 # Ignore Python virtual environment
 .venv/
 env/
+new_env/
 
 # Ignore libraries
 lib/

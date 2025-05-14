@@ -1,96 +1,110 @@
-import pandas as pd
-from psmpy import PsmPy
-import rpy2.robjects as robjects
-from rpy2.robjects.packages import importr, PackageNotInstalledError
-from sklearn.model_selection import train_test_split
-import pandas as pd
-from rpy2.robjects.conversion import localconverter
-from rpy2.robjects import r, pandas2ri
+# Import required libraries for data handling and modeling
+import pandas as pd  # for handling DataFrames
+from psmpy import PsmPy  # for propensity score matching using Python
+import rpy2.robjects as robjects  # interface to R
+from rpy2.robjects.packages import importr, PackageNotInstalledError  # R package management
+from sklearn.model_selection import train_test_split  # unused, but typically for data splitting
+from rpy2.robjects.conversion import localconverter  # context manager for data conversion
+from rpy2.robjects import r, pandas2ri  # base R interface and pandas conversion tools
 
-
-
+# Global flag to control printing of match summary from R
 PRINT_SUMMARY = False
 
+# Function to hold out a small test set with fixed majority/minority split
+def holdOutTestData(df, columnToSplit='RaceEth', majorityValue=1, testCount=100, seed=42):
+    majority_count = int(testCount * 0.58)  # majority sample size (e.g., 58%)
+    minority_count = testCount - majority_count  # remainder for minority
 
+    # Filter the majority group using the selected column
+    majority_heldout_df = df[df[columnToSplit] == majorityValue]
 
-#make comment for what values in matrix mean
-#control percentages of heldout data 58/42 majority/minority
-def holdOutTestData(df, testCount = 100, seed=42):
-    majority_count = 58
-    minority_count = 42
+    # Filter the minority group using the selected column
+    minority_heldout_df = df[df[columnToSplit] != majorityValue]
 
-    # Separate DataFrames
-    majority_heldout_df = df[df["RaceEth"] == 1]
-    minority_heldout_df = df[df["RaceEth"] != 1]
-
-    # Sample from each group
+    # Sample a subset from the majority group
     sample_majority_heldout = majority_heldout_df.sample(n=min(majority_count, len(majority_heldout_df)), random_state=seed)
+
+    # Sample a subset from the minority group
     sample_minority_heldout = minority_heldout_df.sample(n=min(minority_count, len(minority_heldout_df)), random_state=seed)
 
-    # Combine the samples
+    # Combine both samples to form the test set
     test_df = pd.concat([sample_majority_heldout, sample_minority_heldout]).reset_index(drop=True)
+
+    # Exclude the test set from the original dataframe to form the training set
     train_df = df.drop(test_df.index)
+
+    # Return both training and test sets
     return train_df, test_df
 
+# Function to perform propensity score matching using an R backend
+def propensityScoreMatch(df, columnToSplit='RaceEth', majorityValue=1, columnsToMatch=['age', 'is_female'], sampleSize=100):
+    df['is_minority'] = (df[columnToSplit] != majorityValue).astype(int)  # binary treatment indicator
 
+    # Run optimal matching using R's MatchIt
+    matched_participants = PropensityScoreMatchRMatchit(df, columnsToMatch, sampleSize)
 
-def propensityScoreMatch(df, columnToSplit='RaceEth', majorityValue=1, columnsToMatch = ['age', 'is_female'], sampleSize=500):
-    #Propensity Score Match data
-    df['is_minority'] = (df[columnToSplit] != majorityValue).astype(int)
-    # Run propensity score matching
-    matched_participants =  PropensityScoreMatchRMatchit(df, columnsToMatch, sampleSize)
+    # For each column (treated, control_0, control_1), reshape into a 'who' column
     column_dfs = [matched_participants[[col]].rename(columns={col: 'who'}) for col in matched_participants.columns]
+
+    # Merge each ID set with original data to recover matched participant rows
     matched_dfs = [pd.merge(col_df, df.drop(columns=['is_minority']), on='who', how='left') for col_df in column_dfs]
-    #print("TESTING: ", matched_dfs[0])
-    #matched_participants = pd.merge(matched_participants, df, on='who', how='left') 
+
+    # Return the three resulting matched groups (treated, control_0, control_1)
     return matched_dfs
 
-
-def create_subsets(dfs, splits=11, sampleSize=500):
-    
-    #load all 3 groups (minority + majority + majority) at different ratios for each split
+# Create multiple overlapping subsets of matched data to support comparative analysis
+def create_subsets(dfs, splits=11, sampleSize=100):
+    # Generate subsets by blending varying amounts of treated/control samples
     subsets = [
         pd.concat(
-            [dfs[0].iloc[:splitLen], dfs[1].iloc[splitLen:], dfs[2].iloc[:]], 
-            axis=0, 
-            ignore_index=True
+            [dfs[0].iloc[:splitLen], dfs[1].iloc[splitLen:], dfs[2].iloc[:]],  # varying amounts of dfs[0] and dfs[1], full dfs[2]
+            axis=0,
+            ignore_index=True  # reset index after concat
         )
-        
-        for splitLen in range(0, sampleSize + 1, sampleSize // (splits-1))
+        for splitLen in range(0, sampleSize + 1, sampleSize // (splits - 1))  # loop in equal steps
     ]
 
-    merged_subsets = [
-        demo_df 
-        for demo_df in subsets
-    ]
-
+    # Return all subset DataFrames
+    merged_subsets = [demo_df for demo_df in subsets]
     return merged_subsets
 
-
-
+# Alternative Python-based matcher using PsmPy instead of R (currently unused)
 def PropensityScoreMatchPsmPy(df, idColumn, columnsToMatch, sampleSize):
-    treatmentCol = 'is_minority'
+    treatmentCol = 'is_minority'  # binary indicator for treatment
+
+    # Identify columns not to use for matching
     columnsToExclude = list(df.columns.difference(columnsToMatch + [treatmentCol]).drop(idColumn))
+
+    # Create PsmPy object for matching
     psm = PsmPy(df, treatment=treatmentCol, indx=idColumn, exclude=columnsToExclude)
+
+    # Estimate propensity scores using logistic regression
     psm.logistic_ps()
+
+    # Perform k-nearest-neighbor matching
     psm.knn_matched_12n(matcher='propensity_logit', how_many=2)
+
+    # Sample a fixed number of matched pairs
     matched_participants = psm.matched_ids.sample(n=sampleSize)
+
+    # Return matched IDs
     return matched_participants
 
-
-
+# Main matching function using R’s MatchIt package
 def PropensityScoreMatchRMatchit(df, columnsToMatch, sampleSize):
     try:
-        # Check if MatchIt is installed
-        importr('MatchIt')
+        importr('MatchIt')  # Try to import R package
     except PackageNotInstalledError:
         print("MatchIt is not installed. Installing now...")
-        # Install MatchIt
         r('install.packages("MatchIt", repos="http://cran.r-project.org")')
-        # Verify installation
         importr('MatchIt')
-        print("MatchIt installed successfully.")
+
     pandas2ri.activate()
+
+    # Debug: Print counts before matching
+    print("👀 Number of minority participants (treated):", df[df["is_minority"] == 1].shape[0])
+    print("👀 Number of majority participants (control):", df[df["is_minority"] == 0].shape[0])
+
     with localconverter(robjects.default_converter + pandas2ri.converter):
         r_data = robjects.conversion.py2rpy(df)
     robjects.globalenv['inData'] = r_data
@@ -100,33 +114,26 @@ def PropensityScoreMatchRMatchit(df, columnsToMatch, sampleSize):
     robjects.r(f'''
         library(MatchIt)
 
-        # Limit the number of treated data points (e.g., first 50 treated rows)
-        treated_subset <- inData[inData$is_minority == 1, ][1:{sampleSize}, ]  # Adjust the subset size as needed
+        treated_subset <- inData[inData$is_minority == 1, ][1:{sampleSize}, ]
         control_subset <- inData[inData$is_minority == 0, ]
 
         subset_data <- rbind(treated_subset, control_subset)
 
-        # Perform nearest neighbor matching
         m.out1 <- matchit(
             is_minority ~ {variables},
             data = subset_data,
             method = "optimal",
             distance = "glm",
             link = "probit",
-            ratio = 2 # Specify 1 treated : 2 controls
+            ratio = 2
         )
-        
-        # Extract matched data
-        matched_data <- match.data(m.out1)
 
-        # Filter matched data by subclass
+        matched_data <- match.data(m.out1)
         matched_data <- matched_data[!is.na(matched_data$subclass), ]
 
-        # Split into treated and control groups
         treated <- matched_data[matched_data$is_minority == 1, ]
         control <- matched_data[matched_data$is_minority == 0, ]
 
-        # Create matched pairs based on subclass
         matched_pairs <- merge(
             treated[, c("subclass", "who")],
             control[, c("subclass", "who")],
@@ -134,21 +141,26 @@ def PropensityScoreMatchRMatchit(df, columnsToMatch, sampleSize):
             suffixes = c("_treated", "_control")
         )
 
-        # Create final DataFrame of treated and control row indices
         pair_df <- data.frame(
             treated_row = matched_pairs$who_treated,
             control_row = matched_pairs$who_control
         )
     ''')
 
-    # Retrieve the paired matches DataFrame from R
+    # ✅ New: handle case where R returned 0 rows
+    if int(robjects.r('nrow(pair_df)')[0]) == 0:
+        print("❌ MatchIt returned 0 matched pairs. Try lowering sample size or reviewing feature overlap.")
+        return None
+
+    # Convert matched pair DataFrame back to pandas
     pair_df_r = robjects.r('pair_df')
     with localconverter(robjects.default_converter + pandas2ri.converter):
         matched_data = robjects.conversion.rpy2py(pair_df_r)
 
-    if(PRINT_SUMMARY):
+    # Optional debug summary
+    if PRINT_SUMMARY:
         summary = robjects.r('summary(m.out1, un = FALSE)')
-        print("SUMMARY: ", summary)
+        print("MatchIt Summary:", summary)
 
     matched_data['control_index'] = matched_data.groupby('treated_row').cumcount()
     final_matched_df = matched_data.pivot(index='treated_row', columns='control_index', values='control_row').reset_index()
