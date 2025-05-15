@@ -27,7 +27,7 @@ from logScraper import scrape_log_to_csv  # Import the log scraper function
 #LOG_DIR = "logs"  # Directory to store log files
 
 
-def run_pipeline(seed, selected_outcome, directory, split_col="RaceEth"):
+def run_pipeline(seed, selected_outcome, directory, split_col="RaceEth", sample_size=500):
     """Run the pipeline using a specific seed and selected outcome."""
     # Set up logging and get the path to the log file
     log_filepath = setup_logging(seed, selected_outcome, directory, quiet=False)
@@ -62,7 +62,9 @@ def run_pipeline(seed, selected_outcome, directory, split_col="RaceEth"):
     
     # Create and merge demographic subsets
     # split_col is a string with the name of the column in bdi_df
-    merged_subsets = create_demographic_dfs(processed_data, columnToSplit=split_col)
+    merged_subsets = create_demographic_dfs(processed_data, columnToSplit=split_col, sampleSize=sample_size)
+
+    # import pdb; pdb.set_trace()
     
     # Train and evaluate the models using the merged subsets
     train_and_evaluate_models(merged_subsets, seed, selected_outcome, directory)
@@ -84,12 +86,13 @@ def argument_handler():
     parser.add_argument('-d', '--dir', '--directory', type=str, help='directory to save logs, predictions, and evaluations', default="")
     parser.add_argument('-p', '--prof', '--profile', type=str, help='type of profiling to run (\'simple\' or \'complex\')', default="None")
     parser.add_argument('-s', '--split-col', type=str, help='column to split on (e.g., "RaceEth" or "is_inpatient" from the bdi_df data)', default='RaceEth')
+    parser.add_argument('-N', '--sample-size', type=int, help='Number of minority samples per trial', default=500)
 
 
     # Parse the arguments
     args = parser.parse_args()
 
-    return args.loop, args.outcome, args.dir, args.prof, args.split_col
+    return args.loop, args.outcome, args.dir, args.prof, args.split_col, args.sample_size
 
 def main():
 
@@ -98,7 +101,7 @@ def main():
         'Rs_johnson_1992', 'Rs_krupitsky_2004', 'Rd_kostenB_1993'
     ]
 
-    seedRange, outcomes, directory, profile, split_col = argument_handler()
+    seedRange, outcomes, directory, profile, split_col, sample_size = argument_handler()
 
     if seedRange is not None:
         # Define a list of seeds to iterate over
