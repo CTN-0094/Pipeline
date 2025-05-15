@@ -38,7 +38,7 @@ class OutcomeModel:
         
         # Drop 'who' and target_column from X (feature set) 
         self.X = data.drop(['who'] + target_column, axis=1, errors='ignore')  
-
+        
         self.y = data[target_column]  # Target variable (y)
         self.model = None  # Placeholder for the trained model
         self.selected_features = self.X.columns  # Placeholder for selected features
@@ -47,7 +47,7 @@ class OutcomeModel:
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(
             self.X, self.y, test_size=0.25, random_state=seed  # Split the dataset
         )
-
+        
         # Track 'who' column for test set (after the train-test split)
         self.who_test = self.who.loc[self.X_test.index] if self.who is not None else None  
         
@@ -134,9 +134,12 @@ class OutcomeModel:
             
             # Get feature names (column names)
             feature_names = self.X_train.columns
+            print("TEST1: ", feature_names)
+            print("TEST2: ", feature_importance)
             # Select features with non-zero coefficients
-            self.selected_features = feature_names[feature_importance[0] > 0].tolist()
-            
+            self.selected_features = [f for f, imp in zip(feature_names, feature_importance) if imp != 0]
+            print("TEST: ", self.selected_features)
+
             # Log the number of features selected
             print(f"Lasso feature selection completed. Selected {len(self.selected_features)} out of {len(feature_names)} features.")
             print(f"Features are: ", self.selected_features)
@@ -360,7 +363,8 @@ class NegativeBinomialModel(OutcomeModel):
         return predictions, evaluations
 
 
-
+#Consider adding accelerated failure time
+#Kaplan Meier also working (they are not great for prediction, low bias high variance)
 class CoxProportionalHazard(OutcomeModel):
 
     def train(self):
