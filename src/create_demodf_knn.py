@@ -100,10 +100,7 @@ def PropensityScoreMatchRMatchit(df, columnsToMatch, sampleSize):
 
     pandas2ri.activate()
 
-    # Debug: Print counts before matching
-    print("👀 Number of minority participants (treated):", df[df["is_minority"] == 1].shape[0])
-    print("👀 Number of majority participants (control):", df[df["is_minority"] == 0].shape[0])
-
+  
     with localconverter(robjects.default_converter + pandas2ri.converter):
         r_data = robjects.conversion.py2rpy(df)
     robjects.globalenv['inData'] = r_data
