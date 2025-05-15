@@ -37,7 +37,8 @@ def holdOutTestData(df, columnToSplit='RaceEth', majorityValue=1, testCount=100,
     return train_df, test_df
 
 # Function to perform propensity score matching using an R backend
-def propensityScoreMatch(df, columnToSplit='RaceEth', majorityValue=1, columnsToMatch=['age', 'is_female'], sampleSize=100):
+def propensityScoreMatch(df, columnToSplit='RaceEth', columnsToMatch=['age', 'is_female'], sampleSize=100):
+    majorityValue = df[columnToSplit].value_counts().idxmax()
     df['is_minority'] = (df[columnToSplit] != majorityValue).astype(int)  # binary treatment indicator
 
     # Run optimal matching using R's MatchIt
@@ -69,24 +70,23 @@ def create_subsets(dfs, splits=11, sampleSize=100):
     return merged_subsets
 
 # Alternative Python-based matcher using PsmPy instead of R (currently unused)
-def propensityScoreMatch(df, columnToSplit='RaceEth', majorityValue=1, columnsToMatch=['age', 'is_female'], sampleSize=250):
-    # Use the column directly (like is_inpatient) instead of generating is_minority
-    if columnToSplit not in df.columns:
-        raise ValueError(f"Column '{columnToSplit}' not found in DataFrame.")
-    
-    df = df.copy()
-    df['is_minority'] = df[columnToSplit]  # use column as-is
+def PropensityScoreMatchPsmPy(df, idColumn, columnsToMatch, sampleSize):
+    treatmentCol = 'is_minority'  # binary indicator for treatment
 
-    # Call R-based matching
-    matched_participants = PropensityScoreMatchRMatchit(df, columnsToMatch, sampleSize)
-    if matched_participants is None:
-        raise ValueError("No matched participants returned — check if matching succeeded.")
+    # Identify columns not to use for matching
+    columnsToExclude = list(df.columns.difference(columnsToMatch + [treatmentCol]).drop(idColumn))
 
-    # Prepare matched dfs
-    column_dfs = [matched_participants[[col]].rename(columns={col: 'who'}) for col in matched_participants.columns]
-    matched_dfs = [pd.merge(col_df, df.drop(columns=['is_minority']), on='who', how='left') for col_df in column_dfs]
+    # Create PsmPy object for matching
+    psm = PsmPy(df, treatment=treatmentCol, indx=idColumn, exclude=columnsToExclude)
 
-    return matched_dfs
+    # Estimate propensity scores using logistic regression
+    psm.logistic_ps()
+
+    psm.knn_matched_12n(matcher='propensity_logit', how_many=2)
+
+    matched_participants = psm.matched_ids.sample(n=sampleSize)
+
+    return matched_participants
 
 
 # Main matching function using R’s MatchIt package
