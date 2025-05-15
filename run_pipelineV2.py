@@ -95,8 +95,8 @@ def initialize_pipeline(selected_outcome, columnToSplit="RaceEth"):
     if columnToSplit == "is_inpatient":
         inpatient_df = pd.read_csv(inpatient_path)
         demographic_df = pd.merge(demographic_df, inpatient_df[['who', 'is_inpatient']], on='who', how='left')
-        print("✅ is_inpatient value counts after merge:")
-        print(demographic_df["is_inpatient"].value_counts(dropna=False))
+        
+        #print(demographic_df["is_inpatient"].value_counts(dropna=False))
 
         if demographic_df['is_inpatient'].isnull().any():
             raise ValueError("Missing values in 'is_inpatient' after merge.")
@@ -121,11 +121,7 @@ def run_pipeline(processed_data, seed, selected_outcome, directory, columnToSpli
 
     matched_dataframes = propensityScoreMatch(processed_data, columnToSplit=columnToSplit, sampleSize=sampleSize)
 
-    print("✅ Matched groups:")
-    print(f"Treated group (1): {matched_dataframes[0].shape[0]}")
-    print(f"Control group 1 (0): {matched_dataframes[1].shape[0]}")
-    print(f"Control group 2 (0): {matched_dataframes[2].shape[0]}")
-
+    
     merged_subsets = create_subsets(matched_dataframes, sampleSize=sampleSize)
 
     results = train_and_evaluate_models(merged_subsets, selected_outcome, processed_data_heldout)
