@@ -3,8 +3,7 @@ name: Deploy Sphinx Docs to GitHub Pages
 on:
   push:
     branches:
-      - main  # Adjust if your default branch is named differently
-
+      - documentation
 permissions:
   contents: write
 
@@ -19,7 +18,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'  # or your preferred Python version
+          python-version: '3.12'  
 
       - name: Install dependencies
         run: |
