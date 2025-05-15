@@ -20,3 +20,9 @@ __pycache__/
 Thumbs.db
 test_venv/
 venv_2/
+python run_pipelineV2.py \                                                                                                  ─╯
+  --loop 42 43 \
+  --outcome Ab_krupitskyA_2011 \
+  --col is_inpatient \
+  --samp 50 \
+  --dir logs/inpatient_test

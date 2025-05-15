@@ -111,37 +111,34 @@ def initialize_pipeline(selected_outcome, columnToSplit="RaceEth"):
 
 
 def run_pipeline(processed_data, seed, selected_outcome, directory, columnToSplit="RaceEth", sampleSize=100):
-    # Set seed for reproducibility
     random.seed(seed)
     np.random.seed(seed)
     logging.info(f"Global Seed set to: {seed}")
 
-    # Set up logging for this run
     setup_logging(seed, selected_outcome, directory, quiet=False)
 
-    # Hold out test data using specified disparity column
     processed_data, processed_data_heldout = holdOutTestData(processed_data, columnToSplit=columnToSplit)
 
-    # Perform matching using specified column and sample size
     matched_dataframes = propensityScoreMatch(processed_data, columnToSplit=columnToSplit, sampleSize=sampleSize)
 
-    # Create overlapping matched subsets
+    print("✅ Matched groups:")
+    print(f"Treated group (1): {matched_dataframes[0].shape[0]}")
+    print(f"Control group 1 (0): {matched_dataframes[1].shape[0]}")
+    print(f"Control group 2 (0): {matched_dataframes[2].shape[0]}")
+
     merged_subsets = create_subsets(matched_dataframes, sampleSize=sampleSize)
 
-    # Train and evaluate models
     results = train_and_evaluate_models(merged_subsets, selected_outcome, processed_data_heldout)
 
-    # Save predictions and evaluations
     save_predictions_to_csv(results.loc[:, ("subset", "predictions")], seed, selected_outcome, directory, 'subset_predictions')
     save_predictions_to_csv(results.loc[:, ("heldout", "predictions")], seed, selected_outcome, directory, 'heldout_predictions')
-    save_evaluations_to_csv(results.loc[:, ("subset", "evaluations")], seed, selected_outcome, directory, 'subset_evaluations')
-    save_evaluations_to_csv(results.loc[:, ("heldout", "evaluations")], seed, selected_outcome, directory, 'heldout_evaluations')
+    save_evaluations_to_csv(results.loc[:, ("subset", "evaluations")], seed, selected_outcome, directory, 'subset_evaluations', columnToSplit)
+    save_evaluations_to_csv(results.loc[:, ("heldout", "evaluations")], seed, selected_outcome, directory, 'heldout_evaluations', columnToSplit)
 
-    # Log that this pipeline run completed
     log_pipeline_completion()
 
 
-def save_evaluations_to_csv(results, seed, selected_outcome, directory, name):
+def save_evaluations_to_csv(results, seed, selected_outcome, directory, name, columnToSplit="RaceEth"):
     directory = os.path.join(directory, name)
     if not os.path.exists(directory):
         os.makedirs(directory)
@@ -165,15 +162,20 @@ def save_evaluations_to_csv(results, seed, selected_outcome, directory, name):
             fp = trials_data['confusion_matrix'][0][1]
             tn = trials_data['confusion_matrix'][1][1]
             accuracy = (tp + tn) / (tp + tn + fp + fn)
-            f1 = 2 * (trials_data['precision'] * trials_data['recall']) / (trials_data['precision'] + trials_data['recall'])
+
+            # Safe F1 calculation
+            precision = trials_data['precision']
+            recall = trials_data['recall']
+            f1 = 0.0 if precision + recall == 0 else 2 * (precision * recall) / (precision + recall)
+
             training_demographics = trials_data['training_demographics']
 
             writer.writerow([
                 seed, "Binary", selected_outcome, "pipeline 1-2025", "TBD",
-                "Race: non hispanic white vs minority",
+                f"{columnToSplit}: 1 vs 0",  # dynamic label
                 trials_data['demographics'], training_demographics,
                 tp, fn, fp, tn, accuracy,
-                trials_data['precision'], trials_data['recall'], f1, trials_data['roc']
+                precision, recall, f1, trials_data['roc']
             ])
 
 

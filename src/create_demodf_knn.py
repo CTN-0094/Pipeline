@@ -69,26 +69,25 @@ def create_subsets(dfs, splits=11, sampleSize=100):
     return merged_subsets
 
 # Alternative Python-based matcher using PsmPy instead of R (currently unused)
-def PropensityScoreMatchPsmPy(df, idColumn, columnsToMatch, sampleSize):
-    treatmentCol = 'is_minority'  # binary indicator for treatment
+def propensityScoreMatch(df, columnToSplit='RaceEth', majorityValue=1, columnsToMatch=['age', 'is_female'], sampleSize=250):
+    # Use the column directly (like is_inpatient) instead of generating is_minority
+    if columnToSplit not in df.columns:
+        raise ValueError(f"Column '{columnToSplit}' not found in DataFrame.")
+    
+    df = df.copy()
+    df['is_minority'] = df[columnToSplit]  # use column as-is
 
-    # Identify columns not to use for matching
-    columnsToExclude = list(df.columns.difference(columnsToMatch + [treatmentCol]).drop(idColumn))
+    # Call R-based matching
+    matched_participants = PropensityScoreMatchRMatchit(df, columnsToMatch, sampleSize)
+    if matched_participants is None:
+        raise ValueError("No matched participants returned — check if matching succeeded.")
 
-    # Create PsmPy object for matching
-    psm = PsmPy(df, treatment=treatmentCol, indx=idColumn, exclude=columnsToExclude)
+    # Prepare matched dfs
+    column_dfs = [matched_participants[[col]].rename(columns={col: 'who'}) for col in matched_participants.columns]
+    matched_dfs = [pd.merge(col_df, df.drop(columns=['is_minority']), on='who', how='left') for col_df in column_dfs]
 
-    # Estimate propensity scores using logistic regression
-    psm.logistic_ps()
+    return matched_dfs
 
-    # Perform k-nearest-neighbor matching
-    psm.knn_matched_12n(matcher='propensity_logit', how_many=2)
-
-    # Sample a fixed number of matched pairs
-    matched_participants = psm.matched_ids.sample(n=sampleSize)
-
-    # Return matched IDs
-    return matched_participants
 
 # Main matching function using R’s MatchIt package
 def PropensityScoreMatchRMatchit(df, columnsToMatch, sampleSize):
