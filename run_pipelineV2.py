@@ -124,7 +124,7 @@ def run_pipeline(processed_data, seed, selected_outcome, directory, columnToSpli
     
     merged_subsets = create_subsets(matched_dataframes, sampleSize=sampleSize)
 
-    results = train_and_evaluate_models(merged_subsets, selected_outcome, processed_data_heldout)
+    results = train_and_evaluate_models(merged_subsets, selected_outcome, processed_data_heldout, columnToSplit)
 
     save_predictions_to_csv(results.loc[:, ("subset", "predictions")], seed, selected_outcome, directory, 'subset_predictions')
     save_predictions_to_csv(results.loc[:, ("heldout", "predictions")], seed, selected_outcome, directory, 'heldout_predictions')

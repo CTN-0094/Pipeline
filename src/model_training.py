@@ -8,7 +8,7 @@ from datetime import datetime
 
 
 
-def train_and_evaluate_models(merged_subsets, selected_outcome, processed_data_heldout):
+def train_and_evaluate_models(merged_subsets, selected_outcome, processed_data_heldout, columnToSplit):
     columns = pd.MultiIndex.from_product(
         [["heldout", "subset"], ["predictions", "evaluations"]],
         names=["Data Type", "Metric"]
@@ -28,8 +28,8 @@ def train_and_evaluate_models(merged_subsets, selected_outcome, processed_data_h
         logging.info("-----------------------------")
         logging.info(f"TRAIN MODEL STAGE STARTING FOR SUBSET {i + 1}...")
         logging.info("-----------------------------")
-
-        outcomeModel = selectedModel(subset, selected_outcome)
+        
+        outcomeModel = selectedModel(subset, selected_outcome, columnToSplit)
         outcomeModel.train()
         
         logging.info(f"Model trained and saved successfully for subset {i + 1}.")

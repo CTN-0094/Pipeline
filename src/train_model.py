@@ -19,7 +19,7 @@ import statsmodels.api as sm  # For statistical models (like Negative Binomial)
 
 class OutcomeModel:
     """Base class for handling an outcome model."""
-    def __init__(self, data: pd.DataFrame, target_column: str, seed: Optional[int] = None):
+    def __init__(self, data: pd.DataFrame, target_column: str, splitColumn, seed: Optional[int] = None):
         """
         Initialize the OutcomeModel class.
 
@@ -30,6 +30,7 @@ class OutcomeModel:
         """
         self.data = data  # Store the full dataset
         self.target_column = target_column  # Target column name
+        self.splitColumn = splitColumn
         
         # Store 'who' column separately for tracking if it exists in the data
         self.who = data['who'] if 'who' in data.columns else None  
@@ -69,7 +70,7 @@ class OutcomeModel:
 class LogisticModel(OutcomeModel):
     """Logistic regression model with L1 regularization for feature selection."""
 
-    def __init__(self, data: pd.DataFrame, target_column: str, Cs: Optional[list] = None, seed: Optional[int] = None):
+    def __init__(self, data: pd.DataFrame, target_column: str, splitColumn, Cs: Optional[list] = None, seed: Optional[int] = None):
         """
         Initialize the LogisticModel class.
 
@@ -80,7 +81,7 @@ class LogisticModel(OutcomeModel):
         - seed (int, optional): Random seed for reproducibility.
         """
         # Call the parent class constructor to handle dataset initialization and seeding
-        super().__init__(data, target_column, seed)
+        super().__init__(data, target_column, splitColumn, seed)
 
         # Set the regularization strength for L1 regularization. If not provided, defaults to [1.0]
         self.Cs = Cs if Cs is not None else [1.0]
@@ -230,8 +231,7 @@ class LogisticModel(OutcomeModel):
     
 
     def _countDemographic(self, data):
-        
-        demographic_counts = data['RaceEth'].value_counts().to_dict()
+        demographic_counts = data[self.splitColumn].value_counts().to_dict()
         dem_string = ", ".join([f"{v} {k}" for k, v in demographic_counts.items()])
         logging.info(f"demographic makeup: {dem_string}")
         return dem_string
