@@ -52,3 +52,6 @@ typing-extensions==4.11.0
 tzdata==2024.1
 wcwidth==0.2.13
 zipp==3.18.1
+sphinx
+sphinx-rtd-theme
+myst-parser
