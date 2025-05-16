@@ -28,6 +28,7 @@ jobs:
 
       - name: Build Sphinx HTML
         run: make html
+        working-directory: src/docs
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
