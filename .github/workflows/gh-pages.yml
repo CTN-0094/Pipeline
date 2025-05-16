@@ -27,11 +27,11 @@ jobs:
           sudo apt-get install -y make
 
       - name: Build Sphinx HTML
-        run: make html
+        run: sphinx-build -b html source build/html
         working-directory: src/docs
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build/html
+          publish_dir: src/docs/build/html
