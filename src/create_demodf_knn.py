@@ -42,7 +42,7 @@ def propensityScoreMatch(df, columnToSplit='RaceEth', columnsToMatch=['age', 'is
     df['is_minority'] = (df[columnToSplit] != majorityValue).astype(int)  # binary treatment indicator
 
     # Run optimal matching using R's MatchIt
-    matched_participants = PropensityScoreMatchRMatchit(df, columnsToMatch, sampleSize)
+    matched_participants = PropensityScoreMatchRMatchit(df, columnsToMatch, sampleSize // 2)
 
     # For each column (treated, control_0, control_1), reshape into a 'who' column
     column_dfs = [matched_participants[[col]].rename(columns={col: 'who'}) for col in matched_participants.columns]
@@ -55,6 +55,7 @@ def propensityScoreMatch(df, columnToSplit='RaceEth', columnsToMatch=['age', 'is
 
 # Create multiple overlapping subsets of matched data to support comparative analysis
 def create_subsets(dfs, splits=11, sampleSize=100):
+    sampleSize = sampleSize // 2
     # Generate subsets by blending varying amounts of treated/control samples
     subsets = [
         pd.concat(
@@ -84,7 +85,7 @@ def PropensityScoreMatchPsmPy(df, idColumn, columnsToMatch, sampleSize):
 
     psm.knn_matched_12n(matcher='propensity_logit', how_many=2)
 
-    matched_participants = psm.matched_ids.sample(n=sampleSize)
+    matched_participants = psm.matched_ids.sample(n=sampleSize/2)
 
     return matched_participants
 
