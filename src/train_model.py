@@ -13,7 +13,9 @@ from sklearn.pipeline import Pipeline  # For creating a machine learning pipelin
 from sklearn.model_selection import train_test_split  # For splitting data into training/testing sets
 from sklearn.metrics import confusion_matrix, roc_auc_score, precision_score, recall_score, f1_score, mean_squared_error, mean_absolute_error, r2_score # For model evaluation
 import statsmodels.api as sm  # For statistical models (like Negative Binomial)
+from statsmodels.othermod.betareg import BetaModel
 from statsmodels.discrete.discrete_model import NegativeBinomial
+from scipy.stats import pearsonr
 from lifelines import CoxPHFitter
 from lifelines.utils import concordance_index
 
@@ -66,7 +68,6 @@ class OutcomeModel:
 
     def selectFeatures(self):
         self.lasso_feature_selection()
-        pass
 
     def train(self):
         """Placeholder method for training."""
@@ -104,7 +105,7 @@ class OutcomeModel:
         """Placeholder method for Evaluating Validation sets."""
         pass
 
-    def lasso_feature_selection(self, alpha=0.1):
+    def lasso_feature_selection(self, model_type = 'classification', alpha=0.01):
         """
         Perform feature selection using Lasso regression.
         
@@ -119,33 +120,47 @@ class OutcomeModel:
             List of column names of the selected features.
         """
         try:
-            # Initialize the Lasso model
-            lasso = Lasso(alpha=alpha, random_state=42)
+            if model_type == 'regression':
+                model = Lasso(alpha=alpha, random_state=42)
+            elif model_type == 'classification':
+                model = LogisticRegression(penalty='l1', solver='saga', C=1.0, max_iter=10000)
+            else:
+                raise ValueError("model_type must be either 'regression' or 'classification'")
+
+            pipeline = Pipeline([
+                ('scaler', StandardScaler()),
+                ('model', model)
+            ])
+
+            pipeline.fit(self.X_train, self.y_train)
             
-            # Standardize features (important for Lasso)
-            scaler = StandardScaler()
-            X_scaled = scaler.fit_transform(self.X_train)
+
+            # Extract the fitted logistic regression model from the pipeline
+            model = pipeline.named_steps['model']
             
-            # Fit Lasso
-            lasso.fit(X_scaled, self.y_train)
-            
-            # Get feature importance
-            feature_importance = np.abs(lasso.coef_)
-            
-            # Get feature names (column names)
-            feature_names = self.X_train.columns
-            print("TEST1: ", feature_names)
-            print("TEST2: ", feature_importance)
-            # Select features with non-zero coefficients
-            self.selected_features = [f for f, imp in zip(feature_names, feature_importance) if imp != 0]
-            print("TEST: ", self.selected_features)
+            # Check if the model learned any coefficients; raise an error if not
+            if model.coef_ is None:
+                raise ValueError("The model coefficients are None. The model did not fit properly.")
+            coefficients = model.coef_
+            #if isinstance(coefficients[0], np.ndarray):
+            coefficients = coefficients[0]
+
+            # Select the features where the L1 regularization retained non-zero coefficients
+            self.selected_features = self.X_train.columns[coefficients.flatten() != 0].tolist()
+
+            # If no features were selected, raise an error to signal potential over-regularization
+            if not self.selected_features:
+                raise ValueError("No features were selected. Check your regularization strength.")
 
             # Log the number of features selected
+            feature_names = self.X_train.columns
             print(f"Lasso feature selection completed. Selected {len(self.selected_features)} out of {len(feature_names)} features.")
             print(f"Features are: ", self.selected_features)
         except Exception as e:
             logging.error(f"Error during Lasso feature selection: {e}")
             raise
+
+
 
     def _countDemographic(self, data):
         
@@ -187,32 +202,6 @@ class LogisticModel(OutcomeModel):
         logging.info("Starting feature selection using L1 regularization...")
 
         try:
-            # Create a machine learning pipeline with two steps:
-            # 1. Standardize the features using StandardScaler()
-            # 2. Apply logistic regression with L1 penalty for feature selection
-            pipeline = Pipeline([
-                ('scaler', StandardScaler()),  # Standardize the data
-                ('logistic', LogisticRegression(penalty='l1', solver='saga', C=self.Cs[0], max_iter=10000))
-            ])
-
-            # Fit the pipeline to the training data
-            pipeline.fit(self.X_train, self.y_train)
-
-
-            # Extract the fitted logistic regression model from the pipeline
-            logistic_model = pipeline.named_steps['logistic']
-
-            # Check if the model learned any coefficients; raise an error if not
-            if logistic_model.coef_ is None:
-                raise ValueError("The model coefficients are None. The model did not fit properly.")
-
-            # Select the features where the L1 regularization retained non-zero coefficients
-            self.selected_features = self.X_train.columns[logistic_model.coef_.flatten() != 0].tolist()
-
-            # If no features were selected, raise an error to signal potential over-regularization
-            if not self.selected_features:
-                raise ValueError("No features were selected. Check your regularization strength.")
-
             # Train a new logistic regression model on the reduced feature set
             # Note: This logistic regression does not use L1 regularization but the selected features
             self.model = LogisticRegression(max_iter=10000, C=self.Cs[0])  
@@ -225,6 +214,9 @@ class LogisticModel(OutcomeModel):
             logging.error(f"Error during feature selection and model fitting: {e}")
             raise  # Re-raise the error to ensure it propagates if not handled elsewhere
 
+
+    def selectFeatures(self):
+        self.lasso_feature_selection(model_type="classification")
 
     def _find_best_threshold(self):
         """Determine the best classification threshold based on positive outcome proportion."""
@@ -260,104 +252,46 @@ class LogisticModel(OutcomeModel):
 
 
 class NegativeBinomialModel(OutcomeModel):
-    
-    def _custom_callback(self, parameters):
-        # Store current parameters and log-likelihood
-        self.iteration_count += 1
-        
-        # Calculate the log-likelihood with current parameters
-        llf = self.model.loglike(parameters)
-        self.loss_values.append(-llf)  # Negative log-likelihood is the loss
-        
-        if self.iteration_count % 5 == 0:  # Print every 5 iterations
-            print(f"Iteration {self.iteration_count}, Loss: {-llf}")
 
     """Negative Binomial model implementation."""
     def train(self):
-        # Train a Negative Binomial regression model on the reduced feature set using statsmodels
         # Prepare the data for statsmodels (add a constant term)
-
-        #self.scaler = StandardScaler()
-        #X_scaled = self.scaler.fit_transform(self.X_train[self.selected_features])
-        #X_with_constant = np.column_stack((np.ones(self.X_train[self.selected_features].shape[0]), self.X_train[self.selected_features]))
+        X_with_constant = np.column_stack((np.ones(self.X_train[self.selected_features].shape[0]), self.X_train[self.selected_features]))
+        self.model = sm.GLM(self.y_train, X_with_constant, family=sm.families.NegativeBinomial())
         
-        # Create the model first (without fitting)
-        #self.model = LinearRegression()
-        #self.model.fit(self.X_train[self.selected_features], self.y_train)
-
-        #csvFile = self.X_train[self.selected_features]
-        #csvFile[self.target_column] = self.y_train
-        #csvFile.to_csv('X_Train.csv', index=False)
-
-        self.model = sm.GLM(self.y_train, self.X_train[self.selected_features], family=sm.families.NegativeBinomial())
-        #self.model = NegativeBinomial(self.y_train, X_with_constant)
-        #self.model = sm.NegativeBinomialP(self.y_train, X_with_constant)
-        #self.model.fit(self.X_train[self.selected_features], self.y_train)
-
-        # Fit the model with callback to monitor convergence
         self.model = self.model.fit(
-            #start_params=start_params, 
-            method='bfgs',  # Powell method is often more robust
-            disp=0,           # Suppress convergence messages
-            callback=self._custom_callback
+            method='bfgs',
+            disp=0
         )
 
-        y_pred = self.model.predict(self.X_train[self.selected_features])
-        print("Predictions min/max/mean:", y_pred.min(), y_pred.max(), y_pred.mean())
-        print("Actual y min/max/mean:", self.y_train.min(), self.y_train.max(), self.y_train.mean())
-
-        # After fitting, plot the loss curve
-        '''import matplotlib.pyplot as plt
-        plt.figure(figsize=(10, 6))
-        plt.plot(range(1, len(self.loss_values) + 1), self.loss_values)
-        plt.title('Loss (Negative Log-Likelihood) vs. Iteration')
-        plt.xlabel('Iteration')
-        plt.ylabel('Loss')
-        plt.grid(True)
-        plt.savefig('nbr_loss_curve.png')
-        plt.close()
-
-        # Print final information
-        print(f"Final loss value: {self.loss_values[-1]}")
-        print(f"Total iterations: {self.iteration_count}")'''
-
         logging.info("NBR model fitting completed successfully.")
+
+    def selectFeatures(self):
+        self.lasso_feature_selection(model_type="regression")
 
     def predict(self):
         """Make predictions with the trained Negative Binomial model."""
         return self.model.evaluate_model() 
     
     def _evaluateOnValidation(self, X, y, id):
-        #scaler = StandardScaler()
-        #X_scaled = self.scaler.transform(X[self.selected_features])
-        #X_with_constant = np.column_stack((np.ones(X[self.selected_features].shape[0]), X[self.selected_features]))
-        #X_with_constant = np.column_stack((np.ones(X[self.selected_features].shape[0]), X[self.selected_features])) #force add a constant row because one already exists
-        y_pred = self.model.predict(X[self.selected_features])
 
-        '''ll_full = self.model.llf  # log-likelihood of full model
-        # Null model: only intercept
+        X_with_constant = np.column_stack((np.ones(X[self.selected_features].shape[0]), X[self.selected_features]))
+
+        y_pred = self.model.predict(X_with_constant)
+
+        ll_full = self.model.llf
         X_null = np.ones((X.shape[0], 1))
-        null_model = NegativeBinomial(y, X_null).fit(disp=0)
+        null_model = NegativeBinomial(y, X_null).fit(method='bfgs', disp=0)
         ll_null = null_model.llf
-
-        mcfadden_r2 = 1 - (ll_full / ll_null)'''
-        
-        print("Predictions min/max/mean:", y_pred.min(), y_pred.max(), y_pred.mean())
-        print("Actual y min/max/mean:", y.min(), y.max(), y.mean())
-        print("SCORE: ", r2_score(y, y_pred))
-
-        y_mean = np.mean(y)
-        ss_tot = np.sum((y - y_mean) ** 2)
-        ss_res = np.sum((y - y_pred) ** 2)
-        pseudo_r2 = 1 - (ss_res / ss_tot)
+        mcfadden_r2 = 1 - (ll_full / ll_null)
 
         predictions = zip(id, y_pred)
         evaluations = {
             "mse": mean_squared_error(y, y_pred),
             "rmse": np.sqrt(mean_squared_error(y, y_pred)),
             "mae": mean_absolute_error(y, y_pred),
-            "pseudo_r2": pseudo_r2,
-            "mcfadden_r2": r2_score(y, y_pred),#mcfadden_r2,
+            "pearson_r": pearsonr(y, y_pred),
+            "mcfadden_r2": mcfadden_r2,
             "demographics": self._countDemographic(X)
         }
         return predictions, evaluations
@@ -368,16 +302,10 @@ class NegativeBinomialModel(OutcomeModel):
 class CoxProportionalHazard(OutcomeModel):
 
     def train(self):
-
         try:
-            # Train a Negative Binomial regression model on the reduced feature set using statsmodels
-            # Prepare the data for statsmodels (add a constant term)
-            #X_train_selected = np.column_stack((np.ones(self.X_train.shape[0]), self.X_train)) #force add a constant row because one already exists
             self.model = CoxPHFitter()
             table = pd.concat([self.X_train[self.selected_features], self.y_train], axis=1)
             self.model.fit(table, duration_col=self.y_train.columns[0], event_col=self.y_train.columns[1])
-            # Fit the Negative Binomial Regression model
-            #self.model = sm.NegativeBinomialP(self.y_train, X_train_selected).fit()
 
             logging.info("CPH model fitting completed successfully.")
 
@@ -391,15 +319,9 @@ class CoxProportionalHazard(OutcomeModel):
         return self.model.evaluate_model() 
     
     def _evaluateOnValidation(self, X, y, id):
-        #X_with_constant = np.column_stack((np.ones(X.shape[0]), X)) #force add a constant row because one already exists
-        #y_pred_proba = self.model.predict(X_with_constant)
-        #print("AARON DEBUG: ", X)
         table = pd.concat([X[self.selected_features], y], axis=1)
 
         ci = concordance_index(table[y.columns[0]], -self.model.predict_partial_hazard(table), table[y.columns[1]])
-
-        #if y_pred_proba is None: raise ValueError("y_pred_proba is None. This may be caused by a failed model prediction.")
-        #y_pred = (y_pred_proba >= self.best_threshold).astype(int)
 
         predictions = zip(id, self.model.predict_median(X[self.selected_features]))
         evaluations = {
@@ -407,3 +329,64 @@ class CoxProportionalHazard(OutcomeModel):
             "demographics": self._countDemographic(X)
         }
         return predictions, evaluations
+    
+    def selectFeatures(self):
+        self.lasso_feature_selection(model_type="regression")
+
+
+
+
+class BetaRegression(OutcomeModel):
+
+
+    """Negative Binomial model implementation."""
+    def train(self):
+
+        # Step 1: Add intercept
+        X_with_constant = sm.add_constant(self.X_train[self.selected_features], has_constant='add')
+
+        print(self.y_train)
+
+        # Step 2: Fit beta regression
+        self.model = BetaModel(endog=self.y_train, exog=X_with_constant)
+
+        # Step 3: Fit with optimizer
+        self.model = self.model.fit(method='bfgs', disp=0)
+
+        logging.info("NBR model fitting completed successfully.")
+
+    def selectFeatures(self):
+        self.lasso_feature_selection(model_type="regression")
+
+    def predict(self):
+        """Make predictions with the trained Negative Binomial model."""
+        return self.model.evaluate_model() 
+    
+    def _evaluateOnValidation(self, X, y, id):
+
+        X_with_constant = np.column_stack((np.ones(X[self.selected_features].shape[0]), X[self.selected_features]))
+
+        y_pred = self.model.predict(X_with_constant)
+
+        ll_full = self.model.llf
+        X_null = np.ones((X.shape[0], 1))
+        null_model = BetaModel(endog=y, exog=X_null).fit(method='bfgs', disp=0)
+        ll_null = null_model.llf
+        mcfadden_r2 = 1 - (ll_full / ll_null)
+
+        y = np.ravel(y)
+        y_pred = np.ravel(y_pred)
+
+        r, p = pearsonr(y, y_pred)
+        predictions = zip(id, y_pred)
+        evaluations = {
+            "mse": mean_squared_error(y, y_pred),
+            "rmse": np.sqrt(mean_squared_error(y, y_pred)),
+            "mae": mean_absolute_error(y, y_pred),
+            "pearson_r": r,
+            "mcfadden_r2": mcfadden_r2,
+            "demographics": self._countDemographic(X)
+        }
+        return predictions, evaluations
+
+

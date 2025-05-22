@@ -135,6 +135,16 @@ def initialize_pipeline(selected_outcome):
     
     merged_df = pd.merge(demographic_df, outcome_column, on='who', how='inner')
 
+
+    #FOR BETA REGRESSION SCALING
+    '''
+    epsilon = 1e-6  # small value to avoid exact 0 or 1
+    min_val = merged_df[selected_outcome['columnsToUse']].min()
+    max_val = merged_df[selected_outcome['columnsToUse']].max()
+    merged_df[selected_outcome['columnsToUse']] = (merged_df[selected_outcome['columnsToUse']] - min_val) / (max_val - min_val)
+    merged_df[selected_outcome['columnsToUse']] = merged_df[selected_outcome['columnsToUse']] * (1 - 2 * epsilon) + epsilon
+    '''
+
     # Preprocess the merged data based on the selected outcome
     processed_data = preprocess_merged_data(merged_df, selected_outcome['columnsToUse'])
 
@@ -228,7 +238,7 @@ def save_evaluations_to_csv(results, seed, selected_outcome, directory, name):
                 'MSE',
                 'RMSE',
                 'MAE',
-                'pseudo_r2',
+                'pearson_r',
                 'mcfadden_r2'
             ])
         elif selected_outcome['endpointType'] == EndpointType.SURVIVAL:
@@ -277,7 +287,7 @@ def save_evaluations_to_csv(results, seed, selected_outcome, directory, name):
                     trials_data['mse'],
                     trials_data['rmse'],
                     trials_data['mae'],
-                    trials_data['pseudo_r2'],
+                    trials_data['pearson_r'],
                     trials_data['mcfadden_r2']
                 ])
             elif selected_outcome['endpointType'] == EndpointType.SURVIVAL:
