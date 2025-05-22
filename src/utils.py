@@ -29,7 +29,7 @@ def get_outcome_choice(available_outcomes):
     while True:
         print("Available outcomes:")
         for i, outcome in enumerate(available_outcomes, 1):
-            print(f"{i}. {outcome}")
+            print(f"{i}. {outcome['name']}")
         try:
             choice = int(input("Select an outcome by entering its number: "))
             if 1 <= choice <= len(available_outcomes):

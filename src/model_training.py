@@ -1,4 +1,5 @@
-from src.train_model import LogisticModel
+from src.train_model import LogisticModel, NegativeBinomialModel, CoxProportionalHazard, BetaRegression
+from src.constants import EndpointType
 import logging
 import numpy as np
 import csv
@@ -15,7 +16,14 @@ def train_and_evaluate_models(merged_subsets, selected_outcome, processed_data_h
     )
     results = pd.DataFrame(columns=columns)
 
-    selectedModel = LogisticModel
+    selectedModel = None
+    if selected_outcome['endpointType'] == EndpointType.LOGICAL:
+        selectedModel = LogisticModel
+    if selected_outcome['endpointType'] == EndpointType.SURVIVAL:
+        selectedModel = CoxProportionalHazard
+    if selected_outcome['endpointType'] == EndpointType.INTEGER:
+        selectedModel = NegativeBinomialModel#BetaRegression
+    
     numOfSubsets = len(merged_subsets)
 
     for i, subset in enumerate(merged_subsets):
@@ -29,7 +37,10 @@ def train_and_evaluate_models(merged_subsets, selected_outcome, processed_data_h
         logging.info(f"TRAIN MODEL STAGE STARTING FOR SUBSET {i + 1}...")
         logging.info("-----------------------------")
 
-        outcomeModel = selectedModel(subset, selected_outcome)
+        #subset = subset.drop('RaceEth', axis=1)
+        outcomeModel = selectedModel(subset, selected_outcome['columnsToUse'])
+        outcomeModel.selectFeatures()
+        #outcomeModel.selected_features=['age', 'RaceEth', 'unstableliving', 'is_female', 'UDS_Amphetamine_Count']
         outcomeModel.train()
         
         logging.info(f"Model trained and saved successfully for subset {i + 1}.")
