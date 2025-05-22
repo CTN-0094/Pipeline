@@ -2,6 +2,7 @@
 .venv/
 env/
 new_env/
+new_env/
 
 # Ignore libraries
 lib/
