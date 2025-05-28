@@ -64,7 +64,7 @@ setup(
         "typing-extensions==4.11.0",
         "tzdata==2024.1",
         "wcwidth==0.2.13",
-        "zipp==3.18.1",
+        "zipp==3.19.1",
     ],
     classifiers=[
         "Programming Language :: Python :: 3.12",
