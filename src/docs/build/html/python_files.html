@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Python Modules &mdash; DAB Pipeline 0.0.1 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b20cc3f5" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5349f25f" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/custom.css?v=551bf383" />
 
@@ -41,15 +41,77 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Getting Started with the CTN-0094 Pipeline (Beginner Tutorial)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html#understanding-the-pipeline-help-commands">Understanding the Pipeline Help Commands</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html#what-happens-behind-the-scenes">What Happens Behind the Scenes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="readme.html">README</a></li>
-<li class="toctree-l1"><a class="reference internal" href="data.html">Data Overview</a></li>
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Python Modules</a><ul>
+<li><a class="reference internal" href="#train-model-py">train_model.py</a><ul>
+<li><a class="reference internal" href="#outcomemodel">OutcomeModel</a><ul>
+<li><a class="reference internal" href="#OutcomeModel"><code class="docutils literal notranslate"><span class="pre">OutcomeModel</span></code></a><ul>
+<li><a class="reference internal" href="#OutcomeModel.train"><code class="docutils literal notranslate"><span class="pre">OutcomeModel.train()</span></code></a></li>
+<li><a class="reference internal" href="#OutcomeModel.evaluate"><code class="docutils literal notranslate"><span class="pre">OutcomeModel.evaluate()</span></code></a></li>
 </ul>
-
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#logisticmodel">LogisticModel</a><ul>
+<li><a class="reference internal" href="#LogisticModel"><code class="docutils literal notranslate"><span class="pre">LogisticModel</span></code></a><ul>
+<li><a class="reference internal" href="#LogisticModel.feature_selection_and_model_fitting"><code class="docutils literal notranslate"><span class="pre">LogisticModel.feature_selection_and_model_fitting()</span></code></a></li>
+<li><a class="reference internal" href="#LogisticModel.find_best_threshold"><code class="docutils literal notranslate"><span class="pre">LogisticModel.find_best_threshold()</span></code></a></li>
+<li><a class="reference internal" href="#LogisticModel.train"><code class="docutils literal notranslate"><span class="pre">LogisticModel.train()</span></code></a></li>
+<li><a class="reference internal" href="#LogisticModel.evaluateOverallTest"><code class="docutils literal notranslate"><span class="pre">LogisticModel.evaluateOverallTest()</span></code></a></li>
+<li><a class="reference internal" href="#LogisticModel.evaluate"><code class="docutils literal notranslate"><span class="pre">LogisticModel.evaluate()</span></code></a></li>
+<li><a class="reference internal" href="#LogisticModel._evaluateOnValidation"><code class="docutils literal notranslate"><span class="pre">LogisticModel._evaluateOnValidation()</span></code></a></li>
+<li><a class="reference internal" href="#LogisticModel._countDemographic"><code class="docutils literal notranslate"><span class="pre">LogisticModel._countDemographic()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#negativebinomialmodel">NegativeBinomialModel</a><ul>
+<li><a class="reference internal" href="#NegativeBinomialModel"><code class="docutils literal notranslate"><span class="pre">NegativeBinomialModel</span></code></a><ul>
+<li><a class="reference internal" href="#NegativeBinomialModel.train"><code class="docutils literal notranslate"><span class="pre">NegativeBinomialModel.train()</span></code></a></li>
+<li><a class="reference internal" href="#NegativeBinomialModel.predict"><code class="docutils literal notranslate"><span class="pre">NegativeBinomialModel.predict()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#create-demodf-knn-py">create_demodf_knn.py</a><ul>
+<li><a class="reference internal" href="#holdOutTestData"><code class="docutils literal notranslate"><span class="pre">holdOutTestData()</span></code></a></li>
+<li><a class="reference internal" href="#propensityScoreMatch"><code class="docutils literal notranslate"><span class="pre">propensityScoreMatch()</span></code></a></li>
+<li><a class="reference internal" href="#create_subsets"><code class="docutils literal notranslate"><span class="pre">create_subsets()</span></code></a></li>
+<li><a class="reference internal" href="#PropensityScoreMatchPsmPy"><code class="docutils literal notranslate"><span class="pre">PropensityScoreMatchPsmPy()</span></code></a></li>
+<li><a class="reference internal" href="#PropensityScoreMatchRMatchit"><code class="docutils literal notranslate"><span class="pre">PropensityScoreMatchRMatchit()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#preprocess-py">preprocess.py</a><ul>
+<li><a class="reference internal" href="#datapreprocessor">DataPreprocessor</a><ul>
+<li><a class="reference internal" href="#DataPreprocessor"><code class="docutils literal notranslate"><span class="pre">DataPreprocessor</span></code></a><ul>
+<li><a class="reference internal" href="#DataPreprocessor.drop_columns_and_return"><code class="docutils literal notranslate"><span class="pre">DataPreprocessor.drop_columns_and_return()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#convert_yes_no_to_binary"><code class="docutils literal notranslate"><span class="pre">convert_yes_no_to_binary()</span></code></a></li>
+<li><a class="reference internal" href="#process_tlfb_columns"><code class="docutils literal notranslate"><span class="pre">process_tlfb_columns()</span></code></a></li>
+<li><a class="reference internal" href="#calculate_behavioral_columns"><code class="docutils literal notranslate"><span class="pre">calculate_behavioral_columns()</span></code></a></li>
+<li><a class="reference internal" href="#move_column_to_end"><code class="docutils literal notranslate"><span class="pre">move_column_to_end()</span></code></a></li>
+<li><a class="reference internal" href="#rename_columns"><code class="docutils literal notranslate"><span class="pre">rename_columns()</span></code></a></li>
+<li><a class="reference internal" href="#transform_nan_to_zero_for_binary_columns"><code class="docutils literal notranslate"><span class="pre">transform_nan_to_zero_for_binary_columns()</span></code></a></li>
+<li><a class="reference internal" href="#transform_and_rename_column"><code class="docutils literal notranslate"><span class="pre">transform_and_rename_column()</span></code></a></li>
+<li><a class="reference internal" href="#fill_nan_with_zero"><code class="docutils literal notranslate"><span class="pre">fill_nan_with_zero()</span></code></a></li>
+<li><a class="reference internal" href="#transform_data_with_nan_handling"><code class="docutils literal notranslate"><span class="pre">transform_data_with_nan_handling()</span></code></a></li>
+<li><a class="reference internal" href="#convert_uds_to_binary"><code class="docutils literal notranslate"><span class="pre">convert_uds_to_binary()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#preprocess-pipeline-py">preprocess_pipeline.py</a><ul>
+<li><a class="reference internal" href="#preprocess_data"><code class="docutils literal notranslate"><span class="pre">preprocess_data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
         </div>
       </div>
     </nav>

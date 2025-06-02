@@ -1,0 +1,249 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Detecting Algorithmic Bias (DAB) Pipeline &mdash; DAB Pipeline 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5349f25f" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=551bf383" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=d45e8c67"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Getting Started with the CTN-0094 Pipeline (Beginner Tutorial)" href="quickstart.html" />
+    <link rel="prev" title="DAB Pipeline documentation" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            DAB Pipeline
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">The Detecting Algorithmic Bias (DAB) Pipeline</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setting-up-the-pipeline">Setting Up the Pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-the-pipeline">Running the Pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#viewing-the-results">Viewing the Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#understanding-the-pipeline">Understanding the Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#outcomes">Outcomes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pipeline-diagram">Pipeline Diagram</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-the-pipeline-works">How the Pipeline Works</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#interpretation">Interpretation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#customizing-the-pipeline">Customizing the Pipeline</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Getting Started with the CTN-0094 Pipeline (Beginner Tutorial)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html#understanding-the-pipeline-help-commands">Understanding the Pipeline Help Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html#what-happens-behind-the-scenes">What Happens Behind the Scenes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="readme.html">README</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">Data Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_files.html">Python Modules</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DAB Pipeline</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">The Detecting Algorithmic Bias (DAB) Pipeline</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/main_page.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="the-detecting-algorithmic-bias-dab-pipeline">
+<h1>The Detecting Algorithmic Bias (DAB) Pipeline<a class="headerlink" href="#the-detecting-algorithmic-bias-dab-pipeline" title="Link to this heading"></a></h1>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>The DAB pipeline is a codebase designed to evaluate bias in clinical trial data. It is constructed in a modular way, allowing the user to:</p>
+<ul class="simple">
+<li><p>Select an endpoint</p></li>
+<li><p>Import their own clinical data</p></li>
+<li><p>Train a model using existing or custom statistical methods</p></li>
+</ul>
+<p>We define <strong>algorithmic bias</strong> as a disparity in model performance between different demographic groups.</p>
+</section>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading"></a></h2>
+</section>
+<section id="setting-up-the-pipeline">
+<h2>Setting Up the Pipeline<a class="headerlink" href="#setting-up-the-pipeline" title="Link to this heading"></a></h2>
+<p>Clone the pipeline repository into Google Colab:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">&quot;/content/Pipeline&quot;</span><span class="p">):</span>
+    <span class="err">!</span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">CTN</span><span class="o">-</span><span class="mi">0094</span><span class="o">/</span><span class="n">Pipeline</span><span class="o">.</span><span class="n">git</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s2">&quot;Pipeline&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Install all required packages:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>!pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
+</section>
+<section id="running-the-pipeline">
+<h2>Running the Pipeline<a class="headerlink" href="#running-the-pipeline" title="Link to this heading"></a></h2>
+<p>Run the following command to execute the pipeline with default settings.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>!python<span class="w"> </span>run_pipelineV2.py<span class="w"> </span>--dir<span class="w"> </span><span class="s2">&quot;/content/RESULTS&quot;</span>
+</pre></div>
+</div>
+<p>Sample Console Output:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Elapsed time: 0.000638 seconds
+Available outcomes:
+1. ctn0094_relapse_event
+2. Ab_krupitskyA_2011
+3. Ab_ling_1998
+4. Rs_johnson_1992
+5. Rs_krupitsky_2004
+6. Rd_kostenB_1993
+Select an outcome by entering its number: 1
+</pre></div>
+</div>
+<p>If you are prompted to install <cite>MatchIt</cite> or <cite>optmatch</cite>, select “1” (Yes).</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>MatchIt installed successfully.
+✖ Would you like to install optmatch?
+1: Yes
+2: No
+
+Selection: 1
+</pre></div>
+</div>
+<p>You have successfully run the pipeline! 🎉</p>
+</section>
+<section id="viewing-the-results">
+<h2>Viewing the Results<a class="headerlink" href="#viewing-the-results" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>On the left sidebar of Google Colab, click the <strong>Files</strong> tab</p></li>
+<li><p>Open the <cite>RESULTS</cite> directory</p></li>
+<li><p>Inside, go to the <cite>evaluations</cite> folder</p></li>
+<li><p>Open the most recent <cite>.csv</cite> file</p></li>
+<li><p>Each row = a demographic ratio split</p></li>
+<li><p>Rightmost columns = evaluation metrics</p></li>
+</ul>
+</section>
+<section id="understanding-the-pipeline">
+<h2>Understanding the Pipeline<a class="headerlink" href="#understanding-the-pipeline" title="Link to this heading"></a></h2>
+<p>The pipeline uses the <strong>CTN-0094</strong> dataset to model opioid use disorder outcomes. These outcomes are derived from urine drug screening data across multiple weeks.</p>
+<section id="outcomes">
+<h3>Outcomes<a class="headerlink" href="#outcomes" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p><strong>ctn0094_relapse_event</strong> — Any positive UDS</p></li>
+<li><p><strong>Ab_krupitskyA_2011</strong> — Confirmed abstinence (weeks 5–24)</p></li>
+<li><p><strong>Ab_ling_1998</strong> — Maintained 13 consecutive negative UDS (1 month)</p></li>
+<li><p><strong>Rs_johnson_1992</strong> — 2 consecutive positive UDS after 4-week treatment</p></li>
+<li><p><strong>Rs_krupitsky_2004</strong> — 3 consecutive positive UDS = relapse</p></li>
+<li><p><strong>Rd_kostenB_1993</strong> — 3 weeks of consecutive negative UDS</p></li>
+</ol>
+<p>More info: <a class="reference external" href="https://ctn-0094.github.io/CTNote/">https://ctn-0094.github.io/CTNote/</a></p>
+</section>
+</section>
+<section id="pipeline-diagram">
+<h2>Pipeline Diagram<a class="headerlink" href="#pipeline-diagram" title="Link to this heading"></a></h2>
+<a class="reference internal image-reference" href="_images/pipeline_graph.png"><img alt="DAB Pipeline Diagram" class="align-center" src="_images/pipeline_graph.png" style="width: 100%;" />
+</a>
+</section>
+<section id="how-the-pipeline-works">
+<h2>How the Pipeline Works<a class="headerlink" href="#how-the-pipeline-works" title="Link to this heading"></a></h2>
+<p><strong>Step 1:</strong> Hold out m validation samples and draw n “minority” + 2n matched “majority” samples.</p>
+<p><strong>Step 2:</strong> Form trial cohorts of 50/50 splits, then train/test on that and validate on held-out m.</p>
+<p><strong>Step 3:</strong> Train the specified model.</p>
+<p><strong>Step 4:</strong> Measure performance on test and validation samples.</p>
+<section id="interpretation">
+<h3>Interpretation<a class="headerlink" href="#interpretation" title="Link to this heading"></a></h3>
+<p>If model accuracy does <strong>not change</strong> across demographic compositions:</p>
+<ul class="simple">
+<li><p>✅ Outcome is <strong>measurement invariant</strong></p></li>
+</ul>
+<p>If model accuracy <strong>does change</strong> across demographics:</p>
+<ul class="simple">
+<li><p>❌ Outcome is <strong>measurement variant</strong></p></li>
+</ul>
+<p>Reference: Odom et al., 2025</p>
+</section>
+</section>
+<section id="customizing-the-pipeline">
+<h2>Customizing the Pipeline<a class="headerlink" href="#customizing-the-pipeline" title="Link to this heading"></a></h2>
+<p>The DAB pipeline is modular. You can swap out:</p>
+<ul class="simple">
+<li><p>Models</p></li>
+<li><p>Datasets</p></li>
+<li><p>Outcome definitions</p></li>
+</ul>
+<p>However, user-defined dataset integration is not yet automated.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="DAB Pipeline documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="quickstart.html" class="btn btn-neutral float-right" title="Getting Started with the CTN-0094 Pipeline (Beginner Tutorial)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Ganesh Jainarain, Aaron Marker.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
