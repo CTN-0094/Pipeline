@@ -23,7 +23,7 @@ from lifelines.utils import concordance_index
 
 class OutcomeModel:
     """Base class for handling an outcome model."""
-    def __init__(self, data: pd.DataFrame, target_column: list, seed: Optional[int] = None):
+    def __init__(self, data: pd.DataFrame, id_column: str, target_column: list, seed: Optional[int] = None):
         """
         Initialize the OutcomeModel class.
 
@@ -35,11 +35,12 @@ class OutcomeModel:
         self.data = data  # Store the full dataset
         self.target_column = target_column  # Target column name
         
+        self.id_column = id_column
         # Store 'who' column separately for tracking if it exists in the data
-        self.who = data['who'] if 'who' in data.columns else None  
+        self.who = data[id_column] if id_column in data.columns else None  
         
         # Drop 'who' and target_column from X (feature set) 
-        self.X = data.drop(['who'] + target_column, axis=1, errors='ignore')  
+        self.X = data.drop([id_column] + target_column, axis=1, errors='ignore')  
         
         self.y = data[target_column]  # Target variable (y)
         self.model = None  # Placeholder for the trained model
@@ -82,7 +83,7 @@ class OutcomeModel:
                 raise ValueError("X_test is empty. Ensure the train-test split was successful.")
 
             # Heldout Evaluation
-            id = processed_data_heldout['who']
+            id = processed_data_heldout[self.id_column]
             heldout_X = processed_data_heldout
             heldout_y = processed_data_heldout[self.target_column]
             heldout_predictions, heldout_evaluations = self._evaluateOnValidation(heldout_X, heldout_y, id)
@@ -142,9 +143,8 @@ class OutcomeModel:
             if model.coef_ is None:
                 raise ValueError("The model coefficients are None. The model did not fit properly.")
             coefficients = model.coef_
-            #if isinstance(coefficients[0], np.ndarray):
-            coefficients = coefficients[0]
-
+            if isinstance(coefficients[0], np.ndarray):
+                coefficients = coefficients[0]
             # Select the features where the L1 regularization retained non-zero coefficients
             self.selected_features = self.X_train.columns[coefficients.flatten() != 0].tolist()
 
@@ -174,7 +174,7 @@ class OutcomeModel:
 class LogisticModel(OutcomeModel):
     """Logistic regression model with L1 regularization for feature selection."""
 
-    def __init__(self, data: pd.DataFrame, target_column: str, Cs: Optional[list] = None, seed: Optional[int] = None):
+    def __init__(self, data: pd.DataFrame, id_column: str, target_column: str, Cs: Optional[list] = None, seed: Optional[int] = None):
         """
         Initialize the LogisticModel class.
 
@@ -185,7 +185,7 @@ class LogisticModel(OutcomeModel):
         - seed (int, optional): Random seed for reproducibility.
         """
         # Call the parent class constructor to handle dataset initialization and seeding
-        super().__init__(data, target_column, seed)
+        super().__init__(data, id_column, target_column, seed)
 
         # Set the regularization strength for L1 regularization. If not provided, defaults to [1.0]
         self.Cs = Cs if Cs is not None else [1.0]
@@ -267,7 +267,7 @@ class NegativeBinomialModel(OutcomeModel):
         logging.info("NBR model fitting completed successfully.")
 
     def selectFeatures(self):
-        self.lasso_feature_selection(model_type="regression")
+        self.lasso_feature_selection(model_type="regression", alpha=30)
 
     def predict(self):
         """Make predictions with the trained Negative Binomial model."""
@@ -331,7 +331,7 @@ class CoxProportionalHazard(OutcomeModel):
         return predictions, evaluations
     
     def selectFeatures(self):
-        self.lasso_feature_selection(model_type="regression")
+        self.lasso_feature_selection(model_type="regression", alpha=30)
 
 
 
@@ -345,8 +345,6 @@ class BetaRegression(OutcomeModel):
         # Step 1: Add intercept
         X_with_constant = sm.add_constant(self.X_train[self.selected_features], has_constant='add')
 
-        print(self.y_train)
-
         # Step 2: Fit beta regression
         self.model = BetaModel(endog=self.y_train, exog=X_with_constant)
 
@@ -356,7 +354,7 @@ class BetaRegression(OutcomeModel):
         logging.info("NBR model fitting completed successfully.")
 
     def selectFeatures(self):
-        self.lasso_feature_selection(model_type="regression")
+        self.lasso_feature_selection(model_type="regression", alpha=.05)
 
     def predict(self):
         """Make predictions with the trained Negative Binomial model."""
@@ -387,6 +385,7 @@ class BetaRegression(OutcomeModel):
             "mcfadden_r2": mcfadden_r2,
             "demographics": self._countDemographic(X)
         }
+        print(evaluations)
         return predictions, evaluations
 
 
