@@ -170,6 +170,8 @@ def initialize_pipeline(selected_outcome, data_path):
 
 def run_pipeline(processed_data, seed, selected_outcome, directory):
 
+    idColumn = "who"
+
     # Set the seed for reproducibility
     random.seed(seed)
     np.random.seed(seed)
@@ -178,15 +180,15 @@ def run_pipeline(processed_data, seed, selected_outcome, directory):
     setup_logging(seed, selected_outcome['name'], directory, quiet=False)
 
     #Make demographic subsets
-    processed_data, processed_data_heldout = holdOutTestData(processed_data) #Move to saving to file, but also dont ovewrite current file if run again.
+    processed_data, processed_data_heldout = holdOutTestData(processed_data, idColumn) #Move to saving to file, but also dont ovewrite current file if run again.
 
-    matched_dataframes = propensityScoreMatch(processed_data)
+    matched_dataframes = propensityScoreMatch(processed_data, idColumn)
 
     # Create and merge demographic subsets
     merged_subsets = create_subsets(matched_dataframes)
 
     # Train and evaluate the models using the merged subsets
-    results = train_and_evaluate_models(merged_subsets, selected_outcome, processed_data_heldout)
+    results = train_and_evaluate_models(merged_subsets, idColumn, selected_outcome, processed_data_heldout)
     
     save_predictions_to_csv(results.loc[:, ("subset", "predictions")], seed, selected_outcome, directory, 'subset_predictions')
     save_predictions_to_csv(results.loc[:, ("heldout", "predictions")], seed, selected_outcome, directory, 'heldout_predictions')

@@ -9,7 +9,7 @@ from datetime import datetime
 
 
 
-def train_and_evaluate_models(merged_subsets, selected_outcome, processed_data_heldout):
+def train_and_evaluate_models(merged_subsets, id_column, selected_outcome, processed_data_heldout):
     columns = pd.MultiIndex.from_product(
         [["heldout", "subset"], ["predictions", "evaluations"]],
         names=["Data Type", "Metric"]
@@ -38,7 +38,7 @@ def train_and_evaluate_models(merged_subsets, selected_outcome, processed_data_h
         logging.info("-----------------------------")
 
         #subset = subset.drop('RaceEth', axis=1)
-        outcomeModel = selectedModel(subset, selected_outcome['columnsToUse'])
+        outcomeModel = selectedModel(subset, id_column, selected_outcome['columnsToUse'])
         outcomeModel.selectFeatures()
         #outcomeModel.selected_features=['age', 'RaceEth', 'unstableliving', 'is_female', 'UDS_Amphetamine_Count']
         outcomeModel.train()
