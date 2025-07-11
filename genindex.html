@@ -43,11 +43,12 @@
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="main_page.html">The Detecting Algorithmic Bias (DAB) Pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Getting Started with the CTN-0094 Pipeline (Beginner Tutorial)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html#understanding-the-pipeline-help-commands">Understanding the Pipeline Help Commands</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html#what-happens-behind-the-scenes">What Happens Behind the Scenes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html#getting-started">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="readme.html">README</a></li>
+<li class="toctree-l1"><a class="reference internal" href="readme.html#references">References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data.html">Data Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python_files.html">Python Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_files.html#run-pipelinev2-py">run_pipelineV2.py</a></li>
 </ul>
 
         </div>
@@ -78,18 +79,21 @@
 
 <div class="genindex-jumpbox">
  <a href="#_"><strong>_</strong></a>
+ | <a href="#A"><strong>A</strong></a>
  | <a href="#B"><strong>B</strong></a>
  | <a href="#C"><strong>C</strong></a>
  | <a href="#D"><strong>D</strong></a>
  | <a href="#E"><strong>E</strong></a>
  | <a href="#F"><strong>F</strong></a>
  | <a href="#H"><strong>H</strong></a>
+ | <a href="#I"><strong>I</strong></a>
  | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
  | <a href="#N"><strong>N</strong></a>
  | <a href="#O"><strong>O</strong></a>
  | <a href="#P"><strong>P</strong></a>
  | <a href="#R"><strong>R</strong></a>
+ | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
  
 </div>
@@ -98,9 +102,30 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="python_files.html#LogisticModel._countDemographic">_countDemographic() (LogisticModel method)</a>
 </li>
+      <li><a href="python_files.html#BetaRegression._evaluateOnValidation">_evaluateOnValidation() (BetaRegression method)</a>
+
+      <ul>
+        <li><a href="python_files.html#CoxProportionalHazard._evaluateOnValidation">(CoxProportionalHazard method)</a>
+</li>
+        <li><a href="python_files.html#LogisticModel._evaluateOnValidation">(LogisticModel method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="A">A</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    argument_handler()
+
+      <ul>
+        <li><a href="python_files.html#argument_handler">built-in function</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="python_files.html#LogisticModel._evaluateOnValidation">_evaluateOnValidation() (LogisticModel method)</a>
+      <li><a href="python_files.html#AVAILABLE_OUTCOMES">AVAILABLE_OUTCOMES (built-in variable)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -108,10 +133,14 @@
 <h2 id="B">B</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="python_files.html#BetaRegression">BetaRegression (built-in class)</a>
+</li>
       <li>
     built-in function
 
       <ul>
+        <li><a href="python_files.html#argument_handler">argument_handler()</a>
+</li>
         <li><a href="python_files.html#calculate_behavioral_columns">calculate_behavioral_columns()</a>
 </li>
         <li><a href="python_files.html#convert_uds_to_binary">convert_uds_to_binary()</a>
@@ -123,6 +152,10 @@
         <li><a href="python_files.html#fill_nan_with_zero">fill_nan_with_zero()</a>
 </li>
         <li><a href="python_files.html#holdOutTestData">holdOutTestData()</a>
+</li>
+        <li><a href="python_files.html#initialize_pipeline">initialize_pipeline()</a>
+</li>
+        <li><a href="python_files.html#main">main()</a>
 </li>
         <li><a href="python_files.html#move_column_to_end">move_column_to_end()</a>
 </li>
@@ -137,6 +170,14 @@
         <li><a href="python_files.html#PropensityScoreMatchRMatchit">PropensityScoreMatchRMatchit()</a>
 </li>
         <li><a href="python_files.html#rename_columns">rename_columns()</a>
+</li>
+        <li><a href="python_files.html#run_pipeline">run_pipeline()</a>
+</li>
+        <li><a href="python_files.html#save_evaluations_to_csv">save_evaluations_to_csv()</a>
+</li>
+        <li><a href="python_files.html#save_predictions_to_csv">save_predictions_to_csv()</a>
+</li>
+        <li><a href="python_files.html#train_and_evaluate_models">train_and_evaluate_models()</a>
 </li>
         <li><a href="python_files.html#transform_and_rename_column">transform_and_rename_column()</a>
 </li>
@@ -174,6 +215,8 @@
         <li><a href="python_files.html#convert_yes_no_to_binary">built-in function</a>
 </li>
       </ul></li>
+      <li><a href="python_files.html#CoxProportionalHazard">CoxProportionalHazard (built-in class)</a>
+</li>
       <li>
     create_subsets()
 
@@ -244,6 +287,19 @@
   </ul></td>
 </tr></table>
 
+<h2 id="I">I</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    initialize_pipeline()
+
+      <ul>
+        <li><a href="python_files.html#initialize_pipeline">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -254,6 +310,15 @@
 
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    main()
+
+      <ul>
+        <li><a href="python_files.html#main">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     move_column_to_end()
@@ -284,8 +349,14 @@
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="python_files.html#NegativeBinomialModel.predict">predict() (NegativeBinomialModel method)</a>
+      <li><a href="python_files.html#BetaRegression.predict">predict() (BetaRegression method)</a>
+
+      <ul>
+        <li><a href="python_files.html#CoxProportionalHazard.predict">(CoxProportionalHazard method)</a>
 </li>
+        <li><a href="python_files.html#NegativeBinomialModel.predict">(NegativeBinomialModel method)</a>
+</li>
+      </ul></li>
       <li>
     preprocess_data()
 
@@ -337,19 +408,69 @@
 </li>
       </ul></li>
   </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    run_pipeline()
+
+      <ul>
+        <li><a href="python_files.html#run_pipeline">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="S">S</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    save_evaluations_to_csv()
+
+      <ul>
+        <li><a href="python_files.html#save_evaluations_to_csv">built-in function</a>
+</li>
+      </ul></li>
+      <li>
+    save_predictions_to_csv()
+
+      <ul>
+        <li><a href="python_files.html#save_predictions_to_csv">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="python_files.html#BetaRegression.selectFeatures">selectFeatures() (BetaRegression method)</a>
+
+      <ul>
+        <li><a href="python_files.html#CoxProportionalHazard.selectFeatures">(CoxProportionalHazard method)</a>
+</li>
+      </ul></li>
+  </ul></td>
 </tr></table>
 
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="python_files.html#LogisticModel.train">train() (LogisticModel method)</a>
+      <li><a href="python_files.html#BetaRegression.train">train() (BetaRegression method)</a>
 
       <ul>
+        <li><a href="python_files.html#CoxProportionalHazard.train">(CoxProportionalHazard method)</a>
+</li>
+        <li><a href="python_files.html#LogisticModel.train">(LogisticModel method)</a>
+</li>
         <li><a href="python_files.html#NegativeBinomialModel.train">(NegativeBinomialModel method)</a>
 </li>
         <li><a href="python_files.html#OutcomeModel.train">(OutcomeModel method)</a>
 </li>
       </ul></li>
+      <li>
+    train_and_evaluate_models()
+
+      <ul>
+        <li><a href="python_files.html#train_and_evaluate_models">built-in function</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     transform_and_rename_column()
 
@@ -357,8 +478,6 @@
         <li><a href="python_files.html#transform_and_rename_column">built-in function</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     transform_data_with_nan_handling()
 

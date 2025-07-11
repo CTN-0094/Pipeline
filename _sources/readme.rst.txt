@@ -8,6 +8,8 @@ Overview
 - **Team**: This work is led by Prof. Laura Brandt (clinical arm) and Prof. Gabriel Odom (computational arm); Mr. Ganesh Jainarain is the primary data scientist and statistical programmer.
 - **Funding**: This work is towards the successful completion of *"Towards a framework for algorithmic bias and fairness in predicting treatment outcome for opioid use disorder"* (NIH AIM-AHEAD 1OT2OD032581-02-267) with contact PI Laura Brandt, City College of New York.
 
+
+
 Quick Start
 -----------
 
@@ -94,15 +96,24 @@ The models will be implemented in the following order:
    - Port existing code into the pipeline.
    - Save the `.job` file trained on the full cohort.
 
-2. **Random Forests (All Outcomes)**
+2. **Negative Binomial Regression (Count Outcomes)**
 
-3. **Negative Binomial Regression (Count Outcomes)**
+3. **Sigmoidal Regression (Proportion Outcomes)**
 
-4. **Sigmoidal Regression (Proportion Outcomes)**
-
-5. **Beta Regression (Proportion Outcomes)**
+4. **Beta Regression (Proportion Outcomes)**
 
 Future Direction
 ----------------
 
 The immediate goal is to develop a proof-of-concept pipeline using logistic LASSO, followed by an expansion to random forests. Additional models will be integrated as needed.
+
+References
+==========
+
+**Luo SX, Feaster DJ, Liu Y et al. _Individual‑Level Risk Prediction of Return to Use During Opioid Use Disorder Treatment_. JAMA Psychiatry. 2024;81(1):45–56. doi:10.1001/jamapsychiatry.2023.3596**
+
+Multicenter decision‑analytic prediction model using CTN trial data.
+
+.. image:: https://img.shields.io/badge/View–JAMA%20Psychiatry-blue
+   :target: https://jamanetwork.com/journals/jamapsychiatry/fullarticle/2810311
+   :alt: View full article on JAMA Psychiatry
