@@ -19,7 +19,8 @@
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Data Overview" href="data.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -41,77 +42,90 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">Python Modules</a><ul>
-<li><a class="reference internal" href="#train-model-py">train_model.py</a><ul>
-<li><a class="reference internal" href="#outcomemodel">OutcomeModel</a><ul>
-<li><a class="reference internal" href="#OutcomeModel"><code class="docutils literal notranslate"><span class="pre">OutcomeModel</span></code></a><ul>
-<li><a class="reference internal" href="#OutcomeModel.train"><code class="docutils literal notranslate"><span class="pre">OutcomeModel.train()</span></code></a></li>
-<li><a class="reference internal" href="#OutcomeModel.evaluate"><code class="docutils literal notranslate"><span class="pre">OutcomeModel.evaluate()</span></code></a></li>
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="main_page.html">The Detecting Algorithmic Bias (DAB) Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Getting Started with the CTN-0094 Pipeline (Beginner Tutorial)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html#getting-started">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="readme.html">README</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">Data Overview</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Python Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#train-model-py">train_model.py</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#outcomemodel">OutcomeModel</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#OutcomeModel"><code class="docutils literal notranslate"><span class="pre">OutcomeModel</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#logisticmodel">LogisticModel</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#LogisticModel"><code class="docutils literal notranslate"><span class="pre">LogisticModel</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#negativebinomialmodel">NegativeBinomialModel</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#NegativeBinomialModel"><code class="docutils literal notranslate"><span class="pre">NegativeBinomialModel</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#coxproportionalhazard">CoxProportionalHazard</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#CoxProportionalHazard"><code class="docutils literal notranslate"><span class="pre">CoxProportionalHazard</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#betaregression">BetaRegression</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#BetaRegression"><code class="docutils literal notranslate"><span class="pre">BetaRegression</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#logisticmodel">LogisticModel</a><ul>
-<li><a class="reference internal" href="#LogisticModel"><code class="docutils literal notranslate"><span class="pre">LogisticModel</span></code></a><ul>
-<li><a class="reference internal" href="#LogisticModel.feature_selection_and_model_fitting"><code class="docutils literal notranslate"><span class="pre">LogisticModel.feature_selection_and_model_fitting()</span></code></a></li>
-<li><a class="reference internal" href="#LogisticModel.find_best_threshold"><code class="docutils literal notranslate"><span class="pre">LogisticModel.find_best_threshold()</span></code></a></li>
-<li><a class="reference internal" href="#LogisticModel.train"><code class="docutils literal notranslate"><span class="pre">LogisticModel.train()</span></code></a></li>
-<li><a class="reference internal" href="#LogisticModel.evaluateOverallTest"><code class="docutils literal notranslate"><span class="pre">LogisticModel.evaluateOverallTest()</span></code></a></li>
-<li><a class="reference internal" href="#LogisticModel.evaluate"><code class="docutils literal notranslate"><span class="pre">LogisticModel.evaluate()</span></code></a></li>
-<li><a class="reference internal" href="#LogisticModel._evaluateOnValidation"><code class="docutils literal notranslate"><span class="pre">LogisticModel._evaluateOnValidation()</span></code></a></li>
-<li><a class="reference internal" href="#LogisticModel._countDemographic"><code class="docutils literal notranslate"><span class="pre">LogisticModel._countDemographic()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-demodf-knn-py">create_demodf_knn.py</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#holdOutTestData"><code class="docutils literal notranslate"><span class="pre">holdOutTestData()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#propensityScoreMatch"><code class="docutils literal notranslate"><span class="pre">propensityScoreMatch()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#create_subsets"><code class="docutils literal notranslate"><span class="pre">create_subsets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#PropensityScoreMatchPsmPy"><code class="docutils literal notranslate"><span class="pre">PropensityScoreMatchPsmPy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#PropensityScoreMatchRMatchit"><code class="docutils literal notranslate"><span class="pre">PropensityScoreMatchRMatchit()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#preprocess-py">preprocess.py</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#datapreprocessor">DataPreprocessor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#DataPreprocessor"><code class="docutils literal notranslate"><span class="pre">DataPreprocessor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#convert_yes_no_to_binary"><code class="docutils literal notranslate"><span class="pre">convert_yes_no_to_binary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#process_tlfb_columns"><code class="docutils literal notranslate"><span class="pre">process_tlfb_columns()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#calculate_behavioral_columns"><code class="docutils literal notranslate"><span class="pre">calculate_behavioral_columns()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#move_column_to_end"><code class="docutils literal notranslate"><span class="pre">move_column_to_end()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rename_columns"><code class="docutils literal notranslate"><span class="pre">rename_columns()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#transform_nan_to_zero_for_binary_columns"><code class="docutils literal notranslate"><span class="pre">transform_nan_to_zero_for_binary_columns()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#transform_and_rename_column"><code class="docutils literal notranslate"><span class="pre">transform_and_rename_column()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fill_nan_with_zero"><code class="docutils literal notranslate"><span class="pre">fill_nan_with_zero()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#transform_data_with_nan_handling"><code class="docutils literal notranslate"><span class="pre">transform_data_with_nan_handling()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#convert_uds_to_binary"><code class="docutils literal notranslate"><span class="pre">convert_uds_to_binary()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#negativebinomialmodel">NegativeBinomialModel</a><ul>
-<li><a class="reference internal" href="#NegativeBinomialModel"><code class="docutils literal notranslate"><span class="pre">NegativeBinomialModel</span></code></a><ul>
-<li><a class="reference internal" href="#NegativeBinomialModel.train"><code class="docutils literal notranslate"><span class="pre">NegativeBinomialModel.train()</span></code></a></li>
-<li><a class="reference internal" href="#NegativeBinomialModel.predict"><code class="docutils literal notranslate"><span class="pre">NegativeBinomialModel.predict()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#preprocess-pipeline-py">preprocess_pipeline.py</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#preprocess_data"><code class="docutils literal notranslate"><span class="pre">preprocess_data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#model-training-py">model_training.py</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#train_and_evaluate_models"><code class="docutils literal notranslate"><span class="pre">train_and_evaluate_models()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="#run-pipelinev2-py">run_pipelineV2.py</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#functions">Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#argument_handler"><code class="docutils literal notranslate"><span class="pre">argument_handler()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#initialize_pipeline"><code class="docutils literal notranslate"><span class="pre">initialize_pipeline()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#run_pipeline"><code class="docutils literal notranslate"><span class="pre">run_pipeline()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#save_evaluations_to_csv"><code class="docutils literal notranslate"><span class="pre">save_evaluations_to_csv()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#save_predictions_to_csv"><code class="docutils literal notranslate"><span class="pre">save_predictions_to_csv()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#create-demodf-knn-py">create_demodf_knn.py</a><ul>
-<li><a class="reference internal" href="#holdOutTestData"><code class="docutils literal notranslate"><span class="pre">holdOutTestData()</span></code></a></li>
-<li><a class="reference internal" href="#propensityScoreMatch"><code class="docutils literal notranslate"><span class="pre">propensityScoreMatch()</span></code></a></li>
-<li><a class="reference internal" href="#create_subsets"><code class="docutils literal notranslate"><span class="pre">create_subsets()</span></code></a></li>
-<li><a class="reference internal" href="#PropensityScoreMatchPsmPy"><code class="docutils literal notranslate"><span class="pre">PropensityScoreMatchPsmPy()</span></code></a></li>
-<li><a class="reference internal" href="#PropensityScoreMatchRMatchit"><code class="docutils literal notranslate"><span class="pre">PropensityScoreMatchRMatchit()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#globals">Globals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#AVAILABLE_OUTCOMES"><code class="docutils literal notranslate"><span class="pre">AVAILABLE_OUTCOMES</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#preprocess-py">preprocess.py</a><ul>
-<li><a class="reference internal" href="#datapreprocessor">DataPreprocessor</a><ul>
-<li><a class="reference internal" href="#DataPreprocessor"><code class="docutils literal notranslate"><span class="pre">DataPreprocessor</span></code></a><ul>
-<li><a class="reference internal" href="#DataPreprocessor.drop_columns_and_return"><code class="docutils literal notranslate"><span class="pre">DataPreprocessor.drop_columns_and_return()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#convert_yes_no_to_binary"><code class="docutils literal notranslate"><span class="pre">convert_yes_no_to_binary()</span></code></a></li>
-<li><a class="reference internal" href="#process_tlfb_columns"><code class="docutils literal notranslate"><span class="pre">process_tlfb_columns()</span></code></a></li>
-<li><a class="reference internal" href="#calculate_behavioral_columns"><code class="docutils literal notranslate"><span class="pre">calculate_behavioral_columns()</span></code></a></li>
-<li><a class="reference internal" href="#move_column_to_end"><code class="docutils literal notranslate"><span class="pre">move_column_to_end()</span></code></a></li>
-<li><a class="reference internal" href="#rename_columns"><code class="docutils literal notranslate"><span class="pre">rename_columns()</span></code></a></li>
-<li><a class="reference internal" href="#transform_nan_to_zero_for_binary_columns"><code class="docutils literal notranslate"><span class="pre">transform_nan_to_zero_for_binary_columns()</span></code></a></li>
-<li><a class="reference internal" href="#transform_and_rename_column"><code class="docutils literal notranslate"><span class="pre">transform_and_rename_column()</span></code></a></li>
-<li><a class="reference internal" href="#fill_nan_with_zero"><code class="docutils literal notranslate"><span class="pre">fill_nan_with_zero()</span></code></a></li>
-<li><a class="reference internal" href="#transform_data_with_nan_handling"><code class="docutils literal notranslate"><span class="pre">transform_data_with_nan_handling()</span></code></a></li>
-<li><a class="reference internal" href="#convert_uds_to_binary"><code class="docutils literal notranslate"><span class="pre">convert_uds_to_binary()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cli-usage-example">CLI Usage Example</a></li>
 </ul>
 </li>
 </ul>
-</li>
-<li><a class="reference internal" href="#preprocess-pipeline-py">preprocess_pipeline.py</a><ul>
-<li><a class="reference internal" href="#preprocess_data"><code class="docutils literal notranslate"><span class="pre">preprocess_data()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</div>
+
         </div>
       </div>
     </nav>
@@ -249,6 +263,90 @@
 <dt class="sig sig-object py" id="NegativeBinomialModel.predict">
 <span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#NegativeBinomialModel.predict" title="Link to this definition"></a></dt>
 <dd><p>Make predictions using the trained Negative Binomial model.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="coxproportionalhazard">
+<h3>CoxProportionalHazard<a class="headerlink" href="#coxproportionalhazard" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="CoxProportionalHazard">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CoxProportionalHazard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CoxProportionalHazard" title="Link to this definition"></a></dt>
+<dd><p>Cox Proportional Hazards model for time-to-event (survival) analysis using the <cite>lifelines</cite> package.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>pandas.DataFrame</em>) – Input dataset containing features and event/time columns.</p></li>
+<li><p><strong>target_column</strong> (<em>list</em><em> of </em><em>str</em>) – List with two elements: [duration_column, event_column].</p></li>
+<li><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em>) – Random seed for reproducibility.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="CoxProportionalHazard.train">
+<span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CoxProportionalHazard.train" title="Link to this definition"></a></dt>
+<dd><p>Fit a Cox Proportional Hazards model using lifelines’ <cite>CoxPHFitter</cite>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CoxProportionalHazard.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CoxProportionalHazard.predict" title="Link to this definition"></a></dt>
+<dd><p>Return model predictions (placeholder — not implemented in full).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CoxProportionalHazard._evaluateOnValidation">
+<span class="sig-name descname"><span class="pre">_evaluateOnValidation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CoxProportionalHazard._evaluateOnValidation" title="Link to this definition"></a></dt>
+<dd><p>Evaluate model on the validation set using Concordance Index.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CoxProportionalHazard.selectFeatures">
+<span class="sig-name descname"><span class="pre">selectFeatures</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CoxProportionalHazard.selectFeatures" title="Link to this definition"></a></dt>
+<dd><p>Use Lasso-based feature selection for survival outcomes.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="betaregression">
+<h3>BetaRegression<a class="headerlink" href="#betaregression" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="BetaRegression">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BetaRegression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#BetaRegression" title="Link to this definition"></a></dt>
+<dd><p>Beta regression model for modeling outcomes constrained between 0 and 1, using <cite>statsmodels</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>pandas.DataFrame</em>) – The input dataset with features and the beta-distributed target.</p></li>
+<li><p><strong>target_column</strong> (<em>str</em>) – The name of the outcome column to predict.</p></li>
+<li><p><strong>seed</strong> (<em>int</em><em>, </em><em>optional</em>) – Random seed.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="BetaRegression.train">
+<span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BetaRegression.train" title="Link to this definition"></a></dt>
+<dd><p>Fit a Beta regression model using <cite>statsmodels.othermod.betareg.BetaModel</cite>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BetaRegression.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BetaRegression.predict" title="Link to this definition"></a></dt>
+<dd><p>Return model predictions (placeholder — not implemented in full).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BetaRegression._evaluateOnValidation">
+<span class="sig-name descname"><span class="pre">_evaluateOnValidation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#BetaRegression._evaluateOnValidation" title="Link to this definition"></a></dt>
+<dd><p>Evaluate model performance using MSE, MAE, RMSE, Pearson R, and McFadden R².</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BetaRegression.selectFeatures">
+<span class="sig-name descname"><span class="pre">selectFeatures</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BetaRegression.selectFeatures" title="Link to this definition"></a></dt>
+<dd><p>Perform Lasso-based feature selection for beta regression.</p>
 </dd></dl>
 
 </dd></dl>
@@ -580,12 +678,162 @@ Logs both successful drops and invalid column names.</p>
 </dd></dl>
 
 </section>
+<section id="model-training-py">
+<h2>model_training.py<a class="headerlink" href="#model-training-py" title="Link to this heading"></a></h2>
+<p>This module provides the primary interface for training and evaluating outcome models in the pipeline. Depending on the selected outcome type (logical, integer, or survival), it dynamically loads the appropriate model class (Logistic Regression, Negative Binomial Regression, Cox Proportional Hazards, or Beta Regression). Each model is trained and evaluated on one or more data subsets and held-out validation data.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="train_and_evaluate_models">
+<span class="sig-name descname"><span class="pre">train_and_evaluate_models</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">merged_subsets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selected_outcome</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">processed_data_heldout</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#train_and_evaluate_models" title="Link to this definition"></a></dt>
+<dd><p>Train and evaluate models on each demographic or data subset and return evaluation results.</p>
+<p>This function dynamically selects the correct model type based on the <cite>endpointType</cite> of the selected outcome. It then loops through each data subset, trains the selected model, and evaluates performance on both the subset and a held-out dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>merged_subsets</strong> (<em>list</em><em> of </em><em>pandas.DataFrame</em>) – A list of DataFrames representing stratified or demographically-split training datasets.</p></li>
+<li><p><strong>selected_outcome</strong> (dict
+- <strong>columnsToUse</strong>: list of str — target variable columns.
+- <strong>endpointType</strong>: Enum — one of <cite>EndpointType.LOGICAL</cite>, <cite>EndpointType.SURVIVAL</cite>, or <cite>EndpointType.INTEGER</cite>.) – A dictionary containing the outcome column name(s) and the type of model to use.</p></li>
+<li><p><strong>processed_data_heldout</strong> (<em>pandas.DataFrame</em>) – The held-out dataset used for validation.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A multi-indexed pandas DataFrame with predictions and evaluation metrics for both the held-out and subset data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Logging is extensively used to track training and evaluation progress for each subset. Evaluation metrics vary depending on the model type (e.g., accuracy and ROC for classification, RMSE and McFadden R² for regression).</p>
+</div>
+</dd></dl>
+
+</section>
+</section>
+<section id="run-pipelinev2-py">
+<h1>run_pipelineV2.py<a class="headerlink" href="#run-pipelinev2-py" title="Link to this heading"></a></h1>
+<p>This is the main pipeline orchestrator script for training, evaluating, and profiling statistical and machine learning models across demographic subsets using the CTN-0094 dataset. It supports multiple model types including logistic regression, negative binomial regression, survival analysis (Cox), and beta regression.</p>
+<p>The script handles argument parsing, data loading, preprocessing, subset generation, model training, evaluation, and CSV logging of all results.</p>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="main">
+<span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#main" title="Link to this definition"></a></dt>
+<dd><p>Entry point for the pipeline. Parses arguments, initializes outcome and seed configurations, and runs profiling or standard pipeline execution for each outcome and seed.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="argument_handler">
+<span class="sig-name descname"><span class="pre">argument_handler</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#argument_handler" title="Link to this definition"></a></dt>
+<dd><p>Parse command-line arguments including seed range, outcome name, output directory, and profiling method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A tuple of (loop range, outcomes, output directory, profiling flag).</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="initialize_pipeline">
+<span class="sig-name descname"><span class="pre">initialize_pipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">selected_outcome</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#initialize_pipeline" title="Link to this definition"></a></dt>
+<dd><p>Load and merge the demographic and outcome datasets, apply preprocessing, and prepare the data for modeling.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>selected_outcome</strong> (<em>dict</em>) – A dictionary defining the outcome variable and endpoint type.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Preprocessed dataset ready for modeling.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="run_pipeline">
+<span class="sig-name descname"><span class="pre">run_pipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">processed_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selected_outcome</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#run_pipeline" title="Link to this definition"></a></dt>
+<dd><p>Executes the core pipeline logic for one run: splits data, performs matching, creates subsets, trains and evaluates models, and writes predictions and evaluations to CSV.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>processed_data</strong> (<em>pandas.DataFrame</em>) – Cleaned and merged input dataset.</p></li>
+<li><p><strong>seed</strong> (<em>int</em>) – Random seed for reproducibility.</p></li>
+<li><p><strong>selected_outcome</strong> (<em>dict</em>) – Dictionary describing the outcome and model type.</p></li>
+<li><p><strong>directory</strong> (<em>str</em>) – Output path for saving logs and results.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="save_evaluations_to_csv">
+<span class="sig-name descname"><span class="pre">save_evaluations_to_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selected_outcome</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#save_evaluations_to_csv" title="Link to this definition"></a></dt>
+<dd><p>Save evaluation metrics for all subsets and held-out predictions into a CSV file. Automatically adjusts headers based on model type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>results</strong> (<em>dict</em>) – Dictionary of evaluation results from each subset.</p></li>
+<li><p><strong>seed</strong> (<em>int</em>) – The random seed used for training.</p></li>
+<li><p><strong>selected_outcome</strong> (<em>dict</em>) – The outcome configuration dict.</p></li>
+<li><p><strong>directory</strong> (<em>str</em>) – Directory to save output CSVs.</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – Subfolder name for organizing evaluation files.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="save_predictions_to_csv">
+<span class="sig-name descname"><span class="pre">save_predictions_to_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selected_outcome</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#save_predictions_to_csv" title="Link to this definition"></a></dt>
+<dd><p>Save prediction scores for each individual across subsets and held-out data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>list</em>) – Prediction tuples (id, score) across subsets.</p></li>
+<li><p><strong>seed</strong> (<em>int</em>) – The random seed used for training.</p></li>
+<li><p><strong>selected_outcome</strong> (<em>dict</em>) – The outcome configuration dict.</p></li>
+<li><p><strong>directory</strong> (<em>str</em>) – Output directory for saving results.</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – Folder name under which to store predictions.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="globals">
+<h2>Globals<a class="headerlink" href="#globals" title="Link to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="AVAILABLE_OUTCOMES">
+<span class="sig-name descname"><span class="pre">AVAILABLE_OUTCOMES</span></span><a class="headerlink" href="#AVAILABLE_OUTCOMES" title="Link to this definition"></a></dt>
+<dd><p>A predefined list of outcomes from the CTN-0094 dataset, each with its name, outcome column(s), and associated <cite>EndpointType</cite>.</p>
+<p>Used for automatic selection of outcomes when not specified via command-line arguments.</p>
+</dd></dl>
+
+</section>
+<section id="cli-usage-example">
+<h2>CLI Usage Example<a class="headerlink" href="#cli-usage-example" title="Link to this heading"></a></h2>
+<p>Run the pipeline for a specific outcome and seed range:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>run_pipelineV2.py<span class="w"> </span>--loop<span class="w"> </span><span class="m">42</span><span class="w"> </span><span class="m">45</span><span class="w"> </span>--outcome<span class="w"> </span>Ab_ling_1998<span class="w"> </span>--dir<span class="w"> </span>logs/run_test<span class="w"> </span>--prof<span class="w"> </span>simple
+</pre></div>
+</div>
+<p>Or run all outcomes with profiling off:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>run_pipelineV2.py
+</pre></div>
+</div>
+</section>
 </section>
 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="data.html" class="btn btn-neutral float-left" title="Data Overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
 
   <hr/>
 

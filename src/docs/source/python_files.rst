@@ -87,6 +87,64 @@ NegativeBinomialModel
 
       Make predictions using the trained Negative Binomial model.
 
+CoxProportionalHazard
+^^^^^^^^^^^^^^^^^^^^^
+.. py:class:: CoxProportionalHazard(data, target_column, seed=None)
+
+   Cox Proportional Hazards model for time-to-event (survival) analysis using the `lifelines` package.
+
+   :param data: Input dataset containing features and event/time columns.
+   :type data: pandas.DataFrame
+   :param target_column: List with two elements: [duration_column, event_column].
+   :type target_column: list of str
+   :param seed: Random seed for reproducibility.
+   :type seed: int, optional
+
+   .. py:method:: train()
+
+      Fit a Cox Proportional Hazards model using lifelines' `CoxPHFitter`.
+
+   .. py:method:: predict()
+
+      Return model predictions (placeholder — not implemented in full).
+
+   .. py:method:: _evaluateOnValidation(X, y, id)
+
+      Evaluate model on the validation set using Concordance Index.
+
+   .. py:method:: selectFeatures()
+
+      Use Lasso-based feature selection for survival outcomes.
+
+BetaRegression
+^^^^^^^^^^^^^^
+.. py:class:: BetaRegression(data, target_column, seed=None)
+
+   Beta regression model for modeling outcomes constrained between 0 and 1, using `statsmodels`.
+
+   :param data: The input dataset with features and the beta-distributed target.
+   :type data: pandas.DataFrame
+   :param target_column: The name of the outcome column to predict.
+   :type target_column: str
+   :param seed: Random seed.
+   :type seed: int, optional
+
+   .. py:method:: train()
+
+      Fit a Beta regression model using `statsmodels.othermod.betareg.BetaModel`.
+
+   .. py:method:: predict()
+
+      Return model predictions (placeholder — not implemented in full).
+
+   .. py:method:: _evaluateOnValidation(X, y, id)
+
+      Evaluate model performance using MSE, MAE, RMSE, Pearson R, and McFadden R².
+
+   .. py:method:: selectFeatures()
+
+      Perform Lasso-based feature selection for beta regression.
+
 
 --------
 
@@ -277,3 +335,129 @@ This module provides a single entry point for preprocessing data within the mode
    :type df: pandas.DataFrame
    :return: Preprocessed DataFrame ready for modeling.
    :rtype: pandas.DataFrame
+
+model_training.py
+------------------
+
+This module provides the primary interface for training and evaluating outcome models in the pipeline. Depending on the selected outcome type (logical, integer, or survival), it dynamically loads the appropriate model class (Logistic Regression, Negative Binomial Regression, Cox Proportional Hazards, or Beta Regression). Each model is trained and evaluated on one or more data subsets and held-out validation data.
+
+.. py:function:: train_and_evaluate_models(merged_subsets, selected_outcome, processed_data_heldout)
+
+   Train and evaluate models on each demographic or data subset and return evaluation results.
+
+   This function dynamically selects the correct model type based on the `endpointType` of the selected outcome. It then loops through each data subset, trains the selected model, and evaluates performance on both the subset and a held-out dataset.
+
+   :param merged_subsets: A list of DataFrames representing stratified or demographically-split training datasets.
+   :type merged_subsets: list of pandas.DataFrame
+
+   :param selected_outcome: A dictionary containing the outcome column name(s) and the type of model to use.
+   :type selected_outcome: dict
+     - **columnsToUse**: list of str — target variable columns.
+     - **endpointType**: Enum — one of `EndpointType.LOGICAL`, `EndpointType.SURVIVAL`, or `EndpointType.INTEGER`.
+
+   :param processed_data_heldout: The held-out dataset used for validation.
+   :type processed_data_heldout: pandas.DataFrame
+
+   :return: A multi-indexed pandas DataFrame with predictions and evaluation metrics for both the held-out and subset data.
+   :rtype: pandas.DataFrame
+
+   .. note::
+      Logging is extensively used to track training and evaluation progress for each subset. Evaluation metrics vary depending on the model type (e.g., accuracy and ROC for classification, RMSE and McFadden R² for regression).
+
+run_pipelineV2.py
+=================
+
+This is the main pipeline orchestrator script for training, evaluating, and profiling statistical and machine learning models across demographic subsets using the CTN-0094 dataset. It supports multiple model types including logistic regression, negative binomial regression, survival analysis (Cox), and beta regression.
+
+The script handles argument parsing, data loading, preprocessing, subset generation, model training, evaluation, and CSV logging of all results.
+
+Functions
+---------
+
+.. py:function:: main()
+
+   Entry point for the pipeline. Parses arguments, initializes outcome and seed configurations, and runs profiling or standard pipeline execution for each outcome and seed.
+
+.. py:function:: argument_handler()
+
+   Parse command-line arguments including seed range, outcome name, output directory, and profiling method.
+
+   :return: A tuple of (loop range, outcomes, output directory, profiling flag).
+   :rtype: Tuple
+
+.. py:function:: initialize_pipeline(selected_outcome)
+
+   Load and merge the demographic and outcome datasets, apply preprocessing, and prepare the data for modeling.
+
+   :param selected_outcome: A dictionary defining the outcome variable and endpoint type.
+   :type selected_outcome: dict
+   :return: Preprocessed dataset ready for modeling.
+   :rtype: pandas.DataFrame
+
+.. py:function:: run_pipeline(processed_data, seed, selected_outcome, directory)
+
+   Executes the core pipeline logic for one run: splits data, performs matching, creates subsets, trains and evaluates models, and writes predictions and evaluations to CSV.
+
+   :param processed_data: Cleaned and merged input dataset.
+   :type processed_data: pandas.DataFrame
+   :param seed: Random seed for reproducibility.
+   :type seed: int
+   :param selected_outcome: Dictionary describing the outcome and model type.
+   :type selected_outcome: dict
+   :param directory: Output path for saving logs and results.
+   :type directory: str
+
+.. py:function:: save_evaluations_to_csv(results, seed, selected_outcome, directory, name)
+
+   Save evaluation metrics for all subsets and held-out predictions into a CSV file. Automatically adjusts headers based on model type.
+
+   :param results: Dictionary of evaluation results from each subset.
+   :type results: dict
+   :param seed: The random seed used for training.
+   :type seed: int
+   :param selected_outcome: The outcome configuration dict.
+   :type selected_outcome: dict
+   :param directory: Directory to save output CSVs.
+   :type directory: str
+   :param name: Subfolder name for organizing evaluation files.
+   :type name: str
+
+.. py:function:: save_predictions_to_csv(data, seed, selected_outcome, directory, name)
+
+   Save prediction scores for each individual across subsets and held-out data.
+
+   :param data: Prediction tuples (id, score) across subsets.
+   :type data: list
+   :param seed: The random seed used for training.
+   :type seed: int
+   :param selected_outcome: The outcome configuration dict.
+   :type selected_outcome: dict
+   :param directory: Output directory for saving results.
+   :type directory: str
+   :param name: Folder name under which to store predictions.
+   :type name: str
+
+Globals
+-------
+
+.. py:data:: AVAILABLE_OUTCOMES
+
+   A predefined list of outcomes from the CTN-0094 dataset, each with its name, outcome column(s), and associated `EndpointType`.
+
+   Used for automatic selection of outcomes when not specified via command-line arguments.
+
+CLI Usage Example
+-----------------
+
+Run the pipeline for a specific outcome and seed range:
+
+.. code-block:: bash
+
+   python run_pipelineV2.py --loop 42 45 --outcome Ab_ling_1998 --dir logs/run_test --prof simple
+
+Or run all outcomes with profiling off:
+
+.. code-block:: bash
+
+   python run_pipelineV2.py
+
