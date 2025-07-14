@@ -60,15 +60,22 @@ The statistical models will be implemented according to the following priority:
 1. **Logistic LASSO (Binary Outcomes)**  
    - Port existing code into the pipeline.
    - Save the `.job` file trained on the full cohort for later.
+2. **Negative Binomial Regression (Count Outcomes)**  
 
-2. **Random Forests (All Outcomes)**  
+3. **Sigmoidal Regression (Proportion Outcomes)**  
 
-3. **Negative Binomial Regression (Count Outcomes)**  
-
-4. **Sigmoidal Regression (Proportion Outcomes)**  
-
-5. **Beta Regression (Proportion Outcomes)**  
+4. **Beta Regression (Proportion Outcomes)**  
 
 ## Future Direction
 
 The immediate objective is to build a proof-of-concept pipeline with logistic LASSO, then extend it to incorporate random forests. Other models can be implemented as required in the future.
+
+References
+==========
+
+**Luo SX, Feaster DJ, Liu Y et al. _Individual‑Level Risk Prediction of Return to Use During Opioid Use Disorder Treatment_. JAMA Psychiatry. 2024;81(1):45–56. doi:10.1001/jamapsychiatry.2023.3596**
+
+https://jamanetwork.com/journals/jamapsychiatry/fullarticle/2810311
+
+Multicenter decision‑analytic prediction model using CTN trial data.
+
