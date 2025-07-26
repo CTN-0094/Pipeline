@@ -15,6 +15,9 @@ from src.logging_setup import setup_logging  # Import the logging setup from log
 import argparse
 import re
 import csv
+from datetime import datetime
+
+
 
 # Add the 'src' directory to the system path to allow imports from that directory
 sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
@@ -27,6 +30,7 @@ from create_demodf_knn import create_subsets, holdOutTestData, propensityScoreMa
 from model_training import train_and_evaluate_models
 from logScraper import scrape_log_to_csv  # Import the log scraper function
 from enum import Enum
+from src.validate import validate_dataset_for_model
 
 
 
@@ -76,29 +80,47 @@ AVAILABLE_OUTCOMES = [
 
 
 def main():
-    seedRange, outcomes, directory, profile = argument_handler()
-
-    #Process arguments
-    seed_list = list(range(min(seedRange), max(seedRange))) if seedRange is not None else [0]
     
-    if outcomes is None:
-        if(seedRange is None):
-            outcomes = [get_outcome_choice(AVAILABLE_OUTCOMES)]
-        else:
-            outcomes = AVAILABLE_OUTCOMES
+    # Start time for performance tracking
+    start_time = datetime.now()
 
-    # Loop through each seed and run the pipeline
-    for outcome in outcomes:
-        #Initialize Pipeline
-        processed_data = initialize_pipeline(outcome)
+    args = argument_handler()
 
+    seed_list = list(range(min(args.loop), max(args.loop))) if args.loop else [0]
+    selected_names = set(args.outcome)
+    matched = [o for o in AVAILABLE_OUTCOMES if o['name'] in selected_names]
+
+    if len(matched) < len(selected_names):
+        unmatched = selected_names - set([m['name'] for m in matched])
+        
+        if not args.type:
+            raise ValueError(f"Missing --type for custom outcome(s): {unmatched}")
+
+        type_map = {
+            'logical': EndpointType.LOGICAL,
+            'integer': EndpointType.INTEGER,
+            'survival': EndpointType.SURVIVAL
+        }
+
+        if args.type not in type_map:
+            raise ValueError(f"Invalid --type '{args.type}'")
+
+        for outcome_name in unmatched:
+            matched.append({
+                'name': outcome_name,
+                'columnsToUse': [outcome_name] if type_map[args.type] != EndpointType.SURVIVAL else [f"{outcome_name}_time", f"{outcome_name}_event"],
+                'endpointType': type_map[args.type]
+            })
+
+    for selected_outcome in matched:
         for seed in seed_list:
-            if profile == 'simple' or profile == None:
-                pf.simple_profile_pipeline(run_pipeline, seed, outcome, directory)
-            elif profile == 'complex':
-                pf.profile_pipeline(run_pipeline, seed, outcome, directory)
-            else:
-                run_pipeline(processed_data, seed, outcome, directory)
+            processed_data = initialize_pipeline(selected_outcome, args)
+            run_pipeline(processed_data, seed, selected_outcome, args)
+
+    # End time for performance tracking
+    end_time = datetime.now()
+    elapsed_time = (end_time - start_time).total_seconds()
+    print(f"Elapsed time: {elapsed_time} seconds")
 
 
 
@@ -107,7 +129,14 @@ def argument_handler():
     # Create the parser
     parser = argparse.ArgumentParser(description='Pipeline for statistical modeling and machine learning on the CTN-0094 database')
 
-    # Add arguments loop (min and max seed, prompt otherwise) target directory, profile
+    parser.add_argument('--majority', type=str, default=1, help='value of majority in the PSM column')
+    parser.add_argument('--split', '--column_to_split', type=str, default='RaceEth', help='column containing the 2 groups to PSM')
+    parser.add_argument('--match', '--columns_to_match', type=str, default='age is_female', help='list of columns to PSM on')
+    parser.add_argument('--group_size', type=int, default=500, help='the size of each PSM group (this is 1/2 the size of each trial cohort)')
+    parser.add_argument('--heldout_size', type=int, default=100, help='the size of the heldout set')
+    parser.add_argument('--heldout_set_percent_majority', type=int, default=58, help='constant percent of majority samples in the heldout set')
+    parser.add_argument('--data', type=str, required=True, help='Path to cleaned user dataset (CSV)')
+    parser.add_argument('--type', type=str, choices=['logical', 'integer', 'survival'], help='Type of outcome (logical, integer, survival)')
     parser.add_argument('-l', '--loop', type=int, nargs='+', help='minimum and maximum seed', default = None)
     parser.add_argument('-o', '--outcome', '--outcomes', type=str, nargs='+', help='all outcomes to run', default = None)
     parser.add_argument('-d', '--dir', '--directory', type=str, help='directory to save logs, predictions, and evaluations', default="")
@@ -116,68 +145,65 @@ def argument_handler():
     # Parse the arguments
     args = parser.parse_args()
 
-    return args.loop, args.outcome, args.dir, args.prof
+    return args
 
 
+def initialize_pipeline(selected_outcome, args):
+    merged_df = pd.read_csv(args.data)
 
-def initialize_pipeline(selected_outcome):
+    try:
+        endpoint = selected_outcome['endpointType']
+        columns = selected_outcome['columnsToUse']
 
-    # Paths to the data files
-    #TODO: MAKE THIS DATA NOT HARD CODED!!!!!!!!!!!!!!!!!!!!!!
-    master_path = 'data/master_data.csv'
-    outcomes_path = ['data/outcomesCTN0094.csv', 'data/all_binary_selected_outcomes.csv']
-    columnToSplitOn = "RaceEth"
-    columnToDrop= "is_hispanic"
-    
-    # Load the data with the outcome
-    demographic_df, outcomes_df = load_datasets(master_path, outcomes_path)
-    outcome_column = outcomes_df[['who'] + selected_outcome['columnsToUse']]
-    
-    merged_df = pd.merge(demographic_df, outcome_column, on='who', how='inner')
+        outcome_col = columns[0] if endpoint != EndpointType.SURVIVAL else columns[1]
+        time_col = columns[0] if endpoint == EndpointType.SURVIVAL else None
 
+        validate_dataset_for_model(
+            df=merged_df,
+            model_type=endpoint.value,
+            outcome_col=outcome_col,
+            time_col=time_col
+        )
+        logging.info("✅ Dataset validation passed.")
+    except Exception as e:
+        logging.error(f"❌ Dataset validation failed: {e}")
+        raise SystemExit(f"Dataset validation failed: {e}")
 
-    #FOR BETA REGRESSION SCALING
-    '''
-    epsilon = 1e-6  # small value to avoid exact 0 or 1
-    min_val = merged_df[selected_outcome['columnsToUse']].min()
-    max_val = merged_df[selected_outcome['columnsToUse']].max()
-    merged_df[selected_outcome['columnsToUse']] = (merged_df[selected_outcome['columnsToUse']] - min_val) / (max_val - min_val)
-    merged_df[selected_outcome['columnsToUse']] = merged_df[selected_outcome['columnsToUse']] * (1 - 2 * epsilon) + epsilon
-    '''
-
-    # Preprocess the merged data based on the selected outcome
     processed_data = preprocess_merged_data(merged_df, selected_outcome['columnsToUse'])
 
-    processed_data = processed_data.drop(columnToDrop, axis=1)
+    if 'is_hispanic' in processed_data.columns:
+        processed_data = processed_data.drop('is_hispanic', axis=1)
 
     return processed_data
-    
 
 
-def run_pipeline(processed_data, seed, selected_outcome, directory):
+
+def run_pipeline(processed_data, seed, selected_outcome, args):
+
+    idColumn = "who"
 
     # Set the seed for reproducibility
     random.seed(seed)
     np.random.seed(seed)
     logging.info(f"Global Seed set to: {seed}")
 
-    setup_logging(seed, selected_outcome['name'], directory, quiet=False)
+    setup_logging(seed, selected_outcome['name'], args.dir, quiet=False)
 
     #Make demographic subsets
-    processed_data, processed_data_heldout = holdOutTestData(processed_data) #Move to saving to file, but also dont ovewrite current file if run again.
+    processed_data, processed_data_heldout = holdOutTestData(processed_data, idColumn, testCount = args.heldout_size, columnToSplit = args.split, majorityValue = args.majority, percentMajority = args.heldout_set_percent_majority) #Move to saving to file, but also dont ovewrite current file if run again.
 
-    matched_dataframes = propensityScoreMatch(processed_data)
+    matched_dataframes = propensityScoreMatch(processed_data, idColumn, columnToSplit = args.split, majorityValue = args.majority, columnsToMatch = args.match.split(), sampleSize = args.group_size)
 
     # Create and merge demographic subsets
     merged_subsets = create_subsets(matched_dataframes)
 
     # Train and evaluate the models using the merged subsets
-    results = train_and_evaluate_models(merged_subsets, selected_outcome, processed_data_heldout)
+    results = train_and_evaluate_models(merged_subsets, idColumn, selected_outcome, processed_data_heldout)
     
-    save_predictions_to_csv(results.loc[:, ("subset", "predictions")], seed, selected_outcome, directory, 'subset_predictions')
-    save_predictions_to_csv(results.loc[:, ("heldout", "predictions")], seed, selected_outcome, directory, 'heldout_predictions')
-    save_evaluations_to_csv(results.loc[:, ("subset", "evaluations")], seed, selected_outcome, directory, 'subset_evaluations')
-    save_evaluations_to_csv(results.loc[:, ("heldout", "evaluations")], seed, selected_outcome, directory, 'heldout_evaluations')
+    save_predictions_to_csv(results.loc[:, ("subset", "predictions")], seed, selected_outcome, args.dir, 'subset_predictions')
+    save_predictions_to_csv(results.loc[:, ("heldout", "predictions")], seed, selected_outcome, args.dir, 'heldout_predictions')
+    save_evaluations_to_csv(results.loc[:, ("subset", "evaluations")], seed, selected_outcome, args.dir, 'subset_evaluations')
+    save_evaluations_to_csv(results.loc[:, ("heldout", "evaluations")], seed, selected_outcome, args.dir, 'heldout_evaluations')
 
     # Log the completion of the pipeline
     log_pipeline_completion()

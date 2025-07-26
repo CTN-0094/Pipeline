@@ -15,13 +15,13 @@ PRINT_SUMMARY = False
 
 #make comment for what values in matrix mean
 #control percentages of heldout data 58/42 majority/minority
-def holdOutTestData(df, testCount = 100, seed=42):
-    majority_count = 58
-    minority_count = 42
+def holdOutTestData(df, id_column, testCount = 100, columnToSplit='RaceEth', majorityValue=1, percentMajority = 58, seed=42):
+    majority_count = percentMajority * testCount // 100
+    minority_count = testCount - majority_count
 
     # Separate DataFrames
-    majority_heldout_df = df[df["RaceEth"] == 1]
-    minority_heldout_df = df[df["RaceEth"] != 1]
+    majority_heldout_df = df[df[columnToSplit] == majorityValue]
+    minority_heldout_df = df[df[columnToSplit] != majorityValue]
 
     # Sample from each group
     sample_majority_heldout = majority_heldout_df.sample(n=min(majority_count, len(majority_heldout_df)), random_state=seed)
@@ -29,18 +29,19 @@ def holdOutTestData(df, testCount = 100, seed=42):
 
     # Combine the samples
     test_df = pd.concat([sample_majority_heldout, sample_minority_heldout]).reset_index(drop=True)
-    train_df = df.drop(test_df.index)
+    train_df = df[~df[id_column].isin(test_df[id_column])]
     return train_df, test_df
 
 
 
-def propensityScoreMatch(df, columnToSplit='RaceEth', majorityValue=1, columnsToMatch = ['age', 'is_female'], sampleSize=500):
+def propensityScoreMatch(df, idColumn, columnToSplit='RaceEth', majorityValue=1, columnsToMatch = ['age', 'is_female'], sampleSize=500):
     #Propensity Score Match data
-    df['is_minority'] = (df[columnToSplit] != majorityValue).astype(int)
+    df = df.copy()
+    df.loc[:, 'is_minority'] = (df[columnToSplit] != majorityValue).astype(int)
     # Run propensity score matching
-    matched_participants =  PropensityScoreMatchRMatchit(df, columnsToMatch, sampleSize)
-    column_dfs = [matched_participants[[col]].rename(columns={col: 'who'}) for col in matched_participants.columns]
-    matched_dfs = [pd.merge(col_df, df.drop(columns=['is_minority']), on='who', how='left') for col_df in column_dfs]
+    matched_participants =  PropensityScoreMatchRMatchit(df, idColumn, columnsToMatch, sampleSize)
+    column_dfs = [matched_participants[[col]].rename(columns={col: idColumn}) for col in matched_participants.columns]
+    matched_dfs = [pd.merge(col_df, df.drop(columns=['is_minority']), on=idColumn, how='left') for col_df in column_dfs]
     #print("TESTING: ", matched_dfs[0])
     #matched_participants = pd.merge(matched_participants, df, on='who', how='left') 
     return matched_dfs
@@ -79,7 +80,7 @@ def PropensityScoreMatchPsmPy(df, idColumn, columnsToMatch, sampleSize):
 
 
 
-def PropensityScoreMatchRMatchit(df, columnsToMatch, sampleSize):
+def PropensityScoreMatchRMatchit(df, idColumn, columnsToMatch, sampleSize):
     try:
         # Check if MatchIt is installed
         importr('MatchIt')
@@ -128,16 +129,16 @@ def PropensityScoreMatchRMatchit(df, columnsToMatch, sampleSize):
 
         # Create matched pairs based on subclass
         matched_pairs <- merge(
-            treated[, c("subclass", "who")],
-            control[, c("subclass", "who")],
+            treated[, c("subclass", \"{idColumn}\")],
+            control[, c("subclass", \"{idColumn}\")],
             by = "subclass",
             suffixes = c("_treated", "_control")
         )
 
         # Create final DataFrame of treated and control row indices
         pair_df <- data.frame(
-            treated_row = matched_pairs$who_treated,
-            control_row = matched_pairs$who_control
+            treated_row = matched_pairs${idColumn}_treated,
+            control_row = matched_pairs${idColumn}_control
         )
     ''')
 

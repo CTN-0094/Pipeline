@@ -1,10 +1,6 @@
 import csv
 import re
 import os
-from datetime import datetime
-
-# Start time for performance tracking
-start_time = datetime.now()
 
 # Dictionary of hardcoded variables to include in the CSV output
 # These are default values that will be used if not found in the log file
@@ -132,7 +128,3 @@ def scrape_log_to_csv(log_filepaths, directory):
                         if line is None:
                             break  # End of file
 
-# End time for performance tracking
-end_time = datetime.now()
-elapsed_time = (end_time - start_time).total_seconds()
-print(f"Elapsed time: {elapsed_time} seconds")
