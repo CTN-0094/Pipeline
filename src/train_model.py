@@ -51,6 +51,9 @@ class OutcomeModel:
             self.X, self.y, test_size=0.25, random_state=seed  # Split the dataset
         )
         
+        self.y_train = self.y_train.squeeze()
+        self.y_test = self.y_test.squeeze()
+
         # Track 'who' column for test set (after the train-test split)
         self.who_test = self.who.loc[self.X_test.index] if self.who is not None else None  
         
@@ -134,7 +137,6 @@ class OutcomeModel:
             ])
 
             pipeline.fit(self.X_train, self.y_train)
-            
 
             # Extract the fitted logistic regression model from the pipeline
             model = pipeline.named_steps['model']

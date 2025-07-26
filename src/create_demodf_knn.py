@@ -15,13 +15,13 @@ PRINT_SUMMARY = False
 
 #make comment for what values in matrix mean
 #control percentages of heldout data 58/42 majority/minority
-def holdOutTestData(df, id_column, testCount = 100, seed=42):
-    majority_count = 58
-    minority_count = 42
+def holdOutTestData(df, id_column, testCount = 100, columnToSplit='RaceEth', majorityValue=1, percentMajority = 58, seed=42):
+    majority_count = percentMajority * testCount // 100
+    minority_count = testCount - majority_count
 
     # Separate DataFrames
-    majority_heldout_df = df[df["RaceEth"] == 1]
-    minority_heldout_df = df[df["RaceEth"] != 1]
+    majority_heldout_df = df[df[columnToSplit] == majorityValue]
+    minority_heldout_df = df[df[columnToSplit] != majorityValue]
 
     # Sample from each group
     sample_majority_heldout = majority_heldout_df.sample(n=min(majority_count, len(majority_heldout_df)), random_state=seed)
@@ -36,7 +36,8 @@ def holdOutTestData(df, id_column, testCount = 100, seed=42):
 
 def propensityScoreMatch(df, idColumn, columnToSplit='RaceEth', majorityValue=1, columnsToMatch = ['age', 'is_female'], sampleSize=500):
     #Propensity Score Match data
-    df['is_minority'] = (df[columnToSplit] != majorityValue).astype(int)
+    df = df.copy()
+    df.loc[:, 'is_minority'] = (df[columnToSplit] != majorityValue).astype(int)
     # Run propensity score matching
     matched_participants =  PropensityScoreMatchRMatchit(df, idColumn, columnsToMatch, sampleSize)
     column_dfs = [matched_participants[[col]].rename(columns={col: idColumn}) for col in matched_participants.columns]
@@ -149,9 +150,6 @@ def PropensityScoreMatchRMatchit(df, idColumn, columnsToMatch, sampleSize):
     if(PRINT_SUMMARY):
         summary = robjects.r('summary(m.out1, un = FALSE)')
         print("SUMMARY: ", summary)
-
-    print("Matched data columns:", matched_data.columns)
-    print(pair_df_r)
 
     matched_data['control_index'] = matched_data.groupby('treated_row').cumcount()
     final_matched_df = matched_data.pivot(index='treated_row', columns='control_index', values='control_row').reset_index()

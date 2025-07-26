@@ -32,6 +32,7 @@ def train_and_evaluate_models(merged_subsets, id_column, selected_outcome, proce
         #demographicStrings.append[", ".join([f"{v} {k}" for k, v in demographic_counts.items()])]
         #logging.info(f"Subset {i + 1} demographic makeup: {demographicStrings[-1]}")
         logging.info(f"Processing subset {i + 1}...")
+        print(f"\nProcessing subset {i + 1} " + "_" * 100)
 
         logging.info("-----------------------------")
         logging.info(f"TRAIN MODEL STAGE STARTING FOR SUBSET {i + 1}...")
@@ -66,6 +67,7 @@ def train_and_evaluate_models(merged_subsets, id_column, selected_outcome, proce
         logging.info("------------------------------")
         logging.info(f"EVALUATE MODEL STAGE COMPLETED FOR SUBSET {i + 1}")
         logging.info("------------------------------")
+        print("_" * 120 + "\n")
             
         '''for id, result in subsetPredsAndResults["predictions"]:
             if id not in subsetPredictions:
