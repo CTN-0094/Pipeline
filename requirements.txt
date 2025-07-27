@@ -17,6 +17,7 @@ joblib==1.3.2
 jupyter-client==8.6.1
 jupyter-core==5.7.2
 kiwisolver==1.4.5
+lifelines==0.30.0
 matplotlib==3.7.5
 matplotlib-inline==0.1.7
 nest-asyncio==1.6.0
