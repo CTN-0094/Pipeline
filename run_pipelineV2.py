@@ -129,18 +129,33 @@ def argument_handler():
     # Create the parser
     parser = argparse.ArgumentParser(description='Pipeline for statistical modeling and machine learning on the CTN-0094 database')
 
-    parser.add_argument('--majority', type=str, default=1, help='value of majority in the PSM column')
-    parser.add_argument('--split', '--column_to_split', type=str, default='RaceEth', help='column containing the 2 groups to PSM')
-    parser.add_argument('--match', '--columns_to_match', type=str, default='age is_female', help='list of columns to PSM on')
-    parser.add_argument('--group_size', type=int, default=500, help='the size of each PSM group (this is 1/2 the size of each trial cohort)')
-    parser.add_argument('--heldout_size', type=int, default=100, help='the size of the heldout set')
-    parser.add_argument('--heldout_set_percent_majority', type=int, default=58, help='constant percent of majority samples in the heldout set')
-    parser.add_argument('--data', type=str, required=True, help='Path to cleaned user dataset (CSV)')
-    parser.add_argument('--type', type=str, choices=['logical', 'integer', 'survival'], help='Type of outcome (logical, integer, survival)')
-    parser.add_argument('-l', '--loop', type=int, nargs='+', help='minimum and maximum seed', default = None)
-    parser.add_argument('-o', '--outcome', '--outcomes', type=str, nargs='+', help='all outcomes to run', default = None)
-    parser.add_argument('-d', '--dir', '--directory', type=str, help='directory to save logs, predictions, and evaluations', default="")
-    parser.add_argument('-p', '--prof', '--profile', type=str, help='type of profiling to run (\'simple\' or \'complex\')', default="None")
+    parser.add_argument('--majority', type=str, default=1, 
+                        help='value of majority in the PSM column')
+    parser.add_argument('--split', '--column_to_split', type=str, default='RaceEth', 
+                        help='column containing the 2 groups to PSM')
+    parser.add_argument('--match', '--columns_to_match', type=str, default='age is_female', 
+                        help='list of columns to PSM on')
+    parser.add_argument('--group_size', type=int, default=500, 
+                        help='the size of each PSM group (this is 1/2 the size of each trial cohort)')
+    parser.add_argument('--heldout_size', type=int, default=100, 
+                        help='the size of the heldout set')
+    parser.add_argument('--heldout_set_percent_majority', type=int, default=58, 
+                        help='constant percent of majority samples in the heldout set')
+    parser.add_argument('--data', type=str, required=True, 
+                        help='Path to cleaned user dataset (CSV)')
+    parser.add_argument('--type', type=str, choices=['logical', 'integer', 'survival'], 
+                        help='Type of outcome (logical, integer, survival)')
+    parser.add_argument('-l', '--loop', type=int, nargs='+', 
+                        help='minimum and maximum seed', default = None)
+    parser.add_argument('-o', '--outcome', '--outcomes', type=str, nargs='+', 
+                        help='all outcomes to run', default = None)
+    parser.add_argument('-d', '--dir', '--directory', type=str, 
+                        help='directory to save logs, predictions, and evaluations', default="")
+    parser.add_argument('-p', '--prof', '--profile', type=str, 
+                        help='type of profiling to run (\'simple\' or \'complex\')', default="None")
+    parser.add_argument('--data_only',action='store_true',
+                        help='Run preprocessing + PSM and save ML-ready datasets without training models'
+    )
 
     # Parse the arguments
     args = parser.parse_args()
@@ -164,9 +179,9 @@ def initialize_pipeline(selected_outcome, args):
             outcome_col=outcome_col,
             time_col=time_col
         )
-        logging.info("✅ Dataset validation passed.")
+        logging.info("Dataset validation passed.")
     except Exception as e:
-        logging.error(f"❌ Dataset validation failed: {e}")
+        logging.error(f"Dataset validation failed: {e}")
         raise SystemExit(f"Dataset validation failed: {e}")
 
     processed_data = preprocess_merged_data(merged_df, selected_outcome['columnsToUse'])
@@ -189,25 +204,80 @@ def run_pipeline(processed_data, seed, selected_outcome, args):
 
     setup_logging(seed, selected_outcome['name'], args.dir, quiet=False)
 
-    #Make demographic subsets
-    processed_data, processed_data_heldout = holdOutTestData(processed_data, idColumn, testCount = args.heldout_size, columnToSplit = args.split, majorityValue = args.majority, percentMajority = args.heldout_set_percent_majority) #Move to saving to file, but also dont ovewrite current file if run again.
+    # 1. Held-out split 
+    processed_data, processed_data_heldout = holdOutTestData(
+        processed_data,
+        id_column=idColumn,
+        testCount=args.heldout_size,
+        columnToSplit=args.split,
+        majorityValue=args.majority,
+        percentMajority=args.heldout_set_percent_majority
+    )
 
-    matched_dataframes = propensityScoreMatch(processed_data, idColumn, columnToSplit = args.split, majorityValue = args.majority, columnsToMatch = args.match.split(), sampleSize = args.group_size)
+    # 2. Propensity Score Match 
+    matched_dataframes = propensityScoreMatch(
+        processed_data,
+        idColumn,
+        columnToSplit=args.split,
+        majorityValue=args.majority,
+        columnsToMatch=args.match.split(),
+        sampleSize=args.group_size
+    )
 
-    # Create and merge demographic subsets
+    # 3. Create and merge demographic subsets (500/500 → 0/1000 ladder)
     merged_subsets = create_subsets(matched_dataframes)
 
-    # Train and evaluate the models using the merged subsets
-    results = train_and_evaluate_models(merged_subsets, idColumn, selected_outcome, processed_data_heldout)
-    
-    save_predictions_to_csv(results.loc[:, ("subset", "predictions")], seed, selected_outcome, args.dir, 'subset_predictions')
-    save_predictions_to_csv(results.loc[:, ("heldout", "predictions")], seed, selected_outcome, args.dir, 'heldout_predictions')
-    save_evaluations_to_csv(results.loc[:, ("subset", "evaluations")], seed, selected_outcome, args.dir, 'subset_evaluations')
-    save_evaluations_to_csv(results.loc[:, ("heldout", "evaluations")], seed, selected_outcome, args.dir, 'heldout_evaluations')
+    # 4. DATA-ONLY BRANCH: stop here and just save datasets
+    if getattr(args, "data_only", False):
+        experiment_dir = save_model_input_datasets(
+            merged_subsets=merged_subsets,
+            heldout_df=processed_data_heldout,
+            seed=seed,
+            selected_outcome=selected_outcome,
+            base_directory=args.dir
+        )
+        print(f"\n[EXPERIMENT COMPLETED] Data-only run saved at:\n  {experiment_dir}\n")
+        log_pipeline_completion()
+        return
 
-    # Log the completion of the pipeline
+    # 5. FULL PIPELINE BRANCH: Train and evaluate the models (original behavior)
+    results = train_and_evaluate_models(
+        merged_subsets,
+        idColumn,
+        selected_outcome,
+        processed_data_heldout
+    )
+
+    save_predictions_to_csv(
+        results.loc[:, ("subset", "predictions")],
+        seed,
+        selected_outcome,
+        args.dir,
+        'subset_predictions'
+    )
+    save_predictions_to_csv(
+        results.loc[:, ("heldout", "predictions")],
+        seed,
+        selected_outcome,
+        args.dir,
+        'heldout_predictions'
+    )
+    save_evaluations_to_csv(
+        results.loc[:, ("subset", "evaluations")],
+        seed,
+        selected_outcome,
+        args.dir,
+        'subset_evaluations'
+    )
+    save_evaluations_to_csv(
+        results.loc[:, ("heldout", "evaluations")],
+        seed,
+        selected_outcome,
+        args.dir,
+        'heldout_evaluations'
+    )
+
     log_pipeline_completion()
-
 
 
 def save_evaluations_to_csv(results, seed, selected_outcome, directory, name):
@@ -352,6 +422,66 @@ def save_predictions_to_csv(data, seed, selected_outcome, directory, name):
         for id, trials_data in predictions.items():
             writer.writerow([id] + trials_data)
 
+def save_model_input_datasets(merged_subsets, heldout_df, seed, selected_outcome, base_directory):
+    """
+    Saves the datasets used for ML training (subsets + heldout) into
+    a NEW experiment folder created for every run in data_only mode.
+
+    Folder structure:
+
+        <base_directory>/experiments/
+            experiment_<timestamp>_<outcome>_seed<seed>/
+                subsets/
+                    subset_1.csv
+                    ...
+                heldout/
+                    heldout.csv
+                metadata.json
+    """
+    from datetime import datetime
+    import json
+
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    base_directory = base_directory or ""
+
+    experiment_name = f"experiment_{timestamp}_{selected_outcome['name']}_seed{seed}"
+    root_dir = os.path.join(base_directory, "experiments", experiment_name)
+
+    subsets_dir = os.path.join(root_dir, "subsets")
+    heldout_dir = os.path.join(root_dir, "heldout")
+
+    os.makedirs(subsets_dir, exist_ok=True)
+    os.makedirs(heldout_dir, exist_ok=True)
+
+    # Save subsets (ladder 500/500 → 0/1000)
+    for i, subset_df in enumerate(merged_subsets, start=1):
+        filename = f"subset_{i}.csv"
+        path = os.path.join(subsets_dir, filename)
+        subset_df.to_csv(path, index=False)
+        print(f"[DATA SAVED] Subset {i} → {path}")
+
+    # Save heldout
+    heldout_path = os.path.join(heldout_dir, "heldout.csv")
+    heldout_df.to_csv(heldout_path, index=False)
+    print(f"[DATA SAVED] Held-out dataset → {heldout_path}")
+
+    # Save metadata
+    metadata = {
+        "timestamp": timestamp,
+        "seed": seed,
+        "outcome": selected_outcome['name'],
+        "columns_used": selected_outcome['columnsToUse'],
+        "num_subsets": len(merged_subsets),
+        "heldout_size": len(heldout_df),
+    }
+
+    meta_path = os.path.join(root_dir, "metadata.json")
+    with open(meta_path, "w") as f:
+        json.dump(metadata, f, indent=4)
+
+    print(f"[INFO] Experiment metadata saved → {meta_path}")
+
+    return root_dir
 
 
 
