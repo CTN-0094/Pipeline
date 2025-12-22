@@ -1,0 +1,248 @@
+2025-10-29 11:13:32 - INFO - Processing subset 1...
+2025-10-29 11:13:32 - INFO - -----------------------------
+2025-10-29 11:13:32 - INFO - TRAIN MODEL STAGE STARTING FOR SUBSET 1...
+2025-10-29 11:13:32 - INFO - -----------------------------
+2025-10-29 11:13:32 - INFO - LogisticModel initialized successfully with Cs=[1.0].
+2025-10-29 11:13:32 - INFO - Starting feature selection using L1 regularization...
+2025-10-29 11:13:32 - INFO - Feature selection and model fitting completed successfully.
+2025-10-29 11:13:32 - INFO - Dynamic threshold set to: 0.744
+2025-10-29 11:13:32 - INFO - Model trained and saved successfully for subset 1.
+2025-10-29 11:13:32 - INFO - ---------------------------
+2025-10-29 11:13:32 - INFO - TRAIN MODEL STAGE COMPLETED FOR SUBSET 1
+2025-10-29 11:13:32 - INFO - ---------------------------
+2025-10-29 11:13:32 - INFO - --------------------------------
+2025-10-29 11:13:32 - INFO - EVALUATE MODEL STAGE STARTING FOR SUBSET 1...
+2025-10-29 11:13:32 - INFO - --------------------------------
+2025-10-29 11:13:32 - INFO - demographic makeup: 58 1, 19 3, 16 2, 7 4
+2025-10-29 11:13:32 - INFO - demographic makeup: 250 1
+2025-10-29 11:13:32 - INFO - demographic makeup: 750 1
+2025-10-29 11:13:32 - INFO - Model evaluated successfully for subset 1.
+2025-10-29 11:13:32 - INFO - ------------------------------
+2025-10-29 11:13:32 - INFO - EVALUATE MODEL STAGE COMPLETED FOR SUBSET 1
+2025-10-29 11:13:32 - INFO - ------------------------------
+2025-10-29 11:13:32 - INFO - Processing subset 2...
+2025-10-29 11:13:32 - INFO - -----------------------------
+2025-10-29 11:13:32 - INFO - TRAIN MODEL STAGE STARTING FOR SUBSET 2...
+2025-10-29 11:13:32 - INFO - -----------------------------
+2025-10-29 11:13:32 - INFO - LogisticModel initialized successfully with Cs=[1.0].
+2025-10-29 11:13:33 - INFO - Starting feature selection using L1 regularization...
+2025-10-29 11:13:33 - INFO - Feature selection and model fitting completed successfully.
+2025-10-29 11:13:33 - INFO - Dynamic threshold set to: 0.72
+2025-10-29 11:13:33 - INFO - Model trained and saved successfully for subset 2.
+2025-10-29 11:13:33 - INFO - ---------------------------
+2025-10-29 11:13:33 - INFO - TRAIN MODEL STAGE COMPLETED FOR SUBSET 2
+2025-10-29 11:13:33 - INFO - ---------------------------
+2025-10-29 11:13:33 - INFO - --------------------------------
+2025-10-29 11:13:33 - INFO - EVALUATE MODEL STAGE STARTING FOR SUBSET 2...
+2025-10-29 11:13:33 - INFO - --------------------------------
+2025-10-29 11:13:33 - INFO - demographic makeup: 58 1, 19 3, 16 2, 7 4
+2025-10-29 11:13:33 - INFO - demographic makeup: 237 1, 8 3, 3 2, 2 4
+2025-10-29 11:13:33 - INFO - demographic makeup: 713 1, 19 3, 11 2, 7 4
+2025-10-29 11:13:33 - INFO - Model evaluated successfully for subset 2.
+2025-10-29 11:13:33 - INFO - ------------------------------
+2025-10-29 11:13:33 - INFO - EVALUATE MODEL STAGE COMPLETED FOR SUBSET 2
+2025-10-29 11:13:33 - INFO - ------------------------------
+2025-10-29 11:13:33 - INFO - Processing subset 3...
+2025-10-29 11:13:33 - INFO - -----------------------------
+2025-10-29 11:13:33 - INFO - TRAIN MODEL STAGE STARTING FOR SUBSET 3...
+2025-10-29 11:13:33 - INFO - -----------------------------
+2025-10-29 11:13:33 - INFO - LogisticModel initialized successfully with Cs=[1.0].
+2025-10-29 11:13:33 - INFO - Starting feature selection using L1 regularization...
+2025-10-29 11:13:33 - INFO - Feature selection and model fitting completed successfully.
+2025-10-29 11:13:33 - INFO - Dynamic threshold set to: 0.76
+2025-10-29 11:13:33 - INFO - Model trained and saved successfully for subset 3.
+2025-10-29 11:13:33 - INFO - ---------------------------
+2025-10-29 11:13:33 - INFO - TRAIN MODEL STAGE COMPLETED FOR SUBSET 3
+2025-10-29 11:13:33 - INFO - ---------------------------
+2025-10-29 11:13:33 - INFO - --------------------------------
+2025-10-29 11:13:33 - INFO - EVALUATE MODEL STAGE STARTING FOR SUBSET 3...
+2025-10-29 11:13:33 - INFO - --------------------------------
+2025-10-29 11:13:33 - INFO - demographic makeup: 58 1, 19 3, 16 2, 7 4
+2025-10-29 11:13:33 - INFO - demographic makeup: 220 1, 12 3, 10 2, 8 4
+2025-10-29 11:13:33 - INFO - demographic makeup: 680 1, 38 3, 19 2, 13 4
+2025-10-29 11:13:33 - INFO - Model evaluated successfully for subset 3.
+2025-10-29 11:13:33 - INFO - ------------------------------
+2025-10-29 11:13:33 - INFO - EVALUATE MODEL STAGE COMPLETED FOR SUBSET 3
+2025-10-29 11:13:33 - INFO - ------------------------------
+2025-10-29 11:13:33 - INFO - Processing subset 4...
+2025-10-29 11:13:33 - INFO - -----------------------------
+2025-10-29 11:13:33 - INFO - TRAIN MODEL STAGE STARTING FOR SUBSET 4...
+2025-10-29 11:13:33 - INFO - -----------------------------
+2025-10-29 11:13:33 - INFO - LogisticModel initialized successfully with Cs=[1.0].
+2025-10-29 11:13:33 - INFO - Starting feature selection using L1 regularization...
+2025-10-29 11:13:33 - INFO - Feature selection and model fitting completed successfully.
+2025-10-29 11:13:33 - INFO - Dynamic threshold set to: 0.736
+2025-10-29 11:13:33 - INFO - Model trained and saved successfully for subset 4.
+2025-10-29 11:13:33 - INFO - ---------------------------
+2025-10-29 11:13:33 - INFO - TRAIN MODEL STAGE COMPLETED FOR SUBSET 4
+2025-10-29 11:13:33 - INFO - ---------------------------
+2025-10-29 11:13:33 - INFO - --------------------------------
+2025-10-29 11:13:33 - INFO - EVALUATE MODEL STAGE STARTING FOR SUBSET 4...
+2025-10-29 11:13:33 - INFO - --------------------------------
+2025-10-29 11:13:33 - INFO - demographic makeup: 58 1, 19 3, 16 2, 7 4
+2025-10-29 11:13:33 - INFO - demographic makeup: 208 1, 22 3, 13 2, 7 4
+2025-10-29 11:13:33 - INFO - demographic makeup: 642 1, 49 3, 31 2, 28 4
+2025-10-29 11:13:33 - INFO - Model evaluated successfully for subset 4.
+2025-10-29 11:13:33 - INFO - ------------------------------
+2025-10-29 11:13:33 - INFO - EVALUATE MODEL STAGE COMPLETED FOR SUBSET 4
+2025-10-29 11:13:33 - INFO - ------------------------------
+2025-10-29 11:13:33 - INFO - Processing subset 5...
+2025-10-29 11:13:33 - INFO - -----------------------------
+2025-10-29 11:13:33 - INFO - TRAIN MODEL STAGE STARTING FOR SUBSET 5...
+2025-10-29 11:13:33 - INFO - -----------------------------
+2025-10-29 11:13:33 - INFO - LogisticModel initialized successfully with Cs=[1.0].
+2025-10-29 11:13:33 - INFO - Starting feature selection using L1 regularization...
+2025-10-29 11:13:33 - INFO - Feature selection and model fitting completed successfully.
+2025-10-29 11:13:33 - INFO - Dynamic threshold set to: 0.784
+2025-10-29 11:13:33 - INFO - Model trained and saved successfully for subset 5.
+2025-10-29 11:13:33 - INFO - ---------------------------
+2025-10-29 11:13:33 - INFO - TRAIN MODEL STAGE COMPLETED FOR SUBSET 5
+2025-10-29 11:13:33 - INFO - ---------------------------
+2025-10-29 11:13:33 - INFO - --------------------------------
+2025-10-29 11:13:33 - INFO - EVALUATE MODEL STAGE STARTING FOR SUBSET 5...
+2025-10-29 11:13:33 - INFO - --------------------------------
+2025-10-29 11:13:33 - INFO - demographic makeup: 58 1, 19 3, 16 2, 7 4
+2025-10-29 11:13:33 - INFO - demographic makeup: 196 1, 26 3, 15 2, 13 4
+2025-10-29 11:13:33 - INFO - demographic makeup: 604 1, 72 3, 41 2, 33 4
+2025-10-29 11:13:33 - INFO - Model evaluated successfully for subset 5.
+2025-10-29 11:13:33 - INFO - ------------------------------
+2025-10-29 11:13:33 - INFO - EVALUATE MODEL STAGE COMPLETED FOR SUBSET 5
+2025-10-29 11:13:33 - INFO - ------------------------------
+2025-10-29 11:13:33 - INFO - Processing subset 6...
+2025-10-29 11:13:33 - INFO - -----------------------------
+2025-10-29 11:13:33 - INFO - TRAIN MODEL STAGE STARTING FOR SUBSET 6...
+2025-10-29 11:13:33 - INFO - -----------------------------
+2025-10-29 11:13:33 - INFO - LogisticModel initialized successfully with Cs=[1.0].
+2025-10-29 11:13:33 - INFO - Starting feature selection using L1 regularization...
+2025-10-29 11:13:33 - INFO - Feature selection and model fitting completed successfully.
+2025-10-29 11:13:33 - INFO - Dynamic threshold set to: 0.744
+2025-10-29 11:13:33 - INFO - Model trained and saved successfully for subset 6.
+2025-10-29 11:13:33 - INFO - ---------------------------
+2025-10-29 11:13:33 - INFO - TRAIN MODEL STAGE COMPLETED FOR SUBSET 6
+2025-10-29 11:13:33 - INFO - ---------------------------
+2025-10-29 11:13:33 - INFO - --------------------------------
+2025-10-29 11:13:33 - INFO - EVALUATE MODEL STAGE STARTING FOR SUBSET 6...
+2025-10-29 11:13:33 - INFO - --------------------------------
+2025-10-29 11:13:33 - INFO - demographic makeup: 58 1, 19 3, 16 2, 7 4
+2025-10-29 11:13:33 - INFO - demographic makeup: 175 1, 42 3, 17 2, 16 4
+2025-10-29 11:13:33 - INFO - demographic makeup: 575 1, 87 3, 49 2, 39 4
+2025-10-29 11:13:33 - INFO - Model evaluated successfully for subset 6.
+2025-10-29 11:13:33 - INFO - ------------------------------
+2025-10-29 11:13:33 - INFO - EVALUATE MODEL STAGE COMPLETED FOR SUBSET 6
+2025-10-29 11:13:33 - INFO - ------------------------------
+2025-10-29 11:13:33 - INFO - Processing subset 7...
+2025-10-29 11:13:33 - INFO - -----------------------------
+2025-10-29 11:13:33 - INFO - TRAIN MODEL STAGE STARTING FOR SUBSET 7...
+2025-10-29 11:13:33 - INFO - -----------------------------
+2025-10-29 11:13:33 - INFO - LogisticModel initialized successfully with Cs=[1.0].
+2025-10-29 11:13:33 - INFO - Starting feature selection using L1 regularization...
+2025-10-29 11:13:33 - INFO - Feature selection and model fitting completed successfully.
+2025-10-29 11:13:33 - INFO - Dynamic threshold set to: 0.788
+2025-10-29 11:13:33 - INFO - Model trained and saved successfully for subset 7.
+2025-10-29 11:13:33 - INFO - ---------------------------
+2025-10-29 11:13:33 - INFO - TRAIN MODEL STAGE COMPLETED FOR SUBSET 7
+2025-10-29 11:13:33 - INFO - ---------------------------
+2025-10-29 11:13:33 - INFO - --------------------------------
+2025-10-29 11:13:33 - INFO - EVALUATE MODEL STAGE STARTING FOR SUBSET 7...
+2025-10-29 11:13:33 - INFO - --------------------------------
+2025-10-29 11:13:33 - INFO - demographic makeup: 58 1, 19 3, 16 2, 7 4
+2025-10-29 11:13:33 - INFO - demographic makeup: 176 1, 39 3, 20 2, 15 4
+2025-10-29 11:13:33 - INFO - demographic makeup: 524 1, 114 3, 63 2, 49 4
+2025-10-29 11:13:33 - INFO - Model evaluated successfully for subset 7.
+2025-10-29 11:13:33 - INFO - ------------------------------
+2025-10-29 11:13:33 - INFO - EVALUATE MODEL STAGE COMPLETED FOR SUBSET 7
+2025-10-29 11:13:33 - INFO - ------------------------------
+2025-10-29 11:13:33 - INFO - Processing subset 8...
+2025-10-29 11:13:33 - INFO - -----------------------------
+2025-10-29 11:13:33 - INFO - TRAIN MODEL STAGE STARTING FOR SUBSET 8...
+2025-10-29 11:13:33 - INFO - -----------------------------
+2025-10-29 11:13:33 - INFO - LogisticModel initialized successfully with Cs=[1.0].
+2025-10-29 11:13:33 - INFO - Starting feature selection using L1 regularization...
+2025-10-29 11:13:33 - INFO - Feature selection and model fitting completed successfully.
+2025-10-29 11:13:33 - INFO - Dynamic threshold set to: 0.712
+2025-10-29 11:13:33 - INFO - Model trained and saved successfully for subset 8.
+2025-10-29 11:13:33 - INFO - ---------------------------
+2025-10-29 11:13:33 - INFO - TRAIN MODEL STAGE COMPLETED FOR SUBSET 8
+2025-10-29 11:13:33 - INFO - ---------------------------
+2025-10-29 11:13:33 - INFO - --------------------------------
+2025-10-29 11:13:33 - INFO - EVALUATE MODEL STAGE STARTING FOR SUBSET 8...
+2025-10-29 11:13:33 - INFO - --------------------------------
+2025-10-29 11:13:33 - INFO - demographic makeup: 58 1, 19 3, 16 2, 7 4
+2025-10-29 11:13:33 - INFO - demographic makeup: 164 1, 41 3, 24 2, 21 4
+2025-10-29 11:13:33 - INFO - demographic makeup: 486 1, 138 3, 73 2, 53 4
+2025-10-29 11:13:33 - INFO - Model evaluated successfully for subset 8.
+2025-10-29 11:13:33 - INFO - ------------------------------
+2025-10-29 11:13:33 - INFO - EVALUATE MODEL STAGE COMPLETED FOR SUBSET 8
+2025-10-29 11:13:33 - INFO - ------------------------------
+2025-10-29 11:13:33 - INFO - Processing subset 9...
+2025-10-29 11:13:33 - INFO - -----------------------------
+2025-10-29 11:13:33 - INFO - TRAIN MODEL STAGE STARTING FOR SUBSET 9...
+2025-10-29 11:13:33 - INFO - -----------------------------
+2025-10-29 11:13:33 - INFO - LogisticModel initialized successfully with Cs=[1.0].
+2025-10-29 11:13:34 - INFO - Starting feature selection using L1 regularization...
+2025-10-29 11:13:34 - INFO - Feature selection and model fitting completed successfully.
+2025-10-29 11:13:34 - INFO - Dynamic threshold set to: 0.768
+2025-10-29 11:13:34 - INFO - Model trained and saved successfully for subset 9.
+2025-10-29 11:13:34 - INFO - ---------------------------
+2025-10-29 11:13:34 - INFO - TRAIN MODEL STAGE COMPLETED FOR SUBSET 9
+2025-10-29 11:13:34 - INFO - ---------------------------
+2025-10-29 11:13:34 - INFO - --------------------------------
+2025-10-29 11:13:34 - INFO - EVALUATE MODEL STAGE STARTING FOR SUBSET 9...
+2025-10-29 11:13:34 - INFO - --------------------------------
+2025-10-29 11:13:34 - INFO - demographic makeup: 58 1, 19 3, 16 2, 7 4
+2025-10-29 11:13:34 - INFO - demographic makeup: 145 1, 52 3, 31 2, 22 4
+2025-10-29 11:13:34 - INFO - demographic makeup: 455 1, 152 3, 83 2, 60 4
+2025-10-29 11:13:34 - INFO - Model evaluated successfully for subset 9.
+2025-10-29 11:13:34 - INFO - ------------------------------
+2025-10-29 11:13:34 - INFO - EVALUATE MODEL STAGE COMPLETED FOR SUBSET 9
+2025-10-29 11:13:34 - INFO - ------------------------------
+2025-10-29 11:13:34 - INFO - Processing subset 10...
+2025-10-29 11:13:34 - INFO - -----------------------------
+2025-10-29 11:13:34 - INFO - TRAIN MODEL STAGE STARTING FOR SUBSET 10...
+2025-10-29 11:13:34 - INFO - -----------------------------
+2025-10-29 11:13:34 - INFO - LogisticModel initialized successfully with Cs=[1.0].
+2025-10-29 11:13:34 - INFO - Starting feature selection using L1 regularization...
+2025-10-29 11:13:34 - INFO - Feature selection and model fitting completed successfully.
+2025-10-29 11:13:34 - INFO - Dynamic threshold set to: 0.74
+2025-10-29 11:13:34 - INFO - Model trained and saved successfully for subset 10.
+2025-10-29 11:13:34 - INFO - ---------------------------
+2025-10-29 11:13:34 - INFO - TRAIN MODEL STAGE COMPLETED FOR SUBSET 10
+2025-10-29 11:13:34 - INFO - ---------------------------
+2025-10-29 11:13:34 - INFO - --------------------------------
+2025-10-29 11:13:34 - INFO - EVALUATE MODEL STAGE STARTING FOR SUBSET 10...
+2025-10-29 11:13:34 - INFO - --------------------------------
+2025-10-29 11:13:34 - INFO - demographic makeup: 58 1, 19 3, 16 2, 7 4
+2025-10-29 11:13:34 - INFO - demographic makeup: 138 1, 58 3, 31 2, 23 4
+2025-10-29 11:13:34 - INFO - demographic makeup: 412 1, 164 3, 102 2, 72 4
+2025-10-29 11:13:34 - INFO - Model evaluated successfully for subset 10.
+2025-10-29 11:13:34 - INFO - ------------------------------
+2025-10-29 11:13:34 - INFO - EVALUATE MODEL STAGE COMPLETED FOR SUBSET 10
+2025-10-29 11:13:34 - INFO - ------------------------------
+2025-10-29 11:13:34 - INFO - Processing subset 11...
+2025-10-29 11:13:34 - INFO - -----------------------------
+2025-10-29 11:13:34 - INFO - TRAIN MODEL STAGE STARTING FOR SUBSET 11...
+2025-10-29 11:13:34 - INFO - -----------------------------
+2025-10-29 11:13:34 - INFO - LogisticModel initialized successfully with Cs=[1.0].
+2025-10-29 11:13:34 - INFO - Starting feature selection using L1 regularization...
+2025-10-29 11:13:34 - INFO - Feature selection and model fitting completed successfully.
+2025-10-29 11:13:34 - INFO - Dynamic threshold set to: 0.764
+2025-10-29 11:13:34 - INFO - Model trained and saved successfully for subset 11.
+2025-10-29 11:13:34 - INFO - ---------------------------
+2025-10-29 11:13:34 - INFO - TRAIN MODEL STAGE COMPLETED FOR SUBSET 11
+2025-10-29 11:13:34 - INFO - ---------------------------
+2025-10-29 11:13:34 - INFO - --------------------------------
+2025-10-29 11:13:34 - INFO - EVALUATE MODEL STAGE STARTING FOR SUBSET 11...
+2025-10-29 11:13:34 - INFO - --------------------------------
+2025-10-29 11:13:34 - INFO - demographic makeup: 58 1, 19 3, 16 2, 7 4
+2025-10-29 11:13:34 - INFO - demographic makeup: 127 1, 60 3, 41 2, 22 4
+2025-10-29 11:13:34 - INFO - demographic makeup: 373 1, 188 3, 107 2, 82 4
+2025-10-29 11:13:34 - INFO - Model evaluated successfully for subset 11.
+2025-10-29 11:13:34 - INFO - ------------------------------
+2025-10-29 11:13:34 - INFO - EVALUATE MODEL STAGE COMPLETED FOR SUBSET 11
+2025-10-29 11:13:34 - INFO - ------------------------------
+2025-10-29 11:13:34 - INFO - Model predictions saved to csv successfully.
+2025-10-29 11:13:34 - INFO - ------------------
+2025-10-29 11:13:34 - INFO - PIPELINE COMPLETED
+2025-10-29 11:13:34 - INFO - ------------------
+2025-10-29 11:13:34 - INFO - Embedded R ended.
+2025-10-29 11:13:34 - INFO - Embedded R already ended.

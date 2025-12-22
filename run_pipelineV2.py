@@ -189,8 +189,39 @@ def initialize_pipeline(selected_outcome, args):
     if 'is_hispanic' in processed_data.columns:
         processed_data = processed_data.drop('is_hispanic', axis=1)
 
+    # drop all other outcome columns so only the current one remains
+    processed_data = drop_other_outcomes(processed_data, selected_outcome)
+
     return processed_data
 
+
+def drop_other_outcomes(df: pd.DataFrame, selected_outcome: dict) -> pd.DataFrame:
+    """
+    Given a DataFrame and the selected_outcome config, drop all other
+    known outcome columns so that only the current outcome's columns remain.
+    """
+    # Collect all known outcome columns from AVAILABLE_OUTCOMES
+    all_outcome_cols = set()
+    for o in AVAILABLE_OUTCOMES:
+        for col in o['columnsToUse']:
+            all_outcome_cols.add(col)
+
+    # Keep only the outcome columns for this run
+    selected_cols = set(selected_outcome['columnsToUse'])
+
+    # All other outcome columns to drop
+    cols_to_drop = list(all_outcome_cols - selected_cols)
+
+    # Only drop if they actually exist in the df
+    cols_to_drop = [c for c in cols_to_drop if c in df.columns]
+
+    if cols_to_drop:
+        logging.info(
+            f"Dropping other outcome columns for this run: {cols_to_drop}"
+        )
+        df = df.drop(columns=cols_to_drop)
+
+    return df
 
 
 def run_pipeline(processed_data, seed, selected_outcome, args):
@@ -234,11 +265,14 @@ def run_pipeline(processed_data, seed, selected_outcome, args):
             heldout_df=processed_data_heldout,
             seed=seed,
             selected_outcome=selected_outcome,
-            base_directory=args.dir
+            base_directory=args.dir,
+            split_col=args.split,
+            majority_value=args.majority
         )
         print(f"\n[EXPERIMENT COMPLETED] Data-only run saved at:\n  {experiment_dir}\n")
         log_pipeline_completion()
         return
+
 
     # 5. FULL PIPELINE BRANCH: Train and evaluate the models (original behavior)
     results = train_and_evaluate_models(
@@ -422,7 +456,15 @@ def save_predictions_to_csv(data, seed, selected_outcome, directory, name):
         for id, trials_data in predictions.items():
             writer.writerow([id] + trials_data)
 
-def save_model_input_datasets(merged_subsets, heldout_df, seed, selected_outcome, base_directory):
+def save_model_input_datasets(
+    merged_subsets,
+    heldout_df,
+    seed,
+    selected_outcome,
+    base_directory,
+    split_col="RaceEth",
+    majority_value="1",
+):
     """
     Saves the datasets used for ML training (subsets + heldout) into
     a NEW experiment folder created for every run in data_only mode.
@@ -455,10 +497,27 @@ def save_model_input_datasets(merged_subsets, heldout_df, seed, selected_outcome
 
     # Save subsets (ladder 500/500 → 0/1000)
     for i, subset_df in enumerate(merged_subsets, start=1):
-        filename = f"subset_{i}.csv"
+        # Compute demographics
+        col_as_str = subset_df[split_col].astype(str)
+        n_total = len(subset_df)
+        n_majority = (col_as_str == str(majority_value)).sum()
+        n_minority = n_total - n_majority
+
+        # Build filename with demographic counts
+        filename = (
+            f"subset_{i}_"
+            f"{n_majority}MAJ_{n_minority}MIN.csv"
+        )
+
+        # Save with enhanced name
         path = os.path.join(subsets_dir, filename)
         subset_df.to_csv(path, index=False)
-        print(f"[DATA SAVED] Subset {i} → {path}")
+
+        print(
+            f"[DATA SAVED] {filename} → {path}  "
+            f"({n_majority} majority, {n_minority} minority)"
+        )
+
 
     # Save heldout
     heldout_path = os.path.join(heldout_dir, "heldout.csv")

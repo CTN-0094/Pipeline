@@ -1,0 +1,10 @@
+{
+    "timestamp": "2025-12-04_13-06-00",
+    "seed": 0,
+    "outcome": "ctn0094_relapse_event",
+    "columns_used": [
+        "ctn0094_relapse_event"
+    ],
+    "num_subsets": 11,
+    "heldout_size": 100
+}

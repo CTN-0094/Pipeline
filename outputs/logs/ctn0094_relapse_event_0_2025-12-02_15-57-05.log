@@ -1,0 +1,3 @@
+2025-12-02 15:57:05 - WARNING - ID column 'row_id' not found in processed data. Creating synthetic ID column for data_only mode.
+2025-12-02 15:57:05 - INFO - Embedded R ended.
+2025-12-02 15:57:05 - INFO - Embedded R already ended.
