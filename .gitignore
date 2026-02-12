@@ -26,10 +26,20 @@ venv_2/
 Md_Files/CLEANUP_AND_TESTING.md
 Md_Files/VALIDATION_TESTING_TODO.md
 
-# Data files (use DVC for versioning)
-data/*.csv
+# Data files - ignore generated/intermediate, keep essential
 data/*.zip
 data/ratio_sets/
+data/*_selections.csv
+data/merged_data.csv
+data/outcomesCTN0094.csv
+data/randomization_data.csv
+data/outcomes_merged_dataset.csv
+# Keep essential files (negation must come after ignore patterns)
+!data/master_data_clean.csv
+!data/outcomes_merged_dataset.csv
+!data/test_holdout.csv
+!data/train_pool_after_stratified_test_removal.csv
+!data/Mock_*.csv
 
 # Pipeline outputs
 outputs/
