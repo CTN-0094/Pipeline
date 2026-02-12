@@ -3,19 +3,13 @@ import os
 import random
 import numpy as np
 import pandas as pd
-import cProfile
-import pstats
 from datetime import datetime
 from src.constants import EndpointType
 import logging
-import io
-import src.profiling as pf
 from src.silent_logging import add_silent_handler
-from src.logging_setup import setup_logging  # Import the logging setup from logging_setup.py
+from src.logging_setup import setup_logging
 import argparse
-import re
 import csv
-from datetime import datetime
 
 
 
@@ -23,13 +17,10 @@ from datetime import datetime
 sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
 
 # Import necessary functions from the 'src' directory
-from utils import log_pipeline_completion, get_outcome_choice
-from data_loading import load_datasets
+from utils import log_pipeline_completion
 from data_preprocessing import preprocess_merged_data
 from create_demodf_knn import create_subsets, holdOutTestData, propensityScoreMatch
 from model_training import train_and_evaluate_models
-from logScraper import scrape_log_to_csv  # Import the log scraper function
-from enum import Enum
 from src.validate import validate_dataset_for_model
 
 
