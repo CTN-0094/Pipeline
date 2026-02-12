@@ -21,3 +21,28 @@ __pycache__/
 Thumbs.db
 test_venv/
 venv_2/
+
+# Ignore TODO/internal markdown files
+Md_Files/CLEANUP_AND_TESTING.md
+Md_Files/VALIDATION_TESTING_TODO.md
+
+# Data files (use DVC for versioning)
+data/*.csv
+data/*.zip
+data/ratio_sets/
+
+# Pipeline outputs
+outputs/
+logs/
+src/logs/
+src/logOutput/
+subset_predictions/
+heldout_predictions/
+subset_evaluations/
+heldout_evaluations/
+predictions/
+Predictions/
+evaluations/
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
