@@ -56,3 +56,19 @@ evaluations/
 
 # Jupyter notebook checkpoints
 .ipynb_checkpoints/
+
+# Build artifacts
+build/
+*.egg-info/
+dist/
+
+# Virtualenv artifacts
+pyvenv.cfg
+share/
+
+# Test/profiling outputs
+.pytest_cache/
+Profiling_Logs/
+
+# Experiment outputs
+experiments/
