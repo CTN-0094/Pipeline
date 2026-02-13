@@ -13,5 +13,5 @@ Getting Started
 This notebook can be run interactively in Google Colab:
 
 .. image:: https://colab.research.google.com/assets/colab-badge.svg
-   :target: https://colab.research.google.com/github/CTN-0094/Pipeline/blob/main/notebooks/Example.ipynb
+   :target: https://colab.research.google.com/drive/1Agj-EXE9WhLjMulA1mIVzW4YWNN7fiqX
    :alt: Open In Colab
