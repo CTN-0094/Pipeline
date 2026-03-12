@@ -6,6 +6,7 @@ import pandas as pd
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from src.validate import validate_dataset_for_model
+from src.constants import EndpointType
 
 
 
@@ -64,3 +65,19 @@ def test_unsupported_model_type():
     df = pd.DataFrame({'outcome': [0, 1, 1]})
     with pytest.raises(ValueError, match="Unsupported model type 'unsupported'"):
         validate_dataset_for_model(df, "unsupported", "outcome")
+
+def test_accepts_endpoint_type_enum_directly():
+    """EndpointType enum can be passed instead of a string."""
+    df = pd.DataFrame({'outcome': [0, 1, 1, 0]})
+    validate_dataset_for_model(df, EndpointType.LOGICAL, "outcome")  # should not raise
+
+def test_empty_dataframe_does_not_raise():
+    """An empty DataFrame with the correct column passes validation."""
+    df = pd.DataFrame({'outcome': pd.Series([], dtype=int)})
+    validate_dataset_for_model(df, "logical", "outcome")  # no rows, but column exists
+
+def test_survival_no_time_col_argument_raises():
+    """Survival validation raises when time_col is not provided at all."""
+    df = pd.DataFrame({'event': [0, 1, 1], 'time': [1.0, 2.0, 3.0]})
+    with pytest.raises(ValueError):
+        validate_dataset_for_model(df, "survival", "event")  # time_col defaults to None
