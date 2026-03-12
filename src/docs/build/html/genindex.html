@@ -6,16 +6,16 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Index &mdash; DAB Pipeline 0.0.1 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5349f25f" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b20cc3f5" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="_static/custom.css?v=551bf383" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="_static/documentation_options.js?v=d45e8c67"></script>
-      <script src="_static/doctools.js?v=9bcbadda"></script>
-      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" /> 
@@ -95,6 +95,7 @@
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
+ | <a href="#V"><strong>V</strong></a>
  
 </div>
 <h2 id="_">_</h2>
@@ -141,15 +142,7 @@
       <ul>
         <li><a href="python_files.html#argument_handler">argument_handler()</a>
 </li>
-        <li><a href="python_files.html#calculate_behavioral_columns">calculate_behavioral_columns()</a>
-</li>
-        <li><a href="python_files.html#convert_uds_to_binary">convert_uds_to_binary()</a>
-</li>
-        <li><a href="python_files.html#convert_yes_no_to_binary">convert_yes_no_to_binary()</a>
-</li>
         <li><a href="python_files.html#create_subsets">create_subsets()</a>
-</li>
-        <li><a href="python_files.html#fill_nan_with_zero">fill_nan_with_zero()</a>
 </li>
         <li><a href="python_files.html#holdOutTestData">holdOutTestData()</a>
 </li>
@@ -157,19 +150,13 @@
 </li>
         <li><a href="python_files.html#main">main()</a>
 </li>
-        <li><a href="python_files.html#move_column_to_end">move_column_to_end()</a>
-</li>
         <li><a href="python_files.html#preprocess_data">preprocess_data()</a>
-</li>
-        <li><a href="python_files.html#process_tlfb_columns">process_tlfb_columns()</a>
 </li>
         <li><a href="python_files.html#propensityScoreMatch">propensityScoreMatch()</a>
 </li>
         <li><a href="python_files.html#PropensityScoreMatchPsmPy">PropensityScoreMatchPsmPy()</a>
 </li>
         <li><a href="python_files.html#PropensityScoreMatchRMatchit">PropensityScoreMatchRMatchit()</a>
-</li>
-        <li><a href="python_files.html#rename_columns">rename_columns()</a>
 </li>
         <li><a href="python_files.html#run_pipeline">run_pipeline()</a>
 </li>
@@ -179,11 +166,7 @@
 </li>
         <li><a href="python_files.html#train_and_evaluate_models">train_and_evaluate_models()</a>
 </li>
-        <li><a href="python_files.html#transform_and_rename_column">transform_and_rename_column()</a>
-</li>
-        <li><a href="python_files.html#transform_data_with_nan_handling">transform_data_with_nan_handling()</a>
-</li>
-        <li><a href="python_files.html#transform_nan_to_zero_for_binary_columns">transform_nan_to_zero_for_binary_columns()</a>
+        <li><a href="python_files.html#validate_dataset_for_model">validate_dataset_for_model()</a>
 </li>
       </ul></li>
   </ul></td>
@@ -192,29 +175,14 @@
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    calculate_behavioral_columns()
-
-      <ul>
-        <li><a href="python_files.html#calculate_behavioral_columns">built-in function</a>
+      <li><a href="python_files.html#DataPreprocessor.calculate_behavioral_columns">calculate_behavioral_columns() (DataPreprocessor method)</a>
 </li>
-      </ul></li>
-      <li>
-    convert_uds_to_binary()
-
-      <ul>
-        <li><a href="python_files.html#convert_uds_to_binary">built-in function</a>
+      <li><a href="python_files.html#DataPreprocessor.convert_uds_to_binary">convert_uds_to_binary() (DataPreprocessor method)</a>
 </li>
-      </ul></li>
+      <li><a href="python_files.html#DataPreprocessor.convert_yes_no_to_binary">convert_yes_no_to_binary() (DataPreprocessor method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    convert_yes_no_to_binary()
-
-      <ul>
-        <li><a href="python_files.html#convert_yes_no_to_binary">built-in function</a>
-</li>
-      </ul></li>
       <li><a href="python_files.html#CoxProportionalHazard">CoxProportionalHazard (built-in class)</a>
 </li>
       <li>
@@ -242,6 +210,8 @@
 <h2 id="E">E</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="python_files.html#EndpointType">EndpointType (built-in class)</a>
+</li>
       <li><a href="python_files.html#LogisticModel.evaluate">evaluate() (LogisticModel method)</a>
 
       <ul>
@@ -260,15 +230,10 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="python_files.html#LogisticModel.feature_selection_and_model_fitting">feature_selection_and_model_fitting() (LogisticModel method)</a>
 </li>
-      <li>
-    fill_nan_with_zero()
-
-      <ul>
-        <li><a href="python_files.html#fill_nan_with_zero">built-in function</a>
-</li>
-      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="python_files.html#DataPreprocessor.fill_nan_with_zero">fill_nan_with_zero() (DataPreprocessor method)</a>
+</li>
       <li><a href="python_files.html#LogisticModel.find_best_threshold">find_best_threshold() (LogisticModel method)</a>
 </li>
   </ul></td>
@@ -298,10 +263,18 @@
 </li>
       </ul></li>
   </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="python_files.html#EndpointType.INTEGER">INTEGER (EndpointType attribute)</a>
+</li>
+  </ul></td>
 </tr></table>
 
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="python_files.html#EndpointType.LOGICAL">LOGICAL (EndpointType attribute)</a>
+</li>
+  </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="python_files.html#LogisticModel">LogisticModel (built-in class)</a>
 </li>
@@ -320,13 +293,8 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    move_column_to_end()
-
-      <ul>
-        <li><a href="python_files.html#move_column_to_end">built-in function</a>
+      <li><a href="python_files.html#DataPreprocessor.move_column_to_end">move_column_to_end() (DataPreprocessor method)</a>
 </li>
-      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -364,13 +332,8 @@
         <li><a href="python_files.html#preprocess_data">built-in function</a>
 </li>
       </ul></li>
-      <li>
-    process_tlfb_columns()
-
-      <ul>
-        <li><a href="python_files.html#process_tlfb_columns">built-in function</a>
+      <li><a href="python_files.html#DataPreprocessor.process_tlfb_columns">process_tlfb_columns() (DataPreprocessor method)</a>
 </li>
-      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li>
@@ -400,13 +363,8 @@
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    rename_columns()
-
-      <ul>
-        <li><a href="python_files.html#rename_columns">built-in function</a>
+      <li><a href="python_files.html#DataPreprocessor.rename_columns">rename_columns() (DataPreprocessor method)</a>
 </li>
-      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li>
@@ -444,6 +402,8 @@
         <li><a href="python_files.html#CoxProportionalHazard.selectFeatures">(CoxProportionalHazard method)</a>
 </li>
       </ul></li>
+      <li><a href="python_files.html#EndpointType.SURVIVAL">SURVIVAL (EndpointType attribute)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -462,6 +422,8 @@
         <li><a href="python_files.html#OutcomeModel.train">(OutcomeModel method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     train_and_evaluate_models()
 
@@ -469,27 +431,23 @@
         <li><a href="python_files.html#train_and_evaluate_models">built-in function</a>
 </li>
       </ul></li>
+      <li><a href="python_files.html#DataPreprocessor.transform_and_rename_column">transform_and_rename_column() (DataPreprocessor method)</a>
+</li>
+      <li><a href="python_files.html#DataPreprocessor.transform_data_with_nan_handling">transform_data_with_nan_handling() (DataPreprocessor method)</a>
+</li>
+      <li><a href="python_files.html#DataPreprocessor.transform_nan_to_zero_for_binary_columns">transform_nan_to_zero_for_binary_columns() (DataPreprocessor method)</a>
+</li>
   </ul></td>
+</tr></table>
+
+<h2 id="V">V</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li>
-    transform_and_rename_column()
+    validate_dataset_for_model()
 
       <ul>
-        <li><a href="python_files.html#transform_and_rename_column">built-in function</a>
-</li>
-      </ul></li>
-      <li>
-    transform_data_with_nan_handling()
-
-      <ul>
-        <li><a href="python_files.html#transform_data_with_nan_handling">built-in function</a>
-</li>
-      </ul></li>
-      <li>
-    transform_nan_to_zero_for_binary_columns()
-
-      <ul>
-        <li><a href="python_files.html#transform_nan_to_zero_for_binary_columns">built-in function</a>
+        <li><a href="python_files.html#validate_dataset_for_model">built-in function</a>
 </li>
       </ul></li>
   </ul></td>
@@ -504,7 +462,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2025, Ganesh Jainarain, Aaron Marker.</p>
+    <p>&#169; Copyright 2026, Ganesh Jainarain, Aaron Marker.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

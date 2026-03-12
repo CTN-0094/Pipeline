@@ -1,9 +1,6 @@
 Python Modules
 ==================
 
------
-
-
 train_model.py
 ---------------
 
@@ -153,38 +150,61 @@ create_demodf_knn.py
 
 This module provides tools for creating balanced demographic datasets using propensity score matching and data splitting techniques. It supports both Python-based (PsmPy) and R-based (MatchIt) methods for matching.
 
-.. py:function:: holdOutTestData(df, testCount=100, seed=42)
+.. py:function:: holdOutTestData(df, id_column, testCount=100, columnToSplit='RaceEth', majorityValue=1, percentMajority=58, seed=42)
 
-   Hold out test data by sampling a fixed number of majority and minority cases.
+   Hold out a fixed, demographically stratified test set from the full dataset.
 
    :param df: Full dataset.
    :type df: pandas.DataFrame
-   :param testCount: Total number of test samples.
+   :param id_column: Name of the unique identifier column.
+   :type id_column: str
+   :param testCount: Total number of holdout samples. Default 100.
    :type testCount: int
-   :param seed: Random seed.
+   :param columnToSplit: Column used to define majority/minority groups. Default ``'RaceEth'``.
+   :type columnToSplit: str
+   :param majorityValue: Value in ``columnToSplit`` that identifies the majority group. Default ``1``.
+   :type majorityValue: int
+   :param percentMajority: Percentage of holdout that should be majority group (0–100). Default ``58``.
+   :type percentMajority: int
+   :param seed: Random seed for reproducibility. Default ``42``.
    :type seed: int
-   :return: Combined test set with both majority and minority samples.
-   :rtype: pandas.DataFrame
+   :return: Tuple of (train_df, holdout_df).
+   :rtype: Tuple[pandas.DataFrame, pandas.DataFrame]
 
-.. py:function:: propensityScoreMatch(df)
+.. py:function:: propensityScoreMatch(df, idColumn, columnToSplit='RaceEth', majorityValue=1, columnsToMatch=['age', 'is_female'], sampleSize=500)
 
-   Perform a simple train/test split for race-ethnicity classification.
+   Perform propensity score matching to create demographically balanced paired subsets.
 
    :param df: Full dataset.
    :type df: pandas.DataFrame
-   :return: Tuple of train and test sets.
-   :rtype: Tuple[pandas.DataFrame, pandas.DataFrame]
+   :param idColumn: Name of the unique identifier column.
+   :type idColumn: str
+   :param columnToSplit: Column used to define majority/minority groups.
+   :type columnToSplit: str
+   :param majorityValue: Value identifying the majority group.
+   :type majorityValue: int
+   :param columnsToMatch: Covariates used for matching.
+   :type columnsToMatch: list of str
+   :param sampleSize: Number of treated samples to match against.
+   :type sampleSize: int
+   :return: List of matched DataFrames (treated, control_0, control_1).
+   :rtype: list of pandas.DataFrame
 
-.. py:function:: create_subsets(df, demographic_col="RaceEth")
+.. py:function:: create_subsets(dfs, splits=11, sampleSize=500)
 
-   Split dataset into majority and minority subsets based on a demographic column.
+   Create a sequence of training subsets at incrementally varying majority/minority ratios.
 
-   :param df: Full dataset.
-   :type df: pandas.DataFrame
-   :param demographic_col: Column used for splitting groups.
-   :type demographic_col: str
-   :return: Tuple of (majority_df, minority_df)
-   :rtype: Tuple[pandas.DataFrame, pandas.DataFrame]
+   Each subset shifts the proportion of treated (minority) vs matched control (majority) samples
+   across ``splits`` steps, enabling evaluation of model performance across demographic compositions.
+
+   :param dfs: List of three DataFrames — [treated, control_0, control_1].
+   :type dfs: list of pandas.DataFrame
+   :param splits: Number of ratio steps to generate. Default ``11``.
+   :type splits: int
+   :param sampleSize: Total sample size per subset. Default ``500``.
+   :type sampleSize: int
+   :return: List of DataFrames, one per demographic ratio split.
+   :rtype: list of pandas.DataFrame
 
 .. py:function:: PropensityScoreMatchPsmPy(df)
 
@@ -223,92 +243,79 @@ DataPreprocessor
 
    .. py:method:: drop_columns_and_return(columns_to_drop)
 
-      Drops specified columns from the DataFrame and returns the modified DataFrame. 
-      Logs both successful drops and invalid column names.
+      Drop specified columns from the DataFrame in place. Silently skips any
+      column names that are not present.
 
       :param columns_to_drop: List of column names to drop.
       :type columns_to_drop: list of str
-      :return: Modified DataFrame.
-      :rtype: pandas.DataFrame
 
+   .. py:method:: convert_yes_no_to_binary()
 
-.. py:function:: convert_yes_no_to_binary(df, columns)
+      Convert all columns whose values are exclusively ``'Yes'``/``'No'`` (and NaN)
+      to binary ``1``/``0``. Other columns are left untouched.
 
-   Convert 'Yes'/'No' categorical values to 1/0 binary in specified columns.
+   .. py:method:: process_tlfb_columns(specified_tlfb_columns)
 
-   :param df: Input DataFrame.
-   :param columns: List of column names to convert.
-   :return: Updated DataFrame.
+      Aggregate all TLFB columns not in ``specified_tlfb_columns`` into a new
+      ``TLFB_Other`` column, then drop those unspecified columns.
 
-.. py:function:: process_tlfb_columns(df)
+      :param specified_tlfb_columns: TLFB columns to retain individually.
+      :type specified_tlfb_columns: list of str
 
-   Normalize TLFB (Timeline Follow-Back) columns using binary encoding.
+   .. py:method:: calculate_behavioral_columns()
 
-   :param df: Input DataFrame.
-   :return: Updated DataFrame.
+      Derive ``Homosexual_Behavior`` (based on ``msm_npt`` and ``Sex``) and
+      ``Non_monogamous_Relationships`` (based on ``txx_prt``) and append them
+      to the DataFrame.
 
-.. py:function:: calculate_behavioral_columns(df)
+   .. py:method:: move_column_to_end(column_names)
 
-   Generate and normalize behavioral columns like opioid use frequency.
+      Reorder the DataFrame so the specified columns appear last. Ignores any
+      column names not present in the DataFrame.
 
-   :param df: Input DataFrame.
-   :return: Updated DataFrame.
+      :param column_names: Column(s) to move to the end.
+      :type column_names: list of str
 
-.. py:function:: move_column_to_end(df, column_name)
+   .. py:method:: rename_columns()
 
-   Move the specified column to the end of the DataFrame.
+      Apply the hardcoded rename mapping in place:
+      ``Sex`` → ``is_female``, ``job`` → ``unemployed``,
+      ``is_living_stable`` → ``unstableliving``.
 
-   :param df: Input DataFrame.
-   :param column_name: Name of the column to move.
-   :return: Updated DataFrame.
+   .. py:method:: transform_nan_to_zero_for_binary_columns()
 
-.. py:function:: rename_columns(df, rename_dict)
+      For every column that contains NaN values and has unique non-NaN values
+      of exactly ``[0, 1]``, fill NaN with ``0``.
 
-   Rename columns in the DataFrame using a provided mapping.
+   .. py:method:: transform_and_rename_column(original_column_name, new_column_name)
 
-   :param df: Input DataFrame.
-   :param rename_dict: Dictionary of old-to-new column names.
-   :return: Updated DataFrame.
+      Convert a column to binary (``1`` where non-null, ``0`` where null) and
+      rename it in place, preserving its position.
 
-.. py:function:: transform_nan_to_zero_for_binary_columns(df, columns)
+      :param original_column_name: Name of the column to transform.
+      :type original_column_name: str
+      :param new_column_name: Replacement column name.
+      :type new_column_name: str
 
-   Replace NaN values with 0 in binary columns.
+   .. py:method:: fill_nan_with_zero(column_name)
 
-   :param df: Input DataFrame.
-   :param columns: List of column names.
-   :return: Updated DataFrame.
+      Fill NaN values in the specified column with ``0``. If the column does
+      not exist the call is a no-op.
 
-.. py:function:: transform_and_rename_column(df, original_col, new_col)
+      :param column_name: Name of the column to fill.
+      :type column_name: str
 
-   Rename a column and fill missing values with 0.
+   .. py:method:: transform_data_with_nan_handling()
 
-   :param df: Input DataFrame.
-   :param original_col: Original column name.
-   :param new_col: New column name.
-   :return: Updated DataFrame.
+      Apply categorical-to-numeric mappings for ``Sex``, ``education``,
+      ``marital``, ``job``, ``is_living_stable``, ``race``, ``XTRT``,
+      ``RaceEth``, and ``pain``. Columns absent from the DataFrame are
+      skipped without error.
 
-.. py:function:: fill_nan_with_zero(df, columns)
+   .. py:method:: convert_uds_to_binary()
 
-   Fill NaNs with 0 for specified columns.
-
-   :param df: Input DataFrame.
-   :param columns: List of column names.
-   :return: Updated DataFrame.
-
-.. py:function:: transform_data_with_nan_handling(df, columns)
-
-   Replace NaNs with 0 and standardize column values to 1.
-
-   :param df: Input DataFrame.
-   :param columns: List of column names.
-   :return: Updated DataFrame.
-
-.. py:function:: convert_uds_to_binary(df)
-
-   Convert Urine Drug Screen (UDS) result columns from text to binary values.
-
-   :param df: Input DataFrame.
-   :return: Updated DataFrame.
+      Convert all ``UDS``-prefixed columns to binary: values ``> 0`` become
+      ``1``, values ``== 0`` stay ``0``.
 
 
 -------
@@ -460,4 +467,66 @@ Or run all outcomes with profiling off:
 .. code-block:: bash
 
    python run_pipelineV2.py
+
+
+--------
+
+validate.py
+-----------
+
+This module validates a dataset before passing it to a model, checking that required
+columns exist, data types are correct, and outcome values match the expected format for
+the chosen model type.
+
+.. py:function:: validate_dataset_for_model(df, model_type, outcome_col, time_col=None)
+
+   Validate a dataset against the requirements of the specified model type.
+
+   Accepts either a string or an ``EndpointType`` enum value for ``model_type``.
+   Raises ``ValueError`` with a descriptive message if any check fails.
+
+   :param df: The dataset to validate.
+   :type df: pandas.DataFrame
+   :param model_type: Model type — one of ``'logical'``, ``'integer'``, ``'survival'``,
+      or the corresponding ``EndpointType`` enum member.
+   :type model_type: str or EndpointType
+   :param outcome_col: Name of the outcome column to validate.
+   :type outcome_col: str
+   :param time_col: Name of the time column. Required for survival models. Default ``None``.
+   :type time_col: str, optional
+   :raises ValueError: If the outcome column is missing, values are of the wrong type,
+      or required survival columns are absent or non-numeric.
+
+   **Validation rules by model type:**
+
+   - ``logical`` — outcome must contain only ``0`` and ``1``.
+   - ``integer`` — outcome must have an integer dtype.
+   - ``survival`` — requires a numeric ``time_col`` and a binary event column.
+
+--------
+
+constants.py
+------------
+
+This module defines the ``EndpointType`` enum used throughout the pipeline to identify
+which type of statistical model should be applied to a given outcome.
+
+.. py:class:: EndpointType
+
+   Enum of supported outcome/model types.
+
+   .. py:attribute:: LOGICAL
+      :value: 'logical'
+
+      Binary outcome (0/1). Use with ``LogisticModel``.
+
+   .. py:attribute:: INTEGER
+      :value: 'integer'
+
+      Count-based outcome. Use with ``NegativeBinomialModel``.
+
+   .. py:attribute:: SURVIVAL
+      :value: 'survival'
+
+      Time-to-event outcome. Use with ``CoxProportionalHazard``.
 

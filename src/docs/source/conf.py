@@ -7,7 +7,7 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'DAB Pipeline'
-copyright = '2025, Ganesh Jainarain, Aaron Marker'
+copyright = '2026, Ganesh Jainarain, Aaron Marker'
 author = 'Ganesh Jainarain, Aaron Marker'
 release = '0.0.1'
 
