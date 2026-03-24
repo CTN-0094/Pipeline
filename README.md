@@ -10,7 +10,7 @@
 &nbsp;
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/CTN-0094/Pipeline/blob/main/LICENSE)
 &nbsp;
-[![NIH AIM-AHEAD](https://img.shields.io/badge/NIH-AIM--AHEAD-green)](https://www.nih.gov/)
+[![NIH AIM-AHEAD](https://img.shields.io/badge/NIH-AIM--AHEAD-green)](https://ctnlibrary.org/protocol/ctn0094/)
 
 </div>
 
