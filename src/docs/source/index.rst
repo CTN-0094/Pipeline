@@ -30,8 +30,8 @@ Click here to visit the public repository:
    :hidden:
 
    main_page
-
-   quickstart 
+   tutorial
+   quickstart
    readme
    data
    python_files
