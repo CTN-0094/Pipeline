@@ -34,28 +34,49 @@ body,
 
 /* ── Colab-style notebook cells ── */
 
-/* Input cells: dark left border + subtle background */
+/* Input cells: black background, light text */
 .rst-content .highlight {
     border-left: 4px solid #4285f4;
     border-radius: 0 6px 6px 0;
-    background: #f8f9fa !important;
+    background: #1e1e1e !important;
     margin-bottom: 4px !important;
     padding: 2px 0;
 }
 
-/* Output cells: lighter border, cream background */
+.rst-content .highlight pre {
+    background: #1e1e1e !important;
+    color: #d4d4d4 !important;
+    border-radius: 0 4px 4px 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    padding: 12px 16px;
+}
+
+/* Ensure all token text inside code blocks is readable */
+.rst-content .highlight pre * {
+    color: inherit;
+}
+
+/* Output cells: dark gray background, off-white text */
 .rst-content .cell-output.highlight {
-    border-left: 4px solid #9e9e9e;
-    background: #fffde7 !important;
+    border-left: 4px solid #9e9e9e !important;
+    background: #2d2d2d !important;
     margin-top: 0 !important;
     margin-bottom: 16px !important;
 }
 
-/* Give each highlight block a slight shadow for the "card" feel */
-.rst-content .highlight pre {
-    border-radius: 0 4px 4px 0;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-    padding: 12px 16px;
+.rst-content .cell-output.highlight pre {
+    background: #2d2d2d !important;
+    color: #cccccc !important;
+    box-shadow: none;
+}
+
+/* Inline code */
+.rst-content code.literal {
+    background: #2d2d2d;
+    color: #d4d4d4;
+    border: 1px solid #444;
+    border-radius: 3px;
+    padding: 1px 5px;
 }
 
 /* Section dividers on the tutorial page */
