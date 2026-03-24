@@ -7,6 +7,10 @@
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1Agj-EXE9WhLjMulA1mIVzW4YWNN7fiqX)
 &nbsp;
 [![DAB Website](https://img.shields.io/badge/DAB-Website-blue)](https://ctn-0094.github.io/Pipeline/)
+&nbsp;
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/CTN-0094/Pipeline/blob/main/LICENSE)
+&nbsp;
+[![NIH AIM-AHEAD](https://img.shields.io/badge/NIH-AIM--AHEAD-green)](https://www.nih.gov/)
 
 </div>
 

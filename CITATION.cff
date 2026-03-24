@@ -1,0 +1,62 @@
+cff-version: 1.2.0
+title: "CTN-0094 DAB Pipeline: Detecting Algorithmic Bias in Opioid Use Disorder Treatment Outcomes"
+message: "If you use this software, please cite it using the metadata below."
+type: software
+version: 0.0.1
+date-released: "2024-01-01"
+license: MIT
+url: "https://ctn-0094.github.io/Pipeline/"
+repository-code: "https://github.com/CTN-0094/Pipeline"
+
+authors:
+  - family-names: Jainarain
+    given-names: Ganesh
+    affiliation: "City College of New York"
+  - family-names: Marker
+    given-names: Aaron
+  - family-names: Odom
+    given-names: Gabriel
+    affiliation: "Florida International University"
+  - family-names: Brandt
+    given-names: Laura
+    affiliation: "City College of New York"
+
+abstract: >
+  A modular, scalable data pipeline for statistical modeling and machine learning
+  on the CTN-0094 clinical trials database. The pipeline supports propensity score
+  matching, Lasso-based feature selection, and multiple endpoint-specific models
+  (logistic regression, negative binomial, Cox proportional hazard) to evaluate
+  algorithmic bias and fairness in predicting opioid use disorder treatment outcomes
+  across demographic groups.
+
+keywords:
+  - opioid use disorder
+  - algorithmic bias
+  - fairness
+  - clinical trials
+  - propensity score matching
+  - machine learning
+  - CTN-0094
+
+funding:
+  - name: "National Institutes of Health AIM-AHEAD"
+    award: "1OT2OD032581-02-267"
+    funder:
+      name: "National Institutes of Health"
+
+references:
+  - type: article
+    title: "Individual-Level Risk Prediction of Return to Use During Opioid Use Disorder Treatment"
+    authors:
+      - family-names: Luo
+        given-names: S.X.
+      - family-names: Feaster
+        given-names: D.J.
+      - family-names: Liu
+        given-names: Y.
+    journal: "JAMA Psychiatry"
+    volume: 81
+    issue: 1
+    pages: "45-56"
+    year: 2024
+    doi: "10.1001/jamapsychiatry.2023.3596"
