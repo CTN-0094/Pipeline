@@ -1,0 +1,446 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Using the Pipeline: A Step-by-Step Walkthrough &mdash; DAB Pipeline 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b20cc3f5" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=e89214c3" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=d45e8c67"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Getting Started with the CTN-0094 Pipeline (Beginner Tutorial)" href="quickstart.html" />
+    <link rel="prev" title="The Detecting Algorithmic Bias (DAB) Pipeline" href="main_page.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            DAB Pipeline
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="main_page.html">The Detecting Algorithmic Bias (DAB) Pipeline</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Using the Pipeline: A Step-by-Step Walkthrough</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-the-pipeline">Running the Pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#customising-the-cohort">Customising the Cohort</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-a-custom-outcome">Using a Custom Outcome</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#viewing-the-results">Viewing the Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#interpreting-results">Interpreting Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#available-outcomes-reference">Available Outcomes Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Getting Started with the CTN-0094 Pipeline (Beginner Tutorial)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html#getting-started">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="readme.html">README</a></li>
+<li class="toctree-l1"><a class="reference internal" href="readme.html#references">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">Data Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_files.html">Python Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_files.html#run-pipelinev2-py">run_pipelineV2.py</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DAB Pipeline</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Using the Pipeline: A Step-by-Step Walkthrough</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/tutorial.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="using-the-pipeline-a-step-by-step-walkthrough">
+<h1>Using the Pipeline: A Step-by-Step Walkthrough<a class="headerlink" href="#using-the-pipeline-a-step-by-step-walkthrough" title="Link to this heading"></a></h1>
+<p>This page walks through a full end-to-end run of the CTN-0094 Pipeline — from setup to interpreting results — in a Colab notebook style.
+You can follow along locally or click the badge below to run it live in Google Colab.</p>
+<a class="reference external image-reference" href="https://colab.research.google.com/drive/1Agj-EXE9WhLjMulA1mIVzW4YWNN7fiqX"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" />
+</a>
+<hr class="docutils" />
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading"></a></h2>
+<p><strong>Cell 1 — Clone the repository</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">&quot;/content/Pipeline&quot;</span><span class="p">):</span>
+    <span class="err">!</span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">CTN</span><span class="o">-</span><span class="mi">0094</span><span class="o">/</span><span class="n">Pipeline</span><span class="o">.</span><span class="n">git</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s2">&quot;/content/Pipeline&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="cell-output highlight-none notranslate"><div class="highlight"><pre><span></span> Cloning into &#39;Pipeline&#39;...
+ remote: Enumerating objects: 412, done.
+ remote: Counting objects: 100% (412/412), done.
+ Resolving deltas: 100% (231/231), done.
+</pre></div>
+</div>
+<hr class="docutils" />
+<p><strong>Cell 2 — Install dependencies</strong></p>
+<p>This installs all Python packages required by the pipeline.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span> <span class="o">-</span><span class="n">q</span>
+</pre></div>
+</div>
+<div class="cell-output highlight-none notranslate"><div class="highlight"><pre><span></span> Successfully installed lifelines-0.29.0 psmpy-0.3.13 statsmodels-0.14.1 ...
+</pre></div>
+</div>
+<hr class="docutils" />
+<p><strong>Cell 3 — Verify the install</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="err">!</span><span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="s2">&quot;from src.train_model import LogisticModel; print(&#39;Import OK&#39;)&quot;</span>
+</pre></div>
+</div>
+<div class="cell-output highlight-none notranslate"><div class="highlight"><pre><span></span> Import OK
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="running-the-pipeline">
+<h2>Running the Pipeline<a class="headerlink" href="#running-the-pipeline" title="Link to this heading"></a></h2>
+<p><strong>Cell 4 — Run with a single outcome</strong></p>
+<p>The minimum required argument is <code class="docutils literal notranslate"><span class="pre">--data</span></code>, pointing to your cleaned CSV file, and <code class="docutils literal notranslate"><span class="pre">--outcome</span></code> specifying which endpoint to model.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="err">!</span><span class="n">python</span> <span class="n">run_pipelineV2</span><span class="o">.</span><span class="n">py</span> \
+    <span class="o">--</span><span class="n">data</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">my_data</span><span class="o">.</span><span class="n">csv</span> \
+    <span class="o">--</span><span class="n">outcome</span> <span class="n">ctn0094_relapse_event</span> \
+    <span class="o">-</span><span class="n">d</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">results</span>
+</pre></div>
+</div>
+<div class="cell-output highlight-none notranslate"><div class="highlight"><pre><span></span> Processing subset 1 ____________________________________________________________
+ Lasso feature selection completed. Selected 8 out of 24 features.
+ Features are:  [&#39;age&#39;, &#39;is_female&#39;, &#39;RaceEth&#39;, &#39;UDS_Opioid_Count&#39;, ...]
+
+ Processing subset 2 ____________________________________________________________
+ Lasso feature selection completed. Selected 6 out of 24 features.
+ ...
+ ________________________________________________________________________
+
+ Elapsed time: 12.43 seconds
+</pre></div>
+</div>
+<hr class="docutils" />
+<p><strong>Cell 5 — Run across multiple seeds</strong></p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">-l</span> <span class="pre">&lt;min&gt;</span> <span class="pre">&lt;max&gt;</span></code> to loop through a range of random seeds. Each seed produces a different PSM cohort, letting you measure stability across sampling variation.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="err">!</span><span class="n">python</span> <span class="n">run_pipelineV2</span><span class="o">.</span><span class="n">py</span> \
+    <span class="o">--</span><span class="n">data</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">my_data</span><span class="o">.</span><span class="n">csv</span> \
+    <span class="o">--</span><span class="n">outcome</span> <span class="n">ctn0094_relapse_event</span> \
+    <span class="o">-</span><span class="n">l</span> <span class="mi">1</span> <span class="mi">10</span> \
+    <span class="o">-</span><span class="n">d</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">results</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This will run the full pipeline 9 times (seeds 1 through 9) and save a separate results folder for each seed under <code class="docutils literal notranslate"><span class="pre">/content/results</span></code>.</p>
+</div>
+<hr class="docutils" />
+<p><strong>Cell 6 — Run multiple outcomes at once</strong></p>
+<p>Combine <code class="docutils literal notranslate"><span class="pre">-l</span></code> and <code class="docutils literal notranslate"><span class="pre">-o</span></code> to sweep over several outcomes and several seeds in one call.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="err">!</span><span class="n">python</span> <span class="n">run_pipelineV2</span><span class="o">.</span><span class="n">py</span> \
+    <span class="o">--</span><span class="n">data</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">my_data</span><span class="o">.</span><span class="n">csv</span> \
+    <span class="o">-</span><span class="n">l</span> <span class="mi">0</span> <span class="mi">5</span> \
+    <span class="o">-</span><span class="n">o</span> <span class="n">ctn0094_relapse_event</span> <span class="n">Ab_ling_1998</span> <span class="n">Rs_johnson_1992</span> \
+    <span class="o">-</span><span class="n">d</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">results</span>
+</pre></div>
+</div>
+<div class="cell-output highlight-none notranslate"><div class="highlight"><pre><span></span> Running outcome: ctn0094_relapse_event | seed 0
+ Running outcome: ctn0094_relapse_event | seed 1
+ ...
+ Running outcome: Rs_johnson_1992 | seed 4
+</pre></div>
+</div>
+<hr class="docutils" />
+<p><strong>Cell 7 — Preprocess and match only (no model training)</strong></p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">--data_only</span></code> to stop after propensity score matching and save the ML-ready datasets without training any models. Useful for inspecting cohort balance before committing to a full run.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="err">!</span><span class="n">python</span> <span class="n">run_pipelineV2</span><span class="o">.</span><span class="n">py</span> \
+    <span class="o">--</span><span class="n">data</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">my_data</span><span class="o">.</span><span class="n">csv</span> \
+    <span class="o">--</span><span class="n">outcome</span> <span class="n">ctn0094_relapse_event</span> \
+    <span class="o">--</span><span class="n">data_only</span> \
+    <span class="o">-</span><span class="n">d</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">psm_output</span>
+</pre></div>
+</div>
+<div class="cell-output highlight-none notranslate"><div class="highlight"><pre><span></span> Preprocessing complete. PSM subsets saved to /content/psm_output/
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="customising-the-cohort">
+<h2>Customising the Cohort<a class="headerlink" href="#customising-the-cohort" title="Link to this heading"></a></h2>
+<p><strong>Cell 8 — Change cohort size and held-out composition</strong></p>
+<p>The pipeline defaults to groups of 500 matched participants and a held-out set of 100 (58% majority). You can override both.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="err">!</span><span class="n">python</span> <span class="n">run_pipelineV2</span><span class="o">.</span><span class="n">py</span> \
+    <span class="o">--</span><span class="n">data</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">my_data</span><span class="o">.</span><span class="n">csv</span> \
+    <span class="o">--</span><span class="n">outcome</span> <span class="n">ctn0094_relapse_event</span> \
+    <span class="o">--</span><span class="n">group_size</span> <span class="mi">300</span> \
+    <span class="o">--</span><span class="n">heldout_size</span> <span class="mi">80</span> \
+    <span class="o">--</span><span class="n">heldout_set_percent_majority</span> <span class="mi">50</span> \
+    <span class="o">-</span><span class="n">d</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">results</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p><strong>Cell 9 — Change the matching column or matching covariates</strong></p>
+<p>By default the pipeline splits on <code class="docutils literal notranslate"><span class="pre">RaceEth</span></code> and matches on <code class="docutils literal notranslate"><span class="pre">age</span></code> and <code class="docutils literal notranslate"><span class="pre">is_female</span></code>. Change these with <code class="docutils literal notranslate"><span class="pre">--split</span></code> and <code class="docutils literal notranslate"><span class="pre">--match</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="err">!</span><span class="n">python</span> <span class="n">run_pipelineV2</span><span class="o">.</span><span class="n">py</span> \
+    <span class="o">--</span><span class="n">data</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">my_data</span><span class="o">.</span><span class="n">csv</span> \
+    <span class="o">--</span><span class="n">outcome</span> <span class="n">ctn0094_relapse_event</span> \
+    <span class="o">--</span><span class="n">split</span> <span class="n">RaceEth</span> \
+    <span class="o">--</span><span class="n">match</span> <span class="s2">&quot;age is_female UDS_Opioid_Count&quot;</span> \
+    <span class="o">-</span><span class="n">d</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">results</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="using-a-custom-outcome">
+<h2>Using a Custom Outcome<a class="headerlink" href="#using-a-custom-outcome" title="Link to this heading"></a></h2>
+<p><strong>Cell 10 — Bring your own outcome column</strong></p>
+<p>If your dataset contains a column not in the built-in outcome list, pass its name with <code class="docutils literal notranslate"><span class="pre">-o</span></code> and specify the endpoint type with <code class="docutils literal notranslate"><span class="pre">--type</span></code>.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 80.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><code class="docutils literal notranslate"><span class="pre">--type</span></code></p></th>
+<th class="head"><p>When to use</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">logical</span></code></p></td>
+<td><p>Binary outcome (0/1)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">integer</span></code></p></td>
+<td><p>Count outcome (0, 1, 2, …)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">survival</span></code></p></td>
+<td><p>Time-to-event; expects two columns: <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;_time</span></code> and <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;_event</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Binary custom outcome</span>
+<span class="err">!</span><span class="n">python</span> <span class="n">run_pipelineV2</span><span class="o">.</span><span class="n">py</span> \
+    <span class="o">--</span><span class="n">data</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">my_data</span><span class="o">.</span><span class="n">csv</span> \
+    <span class="o">--</span><span class="n">outcome</span> <span class="n">my_custom_outcome</span> \
+    <span class="o">--</span><span class="nb">type</span> <span class="n">logical</span> \
+    <span class="o">-</span><span class="n">d</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">results</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Survival custom outcome</span>
+<span class="c1"># Expects columns: my_event_time  and  my_event_event</span>
+<span class="err">!</span><span class="n">python</span> <span class="n">run_pipelineV2</span><span class="o">.</span><span class="n">py</span> \
+    <span class="o">--</span><span class="n">data</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">my_data</span><span class="o">.</span><span class="n">csv</span> \
+    <span class="o">--</span><span class="n">outcome</span> <span class="n">my_event</span> \
+    <span class="o">--</span><span class="nb">type</span> <span class="n">survival</span> \
+    <span class="o">-</span><span class="n">d</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">results</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="viewing-the-results">
+<h2>Viewing the Results<a class="headerlink" href="#viewing-the-results" title="Link to this heading"></a></h2>
+<p><strong>Cell 11 — List output files</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="s2">&quot;/content/results&quot;</span><span class="p">):</span>
+    <span class="n">level</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;/content/results&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">sep</span><span class="p">)</span>
+    <span class="n">indent</span> <span class="o">=</span> <span class="s2">&quot;  &quot;</span> <span class="o">*</span> <span class="n">level</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">indent</span><span class="si">}{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">root</span><span class="p">)</span><span class="si">}</span><span class="s2">/&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">indent</span><span class="si">}{</span><span class="n">f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="cell-output highlight-none notranslate"><div class="highlight"><pre><span></span> results/
+   ctn0094_relapse_event_seed0/
+     evaluations/
+       evaluations_2025-01-15.csv
+     predictions/
+       predictions_2025-01-15.csv
+     logs/
+       pipeline_2025-01-15.log
+</pre></div>
+</div>
+<hr class="docutils" />
+<p><strong>Cell 12 — Load and inspect evaluations</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span><span class="o">,</span> <span class="nn">glob</span>
+
+<span class="n">files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;/content/results/**/evaluations/*.csv&quot;</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="cell-output highlight-none notranslate"><div class="highlight"><pre><span></span> ╔══════════════╦══════════╦══════════╦══════════╦═══════════════════════╗
+ ║  Data Type   ║  roc     ║ precision║  recall  ║  training_demographics║
+ ╠══════════════╬══════════╬══════════╬══════════╬═══════════════════════╣
+ ║  heldout     ║  0.71    ║  0.68    ║  0.74    ║  250 White, 250 Black ║
+ ║  subset      ║  0.69    ║  0.65    ║  0.71    ║  250 White, 250 Black ║
+ ╚══════════════╩══════════╩══════════╩══════════╩═══════════════════════╝
+</pre></div>
+</div>
+<hr class="docutils" />
+<p><strong>Cell 13 — Plot ROC-AUC across seeds</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">heldout</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">][</span><span class="s2">&quot;roc&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>   <span class="c1"># heldout rows</span>
+<span class="n">subset</span>  <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="p">][</span><span class="s2">&quot;roc&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>   <span class="c1"># subset rows</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">heldout</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Held-out&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subset</span><span class="p">,</span>  <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Subset&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Chance&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Seed&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;ROC-AUC&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Model performance across PSM seeds&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="interpreting-results">
+<h2>Interpreting Results<a class="headerlink" href="#interpreting-results" title="Link to this heading"></a></h2>
+<p>The pipeline is designed to detect <strong>algorithmic bias</strong> — a disparity in model performance when trained on cohorts with different demographic compositions.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 10.0%" />
+<col style="width: 90.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Result</p></th>
+<th class="head"><p>Interpretation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ROC-AUC stable across seeds</p></td>
+<td><p>The outcome is <strong>measurement invariant</strong> — model performance does not depend on cohort demographics.</p></td>
+</tr>
+<tr class="row-odd"><td><p>ROC-AUC varies across seeds</p></td>
+<td><p>The outcome is <strong>measurement variant</strong> — model performance is sensitive to demographic composition, which may indicate bias.</p></td>
+</tr>
+<tr class="row-even"><td><p>Held-out AUC &gt;&gt; Subset AUC</p></td>
+<td><p>Possible over-fitting to the matched cohort; consider increasing <code class="docutils literal notranslate"><span class="pre">--group_size</span></code> or reducing features.</p></td>
+</tr>
+<tr class="row-odd"><td><p>No features selected (Lasso error)</p></td>
+<td><p>Regularisation may be too strong; the alpha defaults are tuned for the CTN-0094 dataset and may need adjustment for other data.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<hr class="docutils" />
+<section id="available-outcomes-reference">
+<h2>Available Outcomes Reference<a class="headerlink" href="#available-outcomes-reference" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 20.0%" />
+<col style="width: 40.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Outcome</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ctn0094_relapse_event</span></code></p></td>
+<td><p>Logical</p></td>
+<td><p>Any positive urine drug screen</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Ab_krupitskyA_2011</span></code></p></td>
+<td><p>Logical</p></td>
+<td><p>Confirmed abstinence (weeks 5–24)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Ab_ling_1998</span></code></p></td>
+<td><p>Logical</p></td>
+<td><p>13 consecutive negative UDS</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Rs_johnson_1992</span></code></p></td>
+<td><p>Logical</p></td>
+<td><p>2 consecutive positive UDS after 4-week treatment</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Rs_krupitsky_2004</span></code></p></td>
+<td><p>Logical</p></td>
+<td><p>3 consecutive positive UDS</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Rd_kostenB_1993</span></code></p></td>
+<td><p>Logical</p></td>
+<td><p>3 consecutive negative UDS</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Ab_schottenfeldB_2008</span></code></p></td>
+<td><p>Integer</p></td>
+<td><p>Count-based abstinence measure</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Ab_mokri_2016</span></code></p></td>
+<td><p>Survival</p></td>
+<td><p>Time-to-event abstinence outcome</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="main_page.html" class="btn btn-neutral float-left" title="The Detecting Algorithmic Bias (DAB) Pipeline" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="quickstart.html" class="btn btn-neutral float-right" title="Getting Started with the CTN-0094 Pipeline (Beginner Tutorial)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Ganesh Jainarain, Aaron Marker.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
