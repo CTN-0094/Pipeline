@@ -34,26 +34,20 @@ body,
 
 /* ── Colab-style notebook cells ── */
 
-/* Input cells: black background, light text */
+/* Input cells: monokai dark background */
 .rst-content .highlight {
     border-left: 4px solid #4285f4;
     border-radius: 0 6px 6px 0;
-    background: #1e1e1e !important;
+    background: #272822 !important;
     margin-bottom: 4px !important;
     padding: 2px 0;
 }
 
 .rst-content .highlight pre {
-    background: #1e1e1e !important;
-    color: #d4d4d4 !important;
+    background: #272822 !important;
     border-radius: 0 4px 4px 0;
     box-shadow: 0 1px 3px rgba(0,0,0,0.3);
     padding: 12px 16px;
-}
-
-/* Ensure all token text inside code blocks is readable */
-.rst-content .highlight pre * {
-    color: inherit;
 }
 
 /* Output cells: dark gray background, off-white text */
@@ -66,7 +60,6 @@ body,
 
 .rst-content .cell-output.highlight pre {
     background: #2d2d2d !important;
-    color: #cccccc !important;
     box-shadow: none;
 }
 
