@@ -32,12 +32,24 @@ class OutcomeModel:
         - target_column (list<str>): Target variable(s) to predict.
         - seed (int, optional): Seed for reproducibility.
         """
+        if data is None or data.empty:
+            raise ValueError("data cannot be None or empty")
+        if not isinstance(target_column, list):
+            raise TypeError("target_column must be a list")
+        if id_column not in data.columns:
+            raise ValueError(f"ID column '{id_column}' not found in data")
+        for col in target_column:
+            if col not in data.columns:
+                raise ValueError(f"Target column '{col}' not found in data")
+        if data[id_column].duplicated().any():
+            raise ValueError(f"data contains duplicate IDs in column '{id_column}'")
+
         self.data = data  # Store the full dataset
         self.target_column = target_column  # Target column name
-        
+
         self.id_column = id_column
         # Store 'who' column separately for tracking if it exists in the data
-        self.who = data[id_column] if id_column in data.columns else None  
+        self.who = data[id_column] if id_column in data.columns else None
         
         # Drop 'who' and target_column from X (feature set) 
         self.X = data.drop([id_column] + target_column, axis=1, errors='ignore')  
