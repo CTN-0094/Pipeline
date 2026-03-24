@@ -1,0 +1,71 @@
+name: Feature Request
+description: Suggest a new feature or improvement
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have an idea to improve the pipeline? Fill out the form below.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or motivation
+      description: What problem does this feature solve, or what gap does it fill?
+      placeholder: "When running survival outcomes, there is no way to..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      description: Describe what you'd like to see added or changed.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area of the pipeline
+      description: Which part of the pipeline does this affect?
+      options:
+        - Data preprocessing
+        - Propensity score matching (PSM)
+        - Feature selection
+        - Model training
+        - Model evaluation / metrics
+        - CLI arguments
+        - Documentation / website
+        - Testing
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: endpoint
+    attributes:
+      label: Related endpoint type (if applicable)
+      options:
+        - logical (binary)
+        - integer (count)
+        - survival (time-to-event)
+        - All / not specific to one type
+    validations:
+      required: false
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Have you considered any workarounds or alternative approaches?
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Before submitting
+      options:
+        - label: I have searched existing issues and this has not already been requested
+          required: true

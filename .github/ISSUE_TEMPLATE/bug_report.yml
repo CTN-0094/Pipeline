@@ -1,0 +1,104 @@
+name: Bug Report
+description: Report a problem with the pipeline
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug. Please fill out the sections below so we can reproduce and fix it quickly.
+
+  - type: textarea
+    id: command
+    attributes:
+      label: Command run
+      description: The exact command you ran (mask any file paths with sensitive info)
+      placeholder: "python run_pipelineV2.py --data data.csv --outcome ctn0094_relapse_event -d ./results"
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: What actually happened? Paste the full error message or unexpected output.
+      render: shell
+    validations:
+      required: true
+
+  - type: dropdown
+    id: outcome
+    attributes:
+      label: Outcome
+      description: Which outcome were you running? (if applicable)
+      options:
+        - ctn0094_relapse_event
+        - Ab_krupitskyA_2011
+        - Ab_ling_1998
+        - Rs_johnson_1992
+        - Rs_krupitsky_2004
+        - Rd_kostenB_1993
+        - Ab_schottenfeldB_2008
+        - Ab_mokri_2016
+        - Custom outcome
+        - Not applicable
+    validations:
+      required: false
+
+  - type: dropdown
+    id: endpoint_type
+    attributes:
+      label: Endpoint type
+      options:
+        - logical (binary)
+        - integer (count)
+        - survival (time-to-event)
+        - Not applicable
+    validations:
+      required: false
+
+  - type: textarea
+    id: data
+    attributes:
+      label: Dataset details
+      description: Describe your data (number of rows/columns, any unusual values). Do NOT share any patient data or PHI.
+      placeholder: "~2000 rows, 30 columns, CSV from CTN-0094 merge"
+    validations:
+      required: false
+
+  - type: input
+    id: python_version
+    attributes:
+      label: Python version
+      placeholder: "e.g. 3.12.2"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options:
+        - macOS
+        - Linux
+        - Windows
+        - Google Colab
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Before submitting
+      options:
+        - label: I have searched existing issues and this is not a duplicate
+          required: true
+        - label: I have not included any patient data or PHI in this report
+          required: true

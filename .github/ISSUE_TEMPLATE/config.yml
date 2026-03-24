@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Documentation & Tutorials
+    url: https://ctn-0094.github.io/Pipeline/
+    about: Read the full pipeline documentation and step-by-step tutorial
+  - name: CTN-0094 Protocol
+    url: https://ctnlibrary.org/protocol/ctn0094/
+    about: Learn about the CTN-0094 clinical trial
