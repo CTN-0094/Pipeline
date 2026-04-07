@@ -67,7 +67,7 @@ python3 run_pipelineV2.py --data data.csv --outcome ctn0094_relapse_event -d ./r
 
 ## Built On
 
-This pipeline extends the work of Luo et al. (2024), replicating their OUD return-to-use prediction model and adding a fairness analysis layer to evaluate how model performance shifts across demographic compositions.
+This pipeline is described in Odom et al. (2026, *Drug and Alcohol Review*) and extends the work of Luo et al. (2024), replicating their OUD return-to-use prediction model and adding a fairness analysis layer to evaluate how model performance shifts across demographic compositions.
 
 [Read more :material-arrow-right:](references.md){ .md-button }
 
