@@ -40,7 +40,14 @@ nav:
   - Outcomes: outcomes.md
   - Data: data.md
   - References: references.md
-  - API Reference: api.md
+  - Code Reference:
+    - Overview: code/index.md
+    - Constants: code/constants.md
+    - Validation: code/validate.md
+    - Preprocessing: code/preprocess.md
+    - PSM & Cohorts: code/psm.md
+    - Model Training: code/model_training.md
+    - Models: code/models.md
 
 plugins:
   - search
