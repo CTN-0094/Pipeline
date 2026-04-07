@@ -1,0 +1,23 @@
+/* ── Headings ─────────────────────────────────────────────────────────────── */
+
+.md-content h1 {
+  font-weight: 800;
+  color: #3949ab;
+}
+
+.md-content h2 {
+  font-weight: 700;
+  color: #3949ab;
+  border-bottom: 2px solid #3949ab22;
+  padding-bottom: 0.2em;
+}
+
+.md-content h3 {
+  font-weight: 700;
+  color: #5c6bc0;
+}
+
+.md-content h4 {
+  font-weight: 600;
+  color: #7986cb;
+}
