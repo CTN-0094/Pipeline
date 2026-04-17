@@ -107,7 +107,7 @@ def PropensityScoreMatchRMatchit(df, idColumn, columnsToMatch, sampleSize):
 
         subset_data <- rbind(treated_subset, control_subset)
 
-        # Perform nearest neighbor matching
+        # Perform optimal matching
         m.out1 <- matchit(
             is_minority ~ {variables},
             data = subset_data,
@@ -153,6 +153,7 @@ def PropensityScoreMatchRMatchit(df, idColumn, columnsToMatch, sampleSize):
 
     matched_data['control_index'] = matched_data.groupby('treated_row').cumcount()
     final_matched_df = matched_data.pivot(index='treated_row', columns='control_index', values='control_row').reset_index()
+
     final_matched_df.columns = ['treated_row', 'control_row_0', 'control_row_1']
 
     return final_matched_df

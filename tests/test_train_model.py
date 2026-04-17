@@ -426,6 +426,7 @@ class TestLogisticModelTraining:
         """
         model = LogisticModel(data=logistic_data, id_column="id", target_column=["outcome"], seed=42)
         # Before selection, selected_features is the full column index
+        
         assert list(model.selected_features) == list(model.X.columns)
 
 
