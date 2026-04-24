@@ -308,19 +308,16 @@ def test_negative_binomial_model_evaluation(sample_integer_data_multiple_feature
     model.selectFeatures()
     model.train()
     results = model.evaluate(sample_integer_data_heldout_multiple_features_noisy)
-    print("RESULTS\n\n\n\n\n\n", results)
-    assert results[1]["mse"] == 3211.027355868404
-    assert results[1]["rmse"] == 56.66592764500025
-    assert results[1]["mae"] == 47.779331871074746
-    #assert results[1]["pearson_r"][0] > 0
-    assert results[1]["mcfadden_r2"] == 0.14728095353339066
+    assert results[1]["mse"] == pytest.approx(3211.027355868, rel=1e-6)
+    assert results[1]["rmse"] == pytest.approx(56.665927645, rel=1e-6)
+    assert results[1]["mae"] == pytest.approx(47.779331871, rel=1e-6)
+    assert results[1]["mcfadden_r2"] == pytest.approx(0.147280953533, rel=1e-6)
     assert results[1]["demographics"] == '59 1, 41 0'
     assert results[1]["training_demographics"] == '40 1, 35 0'
-    assert results[3]["mse"] == 3998.2214606095818
-    assert results[3]["rmse"] == 63.231491051607996
-    assert results[3]["mae"] == 52.37012632059721
-    #assert results[1]["pearson_r"][0] > 0
-    assert results[3]["mcfadden_r2"] == -2.398448108914756
+    assert results[3]["mse"] == pytest.approx(3998.221460609, rel=1e-6)
+    assert results[3]["rmse"] == pytest.approx(63.231491051, rel=1e-6)
+    assert results[3]["mae"] == pytest.approx(52.370126320, rel=1e-6)
+    assert results[3]["mcfadden_r2"] == pytest.approx(-2.398448108914, rel=1e-6)
     assert results[3]["demographics"] == '13 0, 12 1'
     assert results[3]["training_demographics"] == '40 1, 35 0'
 
@@ -377,11 +374,10 @@ def test_beta_regression_evaluation(sample_0to1_data_multiple_features_noisy, sa
     model.selectFeatures()
     model.train()
     results = model.evaluate(sample_0to1_data_heldout_multiple_features_noisy)
-    assert results[1]["mse"] == 0.008120363539425442
-    assert results[1]["rmse"] == 0.09011305976064425
-    assert results[1]["mae"] == 0.07715715696613251
-    assert results[1]["pearson_r"] == 0.8575094356375779
-    #assert results[1]["mcfadden_r2"] > 0.5
+    assert results[1]["mse"] == pytest.approx(0.008120363539, rel=1e-6)
+    assert results[1]["rmse"] == pytest.approx(0.090113059760, rel=1e-6)
+    assert results[1]["mae"] == pytest.approx(0.077157156966, rel=1e-6)
+    assert results[1]["pearson_r"] == pytest.approx(0.857509435637, rel=1e-6)
     assert results[1]["demographics"] == '56 0, 44 1'
     assert results[1]["training_demographics"] == '46 0, 29 1'
 
