@@ -18,9 +18,7 @@ def preprocess_data(subset, selected_outcome):
     preprocessor = DataPreprocessor(subset)
     
     # Logging to mark the start of the pre-processing phase
-    logging.info("---------------------------------")
-    logging.info("PRE-PROCESSING STAGE STARTING...")
-    logging.info("---------------------------------")
+    logging.info("=== Pre-processing stage starting ===")
 
     # Specify columns to drop initially
     columns_to_drop_1 = [
@@ -145,8 +143,6 @@ def preprocess_data(subset, selected_outcome):
     #logging.info(processed_data.head())
 
     # Log the end of the pre-processing phase
-    logging.info("------------------------------")
-    logging.info("PRE-PROCESSING STAGE COMPLETED")
-    logging.info("------------------------------")
+    logging.info("=== Pre-processing stage complete ===")
     
     return processed_data

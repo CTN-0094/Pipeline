@@ -168,8 +168,7 @@ class OutcomeModel:
 
             # Log the number of features selected
             feature_names = self.X_train.columns
-            print(f"Lasso feature selection completed. Selected {len(self.selected_features)} out of {len(feature_names)} features.")
-            print(f"Features are: ", self.selected_features)
+            logging.info(f"Lasso selected {len(self.selected_features)}/{len(feature_names)} features: {self.selected_features}")
         except Exception as e:
             logging.error(f"Error during Lasso feature selection: {e}")
             raise
@@ -399,7 +398,6 @@ class BetaRegression(OutcomeModel):
             "mcfadden_r2": mcfadden_r2,
             "demographics": self._countDemographic(X)
         }
-        print(evaluations)
         return predictions, evaluations
 
 
