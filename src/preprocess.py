@@ -3,6 +3,8 @@ import pandas as pd
 import numpy as np
 import logging
 
+from src.constants import RACEETH_LABELS
+
 
 class DataPreprocessor:
 
@@ -362,16 +364,10 @@ class DataPreprocessor:
         else:
             print("'XTRT' column not found. Skipping this transformation.")
 
-        # Numeric encoding for RaceEth
-        race_Eth_mapping = {
-            'NHW': 1,  # Non-Hispanic White
-            'NHB': 2,  # Non-Hispanic Black
-            'Hisp': 3,  # Hispanic
-            'Other': 4,  # Other races or mixed
-            'Refused/missing': 0  # Handling missing values explicitly
-        }
+        # Numeric encoding for RaceEth — inverted from the canonical RACEETH_LABELS map
+        race_eth_mapping = {label: code for code, label in RACEETH_LABELS.items()}
         if 'RaceEth' in transformed_data.columns:
-            transformed_data['RaceEth'] = transformed_data['RaceEth'].map(race_Eth_mapping).fillna(0)
+            transformed_data['RaceEth'] = transformed_data['RaceEth'].map(race_eth_mapping).fillna(0)
         else:
             print("'RaceEth' column not found. Skipping this transformation.")
 

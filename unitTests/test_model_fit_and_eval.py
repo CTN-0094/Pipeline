@@ -278,14 +278,14 @@ def test_logistic_model_evaluation(sample_classification_data_multiple_features_
     assert np.array_equal(results[1]["confusion_matrix"], np.array([[47, 37], [ 0, 16]]))
     assert results[1]["precision"] == 0.3018867924528302
     assert results[1]["recall"] == 1
-    assert results[1]["demographics"] == '53 1, 47 0'
-    assert results[1]["training_demographics"] == '40 1, 35 0'
+    assert results[1]["demographics"] == '53 NHW, 47 Refused/Missing'
+    assert results[1]["training_demographics"] == '40 NHW, 35 Refused/Missing'
     assert results[3]["roc"] == 0.8043478260869565
     assert np.array_equal(results[3]["confusion_matrix"], np.array([[14, 9], [ 0, 2]]))
     assert results[3]["precision"] == 0.18181818181818182
     assert results[3]["recall"] == 1
-    assert results[3]["demographics"] == '15 0, 10 1'
-    assert results[3]["training_demographics"] == '40 1, 35 0'
+    assert results[3]["demographics"] == '15 Refused/Missing, 10 NHW'
+    assert results[3]["training_demographics"] == '40 NHW, 35 Refused/Missing'
 
 
 
@@ -312,14 +312,14 @@ def test_negative_binomial_model_evaluation(sample_integer_data_multiple_feature
     assert results[1]["rmse"] == pytest.approx(56.665927645, rel=1e-6)
     assert results[1]["mae"] == pytest.approx(47.779331871, rel=1e-6)
     assert results[1]["mcfadden_r2"] == pytest.approx(0.147280953533, rel=1e-6)
-    assert results[1]["demographics"] == '59 1, 41 0'
-    assert results[1]["training_demographics"] == '40 1, 35 0'
+    assert results[1]["demographics"] == '59 NHW, 41 Refused/Missing'
+    assert results[1]["training_demographics"] == '40 NHW, 35 Refused/Missing'
     assert results[3]["mse"] == pytest.approx(3998.221460609, rel=1e-6)
     assert results[3]["rmse"] == pytest.approx(63.231491051, rel=1e-6)
     assert results[3]["mae"] == pytest.approx(52.370126320, rel=1e-6)
     assert results[3]["mcfadden_r2"] == pytest.approx(-2.398448108914, rel=1e-6)
-    assert results[3]["demographics"] == '13 0, 12 1'
-    assert results[3]["training_demographics"] == '40 1, 35 0'
+    assert results[3]["demographics"] == '13 Refused/Missing, 12 NHW'
+    assert results[3]["training_demographics"] == '40 NHW, 35 Refused/Missing'
 
 
 
@@ -346,8 +346,8 @@ def test_cox_proportional_hazard_evaluation(sample_survival_data_multiple_featur
     model.train()
     results = model.evaluate(sample_survival_data_heldout_multiple_features_noisy)
     assert results[1]["concordance_index"] == .5
-    assert results[1]["demographics"] == '53 1, 47 0'
-    assert results[1]["training_demographics"] == '39 0, 36 1'
+    assert results[1]["demographics"] == '53 NHW, 47 Refused/Missing'
+    assert results[1]["training_demographics"] == '39 Refused/Missing, 36 NHW'
 
 
 
@@ -378,8 +378,8 @@ def test_beta_regression_evaluation(sample_0to1_data_multiple_features_noisy, sa
     assert results[1]["rmse"] == pytest.approx(0.090113059760, rel=1e-6)
     assert results[1]["mae"] == pytest.approx(0.077157156966, rel=1e-6)
     assert results[1]["pearson_r"] == pytest.approx(0.857509435637, rel=1e-6)
-    assert results[1]["demographics"] == '56 0, 44 1'
-    assert results[1]["training_demographics"] == '46 0, 29 1'
+    assert results[1]["demographics"] == '56 Refused/Missing, 44 NHW'
+    assert results[1]["training_demographics"] == '46 Refused/Missing, 29 NHW'
 
 
 

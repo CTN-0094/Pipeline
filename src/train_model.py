@@ -6,6 +6,7 @@ import numpy as np  # For numerical operations
 import pandas as pd  # For DataFrame manipulation
 
 from joblib import dump, load  # For saving/loading models
+from src.constants import RACEETH_LABELS
 from sklearn.exceptions import NotFittedError  # Handle unfitted model errors
 from sklearn.linear_model import LogisticRegression, Lasso, LinearRegression  # Logistic regression model
 from sklearn.preprocessing import StandardScaler  # For feature scaling
@@ -175,10 +176,24 @@ class OutcomeModel:
 
 
 
-    def _countDemographic(self, data):
-        
-        demographic_counts = data['RaceEth'].value_counts().to_dict()
-        dem_string = ", ".join([f"{v} {k}" for k, v in demographic_counts.items()])
+    def _countDemographic(self, data: pd.DataFrame) -> str:
+        """Build a human-readable demographic summary string from the RaceEth column.
+
+        Maps numeric RaceEth codes to labels using ``RACEETH_LABELS`` and returns
+        a comma-separated string of ``count label`` pairs sorted by descending count,
+        e.g. ``"58 NHW, 19 Hisp, 16 NHB, 7 Other"``.
+
+        Args:
+            data: DataFrame containing a ``RaceEth`` column with numeric codes.
+
+        Returns:
+            Demographic summary string, also emitted as an INFO log line.
+        """
+        counts = data["RaceEth"].value_counts().to_dict()
+        dem_string = ", ".join(
+            f"{count} {RACEETH_LABELS.get(int(code), str(code))}"
+            for code, count in counts.items()
+        )
         logging.info(f"demographic makeup: {dem_string}")
         return dem_string
 
