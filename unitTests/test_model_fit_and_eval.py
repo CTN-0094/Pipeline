@@ -1,3 +1,22 @@
+"""
+Integration-style unit tests for all four model classes: select → train → evaluate.
+
+Unlike the mocked tests in tests/test_model_training.py, these tests run the full
+statistical pipeline end-to-end on synthetic data and verify concrete outputs
+(feature lists, metric values, confusion matrices, demographic strings).
+
+Models under test:
+    LogisticModel           — binary outcome (LOGICAL endpoint)
+    NegativeBinomialModel   — count outcome (INTEGER endpoint)
+    CoxProportionalHazard   — time-to-event outcome (SURVIVAL endpoint)
+    BetaRegression          — continuous [0, 1] outcome
+
+Fixtures with 'noisy' in the name include an uncorrelated feature1 to exercise
+LASSO feature selection; non-noisy fixtures have clean signal to test exact
+feature lists. Heldout fixtures use a different seed (41) from training (42)
+to simulate an independent evaluation set.
+"""
+
 import pytest
 import pandas as pd
 import numpy as np

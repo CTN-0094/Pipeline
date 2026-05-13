@@ -1,3 +1,24 @@
+"""
+Unit tests for DataPreprocessor (src/preprocess.py).
+
+Each test class isolates one public method of DataPreprocessor. Tests operate
+on small in-memory DataFrames and assert on the mutated state of
+preprocessor.dataframe after the method call, since all methods modify the
+DataFrame in place rather than returning a new one.
+
+Test classes:
+    TestDropColumns                  — drop_columns_and_return
+    TestConvertYesNoToBinary         — convert_yes_no_to_binary
+    TestProcessTLFBColumns           — process_tlfb_columns
+    TestMoveColumnToEnd              — move_column_to_end
+    TestRenameColumns                — rename_columns
+    TestTransformNanToZeroForBinaryColumns — transform_nan_to_zero_for_binary_columns
+    TestTransformAndRenameColumn     — transform_and_rename_column
+    TestFillNanWithZero              — fill_nan_with_zero
+    TestTransformDataWithNanHandling — transform_data_with_nan_handling
+    TestConvertUdsToBinary           — convert_uds_to_binary
+"""
+
 import pytest
 import pandas as pd
 import numpy as np
@@ -79,6 +100,8 @@ def transform_rename_df():
 # ---------------------------------------------------------------------------
 
 class TestDropColumns:
+    """Columns in the drop list are removed; columns not in the list survive; missing names are silently skipped."""
+
     def test_drops_valid_columns(self, simple_df):
         pre = DataPreprocessor(simple_df.copy())
         pre.drop_columns_and_return(["score"])
@@ -114,6 +137,8 @@ class TestDropColumns:
 # ---------------------------------------------------------------------------
 
 class TestConvertYesNoToBinary:
+    """Yes→1, No→0 for columns whose only non-null values are 'Yes'/'No'; NaNs are preserved; numeric columns are untouched."""
+
     def test_converts_yes_to_1(self, yes_no_df):
         pre = DataPreprocessor(yes_no_df.copy())
         pre.convert_yes_no_to_binary()
@@ -148,6 +173,8 @@ class TestConvertYesNoToBinary:
 # ---------------------------------------------------------------------------
 
 class TestProcessTLFBColumns:
+    """Unspecified TLFB_* columns are row-summed into TLFB_Other and removed; specified columns are kept as-is."""
+
     def test_other_tlfb_columns_summed_into_tlfb_other(self, tlfb_df):
         pre = DataPreprocessor(tlfb_df.copy())
         specified = ["TLFB_Alcohol_Count", "TLFB_Cocaine_Count", "TLFB_Heroin_Count"]
@@ -176,6 +203,8 @@ class TestProcessTLFBColumns:
 # ---------------------------------------------------------------------------
 
 class TestMoveColumnToEnd:
+    """Target column(s) are repositioned to the end of the DataFrame; all other columns and row count are unchanged."""
+
     def test_moves_single_column_to_end(self, simple_df):
         pre = DataPreprocessor(simple_df.copy())
         pre.move_column_to_end(["age"])
@@ -202,6 +231,8 @@ class TestMoveColumnToEnd:
 # ---------------------------------------------------------------------------
 
 class TestRenameColumns:
+    """Sex→is_female, job→unemployed, is_living_stable→unstableliving; unrelated columns are unchanged."""
+
     def test_sex_renamed_to_is_female(self, rename_df):
         pre = DataPreprocessor(rename_df.copy())
         pre.rename_columns()
@@ -231,6 +262,8 @@ class TestRenameColumns:
 # ---------------------------------------------------------------------------
 
 class TestTransformNanToZeroForBinaryColumns:
+    """NaNs are filled with 0 only in columns whose non-null unique values are exactly {0, 1}; multi-value columns with NaNs are left intact."""
+
     def test_nan_in_binary_column_filled_with_zero(self, binary_nan_df):
         pre = DataPreprocessor(binary_nan_df.copy())
         pre.transform_nan_to_zero_for_binary_columns()
@@ -254,6 +287,8 @@ class TestTransformNanToZeroForBinaryColumns:
 # ---------------------------------------------------------------------------
 
 class TestTransformAndRenameColumn:
+    """Non-null values become 1, NULLs become 0; column is renamed in place preserving its positional index."""
+
     def test_non_null_values_become_1(self, transform_rename_df):
         pre = DataPreprocessor(transform_rename_df.copy())
         pre.transform_and_rename_column("heroin_inject_days", "rbsivheroin")
@@ -284,6 +319,8 @@ class TestTransformAndRenameColumn:
 # ---------------------------------------------------------------------------
 
 class TestFillNanWithZero:
+    """NaNs in the named column are replaced with 0; all other columns are untouched; a missing column name is a no-op (no raise)."""
+
     def test_nan_filled_with_zero(self):
         df = pd.DataFrame({"a": [1.0, np.nan, 3.0], "b": [np.nan, 2.0, np.nan]})
         pre = DataPreprocessor(df.copy())
@@ -315,6 +352,12 @@ class TestFillNanWithZero:
 # ---------------------------------------------------------------------------
 
 class TestTransformDataWithNanHandling:
+    """
+    Verifies the full categorical encoding pass: Sex (female=1), education (1-3),
+    marital status (2-4, NaN→1), race (White=1, Black=2, Other=3, Refused=0, NaN=-1),
+    XTRT, RaceEth, pain, job, and is_living_stable. Missing columns are silently skipped.
+    """
+
     def test_sex_female_becomes_1(self):
         df = pd.DataFrame({"Sex": ["female", "male", "male"]})
         pre = DataPreprocessor(df.copy())
@@ -357,6 +400,8 @@ class TestTransformDataWithNanHandling:
 # ---------------------------------------------------------------------------
 
 class TestConvertUdsToBinary:
+    """UDS_* columns are binarised (count > 0 → 1, else 0); non-UDS columns are untouched."""
+
     def test_uds_above_zero_becomes_1(self):
         df = pd.DataFrame({"UDS_Alcohol_Count": [0, 3, 1], "age": [25, 30, 35]})
         pre = DataPreprocessor(df.copy())

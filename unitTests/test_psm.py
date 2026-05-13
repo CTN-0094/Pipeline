@@ -1,3 +1,14 @@
+"""
+Unit tests for the PSM pipeline: holdOutTestData, propensityScoreMatch, create_subsets.
+
+holdOutTestData and create_subsets are tested directly against real logic.
+propensityScoreMatch is tested in two ways:
+    - test_propensityScoreMatch monkeypatches PropensityScoreMatchRMatchit to avoid
+      an R runtime dependency and validates the Python merge/reshape logic.
+    - test_propensityScoreMatchLogic calls the real R MatchIt path on a tiny
+      9-row dataset to confirm end-to-end behaviour (requires rpy2 + MatchIt).
+"""
+
 import pytest
 import pandas as pd
 import numpy as np

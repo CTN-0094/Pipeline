@@ -1,3 +1,12 @@
+"""
+Unit tests for validate_dataset_for_model.
+
+Covers valid inputs for all three endpoint types (logical, integer, survival)
+and the full set of rejection cases: missing columns, wrong dtypes, non-binary
+event flags, unsupported model type strings, and omitted time_col for survival.
+Also verifies that EndpointType enums are accepted in place of plain strings.
+"""
+
 import os
 import sys
 

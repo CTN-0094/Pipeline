@@ -1,3 +1,12 @@
+"""
+Unit tests for OutcomeModel constructor-level input validation.
+
+All four model classes (LogisticModel, NegativeBinomialModel, CoxProportionalHazard,
+BetaRegression) inherit the same validation logic from OutcomeModel. These tests
+confirm that invalid inputs — empty DataFrames, missing columns, wrong types, and
+duplicate IDs — are rejected before any computation begins.
+"""
+
 import pytest
 import pandas as pd
 import numpy as np

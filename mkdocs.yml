@@ -40,6 +40,7 @@ nav:
   - Outcomes: outcomes.md
   - Data: data.md
   - References: references.md
+  - Testing: testing.md
   - Code Reference:
     - Overview: code/index.md
     - Constants: code/constants.md

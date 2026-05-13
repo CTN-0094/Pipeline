@@ -1,3 +1,16 @@
+"""
+Unit tests for train_and_evaluate_models (model_training.py).
+
+Tests the orchestration layer that iterates over demographic subsets,
+instantiates the correct model class per endpoint type, runs the
+select → train → evaluate pipeline on each subset, and assembles results
+into a MultiIndex DataFrame with (heldout|subset) × (predictions|evaluations).
+
+Model classes are mocked throughout so these tests cover routing and result
+shape, not statistical correctness (see unitTests/test_model_fit_and_eval.py
+for those).
+"""
+
 import pytest
 import pandas as pd
 import numpy as np
@@ -71,7 +84,12 @@ def _fake_evaluate():
 # ── Model Selection ───────────────────────────────────────────────────────────
 
 class TestModelSelection:
-    """Verify the correct model class is instantiated for each endpoint type."""
+    """
+    Verify the correct model class is instantiated for each endpoint type.
+
+    LogisticModel for LOGICAL, NegativeBinomialModel for INTEGER, CoxProportionalHazard
+    for SURVIVAL. Also confirms the model is constructed with the correct positional args.
+    """
 
     def test_logical_endpoint_uses_logistic_model(self, classification_data, classification_heldout, logical_outcome):
         with patch("src.model_training.LogisticModel") as MockModel:
@@ -114,7 +132,14 @@ class TestModelSelection:
 # ── Results Structure ─────────────────────────────────────────────────────────
 
 class TestResultsStructure:
-    """Verify the returned DataFrame has the correct MultiIndex shape."""
+    """
+    Verify the returned DataFrame has the correct MultiIndex shape.
+
+    Results must be a DataFrame with a two-level column index:
+    level-0 in {heldout, subset}, level-1 in {predictions, evaluations},
+    giving exactly four columns. An empty subset list returns an empty frame
+    with the same MultiIndex structure.
+    """
 
     def test_results_has_multiindex_columns(self, classification_data, classification_heldout, logical_outcome):
         results = train_and_evaluate_models(
@@ -144,7 +169,13 @@ class TestResultsStructure:
 # ── Subset Processing ─────────────────────────────────────────────────────────
 
 class TestSubsetProcessing:
-    """Verify each subset is independently trained and evaluated."""
+    """
+    Verify each subset is independently trained and evaluated.
+
+    One result row is produced per subset. selectFeatures, train, and evaluate
+    are each called exactly once per subset, and evaluate always receives the
+    shared heldout DataFrame rather than subset-specific data.
+    """
 
     def test_single_subset_produces_one_result_row(self, classification_data, classification_heldout, logical_outcome):
         results = train_and_evaluate_models(
