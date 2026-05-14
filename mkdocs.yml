@@ -39,10 +39,12 @@ nav:
   - How It Works: pipeline.md
   - Outcomes: outcomes.md
   - Data: data.md
+  - Input Format: input_format.md
   - References: references.md
   - Testing: testing.md
   - Code Reference:
     - Overview: code/index.md
+    - API Reference: api.md
     - Constants: code/constants.md
     - Validation: code/validate.md
     - Preprocessing: code/preprocess.md
