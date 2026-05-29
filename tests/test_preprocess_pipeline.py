@@ -30,6 +30,7 @@ from src.preprocess_pipeline import preprocess_data
 
 
 OUTCOME_COL = "ctn0094_relapse_event"
+OUTCOME_ARG = [OUTCOME_COL]  # preprocess_data receives columnsToUse, which is always a list
 
 FIRST_DROP_COLS = [
     "pain_when", "is_smoker", "per_day", "max", "amount",
@@ -95,20 +96,24 @@ class TestPreprocessDataReturnsValidDataFrame:
     """preprocess_data must return a non-empty DataFrame with the same row count."""
 
     def test_returns_dataframe(self, minimal_df: pd.DataFrame) -> None:
-        result = preprocess_data(minimal_df.copy(), OUTCOME_COL)
+        result = preprocess_data(minimal_df.copy(), OUTCOME_ARG)
         assert isinstance(result, pd.DataFrame)
 
     def test_row_count_preserved(self, minimal_df: pd.DataFrame) -> None:
-        result = preprocess_data(minimal_df.copy(), OUTCOME_COL)
+        result = preprocess_data(minimal_df.copy(), OUTCOME_ARG)
         assert len(result) == len(minimal_df)
 
     def test_result_is_not_empty(self, minimal_df: pd.DataFrame) -> None:
-        result = preprocess_data(minimal_df.copy(), OUTCOME_COL)
+        result = preprocess_data(minimal_df.copy(), OUTCOME_ARG)
         assert not result.empty
 
     def test_outcome_column_present_in_output(self, minimal_df: pd.DataFrame) -> None:
-        result = preprocess_data(minimal_df.copy(), OUTCOME_COL)
+        result = preprocess_data(minimal_df.copy(), OUTCOME_ARG)
         assert OUTCOME_COL in result.columns
+
+    def test_outcome_column_is_last(self, minimal_df: pd.DataFrame) -> None:
+        result = preprocess_data(minimal_df.copy(), OUTCOME_ARG)
+        assert result.columns[-1] == OUTCOME_COL
 
 
 # ---------------------------------------------------------------------------
@@ -119,18 +124,18 @@ class TestDroppedColumns:
     """Columns from both drop passes must be absent from the output."""
 
     def test_first_drop_pass_columns_removed(self, minimal_df: pd.DataFrame) -> None:
-        result = preprocess_data(minimal_df.copy(), OUTCOME_COL)
+        result = preprocess_data(minimal_df.copy(), OUTCOME_ARG)
         for col in ["pain_when", "depression"]:
             assert col not in result.columns, f"Expected '{col}' to be dropped"
 
     def test_second_drop_pass_columns_removed(self, minimal_df: pd.DataFrame) -> None:
-        result = preprocess_data(minimal_df.copy(), OUTCOME_COL)
+        result = preprocess_data(minimal_df.copy(), OUTCOME_ARG)
         for col in ["rbs_iv_days", "race"]:
             assert col not in result.columns, f"Expected '{col}' to be dropped"
 
     def test_intermediate_behavioral_drop_cols_removed(self, minimal_df: pd.DataFrame) -> None:
         # msm_npt, msm_frq, txx_prt are dropped in the second column pass
-        result = preprocess_data(minimal_df.copy(), OUTCOME_COL)
+        result = preprocess_data(minimal_df.copy(), OUTCOME_ARG)
         for col in ["msm_npt", "txx_prt"]:
             assert col not in result.columns, f"Expected '{col}' to be dropped"
 
@@ -143,35 +148,35 @@ class TestColumnTransformations:
     """Verify key per-column transformations applied by the orchestrator."""
 
     def test_heroin_inject_days_renamed_to_rbsivheroin(self, minimal_df: pd.DataFrame) -> None:
-        result = preprocess_data(minimal_df.copy(), OUTCOME_COL)
+        result = preprocess_data(minimal_df.copy(), OUTCOME_ARG)
         assert "rbsivheroin" in result.columns
         assert "heroin_inject_days" not in result.columns
 
     def test_heroin_inject_null_becomes_0(self, minimal_df: pd.DataFrame) -> None:
-        result = preprocess_data(minimal_df.copy(), OUTCOME_COL)
+        result = preprocess_data(minimal_df.copy(), OUTCOME_ARG)
         # Rows 0 and 3 had NaN heroin_inject_days → should become 0
         assert result["rbsivheroin"].iloc[0] == 0
         assert result["rbsivheroin"].iloc[3] == 0
 
     def test_heroin_inject_nonzero_becomes_1(self, minimal_df: pd.DataFrame) -> None:
-        result = preprocess_data(minimal_df.copy(), OUTCOME_COL)
+        result = preprocess_data(minimal_df.copy(), OUTCOME_ARG)
         # Rows 1 and 4 had non-null, non-zero values → should become 1
         assert result["rbsivheroin"].iloc[1] == 1
         assert result["rbsivheroin"].iloc[4] == 1
 
     def test_ftnd_nan_filled_with_zero(self, minimal_df: pd.DataFrame) -> None:
-        result = preprocess_data(minimal_df.copy(), OUTCOME_COL)
+        result = preprocess_data(minimal_df.copy(), OUTCOME_ARG)
         assert "ftnd" in result.columns
         assert result["ftnd"].isna().sum() == 0
 
     def test_uds_count_column_binarised(self, minimal_df: pd.DataFrame) -> None:
-        result = preprocess_data(minimal_df.copy(), OUTCOME_COL)
+        result = preprocess_data(minimal_df.copy(), OUTCOME_ARG)
         assert "UDS_Heroin_Count" in result.columns
         unique_vals = set(result["UDS_Heroin_Count"].dropna().unique())
         assert unique_vals.issubset({0, 1}), f"Expected only 0/1, got {unique_vals}"
 
     def test_yes_no_column_converted_to_numeric(self, minimal_df: pd.DataFrame) -> None:
-        result = preprocess_data(minimal_df.copy(), OUTCOME_COL)
+        result = preprocess_data(minimal_df.copy(), OUTCOME_ARG)
         assert "iv_drug_use" in result.columns
         non_null = result["iv_drug_use"].dropna()
         assert set(non_null.unique()).issubset({0, 1}), (
@@ -179,7 +184,7 @@ class TestColumnTransformations:
         )
 
     def test_behavioral_columns_added(self, minimal_df: pd.DataFrame) -> None:
-        result = preprocess_data(minimal_df.copy(), OUTCOME_COL)
+        result = preprocess_data(minimal_df.copy(), OUTCOME_ARG)
         assert "Homosexual_Behavior" in result.columns
         assert "Non_monogamous_Relationships" in result.columns
 
@@ -200,7 +205,7 @@ class TestEdgeCases:
             "Sex": ["male", "female", "male"],
             "txx_prt": [1, 2, 0],
         })
-        result = preprocess_data(df.copy(), OUTCOME_COL)
+        result = preprocess_data(df.copy(), OUTCOME_ARG)
         assert isinstance(result, pd.DataFrame)
 
     def test_runs_without_tlfb_columns(self) -> None:
@@ -212,7 +217,7 @@ class TestEdgeCases:
             "Sex": ["male", "female"],
             "txx_prt": [1, 2],
         })
-        result = preprocess_data(df.copy(), OUTCOME_COL)
+        result = preprocess_data(df.copy(), OUTCOME_ARG)
         assert not result.empty
 
     def test_all_nan_heroin_column(self) -> None:
@@ -225,6 +230,6 @@ class TestEdgeCases:
             "txx_prt": [1, 1, 1],
             "heroin_inject_days": [np.nan, np.nan, np.nan],
         })
-        result = preprocess_data(df.copy(), OUTCOME_COL)
+        result = preprocess_data(df.copy(), OUTCOME_ARG)
         assert "rbsivheroin" in result.columns
         assert (result["rbsivheroin"] == 0).all()
