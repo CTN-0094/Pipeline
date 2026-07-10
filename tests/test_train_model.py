@@ -22,7 +22,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 
 from sklearn.exceptions import NotFittedError
 
-from src.train_model import OutcomeModel, LogisticModel
+from src.train_model import OutcomeModel, LogisticModel, NegativeBinomialModel
 
 
 # =============================================================================
@@ -416,17 +416,18 @@ class TestLogisticModelTraining:
         assert proba.shape == (len(X), 2)
         assert ((proba >= 0) & (proba <= 1)).all()
 
-    def test_train_without_select_features_raises(self, logistic_data):
+    def test_selected_features_defaults_to_all_columns_before_selection(self, logistic_data):
         """
-        Calling train() before selectFeatures() should fail because
-        selected_features defaults to all columns, but the internal
-        LogisticRegression fit will still run — what we verify is that
-        selectFeatures() was designed to be called first by checking the
-        default selected_features equals all X columns before selection.
+        Before selectFeatures() runs, selected_features defaults to every
+        feature column.
+
+        OutcomeModel.__init__ seeds selected_features with the full feature
+        index, so a caller who skips selectFeatures() would train on all
+        columns rather than a Lasso-reduced subset. This test pins that
+        default so a regression in the initializer is caught.
         """
         model = LogisticModel(data=logistic_data, id_column="id", target_column=["outcome"], seed=42)
-        # Before selection, selected_features is the full column index
-        
+
         assert list(model.selected_features) == list(model.X.columns)
 
 
@@ -481,6 +482,119 @@ class TestLogisticModelEvaluation:
         assert len(pairs) == len(logistic_heldout)
         for pair in pairs:
             assert len(pair) == 2
+
+
+# =============================================================================
+# NEGATIVE BINOMIAL MODEL FIXTURES
+# =============================================================================
+
+def _make_count_data(n: int, seed: int) -> pd.DataFrame:
+    """
+    Build a count-outcome dataset for NegativeBinomialModel tests.
+
+    feature2 and feature3 carry genuine signal (the outcome is their sum),
+    while feature1 is pure noise. This lets the regression Lasso
+    (alpha=30) retain the informative features and drop the noise one,
+    mirroring how the model is used on real integer endpoints.
+
+    Args:
+        n: Number of rows to generate.
+        seed: Seed for the local RandomState, kept independent of global state.
+
+    Returns:
+        DataFrame with id, three integer features, a RaceEth code column,
+        and a non-negative integer ``count_outcome`` target.
+    """
+    rng = np.random.RandomState(seed)
+    feature2 = rng.randint(0, 200, n)
+    feature3 = rng.randint(0, 200, n)
+    return pd.DataFrame({
+        "id": range(1, n + 1),
+        "feature1": rng.randint(0, 200, n),  # noise
+        "feature2": feature2,
+        "feature3": feature3,
+        "RaceEth": rng.choice([1, 2, 3], n, p=[0.6, 0.25, 0.15]),
+        "count_outcome": feature2 + feature3,
+    })
+
+
+@pytest.fixture
+def count_data():
+    """Training data with an integer (count) outcome for NegativeBinomialModel."""
+    return _make_count_data(n=200, seed=42)
+
+
+@pytest.fixture
+def trained_nb_model(count_data):
+    """A NegativeBinomialModel that has completed selectFeatures() and train()."""
+    model = NegativeBinomialModel(data=count_data, id_column="id", target_column=["count_outcome"], seed=42)
+    model.selectFeatures()
+    model.train()
+    return model
+
+
+# =============================================================================
+# NEGATIVE BINOMIAL MODEL — FEATURE SELECTION
+# =============================================================================
+
+class TestNegativeBinomialFeatureSelection:
+    """Tests for selectFeatures() / lasso_feature_selection(regression)."""
+
+    def test_select_features_populates_selected_features(self, count_data):
+        """selected_features should be non-empty after selectFeatures()."""
+        model = NegativeBinomialModel(data=count_data, id_column="id", target_column=["count_outcome"], seed=42)
+        model.selectFeatures()
+        assert len(model.selected_features) > 0
+
+    def test_selected_features_are_subset_of_input_columns(self, count_data):
+        """Every selected feature must exist in the original feature set."""
+        model = NegativeBinomialModel(data=count_data, id_column="id", target_column=["count_outcome"], seed=42)
+        model.selectFeatures()
+        for feat in model.selected_features:
+            assert feat in model.X.columns
+
+    def test_selected_features_exclude_id_and_target(self, count_data):
+        """ID and target columns must not appear in selected_features."""
+        model = NegativeBinomialModel(data=count_data, id_column="id", target_column=["count_outcome"], seed=42)
+        model.selectFeatures()
+        assert "id" not in model.selected_features
+        assert "count_outcome" not in model.selected_features
+
+    def test_select_features_is_deterministic(self, count_data):
+        """
+        selectFeatures() should produce the same features across runs,
+        confirming the regression Lasso path is applied consistently.
+        """
+        model = NegativeBinomialModel(data=count_data, id_column="id", target_column=["count_outcome"], seed=42)
+        model.selectFeatures()
+        first_run = list(model.selected_features)
+        model.selectFeatures()
+        second_run = list(model.selected_features)
+        assert first_run == second_run
+
+
+# =============================================================================
+# NEGATIVE BINOMIAL MODEL — TRAINING
+# =============================================================================
+
+class TestNegativeBinomialTraining:
+    """Tests for train() on the count endpoint."""
+
+    def test_train_sets_model_attribute(self, count_data):
+        """model attribute should be populated after train()."""
+        model = NegativeBinomialModel(data=count_data, id_column="id", target_column=["count_outcome"], seed=42)
+        model.selectFeatures()
+        model.train()
+        assert model.model is not None
+
+    def test_trained_model_can_predict(self, trained_nb_model):
+        """The fitted GLM results object should expose a predict() method."""
+        assert hasattr(trained_nb_model.model, "predict")
+
+
+# NOTE: NegativeBinomialModel evaluate()/_evaluateOnValidation() tests land in
+# the next commit (metric keys, non-negative errors, rmse==sqrt(mse),
+# training_demographics, NotFittedError, iterable predictions).
 
 
 # =============================================================================
