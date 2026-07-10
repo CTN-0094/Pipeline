@@ -525,6 +525,12 @@ def count_data():
 
 
 @pytest.fixture
+def count_heldout():
+    """Held-out count data sharing the schema of ``count_data`` but a different seed."""
+    return _make_count_data(n=50, seed=99)
+
+
+@pytest.fixture
 def trained_nb_model(count_data):
     """A NegativeBinomialModel that has completed selectFeatures() and train()."""
     model = NegativeBinomialModel(data=count_data, id_column="id", target_column=["count_outcome"], seed=42)
@@ -592,9 +598,63 @@ class TestNegativeBinomialTraining:
         assert hasattr(trained_nb_model.model, "predict")
 
 
-# NOTE: NegativeBinomialModel evaluate()/_evaluateOnValidation() tests land in
-# the next commit (metric keys, non-negative errors, rmse==sqrt(mse),
-# training_demographics, NotFittedError, iterable predictions).
+# =============================================================================
+# NEGATIVE BINOMIAL MODEL — EVALUATION
+# =============================================================================
+
+class TestNegativeBinomialEvaluation:
+    """Tests for evaluate() / _evaluateOnValidation() on the count endpoint."""
+
+    NB_KEYS = ("mse", "rmse", "mae", "pearson_r", "mcfadden_r2", "demographics")
+
+    def test_evaluate_returns_four_values(self, trained_nb_model, count_heldout):
+        """evaluate() must return a 4-tuple: (heldout_preds, heldout_evals, subset_preds, subset_evals)."""
+        result = trained_nb_model.evaluate(count_heldout)
+        assert len(result) == 4
+
+    def test_heldout_evaluations_has_required_keys(self, trained_nb_model, count_heldout):
+        """Heldout evaluation dict must contain the count-model metric keys."""
+        _, heldout_evals, _, _ = trained_nb_model.evaluate(count_heldout)
+        for key in self.NB_KEYS:
+            assert key in heldout_evals, f"Missing key: {key}"
+
+    def test_subset_evaluations_has_required_keys(self, trained_nb_model, count_heldout):
+        """Subset evaluation dict must contain the same keys as heldout evaluations."""
+        _, _, _, subset_evals = trained_nb_model.evaluate(count_heldout)
+        for key in self.NB_KEYS:
+            assert key in subset_evals, f"Missing key: {key}"
+
+    def test_error_metrics_are_non_negative(self, trained_nb_model, count_heldout):
+        """mse, rmse, and mae are error magnitudes and must be non-negative."""
+        _, heldout_evals, _, _ = trained_nb_model.evaluate(count_heldout)
+        for key in ("mse", "rmse", "mae"):
+            assert heldout_evals[key] >= 0.0
+
+    def test_rmse_is_sqrt_of_mse(self, trained_nb_model, count_heldout):
+        """rmse must equal the square root of mse by construction."""
+        _, heldout_evals, _, _ = trained_nb_model.evaluate(count_heldout)
+        assert heldout_evals["rmse"] == pytest.approx(np.sqrt(heldout_evals["mse"]))
+
+    def test_both_evaluations_include_training_demographics(self, trained_nb_model, count_heldout):
+        """training_demographics key must be added to both evaluation dicts."""
+        _, heldout_evals, _, subset_evals = trained_nb_model.evaluate(count_heldout)
+        assert "training_demographics" in heldout_evals
+        assert "training_demographics" in subset_evals
+
+    def test_evaluate_before_train_raises_not_fitted_error(self, count_data, count_heldout):
+        """evaluate() before train() must raise NotFittedError."""
+        model = NegativeBinomialModel(data=count_data, id_column="id", target_column=["count_outcome"], seed=42)
+        model.selectFeatures()
+        with pytest.raises(NotFittedError):
+            model.evaluate(count_heldout)
+
+    def test_heldout_predictions_are_iterable(self, trained_nb_model, count_heldout):
+        """heldout_predictions should be iterable (id, pred) pairs, one per row."""
+        heldout_preds, _, _, _ = trained_nb_model.evaluate(count_heldout)
+        pairs = list(heldout_preds)
+        assert len(pairs) == len(count_heldout)
+        for pair in pairs:
+            assert len(pair) == 2
 
 
 # =============================================================================
