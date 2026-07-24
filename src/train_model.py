@@ -8,7 +8,7 @@ import pandas as pd  # For DataFrame manipulation
 from joblib import dump, load  # For saving/loading models
 from src.constants import RACEETH_LABELS
 from sklearn.exceptions import NotFittedError  # Handle unfitted model errors
-from sklearn.linear_model import LogisticRegression, Lasso, LinearRegression  # Logistic regression model
+from sklearn.linear_model import LogisticRegression, Lasso, LassoCV, LinearRegression  # Logistic regression model
 from sklearn.preprocessing import StandardScaler  # For feature scaling
 from sklearn.pipeline import Pipeline  # For creating a machine learning pipeline
 from sklearn.model_selection import train_test_split  # For splitting data into training/testing sets
@@ -122,23 +122,37 @@ class OutcomeModel:
         """Placeholder method for Evaluating Validation sets."""
         pass
 
-    def lasso_feature_selection(self, model_type = 'classification', alpha=0.01):
+    def lasso_feature_selection(self, model_type: str = 'classification', alpha: Optional[float] = None):
         """
-        Perform feature selection using Lasso regression.
-        
+        Perform feature selection using L1-regularized regression.
+
         Parameters:
         -----------
-        alpha : float, default=0.1
-            The regularization strength. Higher values result in fewer features selected.
-            
+        model_type : str, default='classification'
+            'regression' uses a Lasso; 'classification' uses L1 logistic regression.
+        alpha : float, optional
+            L1 regularization strength for the regression path. When ``None``
+            (the default), the strength is chosen by cross-validation via
+            ``LassoCV``, which is robust to the target's scale; a hardcoded
+            alpha silently over-regularizes to zero features when the outcome's
+            variance is small (see issue #22). An explicit value keeps the old
+            fixed-strength behavior. Ignored for the classification path.
+
         Returns:
         --------
         selected_features : list
             List of column names of the selected features.
         """
         try:
+            fit_target = self.y_train
             if model_type == 'regression':
-                model = Lasso(alpha=alpha, random_state=42)
+                # LassoCV requires a 1-D target. For multi-column targets (e.g.
+                # survival time+event) screen on the primary column, matching the
+                # historical behavior of reading only coef_[0].
+                if getattr(fit_target, 'ndim', 1) > 1 and fit_target.shape[1] > 1:
+                    fit_target = fit_target.iloc[:, 0]
+                model = (LassoCV(cv=5, random_state=42, max_iter=20000)
+                         if alpha is None else Lasso(alpha=alpha, random_state=42))
             elif model_type == 'classification':
                 model = LogisticRegression(penalty='l1', solver='saga', C=1.0, max_iter=10000)
             else:
@@ -149,7 +163,7 @@ class OutcomeModel:
                 ('model', model)
             ])
 
-            pipeline.fit(self.X_train, self.y_train)
+            pipeline.fit(self.X_train, fit_target)
 
             # Extract the fitted logistic regression model from the pipeline
             model = pipeline.named_steps['model']
