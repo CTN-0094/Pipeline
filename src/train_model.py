@@ -177,7 +177,28 @@ class OutcomeModel:
             # Select the features where the L1 regularization retained non-zero coefficients
             self.selected_features = self.X_train.columns[coefficients.flatten() != 0].tolist()
 
-            # If no features were selected, raise an error to signal potential over-regularization
+            # Handle the empty-selection case.
+            if not self.selected_features and alpha is None and model_type == 'regression':
+                # Cross-validation chose the intercept-only model: no linear
+                # signal survived CV for this subset. Rather than aborting a
+                # multi-seed run — or falling back to *all* features, which makes
+                # collinearity-sensitive models like Cox singular — walk down the
+                # CV alpha grid and take the sparsest non-empty Lasso solution (#22).
+                X_scaled = pipeline.named_steps['scaler'].transform(self.X_train)
+                for a in sorted(getattr(model, 'alphas_', []), reverse=True):
+                    fallback = Lasso(alpha=a, random_state=42, max_iter=20000)
+                    fallback.fit(X_scaled, fit_target)
+                    feats = self.X_train.columns[fallback.coef_.flatten() != 0].tolist()
+                    if feats:
+                        self.selected_features = feats
+                        logging.warning(
+                            f"LassoCV selected no features; using sparsest non-empty "
+                            f"Lasso (alpha={a:.4g}) with {len(feats)} features."
+                        )
+                        break
+
+            # If still empty (hardcoded alpha over-regularizing, or no path
+            # solution found), surface it loudly rather than fitting on nothing.
             if not self.selected_features:
                 raise ValueError("No features were selected. Check your regularization strength.")
 
