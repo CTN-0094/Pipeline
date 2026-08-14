@@ -376,6 +376,133 @@ def test_cox_proportional_hazard_evaluation(sample_survival_data_multiple_featur
 
 
 
+# ---------------------------------------------------------------------------
+# Regression guards for issue #22.
+#
+# The fixtures above give the outcome as an exact sum of features, so a
+# hardcoded Lasso(alpha=30) still retains signal and the bug stays invisible.
+# The fixtures below reproduce the real-data condition instead: a small-variance
+# count/time outcome against large-scale features, where alpha=30 shrinks every
+# coefficient to zero and the endpoints become unrunnable.
+# ---------------------------------------------------------------------------
+
+
+def _weak_signal_frame(seed: int) -> pd.DataFrame:
+    """Build a weak-signal frame: low-variance counts against large-scale features.
+
+    ``feature2`` and ``feature3`` carry small true effects on a log-mean scale,
+    mirroring the real CTN-0094 endpoints. Note that LassoCV is not a consistent
+    selector and will sometimes also retain a noise column, so tests assert that
+    true signal is recovered rather than that noise is excluded.
+    """
+    rng = np.random.default_rng(seed)
+    n = 400
+    feature2 = rng.normal(50, 25, n)
+    feature3 = rng.normal(100, 40, n)
+    linear = 0.6 + 0.006 * (feature2 - 50) + 0.004 * (feature3 - 100)
+    return pd.DataFrame({
+        "id": range(n),
+        "age": rng.integers(20, 60, n),
+        "RaceEth": rng.choice([0, 1], n),
+        "feature1": rng.normal(75, 30, n),
+        "feature2": feature2,
+        "feature3": feature3,
+        "label": rng.poisson(np.exp(linear))
+    })
+
+
+@pytest.fixture
+def sample_integer_data_weak_signal():
+    return _weak_signal_frame(seed=0)
+
+
+@pytest.fixture
+def sample_survival_data_weak_signal():
+    df = _weak_signal_frame(seed=1)
+    rng = np.random.default_rng(2)
+    # Shift counts to strictly positive durations; Cox cannot take a zero time.
+    df["labelTTE"] = df["label"] + 1
+    df["label"] = rng.integers(0, 2, len(df))
+    return df
+
+
+def test_negative_binomial_weak_signal_hardcoded_alpha_selects_nothing(sample_integer_data_weak_signal):
+    """The #22 failure mode: alpha=30 zeroes every coefficient on weak signal."""
+    model = NegativeBinomialModel(data=sample_integer_data_weak_signal, id_column="id",
+                                  target_column=["label"], seed=42)
+    with pytest.raises(ValueError, match="No features were selected"):
+        model.lasso_feature_selection(model_type="regression", alpha=30)
+
+
+def test_negative_binomial_weak_signal_cv_recovers_features(sample_integer_data_weak_signal):
+    """The fix: a CV-chosen alpha recovers the true signal and trains end-to-end."""
+    model = NegativeBinomialModel(data=sample_integer_data_weak_signal, id_column="id",
+                                  target_column=["label"], seed=42)
+    model.selectFeatures()
+    assert "feature2" in model.selected_features
+    assert "feature3" in model.selected_features
+    model.train()
+
+
+def test_cox_weak_signal_hardcoded_alpha_selects_nothing(sample_survival_data_weak_signal):
+    """The #22 failure mode on the survival endpoint."""
+    model = CoxProportionalHazard(data=sample_survival_data_weak_signal, id_column="id",
+                                  target_column=["labelTTE", "label"], seed=42)
+    with pytest.raises(ValueError, match="No features were selected"):
+        model.lasso_feature_selection(model_type="regression", alpha=30)
+
+
+def test_cox_weak_signal_cv_recovers_features(sample_survival_data_weak_signal):
+    """The fix: the survival endpoint selects and trains end-to-end on weak signal."""
+    model = CoxProportionalHazard(data=sample_survival_data_weak_signal, id_column="id",
+                                  target_column=["labelTTE", "label"], seed=42)
+    model.selectFeatures()
+    assert "feature2" in model.selected_features
+    assert "feature3" in model.selected_features
+    model.train()
+
+
+def test_mcfadden_r2_is_invariant_to_evaluation_set_size(sample_integer_data_weak_signal):
+    """McFadden's R^2 must reflect fit quality, not the train/eval size ratio.
+
+    Previously the full term came from the training fit while the null was fit
+    on the evaluation set, so the statistic scaled with n_train / n_eval and was
+    reliably large and negative. Scoring the same model on nested evaluation
+    sets drawn from one distribution must now give stable values.
+    """
+    model = NegativeBinomialModel(data=sample_integer_data_weak_signal, id_column="id",
+                                  target_column=["label"], seed=42)
+    model.selectFeatures()
+    model.train()
+
+    heldout = _weak_signal_frame(seed=3)
+    scores = []
+    for size in (200, 100, 50):
+        subset = heldout.iloc[:size]
+        _, evals = model._evaluateOnValidation(subset, subset[["label"]], subset["id"])
+        scores.append(evals["mcfadden_r2"])
+
+    assert all(abs(s) < 1.0 for s in scores), f"implausible McFadden values: {scores}"
+    assert max(scores) - min(scores) < 0.5, f"McFadden tracks evaluation size: {scores}"
+
+
+def test_negative_binomial_pearson_r_is_a_scalar(sample_integer_data_weak_signal):
+    """pearson_r must be a single float, not a broadcast (n, n) result object."""
+    model = NegativeBinomialModel(data=sample_integer_data_weak_signal, id_column="id",
+                                  target_column=["label"], seed=42)
+    model.selectFeatures()
+    model.train()
+
+    heldout = _weak_signal_frame(seed=4)
+    _, evals = model._evaluateOnValidation(heldout, heldout[["label"]], heldout["id"])
+    pearson_r = evals["pearson_r"]
+    assert isinstance(pearson_r, float)
+    assert not np.isnan(pearson_r)
+    assert -1.0 <= pearson_r <= 1.0
+
+
+
+
 
 
 
