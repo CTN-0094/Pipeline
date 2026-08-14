@@ -330,12 +330,13 @@ class NegativeBinomialModel(OutcomeModel):
         logging.info("NBR model fitting completed successfully.")
 
     def selectFeatures(self):
-        self.lasso_feature_selection(model_type="regression", alpha=30)
+        # alpha=None => cross-validated L1 strength (robust to count-target scale); see #22
+        self.lasso_feature_selection(model_type="regression")
 
     def predict(self):
         """Make predictions with the trained Negative Binomial model."""
-        return self.model.evaluate_model() 
-    
+        return self.model.evaluate_model()
+
     def _evaluateOnValidation(self, X, y, id):
 
         X_with_constant = np.column_stack((np.ones(X[self.selected_features].shape[0]), X[self.selected_features]))
@@ -392,9 +393,10 @@ class CoxProportionalHazard(OutcomeModel):
             "demographics": self._countDemographic(X)
         }
         return predictions, evaluations
-    
+
     def selectFeatures(self):
-        self.lasso_feature_selection(model_type="regression", alpha=30)
+        # alpha=None => cross-validated L1 strength (robust to time-target scale); see #22
+        self.lasso_feature_selection(model_type="regression")
 
 
 
