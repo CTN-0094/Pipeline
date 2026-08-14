@@ -15,7 +15,6 @@ from sklearn.model_selection import train_test_split  # For splitting data into 
 from sklearn.metrics import confusion_matrix, roc_auc_score, precision_score, recall_score, f1_score, mean_squared_error, mean_absolute_error, r2_score # For model evaluation
 import statsmodels.api as sm  # For statistical models (like Negative Binomial)
 from statsmodels.othermod.betareg import BetaModel
-from statsmodels.discrete.discrete_model import NegativeBinomial
 from scipy.stats import pearsonr
 from lifelines import CoxPHFitter
 from lifelines.utils import concordance_index
@@ -337,25 +336,61 @@ class NegativeBinomialModel(OutcomeModel):
         """Make predictions with the trained Negative Binomial model."""
         return self.model.evaluate_model()
 
+    @staticmethod
+    def _mcfaddenR2(y_true: np.ndarray, y_pred: np.ndarray) -> float:
+        """Compute McFadden's pseudo-R^2 for a Negative Binomial fit.
+
+        Both log-likelihoods are measured on the *same* data (the set being
+        evaluated), using the same Negative Binomial family — and therefore the
+        same dispersion — as the fitted model. Mixing datasets or estimators
+        between the full and null terms makes the ratio track the sample-size
+        ratio rather than fit quality.
+
+        The null is the intercept-only model, whose MLE under a log link is a
+        constant mean of ``y_true.mean()``, so it needs no separate fit.
+
+        Parameters:
+        -----------
+        y_true : np.ndarray
+            Observed counts, 1-D.
+        y_pred : np.ndarray
+            Predicted conditional means from the fitted model, 1-D.
+
+        Returns:
+        --------
+        float
+            McFadden's pseudo-R^2, or ``nan`` when the null log-likelihood is
+            zero or non-finite (e.g. an all-zero outcome), leaving the ratio
+            undefined. Negative values are meaningful out of sample: the model
+            generalizes worse than the evaluation set's own mean.
+        """
+        family = sm.families.NegativeBinomial()
+        ll_full = family.loglike(y_true, y_pred)
+        ll_null = family.loglike(y_true, np.full_like(y_pred, y_true.mean(), dtype=float))
+        if not np.isfinite(ll_null) or ll_null == 0:
+            return float('nan')
+        return 1 - (ll_full / ll_null)
+
     def _evaluateOnValidation(self, X, y, id):
 
         X_with_constant = np.column_stack((np.ones(X[self.selected_features].shape[0]), X[self.selected_features]))
 
-        y_pred = self.model.predict(X_with_constant)
-
-        ll_full = self.model.llf
-        X_null = np.ones((X.shape[0], 1))
-        null_model = NegativeBinomial(y, X_null).fit(method='bfgs', disp=0)
-        ll_null = null_model.llf
-        mcfadden_r2 = 1 - (ll_full / ll_null)
+        y_pred = np.asarray(self.model.predict(X_with_constant)).ravel()
+        # y arrives as a 1-column DataFrame for the heldout set but a Series for
+        # the subset; flatten both so metrics compare 1-D against 1-D instead of
+        # broadcasting into an (n, n) grid.
+        y_true = np.asarray(y).ravel()
 
         predictions = zip(id, y_pred)
         evaluations = {
-            "mse": mean_squared_error(y, y_pred),
-            "rmse": np.sqrt(mean_squared_error(y, y_pred)),
-            "mae": mean_absolute_error(y, y_pred),
-            "pearson_r": pearsonr(y, y_pred),
-            "mcfadden_r2": mcfadden_r2,
+            "mse": mean_squared_error(y_true, y_pred),
+            "rmse": np.sqrt(mean_squared_error(y_true, y_pred)),
+            "mae": mean_absolute_error(y_true, y_pred),
+            # Correlation is undefined when either input is constant; report nan
+            # rather than letting scipy warn on every subset.
+            "pearson_r": (float('nan') if y_true.std() == 0 or y_pred.std() == 0
+                          else pearsonr(y_true, y_pred).statistic),
+            "mcfadden_r2": self._mcfaddenR2(y_true, y_pred),
             "demographics": self._countDemographic(X)
         }
         return predictions, evaluations
