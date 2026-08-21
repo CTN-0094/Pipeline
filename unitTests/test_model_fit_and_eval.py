@@ -506,6 +506,59 @@ def test_negative_binomial_pearson_r_is_a_scalar(sample_integer_data_weak_signal
 
 
 
+def _beta_frame(seed: int, signal: float, n: int = 300) -> pd.DataFrame:
+    """Build a (0, 1)-bounded outcome whose dependence on the features is tunable.
+
+    ``signal`` scales the true effect of ``feature2``; at 0.0 the outcome is
+    pure noise, so a sound pseudo-R^2 must rise with it.
+    """
+    rng = np.random.default_rng(seed)
+    feature2 = rng.normal(0, 1, n)
+    mu = 1 / (1 + np.exp(-(0.2 + signal * feature2)))
+    return pd.DataFrame({
+        "id": range(n),
+        "age": rng.integers(20, 60, n),
+        "RaceEth": rng.choice([0, 1], n),
+        "feature1": rng.normal(0, 1, n),
+        "feature2": feature2,
+        "feature3": rng.normal(0, 1, n),
+        "label": rng.beta(mu * 20, (1 - mu) * 20)
+    })
+
+
+def _beta_pseudo_r2(train_df: pd.DataFrame, eval_df: pd.DataFrame) -> float:
+    model = BetaRegression(data=train_df, id_column="id", target_column=["label"], seed=42)
+    model.selected_features = ["feature1", "feature2", "feature3"]
+    model.train()
+    _, evals = model._evaluateOnValidation(eval_df, eval_df[["label"]], eval_df["id"])
+    return evals["pseudo_r2"]
+
+
+def test_beta_pseudo_r2_increases_with_signal():
+    """A stronger true effect must score higher.
+
+    McFadden's ``1 - ll_full / ll_null`` inverted here: a Beta log-likelihood is
+    a log-density and is routinely positive, so better fits scored further below
+    zero. Cox-Snell uses the log-likelihood difference and orders correctly.
+    """
+    scores = [_beta_pseudo_r2(_beta_frame(0, s), _beta_frame(1, s)) for s in (0.0, 0.5, 1.5)]
+    assert scores == sorted(scores), f"pseudo_r2 not monotonic in signal: {scores}"
+    # With no true effect the score must not be appreciably positive. It sits a
+    # little below zero rather than exactly at it, because the two noise columns
+    # are still fitted and so generalize slightly worse than the null — that is
+    # correct out-of-sample behavior, hence only a loose lower bound.
+    assert -0.5 < scores[0] < 0.15, f"no-signal case should sit near zero: {scores[0]}"
+    assert scores[-1] > 0.5, f"strong-signal case should be clearly positive: {scores[-1]}"
+
+
+def test_beta_pseudo_r2_is_stable_across_evaluation_set_size():
+    """The score must reflect fit quality, not how big the evaluation set is."""
+    train = _beta_frame(0, 0.8)
+    heldout = _beta_frame(1, 0.8)
+    scores = [_beta_pseudo_r2(train, heldout.iloc[:size]) for size in (300, 150, 75)]
+    assert max(scores) - min(scores) < 0.2, f"pseudo_r2 tracks evaluation size: {scores}"
+
+
 def test_beta_regression_select_features(sample_0to1_data_multiple_features_noisy):
     model = BetaRegression(data=sample_0to1_data_multiple_features_noisy, id_column="id", target_column=["label"])
     model.selectFeatures()

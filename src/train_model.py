@@ -437,9 +437,8 @@ class CoxProportionalHazard(OutcomeModel):
 
 
 class BetaRegression(OutcomeModel):
+    """Beta regression implementation for outcomes bounded on (0, 1)."""
 
-
-    """Negative Binomial model implementation."""
     def train(self):
 
         # Step 1: Add intercept
@@ -451,38 +450,70 @@ class BetaRegression(OutcomeModel):
         # Step 3: Fit with optimizer
         self.model = self.model.fit(method='bfgs', disp=0)
 
-        logging.info("NBR model fitting completed successfully.")
+        logging.info("Beta regression model fitting completed successfully.")
 
     def selectFeatures(self):
         self.lasso_feature_selection(model_type="regression", alpha=.05)
 
     def predict(self):
-        """Make predictions with the trained Negative Binomial model."""
-        return self.model.evaluate_model() 
+        """Make predictions with the trained Beta regression model."""
+        return self.model.evaluate_model()
+
     
+    @staticmethod
+    def _coxSnellR2(ll_full: float, ll_null: float, n_obs: int) -> float:
+        """Compute the Cox-Snell (likelihood-ratio) pseudo-R^2.
+
+        McFadden's ``1 - ll_full / ll_null`` is only interpretable when the
+        log-likelihoods are non-positive, which holds for discrete outcomes
+        whose likelihood is a probability. A Beta model's likelihood is a
+        *density*, so its log-likelihood is routinely positive and the ratio
+        inverts: a better-fitting model scores further below zero.
+
+        Cox-Snell depends on the log-likelihood *difference* instead, so it is
+        well behaved whatever the sign, and reduces to the familiar 0-to-1
+        reading when the model beats the null.
+
+        Parameters:
+        -----------
+        ll_full : float
+            Log-likelihood of the fitted model on the evaluated data.
+        ll_null : float
+            Log-likelihood of the intercept-only model on the same data.
+        n_obs : int
+            Number of observations both log-likelihoods were measured over.
+
+        Returns:
+        --------
+        float
+            Cox-Snell pseudo-R^2, or ``nan`` if the inputs are degenerate.
+            Negative values mean the model generalizes worse than the null.
+        """
+        if n_obs <= 0 or not np.isfinite(ll_full) or not np.isfinite(ll_null):
+            return float('nan')
+        return 1 - np.exp(-2 * (ll_full - ll_null) / n_obs)
+
     def _evaluateOnValidation(self, X, y, id):
 
         X_with_constant = np.column_stack((np.ones(X[self.selected_features].shape[0]), X[self.selected_features]))
 
-        y_pred = self.model.predict(X_with_constant)
-
-        ll_full = self.model.llf
-        X_null = np.ones((X.shape[0], 1))
-        null_model = BetaModel(endog=y, exog=X_null).fit(method='bfgs', disp=0)
-        ll_null = null_model.llf
-        mcfadden_r2 = 1 - (ll_full / ll_null)
-
+        y_pred = np.ravel(self.model.predict(X_with_constant))
         y = np.ravel(y)
-        y_pred = np.ravel(y_pred)
 
-        r, p = pearsonr(y, y_pred)
+        # Both log-likelihoods must come from the data being evaluated: score
+        # the trained coefficients on it rather than reusing the training llf.
+        ll_full = BetaModel(endog=y, exog=X_with_constant).loglike(np.asarray(self.model.params))
+        ll_null = BetaModel(endog=y, exog=np.ones((len(y), 1))).fit(method='bfgs', disp=0).llf
+        pseudo_r2 = self._coxSnellR2(ll_full, ll_null, len(y))
+
+        r = pearsonr(y, y_pred).statistic
         predictions = zip(id, y_pred)
         evaluations = {
             "mse": mean_squared_error(y, y_pred),
             "rmse": np.sqrt(mean_squared_error(y, y_pred)),
             "mae": mean_absolute_error(y, y_pred),
             "pearson_r": r,
-            "mcfadden_r2": mcfadden_r2,
+            "pseudo_r2": pseudo_r2,
             "demographics": self._countDemographic(X)
         }
         return predictions, evaluations
