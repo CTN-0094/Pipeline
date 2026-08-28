@@ -385,18 +385,20 @@ def save_evaluations_to_csv(results, seed, selected_outcome, directory, name):
             ]
 
             if selected_outcome['endpointType'] == EndpointType.LOGICAL:
-                tp = trials_data['confusion_matrix'][0][0]
-                fn = trials_data['confusion_matrix'][1][0]
-                fp = trials_data['confusion_matrix'][0][1]
-                tn = trials_data['confusion_matrix'][1][1]
+                # sklearn orders the binary matrix [[TN, FP], [FN, TP]]; ravel()
+                # yields that order directly. Reading the corners positionally
+                # transposed TP with TN, and the row was then emitted in an order
+                # that did not match the header, so three of the four counts were
+                # written under the wrong column.
+                tn, fp, fn, tp = trials_data['confusion_matrix'].ravel()
                 accuracy = (tp + tn) / (tp + tn + fp + fn)
                 f1 = 2 * (trials_data['precision'] * trials_data['recall']) / (trials_data['precision'] + trials_data['recall'])
 
                 writer.writerow(sections + [
                     tp,
-                    fn,
-                    fp,
                     tn,
+                    fp,
+                    fn,
                     accuracy,
                     trials_data['precision'],
                     trials_data['recall'],
