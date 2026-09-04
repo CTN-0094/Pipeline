@@ -392,7 +392,14 @@ def save_evaluations_to_csv(results, seed, selected_outcome, directory, name):
                 # written under the wrong column.
                 tn, fp, fn, tp = trials_data['confusion_matrix'].ravel()
                 accuracy = (tp + tn) / (tp + tn + fp + fn)
-                f1 = 2 * (trials_data['precision'] * trials_data['recall']) / (trials_data['precision'] + trials_data['recall'])
+                precision = trials_data['precision']
+                recall = trials_data['recall']
+                # A model that predicts no positives is scored 0 for both
+                # precision and recall by sklearn, which makes 2pr/(p+r) a 0/0
+                # that evaluates to NaN rather than raising. Report 0 for that
+                # degenerate case, matching sklearn's own f1_score.
+                denominator = precision + recall
+                f1 = 2 * (precision * recall) / denominator if denominator else 0.0
 
                 writer.writerow(sections + [
                     tp,
@@ -400,8 +407,8 @@ def save_evaluations_to_csv(results, seed, selected_outcome, directory, name):
                     fp,
                     fn,
                     accuracy,
-                    trials_data['precision'],
-                    trials_data['recall'],
+                    precision,
+                    recall,
                     f1,
                     trials_data['roc']
                 ])
