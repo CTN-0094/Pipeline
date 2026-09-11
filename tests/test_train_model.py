@@ -493,9 +493,9 @@ def _make_count_data(n: int, seed: int) -> pd.DataFrame:
     Build a count-outcome dataset for NegativeBinomialModel tests.
 
     feature2 and feature3 carry genuine signal (the outcome is their sum),
-    while feature1 is pure noise. This lets the regression Lasso
-    (alpha=30) retain the informative features and drop the noise one,
-    mirroring how the model is used on real integer endpoints.
+    while feature1 is pure noise. This lets the cross-validated regression
+    Lasso retain the informative features and drop the noise one, mirroring
+    how the model is used on real integer endpoints.
 
     Args:
         n: Number of rows to generate.

@@ -329,8 +329,16 @@ class NegativeBinomialModel(OutcomeModel):
 
         logging.info("NBR model fitting completed successfully.")
 
-    def selectFeatures(self):
-        self.lasso_feature_selection(model_type="regression", alpha=30)
+    def selectFeatures(self) -> None:
+        """Select features for the count outcome with a cross-validated Lasso.
+
+        The strength was previously hardcoded at alpha=30, which zeroed every
+        coefficient on the real integer endpoint and aborted the run. Leaving
+        alpha unset lets LassoCV choose it per subset, and keeps the
+        sparsest-non-empty fallback reachable, since that fallback needs the
+        CV alpha grid.
+        """
+        self.lasso_feature_selection(model_type="regression")
 
     def predict(self):
         """Make predictions with the trained Negative Binomial model."""
@@ -393,8 +401,15 @@ class CoxProportionalHazard(OutcomeModel):
         }
         return predictions, evaluations
     
-    def selectFeatures(self):
-        self.lasso_feature_selection(model_type="regression", alpha=30)
+    def selectFeatures(self) -> None:
+        """Select features for the survival outcome with a cross-validated Lasso.
+
+        Shares the reasoning in NegativeBinomialModel.selectFeatures: a fixed
+        alpha=30 selected nothing on the real survival endpoint. Cox is also
+        collinearity-sensitive, so the fallback's sparsest non-empty solution
+        matters more here than selecting every feature would.
+        """
+        self.lasso_feature_selection(model_type="regression")
 
 
 

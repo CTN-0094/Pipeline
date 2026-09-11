@@ -309,10 +309,24 @@ def test_logistic_model_evaluation(sample_classification_data_multiple_features_
 
 
 def test_negative_binomial_model_select_features(sample_integer_data_multiple_features_noisy):
+    """Selection keeps the outcome's components and drops the strong noise feature.
+
+    This asserted exactly ["feature2", "feature3"] while the alpha was hardcoded
+    at 30. That alpha selected nothing at all on the real integer endpoint and
+    aborted the pipeline, so selection is now cross-validated. CV optimizes
+    prediction error rather than selection consistency, so on a sample this
+    small it also admits feature4 (uniform noise) with a coefficient around an
+    eighth of the real ones. The invariant that still holds, and the one this
+    test now pins, is that both true components survive and feature1 -- noise
+    drawn on the same scale as the signal columns -- does not.
+    """
     model = NegativeBinomialModel(data=sample_integer_data_multiple_features_noisy, id_column="id", target_column=["label"])
     model.selectFeatures()
     assert isinstance(model.selected_features, list)
-    assert model.selected_features == ["feature2", "feature3"]
+    assert "feature2" in model.selected_features
+    assert "feature3" in model.selected_features
+    assert "feature1" not in model.selected_features
+    assert len(model.selected_features) < len(model.X_train.columns)
     assert all(f in model.X.columns for f in model.selected_features)
 
 def test_negative_binomial_model_train(sample_integer_data_multiple_features_noisy):
@@ -346,10 +360,20 @@ def test_negative_binomial_model_evaluation(sample_integer_data_multiple_feature
 
 
 def test_cox_proportional_hazard_select_features(sample_survival_data_multiple_features_noisy):
+    """Survival selection keeps the signal components and drops the strong noise one.
+
+    Loosened for the same reason as the negative binomial case above: the
+    hardcoded alpha=30 this pinned selected nothing on the real survival
+    endpoint, and the cross-validated replacement over-selects slightly on a
+    sample this small.
+    """
     model = CoxProportionalHazard(data=sample_survival_data_multiple_features_noisy, id_column="id", target_column=["labelTTE", "label"])
     model.selectFeatures()
     assert isinstance(model.selected_features, list)
-    assert model.selected_features == ["feature2", "feature3"]
+    assert "feature2" in model.selected_features
+    assert "feature3" in model.selected_features
+    assert "feature1" not in model.selected_features
+    assert len(model.selected_features) < len(model.X_train.columns)
     assert all(f in model.X.columns for f in model.selected_features)
 
 def test_cox_proportional_hazard_train(sample_survival_data_multiple_features_noisy):
