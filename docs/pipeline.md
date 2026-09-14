@@ -1,63 +1,61 @@
 # How It Works
 
-The DAB pipeline runs five sequential steps for each outcome and seed combination.
+The DAB pipeline runs five main stages for each outcome and seed combination. They are mostly sequential, with two branches: the held-out set splits off before matching, and `--data_only` stops the run after cohort construction.
 
 ---
 
 ## Pipeline Overview
 
+```mermaid
+flowchart TD
+    IN[("Input CSV<br/>--data")] --> VAL{"validate_dataset_for_model"}
+    VAL -->|fails| EXIT(["SystemExit"])
+    VAL -->|passes| PRE["preprocess_merged_data<br/>encoding · TLFB features"]
+    PRE --> DROP["drop_other_outcomes<br/>keep only this run's endpoint"]
+
+    DROP --> SEED["seed set · random + numpy"]
+    SEED --> HOLD["holdOutTestData"]
+
+    HOLD --> HELD[/"Held-out set<br/>--heldout_size · stratified"/]
+    HOLD --> POOL[/"Training pool"/]
+
+    POOL --> PSM["propensityScoreMatch<br/>--split · --match · --group_size"]
+    PSM --> SUB["create_subsets<br/>11 cohorts · 500/500 → 0/1000 ladder"]
+
+    SUB --> ONLY{"--data_only?"}
+    ONLY -->|yes| SAVE["save_model_input_datasets"]
+    SAVE --> DONE(["done"])
+
+    ONLY -->|no| DISP{"endpointType"}
+    DISP -->|logical| LOG["LogisticModel"]
+    DISP -->|integer| NB["NegativeBinomialModel"]
+    DISP -->|survival| COX["CoxProportionalHazard"]
+
+    LOG & NB & COX --> FIT["per subset × 11<br/>selectFeatures → train → evaluate"]
+    HELD --> FIT
+
+    FIT --> SP[/"subset_predictions"/]
+    FIT --> HP[/"heldout_predictions"/]
+    FIT --> SE[/"subset_evaluations"/]
+    FIT --> HE[/"heldout_evaluations"/]
+
+    SP & HP & SE & HE --> LOOP(["repeat over seeds × outcomes"])
+
+    classDef gate fill:none,stroke:#d97706,stroke-width:1.5px;
+    classDef data fill:none,stroke:#0891b2,stroke-width:1.5px;
+    classDef term fill:none,stroke:#6b7280,stroke-width:1.5px;
+    class VAL,ONLY,DISP gate;
+    class HELD,POOL,SP,HP,SE,HE data;
+    class EXIT,DONE,LOOP term;
 ```
-Input CSV
-    │
-    ▼
-┌─────────────────────────────────────┐
-│  Step 1 · Validation & Preprocessing│
-│                                     │
-│  • Schema and column type checks    │
-│  • Binary encoding                  │
-│  • TLFB feature engineering         │
-└──────────────────┬──────────────────┘
-                   │
-                   ▼
-┌─────────────────────────────────────┐
-│  Step 2 · Propensity Score Matching │
-│                                     │
-│  • Majority/minority group split     │
-│  • Balanced cohort construction     │
-│  • Stratified held-out set          │
-└──────────────────┬──────────────────┘
-                   │
-                   ▼
-┌─────────────────────────────────────┐
-│  Step 3 · Feature Selection         │
-│                                     │
-│  • L1 (Lasso) regularization        │
-│  • Removes zero-coefficient features│
-└──────────────────┬──────────────────┘
-                   │
-                   ▼
-┌─────────────────────────────────────┐
-│  Step 4 · Model Training            │
-│                                     │
-│  • Auto-selected by endpoint type   │
-│  • Trained on each PSM subset       │
-└──────────────────┬──────────────────┘
-                   │
-                   ▼
-┌─────────────────────────────────────┐
-│  Step 5 · Evaluation                │
-│                                     │
-│  • Subset internal test split       │
-│  • Held-out set evaluation          │
-│  • Demographic breakdown logged     │
-└──────────────────┬──────────────────┘
-                   │
-                   ▼
-        Repeat across seeds & outcomes
-                   │
-                   ▼
-            Results Directory
-```
+
+Every path above runs once per `(outcome, seed)` pair. Two edges are easy to miss in a
+step-by-step reading:
+
+!!! info "Structure worth noting"
+    The **held-out set is carved out before matching**, so it never passes through PSM or the
+    subset ladder and stays untouched until evaluation. And **`--data_only` exits after cohort
+    construction**, before any model is fit.
 
 ---
 

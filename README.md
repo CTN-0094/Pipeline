@@ -77,39 +77,64 @@ python3 run_pipelineV2.py --data data.csv --outcome ctn0094_relapse_event --data
 
 ## Pipeline Architecture
 
+```mermaid
+flowchart TD
+    IN[("Input CSV<br/>--data")] --> VAL{"validate_dataset_for_model"}
+    VAL -->|fails| EXIT(["SystemExit"])
+    VAL -->|passes| PRE["preprocess_merged_data<br/>encoding · TLFB features"]
+    PRE --> DROP["drop_other_outcomes<br/>keep only this run's endpoint"]
+
+    DROP --> SEED["seed set · random + numpy"]
+    SEED --> HOLD["holdOutTestData"]
+
+    HOLD --> HELD[/"Held-out set<br/>--heldout_size · stratified"/]
+    HOLD --> POOL[/"Training pool"/]
+
+    POOL --> PSM["propensityScoreMatch<br/>--split · --match · --group_size"]
+    PSM --> SUB["create_subsets<br/>11 cohorts · 500/500 → 0/1000 ladder"]
+
+    SUB --> ONLY{"--data_only?"}
+    ONLY -->|yes| SAVE["save_model_input_datasets"]
+    SAVE --> DONE(["done"])
+
+    ONLY -->|no| DISP{"endpointType"}
+    DISP -->|logical| LOG["LogisticModel"]
+    DISP -->|integer| NB["NegativeBinomialModel"]
+    DISP -->|survival| COX["CoxProportionalHazard"]
+
+    LOG & NB & COX --> FIT["per subset × 11<br/>selectFeatures → train → evaluate"]
+    HELD --> FIT
+
+    FIT --> SP[/"subset_predictions"/]
+    FIT --> HP[/"heldout_predictions"/]
+    FIT --> SE[/"subset_evaluations"/]
+    FIT --> HE[/"heldout_evaluations"/]
+
+    SP & HP & SE & HE --> LOOP(["repeat over seeds × outcomes"])
+
+    classDef gate fill:none,stroke:#d97706,stroke-width:1.5px;
+    classDef data fill:none,stroke:#0891b2,stroke-width:1.5px;
+    classDef term fill:none,stroke:#6b7280,stroke-width:1.5px;
+    class VAL,ONLY,DISP gate;
+    class HELD,POOL,SP,HP,SE,HE data;
+    class EXIT,DONE,LOOP term;
 ```
-Input CSV
-    │
-    ▼
-┌─────────────────────────────┐
-│  Step 1 · Validation &      │  Schema checks, column typing, endpoint validation
-│           Preprocessing     │  Binary encoding, TLFB feature engineering
-└────────────────┬────────────┘
-                 │
-                 ▼
-┌─────────────────────────────┐
-│  Step 2 · Propensity Score  │  Majority/minority group splitting
-│           Matching (PSM)    │  Balanced cohort construction + stratified held-out set
-└────────────────┬────────────┘
-                 │
-                 ▼
-┌─────────────────────────────┐
-│  Step 3 · Feature Selection │  L1 (Lasso) regularization
-└────────────────┬────────────┘
-                 │
-                 ▼
-┌─────────────────────────────┐
-│  Step 4 · Model Training    │  Auto-selected by endpoint type (see table below)
-└────────────────┬────────────┘
-                 │
-                 ▼
-┌─────────────────────────────┐
-│  Step 5 · Evaluation        │  Subset test split + held-out set, with demographics
-└────────────────┬────────────┘
-                 │
-                 ▼
-    Repeat over seeds & outcomes  →  Results directory
-```
+
+Every path above runs once per `(outcome, seed)` pair. Two edges are easy to miss in a linear
+reading: the **held-out set is carved out before matching**, so it never passes through PSM and
+stays untouched until evaluation; and `--data_only` exits after cohort construction, before any
+model is fit.
+
+| Stage | What it does |
+|:---|:---|
+| **Validation** | Schema checks, column typing, endpoint-specific checks. Aborts the run on failure. |
+| **Preprocessing** | Binary encoding, TLFB feature engineering, drops all outcome columns but this run's. |
+| **Held-out split** | Stratified set held back before matching, shared by every subset's evaluation. |
+| **PSM** | Splits majority/minority on `--split`, matches on `--match`, builds balanced cohorts. |
+| **Subsets** | 11 cohorts stepping the majority/minority ratio from 500/500 to 0/1000. |
+| **Selection** | L1 regularization. Binary endpoints use a logistic L1; count and survival endpoints use a Lasso. Features with zero coefficients are dropped. |
+| **Training** | Model chosen automatically by endpoint type — see below. |
+| **Evaluation** | Scored twice per subset: on its own test split and on the shared held-out set. |
 
 ### Model Selection
 
