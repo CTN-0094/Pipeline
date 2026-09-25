@@ -246,7 +246,7 @@ def run_pipeline(processed_data, seed, selected_outcome, args):
         sampleSize=args.group_size
     )
 
-    # 3. Create and merge demographic subsets (500/500 → 0/1000 ladder)
+    # 3. Create and merge demographic subsets (0/1000 → 500/500 ladder)
     merged_subsets = create_subsets(matched_dataframes)
 
     # 4. DATA-ONLY BRANCH: stop here and just save datasets
@@ -494,7 +494,7 @@ def save_model_input_datasets(
     os.makedirs(subsets_dir, exist_ok=True)
     os.makedirs(heldout_dir, exist_ok=True)
 
-    # Save subsets (ladder 500/500 → 0/1000)
+    # Save subsets (ladder 0/1000 → 500/500)
     for i, subset_df in enumerate(merged_subsets, start=1):
         # Compute demographics
         col_as_str = subset_df[split_col].astype(str)
