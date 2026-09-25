@@ -421,7 +421,6 @@ def save_evaluations_to_csv(results, seed, selected_outcome, directory, name):
                     trials_data['mcfadden_r2']
                 ])
             elif selected_outcome['endpointType'] == EndpointType.SURVIVAL:
-                print("AARON DEBUG INSIDE")
                 writer.writerow(sections + [
                     trials_data['concordance_index']
                 ])
