@@ -91,7 +91,7 @@ flowchart TD
     HOLD --> POOL[/"Training pool"/]
 
     POOL --> PSM["propensityScoreMatch<br/>--split · --match · --group_size"]
-    PSM --> SUB["create_subsets<br/>11 cohorts · 500/500 → 0/1000 ladder"]
+    PSM --> SUB["create_subsets<br/>11 cohorts · 0/1000 → 500/500 ladder"]
 
     SUB --> ONLY{"--data_only?"}
     ONLY -->|yes| SAVE["save_model_input_datasets"]
@@ -131,10 +131,49 @@ model is fit.
 | **Preprocessing** | Binary encoding, TLFB feature engineering, drops all outcome columns but this run's. |
 | **Held-out split** | Stratified set held back before matching, shared by every subset's evaluation. |
 | **PSM** | Splits majority/minority on `--split`, matches on `--match`, builds balanced cohorts. |
-| **Subsets** | 11 cohorts stepping the majority/minority ratio from 500/500 to 0/1000. |
+| **Subsets** | 11 cohorts of 1000, stepping minority representation from 0% to 50% in 5-point increments. |
 | **Selection** | L1 regularization. Binary endpoints use a logistic L1; count and survival endpoints use a Lasso. Features with zero coefficients are dropped. |
 | **Training** | Model chosen automatically by endpoint type — see below. |
 | **Evaluation** | Scored twice per subset: on its own test split and on the shared held-out set. |
+
+### How the Subsets Are Built
+
+The subset ladder is the core of the fairness design, so it's worth stating precisely.
+
+**1. Match.** Rows are split into majority (`--split` column equals `--majority`, i.e.
+`RaceEth == 1`) and minority. R's `MatchIt` fits a probit-link propensity model on the
+`--match` covariates (`age`, `is_female`) and runs **optimal 1:2 matching** over the first
+`--group_size` (500) minority participants. That yields 500 **matched triples** — one
+minority participant and two majority controls who resemble them on those covariates.
+
+**2. Split into three aligned frames.** The triples become three 500-row frames,
+`[minority, majority_A, majority_B]`, still aligned row-for-row: row *i* of each belongs to
+the same triple.
+
+**3. Walk the ladder.** Cohort *k* takes the first `k × 50` minority rows, majority_A from
+`k × 50` onward, and all of majority_B. Each step therefore swaps 50 majority controls for
+the 50 minority participants **they were matched to** — so age and sex balance holds while
+racial composition shifts. majority_B is included in full every time, as a constant backbone.
+
+| Cohort | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 |
+|:--|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
+| **Minority** | 0 | 50 | 100 | 150 | 200 | 250 | 300 | 350 | 400 | 450 | 500 |
+| **Majority** | 1000 | 950 | 900 | 850 | 800 | 750 | 700 | 650 | 600 | 550 | 500 |
+| **Minority %** | 0% | 5% | 10% | 15% | 20% | 25% | 30% | 35% | 40% | 45% | 50% |
+
+Every cohort totals 1000 rows, and the model is trained once per cohort — so a run produces
+11 sets of metrics to read against this composition.
+
+> **The ladder stops at 50/50.** It does not sweep to an all-minority cohort: because
+> majority_B is always included in full, minority representation cannot exceed half.
+> `--group_size` sets both the group size and the step (`group_size ÷ 10`); the rung count
+> of 11 is fixed in `create_subsets` and not exposed on the CLI.
+
+The held-out set is carved out *before* matching, keeps a fixed 58/42 majority ratio, and is
+sampled with a fixed seed of 42 — so evaluation demographics stay constant across every
+cohort and every run seed.
+
+See [How It Works](https://ctn-0094.github.io/Pipeline/pipeline/) for the step-by-step version.
 
 ### Model Selection
 

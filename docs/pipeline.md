@@ -20,7 +20,7 @@ flowchart TD
     HOLD --> POOL[/"Training pool"/]
 
     POOL --> PSM["propensityScoreMatch<br/>--split · --match · --group_size"]
-    PSM --> SUB["create_subsets<br/>11 cohorts · 500/500 → 0/1000 ladder"]
+    PSM --> SUB["create_subsets<br/>11 cohorts · 0/1000 → 500/500 ladder"]
 
     SUB --> ONLY{"--data_only?"}
     ONLY -->|yes| SAVE["save_model_input_datasets"]
@@ -73,11 +73,91 @@ Feature engineering includes binary encoding of categorical variables and constr
 
 ## Step 2 — Propensity Score Matching (PSM)
 
-PSM constructs a series of training cohorts with varying majority/minority demographic ratios. The pipeline uses R's `MatchIt` package (via `rpy2`) to perform optimal matching on age and sex.
+PSM builds a ladder of training cohorts whose demographic composition changes
+while everything else about them stays as comparable as possible. It runs in two
+parts: matching, then the ladder itself.
 
-11 cohorts are constructed, ranging from 100% majority to 100% minority composition, in 10% increments. This allows the evaluation step to measure how model performance shifts as demographic composition changes.
+### Part 1 — Matching
 
-A stratified held-out evaluation set is constructed separately with a fixed majority/minority ratio (default: 58/42) to reflect the real-world distribution of the dataset.
+Every row is flagged as minority or majority by the `--split` column: majority
+means `RaceEth == 1` (Non-Hispanic White, by default `--majority 1`), and every
+other value is minority.
+
+The data is handed to R's [`MatchIt`](https://kosukeimai.github.io/MatchIt/) via
+`rpy2`, which fits a probit-link GLM propensity model on the `--match` covariates
+(`age` and `is_female` by default) and performs **optimal matching at a 1:2
+ratio** — each minority participant is paired with two majority controls who look
+like them on those covariates. Only the first `--group_size` (default 500)
+minority participants are matched.
+
+The result is **500 matched triples**, reshaped so that each row holds one
+treated participant and their two controls:
+
+| | treated_row | control_row_0 | control_row_1 |
+|:--|:--|:--|:--|
+| triple 1 | minority participant | majority control | majority control |
+| triple 2 | minority participant | majority control | majority control |
+| … | … | … | … |
+
+Those three columns become three DataFrames of 500 rows each — `[minority,
+majority_A, majority_B]` — still aligned row by row, so row *i* of all three
+frames belongs to the same matched triple. That alignment is what makes the next
+part work.
+
+### Part 2 — The ladder
+
+`create_subsets` builds 11 cohorts. Cohort *k* (counting from 0) takes:
+
+- the **first `k × 50` rows** of the minority frame,
+- the majority_A rows **from `k × 50` onward**,
+- **all 500 rows** of majority_B.
+
+So each step swaps 50 majority_A controls out for the 50 minority participants
+they were matched to. Because the swap happens *inside* matched triples, the
+cohort's age and sex profile stays balanced even as its racial composition
+changes — which is the whole point. majority_B is never touched; it is the
+constant backbone present in every cohort.
+
+Total size stays fixed at **1000** on every rung:
+
+| Cohort | Minority | Majority | Minority share |
+|:--:|--:|--:|--:|
+| 1 | 0 | 1000 | 0% |
+| 2 | 50 | 950 | 5% |
+| 3 | 100 | 900 | 10% |
+| 4 | 150 | 850 | 15% |
+| 5 | 200 | 800 | 20% |
+| 6 | 250 | 750 | 25% |
+| 7 | 300 | 700 | 30% |
+| 8 | 350 | 650 | 35% |
+| 9 | 400 | 600 | 40% |
+| 10 | 450 | 550 | 45% |
+| 11 | 500 | 500 | 50% |
+
+Every model is trained once per cohort, so each run produces 11 sets of metrics
+that can be read against the composition above.
+
+!!! warning "The ladder tops out at 50/50"
+    It does **not** sweep to an all-minority cohort. Because majority_B is always
+    included in full, minority representation can never exceed half the cohort.
+    The sweep is 0% → 50%, in 5-point steps.
+
+!!! note "How the parameters interact"
+    `--group_size` sets both the matched group size and the step: each cohort
+    totals `2 × group_size`, and the step is `group_size ÷ 10`. The rung count
+    (11) is fixed in `create_subsets` and is not exposed on the CLI. If
+    `group_size` is not divisible by 10, the final rung falls slightly short of a
+    balanced cohort — `--group_size 505` still steps by 50 and stops at 500
+    minority rows.
+
+### The held-out set
+
+A stratified held-out evaluation set is carved out **before** any of this, so it
+never passes through matching or the ladder. It holds a fixed majority/minority
+ratio (`--heldout_set_percent_majority`, default 58%) so evaluation demographics
+stay constant no matter how the training cohort is rebalanced. It is also sampled
+with a module-local seed of 42 rather than the run seed, so the same rows are
+held out across a multi-seed run.
 
 ---
 
