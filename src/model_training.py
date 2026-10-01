@@ -1,67 +1,87 @@
-from src.train_model import LogisticModel, NegativeBinomialModel, CoxProportionalHazard, BetaRegression
+from src.train_model import LogisticModel, NegativeBinomialModel, CoxProportionalHazard
 from src.constants import EndpointType
 import logging
-import numpy as np
-import csv
-import os
 import pandas as pd
-from datetime import datetime
 
 
+def _resolve_model_class(endpoint_type: EndpointType | str) -> type:
+    """
+    Return the model class that handles the given endpoint type.
 
-def train_and_evaluate_models(merged_subsets, id_column, selected_outcome, processed_data_heldout):
+    Parameters:
+    - endpoint_type: An EndpointType enum or its string value ('logical', 'integer', 'survival').
+
+    Returns:
+    - The model class to instantiate for each subset.
+
+    Raises:
+    - ValueError if the endpoint type is not supported.
+    """
+    # Built per call rather than at module level so patched model classes are picked up.
+    model_by_endpoint = {
+        EndpointType.LOGICAL: LogisticModel,
+        EndpointType.SURVIVAL: CoxProportionalHazard,
+        EndpointType.INTEGER: NegativeBinomialModel,
+    }
+
+    if isinstance(endpoint_type, str):
+        try:
+            endpoint_type = EndpointType(endpoint_type.lower())
+        except ValueError:
+            raise ValueError(f"Unsupported endpoint type: {endpoint_type!r}")
+
+    if endpoint_type not in model_by_endpoint:
+        raise ValueError(f"Unsupported endpoint type: {endpoint_type!r}")
+
+    return model_by_endpoint[endpoint_type]
+
+
+def train_and_evaluate_models(
+    merged_subsets: list[pd.DataFrame],
+    id_column: str,
+    selected_outcome: dict,
+    processed_data_heldout: pd.DataFrame,
+) -> pd.DataFrame:
+    """
+    Train one model per subset and evaluate each on its subset and the held-out data.
+
+    Parameters:
+    - merged_subsets: The demographic subsets to train on, one model per subset.
+    - id_column: The name of the participant ID column.
+    - selected_outcome: Outcome config with 'endpointType' (EndpointType or its string value)
+      and 'columnsToUse' (the outcome column names).
+    - processed_data_heldout: The shared held-out DataFrame every model is evaluated on.
+
+    Returns:
+    - A DataFrame with one row per subset and MultiIndex columns
+      (heldout|subset) × (predictions|evaluations).
+
+    Raises:
+    - ValueError if the endpoint type is not supported.
+    """
+    selectedModel = _resolve_model_class(selected_outcome['endpointType'])
+
     columns = pd.MultiIndex.from_product(
         [["heldout", "subset"], ["predictions", "evaluations"]],
         names=["Data Type", "Metric"]
     )
     results = pd.DataFrame(columns=columns)
 
-    selectedModel = None
-    if selected_outcome['endpointType'] == EndpointType.LOGICAL:
-        selectedModel = LogisticModel
-    if selected_outcome['endpointType'] == EndpointType.SURVIVAL:
-        selectedModel = CoxProportionalHazard
-    if selected_outcome['endpointType'] == EndpointType.INTEGER:
-        selectedModel = NegativeBinomialModel#BetaRegression
-    
     numOfSubsets = len(merged_subsets)
 
     for i, subset in enumerate(merged_subsets):
-        # Log the demographic makeup of each subset
-        #demographic_counts = subset['RaceEth'].value_counts().to_dict()
-        #demographicStrings.append[", ".join([f"{v} {k}" for k, v in demographic_counts.items()])]
-        #logging.info(f"Subset {i + 1} demographic makeup: {demographicStrings[-1]}")
         logging.info(f"=== Subset {i + 1}/{numOfSubsets} | Train stage starting ===")
 
-        #subset = subset.drop('RaceEth', axis=1)
         outcomeModel = selectedModel(subset, id_column, selected_outcome['columnsToUse'])
         outcomeModel.selectFeatures()
-        #outcomeModel.selected_features=['age', 'RaceEth', 'unstableliving', 'is_female', 'UDS_Amphetamine_Count']
         outcomeModel.train()
 
         logging.info(f"=== Subset {i + 1}/{numOfSubsets} | Train complete — Evaluate stage starting ===")
 
-        #try:
-        #Write result to dictionary of arrays
-
         results.loc[len(results)] = outcomeModel.evaluate(processed_data_heldout)
 
         logging.info(f"=== Subset {i + 1}/{numOfSubsets} | Evaluate stage complete ===")
-        # except Exception as e:
-        #     logging.error(f"Error during model evaluation for subset {i + 1}: {e}")
-        #     return
-            
-        '''for id, result in subsetPredsAndResults["predictions"]:
-            if id not in subsetPredictions:
-                subsetPredictions[id] = [None] * numOfSubsets
-            subsetPredictions[id][i] = result
-        for id, result in heldOutPredsAndResults["predictions"]:
-            if id not in heldoutPredictions:
-                heldoutPredictions[id] = [None] * numOfSubsets
-            heldoutPredictions[id][i] = result
-    save_predictions_to_csv(predictions, seed, selected_outcome, directory, "predictions")
-    save_Test_predictions_to_csv(predictions, seed, selected_outcome, directory, testValues)'''
+
     logging.info("All subsets processed. Predictions ready.")
 
     return results
-    
