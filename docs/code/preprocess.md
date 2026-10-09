@@ -56,6 +56,16 @@ Fills `NaN` values with `0` in binary columns (columns containing only 0, 1, and
 
 ---
 
+### `one_hot_encode_raceeth`
+
+```python
+pre.one_hot_encode_raceeth()
+```
+
+Adds a 0/1 indicator column for each non-reference `RaceEth` group: `RaceEth_NHB`, `RaceEth_Hisp`, `RaceEth_Other` and `RaceEth_Missing`. NHW is the reference group. The column set is fixed, so every dataset gets the same columns even when a group is absent. The raw `RaceEth` code is kept for PSM and demographic summaries, but the models never use it as a feature. Run this after `transform_data_with_nan_handling`, which maps the labels to codes.
+
+---
+
 ### Usage pattern
 
 Methods are typically chained in sequence during pipeline setup:
