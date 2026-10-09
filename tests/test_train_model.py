@@ -398,15 +398,15 @@ class TestLogisticModelTraining:
         threshold = float(model.best_threshold)
         assert 0.0 <= threshold <= 1.0
 
-    def test_threshold_equals_positive_proportion_of_test_set(self, logistic_data):
+    def test_threshold_equals_positive_proportion_of_train_set(self, logistic_data):
         """
         _find_best_threshold sets threshold to the positive class proportion
-        in y_test — verify the value matches directly.
+        in y_train, so no test-set labels leak into the decision rule.
         """
         model = LogisticModel(data=logistic_data, id_column="id", target_column=["outcome"], seed=42)
         model.selectFeatures()
         model.train()
-        expected = model.y_test.mean()
+        expected = model.y_train.mean()
         assert float(model.best_threshold) == pytest.approx(float(expected))
 
     def test_trained_model_can_predict_proba(self, trained_logistic_model):

@@ -73,7 +73,7 @@ heldout_preds, heldout_evals, subset_preds, subset_evals = model.evaluate(heldou
 
 ### `train()`
 
-Fits L1 Lasso for feature selection, then trains a standard `LogisticRegression` on the selected features. Sets `best_threshold` to the positive class proportion in `y_test`.
+Fits L1 Lasso for feature selection, then trains a standard `LogisticRegression` on the selected features. Sets `best_threshold` to the positive class proportion in `y_train`.
 
 ### `evaluate(processed_data_heldout)`
 
