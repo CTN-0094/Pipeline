@@ -328,6 +328,8 @@ def test_negative_binomial_model_select_features(sample_integer_data_multiple_fe
     assert "feature1" not in model.selected_features
     assert len(model.selected_features) < len(model.X_train.columns)
     assert all(f in model.X.columns for f in model.selected_features)
+    assert "id" not in model.selected_features
+    assert "label" not in model.selected_features
 
 def test_negative_binomial_model_train(sample_integer_data_multiple_features_noisy):
     model = NegativeBinomialModel(data=sample_integer_data_multiple_features_noisy, id_column="id", target_column=["label"])
@@ -341,18 +343,14 @@ def test_negative_binomial_model_evaluation(sample_integer_data_multiple_feature
     model.selectFeatures()
     model.train()
     results = model.evaluate(sample_integer_data_heldout_multiple_features_noisy)
-    assert results[1]["mse"] == pytest.approx(3211.027355868, rel=1e-6)
-    assert results[1]["rmse"] == pytest.approx(56.665927645, rel=1e-6)
-    assert results[1]["mae"] == pytest.approx(47.779331871, rel=1e-6)
-    assert results[1]["mcfadden_r2"] == pytest.approx(0.147280953533, rel=1e-6)
-    assert results[1]["demographics"] == '59 NHW, 41 Refused/Missing'
-    assert results[1]["training_demographics"] == '40 NHW, 35 Refused/Missing'
-    assert results[3]["mse"] == pytest.approx(3998.221460609, rel=1e-6)
-    assert results[3]["rmse"] == pytest.approx(63.231491051, rel=1e-6)
-    assert results[3]["mae"] == pytest.approx(52.370126320, rel=1e-6)
-    assert results[3]["mcfadden_r2"] == pytest.approx(-2.398448108914, rel=1e-6)
-    assert results[3]["demographics"] == '13 Refused/Missing, 12 NHW'
-    assert results[3]["training_demographics"] == '40 NHW, 35 Refused/Missing'
+    # Behavioral: with CV-selected features the exact metric values are not pinned.
+    # Verify the evaluation contract instead (keys, non-negative errors, rmse==sqrt(mse)).
+    for evals in (results[1], results[3]):
+        for key in ("mse", "rmse", "mae", "pearson_r", "mcfadden_r2", "demographics", "training_demographics"):
+            assert key in evals, f"Missing key: {key}"
+        assert evals["mse"] >= 0
+        assert evals["mae"] >= 0
+        assert evals["rmse"] == pytest.approx(np.sqrt(evals["mse"]))
 
 
 
@@ -375,6 +373,8 @@ def test_cox_proportional_hazard_select_features(sample_survival_data_multiple_f
     assert "feature1" not in model.selected_features
     assert len(model.selected_features) < len(model.X_train.columns)
     assert all(f in model.X.columns for f in model.selected_features)
+    assert "id" not in model.selected_features
+    assert not {"labelTTE", "label"} & set(model.selected_features)
 
 def test_cox_proportional_hazard_train(sample_survival_data_multiple_features_noisy):
     model = CoxProportionalHazard(data=sample_survival_data_multiple_features_noisy, id_column="id", target_column=["labelTTE", "label"])
@@ -388,14 +388,195 @@ def test_cox_proportional_hazard_evaluation(sample_survival_data_multiple_featur
     model.selectFeatures()
     model.train()
     results = model.evaluate(sample_survival_data_heldout_multiple_features_noisy)
-    assert results[1]["concordance_index"] == .5
-    assert results[1]["demographics"] == '53 NHW, 47 Refused/Missing'
-    assert results[1]["training_demographics"] == '39 Refused/Missing, 36 NHW'
+    # Behavioral: with CV-selected features the exact C-index is not pinned.
+    for evals in (results[1], results[3]):
+        for key in ("concordance_index", "demographics", "training_demographics"):
+            assert key in evals, f"Missing key: {key}"
+        assert 0.0 <= evals["concordance_index"] <= 1.0
+
+
+
+# ---------------------------------------------------------------------------
+# Regression guards for issue #22.
+#
+# The fixtures above give the outcome as an exact sum of features, so a
+# hardcoded Lasso(alpha=30) still retains signal and the bug stays invisible.
+# The fixtures below reproduce the real-data condition instead: a small-variance
+# count/time outcome against large-scale features, where alpha=30 shrinks every
+# coefficient to zero and the endpoints become unrunnable.
+# ---------------------------------------------------------------------------
+
+
+def _weak_signal_frame(seed: int) -> pd.DataFrame:
+    """Build a weak-signal frame: low-variance counts against large-scale features.
+
+    ``feature2`` and ``feature3`` carry small true effects on a log-mean scale,
+    mirroring the real CTN-0094 endpoints. Note that LassoCV is not a consistent
+    selector and will sometimes also retain a noise column, so tests assert that
+    true signal is recovered rather than that noise is excluded.
+    """
+    rng = np.random.default_rng(seed)
+    n = 400
+    feature2 = rng.normal(50, 25, n)
+    feature3 = rng.normal(100, 40, n)
+    linear = 0.6 + 0.006 * (feature2 - 50) + 0.004 * (feature3 - 100)
+    return pd.DataFrame({
+        "id": range(n),
+        "age": rng.integers(20, 60, n),
+        "RaceEth": rng.choice([0, 1], n),
+        "feature1": rng.normal(75, 30, n),
+        "feature2": feature2,
+        "feature3": feature3,
+        "label": rng.poisson(np.exp(linear))
+    })
+
+
+@pytest.fixture
+def sample_integer_data_weak_signal():
+    return _weak_signal_frame(seed=0)
+
+
+@pytest.fixture
+def sample_survival_data_weak_signal():
+    df = _weak_signal_frame(seed=1)
+    rng = np.random.default_rng(2)
+    # Shift counts to strictly positive durations; Cox cannot take a zero time.
+    df["labelTTE"] = df["label"] + 1
+    df["label"] = rng.integers(0, 2, len(df))
+    return df
+
+
+def test_negative_binomial_weak_signal_hardcoded_alpha_selects_nothing(sample_integer_data_weak_signal):
+    """The #22 failure mode: alpha=30 zeroes every coefficient on weak signal."""
+    model = NegativeBinomialModel(data=sample_integer_data_weak_signal, id_column="id",
+                                  target_column=["label"], seed=42)
+    with pytest.raises(ValueError, match="No features were selected"):
+        model.lasso_feature_selection(model_type="regression", alpha=30)
+
+
+def test_negative_binomial_weak_signal_cv_recovers_features(sample_integer_data_weak_signal):
+    """The fix: a CV-chosen alpha recovers the true signal and trains end-to-end."""
+    model = NegativeBinomialModel(data=sample_integer_data_weak_signal, id_column="id",
+                                  target_column=["label"], seed=42)
+    model.selectFeatures()
+    assert "feature2" in model.selected_features
+    assert "feature3" in model.selected_features
+    model.train()
+
+
+def test_cox_weak_signal_hardcoded_alpha_selects_nothing(sample_survival_data_weak_signal):
+    """The #22 failure mode on the survival endpoint."""
+    model = CoxProportionalHazard(data=sample_survival_data_weak_signal, id_column="id",
+                                  target_column=["labelTTE", "label"], seed=42)
+    with pytest.raises(ValueError, match="No features were selected"):
+        model.lasso_feature_selection(model_type="regression", alpha=30)
+
+
+def test_cox_weak_signal_cv_recovers_features(sample_survival_data_weak_signal):
+    """The fix: the survival endpoint selects and trains end-to-end on weak signal."""
+    model = CoxProportionalHazard(data=sample_survival_data_weak_signal, id_column="id",
+                                  target_column=["labelTTE", "label"], seed=42)
+    model.selectFeatures()
+    assert "feature2" in model.selected_features
+    assert "feature3" in model.selected_features
+    model.train()
+
+
+def test_mcfadden_r2_is_invariant_to_evaluation_set_size(sample_integer_data_weak_signal):
+    """McFadden's R^2 must reflect fit quality, not the train/eval size ratio.
+
+    Previously the full term came from the training fit while the null was fit
+    on the evaluation set, so the statistic scaled with n_train / n_eval and was
+    reliably large and negative. Scoring the same model on nested evaluation
+    sets drawn from one distribution must now give stable values.
+    """
+    model = NegativeBinomialModel(data=sample_integer_data_weak_signal, id_column="id",
+                                  target_column=["label"], seed=42)
+    model.selectFeatures()
+    model.train()
+
+    heldout = _weak_signal_frame(seed=3)
+    scores = []
+    for size in (200, 100, 50):
+        subset = heldout.iloc[:size]
+        _, evals = model._evaluateOnValidation(subset, subset[["label"]], subset["id"])
+        scores.append(evals["mcfadden_r2"])
+
+    assert all(abs(s) < 1.0 for s in scores), f"implausible McFadden values: {scores}"
+    assert max(scores) - min(scores) < 0.5, f"McFadden tracks evaluation size: {scores}"
+
+
+def test_negative_binomial_pearson_r_is_a_scalar(sample_integer_data_weak_signal):
+    """pearson_r must be a single float, not a broadcast (n, n) result object."""
+    model = NegativeBinomialModel(data=sample_integer_data_weak_signal, id_column="id",
+                                  target_column=["label"], seed=42)
+    model.selectFeatures()
+    model.train()
+
+    heldout = _weak_signal_frame(seed=4)
+    _, evals = model._evaluateOnValidation(heldout, heldout[["label"]], heldout["id"])
+    pearson_r = evals["pearson_r"]
+    assert isinstance(pearson_r, float)
+    assert not np.isnan(pearson_r)
+    assert -1.0 <= pearson_r <= 1.0
 
 
 
 
 
+
+
+def _beta_frame(seed: int, signal: float, n: int = 300) -> pd.DataFrame:
+    """Build a (0, 1)-bounded outcome whose dependence on the features is tunable.
+
+    ``signal`` scales the true effect of ``feature2``; at 0.0 the outcome is
+    pure noise, so a sound pseudo-R^2 must rise with it.
+    """
+    rng = np.random.default_rng(seed)
+    feature2 = rng.normal(0, 1, n)
+    mu = 1 / (1 + np.exp(-(0.2 + signal * feature2)))
+    return pd.DataFrame({
+        "id": range(n),
+        "age": rng.integers(20, 60, n),
+        "RaceEth": rng.choice([0, 1], n),
+        "feature1": rng.normal(0, 1, n),
+        "feature2": feature2,
+        "feature3": rng.normal(0, 1, n),
+        "label": rng.beta(mu * 20, (1 - mu) * 20)
+    })
+
+
+def _beta_pseudo_r2(train_df: pd.DataFrame, eval_df: pd.DataFrame) -> float:
+    model = BetaRegression(data=train_df, id_column="id", target_column=["label"], seed=42)
+    model.selected_features = ["feature1", "feature2", "feature3"]
+    model.train()
+    _, evals = model._evaluateOnValidation(eval_df, eval_df[["label"]], eval_df["id"])
+    return evals["pseudo_r2"]
+
+
+def test_beta_pseudo_r2_increases_with_signal():
+    """A stronger true effect must score higher.
+
+    McFadden's ``1 - ll_full / ll_null`` inverted here: a Beta log-likelihood is
+    a log-density and is routinely positive, so better fits scored further below
+    zero. Cox-Snell uses the log-likelihood difference and orders correctly.
+    """
+    scores = [_beta_pseudo_r2(_beta_frame(0, s), _beta_frame(1, s)) for s in (0.0, 0.5, 1.5)]
+    assert scores == sorted(scores), f"pseudo_r2 not monotonic in signal: {scores}"
+    # With no true effect the score must not be appreciably positive. It sits a
+    # little below zero rather than exactly at it, because the two noise columns
+    # are still fitted and so generalize slightly worse than the null — that is
+    # correct out-of-sample behavior, hence only a loose lower bound.
+    assert -0.5 < scores[0] < 0.15, f"no-signal case should sit near zero: {scores[0]}"
+    assert scores[-1] > 0.5, f"strong-signal case should be clearly positive: {scores[-1]}"
+
+
+def test_beta_pseudo_r2_is_stable_across_evaluation_set_size():
+    """The score must reflect fit quality, not how big the evaluation set is."""
+    train = _beta_frame(0, 0.8)
+    heldout = _beta_frame(1, 0.8)
+    scores = [_beta_pseudo_r2(train, heldout.iloc[:size]) for size in (300, 150, 75)]
+    assert max(scores) - min(scores) < 0.2, f"pseudo_r2 tracks evaluation size: {scores}"
 
 
 def test_beta_regression_select_features(sample_0to1_data_multiple_features_noisy):
