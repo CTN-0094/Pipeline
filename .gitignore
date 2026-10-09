@@ -72,3 +72,6 @@ Profiling_Logs/
 
 # Experiment outputs
 experiments/
+
+# MkDocs build output
+site/
