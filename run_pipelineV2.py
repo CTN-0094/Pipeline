@@ -77,8 +77,9 @@ def main():
 
     args = argument_handler()
 
-    seed_list = list(range(min(args.loop), max(args.loop))) if args.loop else [0]
-    selected_names = set(args.outcome)
+    seed_list = resolve_seed_list(args.loop)
+    # No -o means every built-in outcome, as the README's "all outcomes" example expects.
+    selected_names = set(args.outcome) if args.outcome else {o['name'] for o in AVAILABLE_OUTCOMES}
     matched = [o for o in AVAILABLE_OUTCOMES if o['name'] in selected_names]
 
     if len(matched) < len(selected_names):
@@ -115,12 +116,28 @@ def main():
 
 
 
+def resolve_seed_list(loop: list[int] | None) -> list[int]:
+    """
+    Expand the -l/--loop argument into the list of seeds to run.
+
+    Parameters:
+    - loop: One seed, or a min and max seed; None runs seed 0 only.
+
+    Returns:
+    - Every seed from min to max, inclusive of both ends, so that
+      "-l 5 10" runs seeds 5 through 10 and "-l 5" runs seed 5.
+    """
+    if not loop:
+        return [0]
+    return list(range(min(loop), max(loop) + 1))
+
+
 def argument_handler():
 
     # Create the parser
     parser = argparse.ArgumentParser(description='Pipeline for statistical modeling and machine learning on the CTN-0094 database')
 
-    parser.add_argument('--majority', type=str, default=1, 
+    parser.add_argument('--majority', type=int, default=1, 
                         help='value of majority in the PSM column')
     parser.add_argument('--split', '--column_to_split', type=str, default='RaceEth', 
                         help='column containing the 2 groups to PSM')
@@ -448,7 +465,7 @@ def save_predictions_to_csv(data, seed, selected_outcome, directory, name):
         writer = csv.writer(file)
 
          # Write header
-        header = ['who'] + [f'Subset_{i+1}' for i in range(10)]
+        header = ['who'] + [f'Subset_{i+1}' for i in range(data.shape[0])]
         writer.writerow(header)
         
         # Write data rows
