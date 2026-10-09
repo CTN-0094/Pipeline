@@ -281,9 +281,13 @@ class LogisticModel(OutcomeModel):
         self.lasso_feature_selection(model_type="classification")
 
     def _find_best_threshold(self):
-        """Determine the best classification threshold based on positive outcome proportion."""
+        """Set the classification threshold to the training set's positive rate.
+
+        This read the test labels, which leaked the evaluation set's outcome
+        rate into the subset predictions it then scored.
+        """
         try:
-            positive_proportion = self.y_test.mean()  # Calculate the proportion of positive outcomes
+            positive_proportion = self.y_train.mean()  # Calculate the proportion of positive outcomes
             self.best_threshold = positive_proportion  # Set threshold to be the proportion of positive outcomes
             logging.info(f"Dynamic threshold set to: {self.best_threshold}")
         except Exception as e:
@@ -303,7 +307,9 @@ class LogisticModel(OutcomeModel):
 
         predictions = zip(id, y_pred)
         evaluations = {
-            "roc": roc_auc_score(y, y_pred),
+            # AUC ranks the scores, so it needs the probabilities; on the
+            # thresholded labels it collapses to balanced accuracy.
+            "roc": roc_auc_score(y, y_pred_proba),
             "confusion_matrix": confusion_matrix(y, y_pred),
             "precision": precision_score(y, y_pred),
             "recall": recall_score(y, y_pred),

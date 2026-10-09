@@ -237,7 +237,7 @@ Tests `OutcomeModel` (base class) and `LogisticModel` step by step through initi
 
     **`TestLogisticModelTraining`** (5 tests)
 
-    After `train()`: the `model` attribute is populated, `best_threshold` is a probability in [0, 1] equal to the positive-class proportion in the internal test set, and `predict_proba` returns a valid `(n, 2)` probability array.
+    After `train()`: the `model` attribute is populated, `best_threshold` is a probability in [0, 1] equal to the positive-class proportion in the training split, and `predict_proba` returns a valid `(n, 2)` probability array.
 
 === "Evaluation"
 
