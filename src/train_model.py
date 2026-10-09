@@ -332,7 +332,7 @@ class NegativeBinomialModel(OutcomeModel):
             disp=0
         )
 
-        logging.info("NBR model fitting completed successfully.")
+        logging.info("Negative Binomial model fitting completed successfully.")
 
     def selectFeatures(self) -> None:
         """Select features for the count outcome with a cross-validated Lasso.
@@ -344,10 +344,6 @@ class NegativeBinomialModel(OutcomeModel):
         CV alpha grid.
         """
         self.lasso_feature_selection(model_type="regression")
-
-    def predict(self):
-        """Make predictions with the trained Negative Binomial model."""
-        return self.model.evaluate_model()
 
     @staticmethod
     def _mcfaddenR2(y_true: np.ndarray, y_pred: np.ndarray) -> float:
@@ -423,13 +419,9 @@ class CoxProportionalHazard(OutcomeModel):
 
         # Catch and log any errors that occur during the feature selection or model fitting process
         except Exception as e:
-            logging.error(f"Error during feature selection and NBR model fitting: {e}")
+            logging.error(f"Error during Cox model fitting: {e}")
             raise
 
-    def predict(self):
-        """Make predictions with the trained Negative Binomial model."""
-        return self.model.evaluate_model() 
-    
     def _evaluateOnValidation(self, X, y, id):
         table = pd.concat([X[self.selected_features], y], axis=1)
 
@@ -473,10 +465,6 @@ class BetaRegression(OutcomeModel):
 
     def selectFeatures(self):
         self.lasso_feature_selection(model_type="regression", alpha=.05)
-
-    def predict(self):
-        """Make predictions with the trained Beta regression model."""
-        return self.model.evaluate_model()
 
     
     @staticmethod

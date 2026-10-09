@@ -64,8 +64,6 @@ def holdOutTestData(
     """
     majority_count = percentMajority * testCount // 100
     minority_count = testCount - majority_count
-    majority_count = percentMajority * testCount // 100
-    minority_count = testCount - majority_count
 
     # Separate DataFrames
     majority_heldout_df = df[df[columnToSplit] == majorityValue]
