@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import logging
 
-from src.constants import RACEETH_LABELS
+from src.constants import RACEETH_INDICATOR_COLUMNS, RACEETH_LABELS
 
 
 class DataPreprocessor:
@@ -394,6 +394,26 @@ class DataPreprocessor:
         for col in self.dataframe.columns:
             if col.startswith('UDS'):
                 self.dataframe[col] = self.dataframe[col].apply(lambda x: 1 if x > 0 else 0)
+
+    def one_hot_encode_raceeth(self) -> None:
+        """
+        Adds one 0/1 indicator column per non-reference RaceEth code.
+
+        RaceEth is nominal, so using its numeric code as a feature would treat
+        Hispanic (3) as "more" than NHB (2). The indicators replace it as a model
+        feature; RaceEth itself is kept because the held-out split, propensity
+        matching and demographic summaries all read the raw code. The column set
+        is fixed by RACEETH_INDICATOR_COLUMNS rather than derived from the data,
+        so every dataset and split gets the same columns.
+
+        Must run after transform_data_with_nan_handling, which maps the RaceEth
+        labels to their numeric codes.
+        """
+        if 'RaceEth' not in self.dataframe.columns:
+            print("'RaceEth' column not found. Skipping one-hot encoding.")
+            return
+        for code, column in RACEETH_INDICATOR_COLUMNS.items():
+            self.dataframe[column] = (self.dataframe['RaceEth'] == code).astype(int)
 
 # # Example usage:
 # # Load your dataset into a DataFrame

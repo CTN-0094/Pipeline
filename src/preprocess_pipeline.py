@@ -136,6 +136,13 @@ def preprocess_data(subset, selected_outcome):
     except Exception as e:
         logging.error(f"Error converting UDS drug counts to binary: {e}")
 
+    # Add RaceEth indicator columns for the models (RaceEth itself is kept for PSM)
+    try:
+        preprocessor.one_hot_encode_raceeth()
+        logging.info("One-hot encoded RaceEth into indicator columns.")
+    except Exception as e:
+        logging.error(f"Error one-hot encoding RaceEth: {e}")
+
 
     # After all processing, save the final processed dataframe
     processed_data = preprocessor.dataframe

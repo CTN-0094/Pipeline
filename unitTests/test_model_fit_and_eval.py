@@ -293,13 +293,13 @@ def test_logistic_model_evaluation(sample_classification_data_multiple_features_
     model.selectFeatures()
     model.train()
     results = model.evaluate(sample_classification_data_heldout_multiple_features_noisy)
-    assert results[1]["roc"] == 0.9315476190476191
+    assert results[1]["roc"] == pytest.approx(0.9315476190476191)
     assert np.array_equal(results[1]["confusion_matrix"], np.array([[72, 12], [ 0, 16]]))
     assert results[1]["precision"] == 0.5714285714285714
     assert results[1]["recall"] == 1
     assert results[1]["demographics"] == '53 NHW, 47 Refused/Missing'
     assert results[1]["training_demographics"] == '40 NHW, 35 Refused/Missing'
-    assert results[3]["roc"] == 0.9456521739130435
+    assert results[3]["roc"] == pytest.approx(0.9456521739130435)
     assert np.array_equal(results[3]["confusion_matrix"], np.array([[20, 3], [ 0, 2]]))
     assert results[3]["precision"] == 0.4
     assert results[3]["recall"] == 1

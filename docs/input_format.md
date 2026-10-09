@@ -151,6 +151,8 @@ RBS_speed_Days, RBS_speedball_Days
 
 The default `--majority 1` targets NHW as the majority group. To use a different majority, pass `--majority <code>` with the numeric code from the table above.
 
+The numeric code is used only for the held-out split, propensity matching and the demographic summaries. The models never see it, because it would treat these unordered groups as ordered. Instead, preprocessing adds one 0/1 indicator column per non-reference group: `RaceEth_NHB`, `RaceEth_Hisp`, `RaceEth_Other` and `RaceEth_Missing`. NHW is the reference group, so it has no indicator.
+
 ---
 
 ## Using Custom Data

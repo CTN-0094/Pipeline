@@ -56,7 +56,11 @@ class OutcomeModel:
         
         self.y = data[target_column]  # Target variable (y)
         self.model = None  # Placeholder for the trained model
-        self.selected_features = self.X.columns  # Placeholder for selected features
+        # The raw RaceEth code is nominal, so it is never a candidate feature; the
+        # RaceEth_* indicators added in preprocessing stand in for it. It stays in
+        # X because the demographic summaries read it.
+        self.feature_columns = [c for c in self.X.columns if c != 'RaceEth']
+        self.selected_features = list(self.feature_columns)  # Placeholder for selected features
         
         # Train-test split
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(
@@ -162,7 +166,8 @@ class OutcomeModel:
                 ('model', model)
             ])
 
-            pipeline.fit(self.X_train, fit_target)
+            X_candidates = self.X_train[self.feature_columns]
+            pipeline.fit(X_candidates, fit_target)
 
             # Extract the fitted logistic regression model from the pipeline
             model = pipeline.named_steps['model']
@@ -174,7 +179,7 @@ class OutcomeModel:
             if isinstance(coefficients[0], np.ndarray):
                 coefficients = coefficients[0]
             # Select the features where the L1 regularization retained non-zero coefficients
-            self.selected_features = self.X_train.columns[coefficients.flatten() != 0].tolist()
+            self.selected_features = X_candidates.columns[coefficients.flatten() != 0].tolist()
 
             # Handle the empty-selection case.
             if not self.selected_features and alpha is None and model_type == 'regression':
@@ -183,11 +188,11 @@ class OutcomeModel:
                 # multi-seed run — or falling back to *all* features, which makes
                 # collinearity-sensitive models like Cox singular — walk down the
                 # CV alpha grid and take the sparsest non-empty Lasso solution (#22).
-                X_scaled = pipeline.named_steps['scaler'].transform(self.X_train)
+                X_scaled = pipeline.named_steps['scaler'].transform(X_candidates)
                 for a in sorted(getattr(model, 'alphas_', []), reverse=True):
                     fallback = Lasso(alpha=a, random_state=42, max_iter=20000)
                     fallback.fit(X_scaled, fit_target)
-                    feats = self.X_train.columns[fallback.coef_.flatten() != 0].tolist()
+                    feats = X_candidates.columns[fallback.coef_.flatten() != 0].tolist()
                     if feats:
                         self.selected_features = feats
                         logging.warning(
@@ -202,7 +207,7 @@ class OutcomeModel:
                 raise ValueError("No features were selected. Check your regularization strength.")
 
             # Log the number of features selected
-            feature_names = self.X_train.columns
+            feature_names = X_candidates.columns
             logging.info(f"Lasso selected {len(self.selected_features)}/{len(feature_names)} features: {self.selected_features}")
         except Exception as e:
             logging.error(f"Error during Lasso feature selection: {e}")

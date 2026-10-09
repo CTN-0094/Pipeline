@@ -419,16 +419,28 @@ class TestLogisticModelTraining:
     def test_selected_features_defaults_to_all_columns_before_selection(self, logistic_data):
         """
         Before selectFeatures() runs, selected_features defaults to every
-        feature column.
+        candidate feature column, which excludes the raw RaceEth code.
 
-        OutcomeModel.__init__ seeds selected_features with the full feature
-        index, so a caller who skips selectFeatures() would train on all
-        columns rather than a Lasso-reduced subset. This test pins that
+        OutcomeModel.__init__ seeds selected_features with the candidate
+        features, so a caller who skips selectFeatures() would train on all
+        of them rather than a Lasso-reduced subset. This test pins that
         default so a regression in the initializer is caught.
         """
         model = LogisticModel(data=logistic_data, id_column="id", target_column=["outcome"], seed=42)
 
-        assert list(model.selected_features) == list(model.X.columns)
+        assert list(model.selected_features) == [c for c in model.X.columns if c != "RaceEth"]
+
+    def test_raw_raceeth_is_never_a_feature(self, logistic_data):
+        """
+        RaceEth is nominal, so its numeric code must not be selected as a
+        feature; it stays in X only for the demographic summaries.
+        """
+        model = LogisticModel(data=logistic_data, id_column="id", target_column=["outcome"], seed=42)
+        model.selectFeatures()
+
+        assert "RaceEth" in model.X.columns
+        assert "RaceEth" not in model.feature_columns
+        assert "RaceEth" not in model.selected_features
 
 
 # =============================================================================
