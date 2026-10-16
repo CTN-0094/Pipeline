@@ -80,7 +80,6 @@ class DataPreprocessor:
         # preprocessor.convert_yes_no_to_binary()
 
         # # Optionally, display the modified DataFrame to verify the changes
-        # print(preprocessor.dataframe.head())
 
 
     def process_tlfb_columns(self, specified_tlfb_columns):
@@ -125,7 +124,6 @@ class DataPreprocessor:
         # preprocessor.process_tlfb_columns(specified_tlfb_columns)
 
         # # Optionally, display the modified DataFrame to verify the changes
-        # print(preprocessor.dataframe.head())
 
     
     def calculate_behavioral_columns(self):
@@ -158,7 +156,6 @@ class DataPreprocessor:
         # preprocessor.calculate_behavioral_columns()
 
         # # Optionally, display the modified DataFrame to verify the changes
-        # print(preprocessor.dataframe.head())
 
 
     def move_column_to_end(self, column_names):
@@ -190,7 +187,6 @@ class DataPreprocessor:
         # preprocessor.move_column_to_end(column_to_move)
 
         # # Optionally, display the modified DataFrame to verify the changes
-        # print(preprocessor.dataframe.head())
         
     def rename_columns(self):
         """
@@ -216,7 +212,6 @@ class DataPreprocessor:
         # preprocessor.rename_columns()
 
         # # Optionally, display the modified DataFrame to verify the changes
-        # print(preprocessor.dataframe.head())
 
     
     def transform_nan_to_zero_for_binary_columns(self):
@@ -240,7 +235,6 @@ class DataPreprocessor:
         # preprocessor.transform_nan_to_zero_for_binary_columns()
 
         # # Optionally, you can check the transformation by using:
-        # print(preprocessor.dataframe[['Homosexual_Behavior', 'has_cocaine_dx', 'Non_monogamous_Relationships', 'has_cannabis_dx']].isna().sum())
     def transform_and_rename_column(self, original_column_name, new_column_name):
         """
         Transforms a specified column to binary based on its non-null values and renames it
@@ -265,7 +259,6 @@ class DataPreprocessor:
         # preprocessor.transform_and_rename_column('heroin_inject_days', 'rbsivheroin')
 
         # # Optionally, display the modified DataFrame to verify the changes
-        # print(preprocessor.dataframe.head())
     def fill_nan_with_zero(self, column_name):
         """
         Fills NaN values in the specified column with 0. The operation is performed in place on the class's DataFrame.
@@ -285,7 +278,6 @@ class DataPreprocessor:
         # preprocessor.fill_nan_with_zero('ftnd')
 
         # # Optionally, display the modified DataFrame to verify the changes
-        # print(preprocessor.dataframe.head())
 
         # # Display the new DataFrame
         # transformed_data_full_2    
