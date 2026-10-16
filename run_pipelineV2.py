@@ -6,7 +6,6 @@ import pandas as pd
 from datetime import datetime
 from src.constants import EndpointType
 import logging
-from src.silent_logging import add_silent_handler
 from src.logging_setup import setup_logging
 import argparse
 import csv
