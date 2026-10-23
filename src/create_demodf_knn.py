@@ -14,12 +14,12 @@ default ``RaceEth == 1``, Non-Hispanic White); every other value is treated as
 minority.
 """
 
+import logging
+
 import pandas as pd
 from psmpy import PsmPy
 import rpy2.robjects as robjects
 from rpy2.robjects.packages import importr, PackageNotInstalledError
-from sklearn.model_selection import train_test_split
-import pandas as pd
 from rpy2.robjects.conversion import localconverter
 from rpy2.robjects import r, pandas2ri
 
@@ -228,12 +228,12 @@ def PropensityScoreMatchRMatchit(
         # Check if MatchIt is installed
         importr('MatchIt')
     except PackageNotInstalledError:
-        print("MatchIt is not installed. Installing now...")
+        logging.info("MatchIt is not installed. Installing now...")
         # Install MatchIt
         r('install.packages("MatchIt", repos="http://cran.r-project.org")')
         # Verify installation
         importr('MatchIt')
-        print("MatchIt installed successfully.")
+        logging.info("MatchIt installed successfully.")
     pandas2ri.activate()
     with localconverter(robjects.default_converter + pandas2ri.converter):
         r_data = robjects.conversion.py2rpy(df)
@@ -292,7 +292,7 @@ def PropensityScoreMatchRMatchit(
 
     if(PRINT_SUMMARY):
         summary = robjects.r('summary(m.out1, un = FALSE)')
-        print("SUMMARY: ", summary)
+        logging.info("MatchIt summary:\n%s", summary)
 
     matched_data['control_index'] = matched_data.groupby('treated_row').cumcount()
     final_matched_df = matched_data.pivot(index='treated_row', columns='control_index', values='control_row').reset_index()
