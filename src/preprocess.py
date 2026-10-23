@@ -1,5 +1,4 @@
 # src/preprocess.py
-import pandas as pd
 import numpy as np
 import logging
 
@@ -38,23 +37,11 @@ class DataPreprocessor:
 
             # Drop the specified columns and update the instance's DataFrame
             self.dataframe = self.dataframe.drop(columns=valid_columns_to_drop)
-            
-            # Display a snippet of the new DataFrame
-            #logging.info("Snippet of the new DataFrame after dropping columns:")
-            #logging.info(self.dataframe)
 
         except KeyError as e:
-            print(f"Column error: {e}. Please check the columns you are trying to drop.")
+            logging.error(f"Column error: {e}. Please check the columns you are trying to drop.")
         except Exception as e:
-            print(f"An unexpected error occurred: {e}")
-
-        # Example usage:
-        # # Assuming df is your original DataFrame loaded into a pandas DataFrame
-        # preprocessor = DataPreprocessor(df)
-        # columns_to_drop = ['pain_when', 'is_smoker', 'per_day', 'max', 'amount', 'depression', 'anxiety', 'schizophrenia', 
-        #                 "days", "max", "amount", "cocaine_inject_days", "speedball_inject_days", "opioid_inject_days", 
-        #                 "speed_inject_days", "UDS_Alcohol_Count", 'UDS_Mdma/Hallucinogen_Count']
-        # preprocessor.drop_columns_and_return(columns_to_drop)
+            logging.error(f"An unexpected error occurred: {e}")
 
 
     def convert_yes_no_to_binary(self):
@@ -71,15 +58,6 @@ class DataPreprocessor:
             if set(unique_values) <= {'Yes', 'No'}:
                 # Convert 'Yes' to 1 and 'No' to 0
                 self.dataframe[column] = self.dataframe[column].map({'Yes': 1, 'No': 0})
-
-        # # Example usage:
-        # # Assuming df is your original DataFrame loaded into a pandas DataFrame
-        # preprocessor = DataPreprocessor(df)
-
-        # # Convert 'Yes'/'No' columns to binary directly within the class's DataFrame
-        # preprocessor.convert_yes_no_to_binary()
-
-        # # Optionally, display the modified DataFrame to verify the changes
 
 
     def process_tlfb_columns(self, specified_tlfb_columns):
@@ -113,19 +91,7 @@ class DataPreprocessor:
             # Reinsert 'TLFB_Other' at the calculated position
             self.dataframe.insert(position, 'TLFB_Other', tlfb_other_data)
 
-        # # Example usage:
-        # # Assuming transformed_df is your DataFrame containing TLFB data loaded into a pandas DataFrame
-        # preprocessor = DataPreprocessor(transformed_df)
-        # specified_tlfb_columns = [
-        #     'TLFB_Alcohol_Count', 'TLFB_Amphetamine_Count', 'TLFB_Cocaine_Count',
-        #     'TLFB_Heroin_Count', 'TLFB_Benzodiazepine_Count', 'TLFB_Opioid_Count',
-        #     'TLFB_THC_Count', 'TLFB_Methadone_Count', 'TLFB_Buprenorphine_Count'
-        # ]
-        # preprocessor.process_tlfb_columns(specified_tlfb_columns)
 
-        # # Optionally, display the modified DataFrame to verify the changes
-
-    
     def calculate_behavioral_columns(self):
         """
         Calculates and adds 'Homosexual_Behavior' and 'Non_monogamous_Relationships' columns to the DataFrame.
@@ -150,13 +116,6 @@ class DataPreprocessor:
             self.dataframe['txx_prt'] > 1
         )
 
-        # # Example usage:
-        # # Assuming transformed_df is your DataFrame loaded into a pandas DataFrame
-        # preprocessor = DataPreprocessor(transformed_df)
-        # preprocessor.calculate_behavioral_columns()
-
-        # # Optionally, display the modified DataFrame to verify the changes
-
 
     def move_column_to_end(self, column_names):
         """
@@ -178,16 +137,7 @@ class DataPreprocessor:
         # Reorder the DataFrame
         self.dataframe = self.dataframe[reordered_columns]
 
-        # '''Example usage:'''
-        # # Assuming transformed_df is your DataFrame loaded into a pandas DataFrame
-        # preprocessor = DataPreprocessor(transformed_df)
-        # column_to_move = 'ctn0094_relapse_event'
 
-        # # Move the specified column to the end using the class method
-        # preprocessor.move_column_to_end(column_to_move)
-
-        # # Optionally, display the modified DataFrame to verify the changes
-        
     def rename_columns(self):
         """
         Renames specified columns in the DataFrame to new names.
@@ -204,16 +154,7 @@ class DataPreprocessor:
         # Rename the columns using the dictionary
         self.dataframe.rename(columns=new_column_names, inplace=True)
 
-        # # Example usage:
-        # # Assuming transformed_data_full is your DataFrame loaded into a pandas DataFrame
-        # preprocessor = DataPreprocessor(transformed_data_full)
 
-        # # Rename specified columns using the class method
-        # preprocessor.rename_columns()
-
-        # # Optionally, display the modified DataFrame to verify the changes
-
-    
     def transform_nan_to_zero_for_binary_columns(self):
         """
         Transforms NaN values to 0 for columns that have NaN values and have exactly two unique values, [1, 0].
@@ -229,12 +170,7 @@ class DataPreprocessor:
                     # Transform NaN values to 0 for the column
                     self.dataframe[column] = self.dataframe[column].fillna(0)
 
-        # # Example usage:
-        # # Assuming transformed_data_full is your DataFrame loaded into a pandas DataFrame
-        # preprocessor = DataPreprocessor(transformed_data_full)
-        # preprocessor.transform_nan_to_zero_for_binary_columns()
 
-        # # Optionally, you can check the transformation by using:
     def transform_and_rename_column(self, original_column_name, new_column_name):
         """
         Transforms a specified column to binary based on its non-null values and renames it
@@ -253,12 +189,7 @@ class DataPreprocessor:
         columns[index] = new_column_name
         self.dataframe.columns = columns
 
-        # # Example usage:
-        # # Assuming transformed_data_full is your DataFrame loaded into a pandas DataFrame
-        # preprocessor = DataPreprocessor(transformed_data_full)
-        # preprocessor.transform_and_rename_column('heroin_inject_days', 'rbsivheroin')
 
-        # # Optionally, display the modified DataFrame to verify the changes
     def fill_nan_with_zero(self, column_name):
         """
         Fills NaN values in the specified column with 0. The operation is performed in place on the class's DataFrame.
@@ -270,17 +201,9 @@ class DataPreprocessor:
         if column_name in self.dataframe.columns:
             self.dataframe[column_name] = self.dataframe[column_name].fillna(0)
         else:
-            print(f"Column '{column_name}' not found in the DataFrame.")
+            logging.warning(f"Column '{column_name}' not found in the DataFrame.")
 
-        # # Example usage:
-        # # Assuming transformed_data_full is your DataFrame loaded into a pandas DataFrame
-        # preprocessor = DataPreprocessor(transformed_data_full)
-        # preprocessor.fill_nan_with_zero('ftnd')
 
-        # # Optionally, display the modified DataFrame to verify the changes
-
-        # # Display the new DataFrame
-        # transformed_data_full_2    
     def transform_data_with_nan_handling(self):
         """
         Transforms the data with handling for NaN values, ensuring each transformation
@@ -293,7 +216,7 @@ class DataPreprocessor:
         if 'Sex' in transformed_data.columns:
             transformed_data['Sex'] = transformed_data['Sex'].apply(lambda x: 1 if x == 'female' else 0)
         else:
-            print("'Sex' column not found. Skipping this transformation.")
+            logging.warning("'Sex' column not found. Skipping this transformation.")
 
         # Education mapping
         edu_mapping = {
@@ -304,7 +227,7 @@ class DataPreprocessor:
         if 'education' in transformed_data.columns:
             transformed_data['education'] = transformed_data['education'].map(edu_mapping).fillna(0)
         else:
-            print("'education' column not found. Skipping this transformation.")
+            logging.warning("'education' column not found. Skipping this transformation.")
 
         # Marital status mapping
         marital_mapping = {
@@ -315,21 +238,21 @@ class DataPreprocessor:
         if 'marital' in transformed_data.columns:
             transformed_data['marital'] = transformed_data['marital'].map(marital_mapping).fillna(1)
         else:
-            print("'marital' column not found. Skipping this transformation.")
+            logging.warning("'marital' column not found. Skipping this transformation.")
 
         # Job to binary mapping
         if 'job' in transformed_data.columns:
             transformed_data['job'] = transformed_data['job'].apply(
                 lambda x: 0 if x == 'Full Time' or x == 'Part Time' else 1).fillna(1)
         else:
-            print("'job' column not found. Skipping this transformation.")
+            logging.warning("'job' column not found. Skipping this transformation.")
 
         # Handling is_living_stable, assuming 1 is stable, so inverse for 'unstableliving'
         if 'is_living_stable' in transformed_data.columns:
             transformed_data['is_living_stable'] = transformed_data['is_living_stable'].apply(
                 lambda x: 0 if x == 1 else 1).fillna(1)
         else:
-            print("'is_living_stable' column not found. Skipping this transformation.")
+            logging.warning("'is_living_stable' column not found. Skipping this transformation.")
 
         # Map 'race' with numeric encoding, including a category for 'Refused/missing'
         race_mapping = {
@@ -341,7 +264,7 @@ class DataPreprocessor:
         if 'race' in transformed_data.columns:
             transformed_data['race'] = transformed_data['race'].map(race_mapping).fillna(-1)
         else:
-            print("'race' column not found. Skipping this transformation.")
+            logging.warning("'race' column not found. Skipping this transformation.")
 
         # Map 'XTRT' with numeric encoding
         xtrt_mapping = {
@@ -354,14 +277,14 @@ class DataPreprocessor:
         if 'XTRT' in transformed_data.columns:
             transformed_data['XTRT'] = transformed_data['XTRT'].map(xtrt_mapping).fillna(-1)
         else:
-            print("'XTRT' column not found. Skipping this transformation.")
+            logging.warning("'XTRT' column not found. Skipping this transformation.")
 
         # Numeric encoding for RaceEth — inverted from the canonical RACEETH_LABELS map
         race_eth_mapping = {label: code for code, label in RACEETH_LABELS.items()}
         if 'RaceEth' in transformed_data.columns:
             transformed_data['RaceEth'] = transformed_data['RaceEth'].map(race_eth_mapping).fillna(0)
         else:
-            print("'RaceEth' column not found. Skipping this transformation.")
+            logging.warning("'RaceEth' column not found. Skipping this transformation.")
 
         # Pain mapping
         pain_mapping = {
@@ -373,7 +296,7 @@ class DataPreprocessor:
         if 'pain' in transformed_data.columns:
             transformed_data['pain'] = transformed_data['pain'].map(pain_mapping).fillna(0)
         else:
-            print("'pain' column not found. Skipping this transformation.")
+            logging.warning("'pain' column not found. Skipping this transformation.")
 
         # Finally, update the instance's dataframe
         self.dataframe = transformed_data
@@ -402,18 +325,7 @@ class DataPreprocessor:
         labels to their numeric codes.
         """
         if 'RaceEth' not in self.dataframe.columns:
-            print("'RaceEth' column not found. Skipping one-hot encoding.")
+            logging.warning("'RaceEth' column not found. Skipping one-hot encoding.")
             return
         for code, column in RACEETH_INDICATOR_COLUMNS.items():
             self.dataframe[column] = (self.dataframe['RaceEth'] == code).astype(int)
-
-# # Example usage:
-# # Load your dataset into a DataFrame
-# df = pd.read_csv('/path/to/your/dataset.csv')
-
-# # Initialize the DataPreprocessor with your DataFrame
-# preprocessor = DataPreprocessor(dataframe=df)
-
-# # Apply preprocessing and feature engineering methods
-# preprocessor.drop_columns_and_return(columns_to_drop=['example_column'])
-# # Continue with other processing methods as needed...

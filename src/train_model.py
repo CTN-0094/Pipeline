@@ -5,14 +5,13 @@ from typing import Optional  # For optional type hints
 import numpy as np  # For numerical operations
 import pandas as pd  # For DataFrame manipulation
 
-from joblib import dump, load  # For saving/loading models
 from src.constants import RACEETH_LABELS
 from sklearn.exceptions import NotFittedError  # Handle unfitted model errors
-from sklearn.linear_model import LogisticRegression, Lasso, LassoCV, LinearRegression  # Logistic regression model
+from sklearn.linear_model import LogisticRegression, Lasso, LassoCV  # Logistic regression model
 from sklearn.preprocessing import StandardScaler  # For feature scaling
 from sklearn.pipeline import Pipeline  # For creating a machine learning pipeline
 from sklearn.model_selection import train_test_split  # For splitting data into training/testing sets
-from sklearn.metrics import confusion_matrix, roc_auc_score, precision_score, recall_score, f1_score, mean_squared_error, mean_absolute_error, r2_score # For model evaluation
+from sklearn.metrics import confusion_matrix, roc_auc_score, precision_score, recall_score, mean_squared_error, mean_absolute_error  # For model evaluation
 import statsmodels.api as sm  # For statistical models (like Negative Binomial)
 from statsmodels.othermod.betareg import BetaModel
 from scipy.stats import pearsonr
