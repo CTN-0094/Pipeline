@@ -12,6 +12,7 @@ verify the contract of the assembled pipeline:
     - Yes/No string columns are converted to numeric
     - The function returns a non-empty DataFrame without raising
     - The outcome column is present in the output
+    - A step that fails raises instead of returning partially processed data
 
 A minimal fixture DataFrame is used; columns not present are silently skipped
 by the individual DataPreprocessor methods, so only the behaviours under test
@@ -233,3 +234,16 @@ class TestEdgeCases:
         result = preprocess_data(df.copy(), OUTCOME_ARG)
         assert "rbsivheroin" in result.columns
         assert (result["rbsivheroin"] == 0).all()
+
+
+# ---------------------------------------------------------------------------
+# Failures
+# ---------------------------------------------------------------------------
+
+class TestFailuresPropagate:
+    """A failing step must stop preprocessing rather than return a DataFrame missing its output."""
+
+    def test_missing_behavioral_input_raises(self, minimal_df: pd.DataFrame) -> None:
+        """Without msm_npt the behavioral columns cannot be built, so preprocessing must raise."""
+        with pytest.raises(KeyError, match="msm_npt"):
+            preprocess_data(minimal_df.drop(columns=["msm_npt"]), OUTCOME_ARG)

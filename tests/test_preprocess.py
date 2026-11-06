@@ -198,6 +198,12 @@ class TestProcessTLFBColumns:
         for col in specified:
             assert col in pre.dataframe.columns
 
+    def test_no_specified_columns_present_keeps_tlfb_other_last(self, tlfb_df):
+        pre = DataPreprocessor(tlfb_df.copy())
+        pre.process_tlfb_columns(["TLFB_Methadone_Count"])
+        assert list(pre.dataframe.columns) == ["id", "TLFB_Other"]
+        assert pre.dataframe.loc[0, "TLFB_Other"] == 11  # 3 + 0 + 1 + 5 + 2
+
 
 # ---------------------------------------------------------------------------
 # move_column_to_end
@@ -313,6 +319,11 @@ class TestTransformAndRenameColumn:
         pre.transform_and_rename_column("heroin_inject_days", "rbsivheroin")
         new_pos = list(pre.dataframe.columns).index("rbsivheroin")
         assert original_pos == new_pos
+
+    def test_missing_column_is_skipped(self, transform_rename_df):
+        pre = DataPreprocessor(transform_rename_df.copy())
+        pre.transform_and_rename_column("nonexistent", "renamed")
+        assert list(pre.dataframe.columns) == list(transform_rename_df.columns)
 
 
 # ---------------------------------------------------------------------------
