@@ -78,7 +78,8 @@ class DataPreprocessor:
         # Remove the 'other' TLFB columns from the DataFrame
         self.dataframe.drop(columns=tlfb_other_columns, inplace=True)
 
-        if 'TLFB_Other' not in specified_tlfb_columns:
+        # With none of the specified columns present there is nothing to place 'TLFB_Other' after, so it stays last
+        if 'TLFB_Other' not in specified_tlfb_columns and any(col in self.dataframe.columns for col in specified_tlfb_columns):
             # Temporarily store TLFB_Other data
             tlfb_other_data = self.dataframe['TLFB_Other']
 
@@ -180,6 +181,10 @@ class DataPreprocessor:
         - original_column_name: The name of the column to be transformed and renamed.
         - new_column_name: The new name for the transformed column.
         """
+        if original_column_name not in self.dataframe.columns:
+            logging.warning(f"Column '{original_column_name}' not found in the DataFrame.")
+            return
+
         # Step 1: Transform the specified column to binary based on non-null values
         self.dataframe[original_column_name] = self.dataframe[original_column_name].notna().astype(int)
         

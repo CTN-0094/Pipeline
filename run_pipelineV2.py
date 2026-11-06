@@ -105,6 +105,8 @@ def main():
 
     for selected_outcome in matched:
         for seed in seed_list:
+            # Set up the run's log file first so validation and preprocessing are recorded in it
+            setup_logging(seed, selected_outcome['name'], args.dir, quiet=False)
             processed_data = initialize_pipeline(selected_outcome, args)
             run_pipeline(processed_data, seed, selected_outcome, args)
 
@@ -239,8 +241,6 @@ def run_pipeline(processed_data, seed, selected_outcome, args):
     random.seed(seed)
     np.random.seed(seed)
     logging.info(f"Global Seed set to: {seed}")
-
-    setup_logging(seed, selected_outcome['name'], args.dir, quiet=False)
 
     # 1. Held-out split 
     processed_data, processed_data_heldout = holdOutTestData(
