@@ -33,7 +33,6 @@ def preprocess_data(subset: pd.DataFrame, selected_outcome: list[str]) -> pd.Dat
         "opioid_inject_days", "speed_inject_days", "UDS_Alcohol_Count", 'UDS_Mdma/Hallucinogen_Count'
     ]
     preprocessor.drop_columns_and_return(columns_to_drop_1)
-    logging.info(f"Dropped initial columns: {columns_to_drop_1}")
 
     # Convert Yes/No values to binary (1/0)
     preprocessor.convert_yes_no_to_binary()
@@ -58,10 +57,9 @@ def preprocess_data(subset: pd.DataFrame, selected_outcome: list[str]) -> pd.Dat
     preprocessor.move_column_to_end(selected_outcome)
     logging.info(f"Moved '{selected_outcome}' column to the end.")
 
-    # Specify columns to drop initially
+    # Drop the raw columns the behavioral columns were calculated from
     columns_to_drop_2 = ['msm_npt', 'msm_frq', 'txx_prt']
     preprocessor.drop_columns_and_return(columns_to_drop_2)
-    logging.info(f"Dropped initial columns: {columns_to_drop_2}")
 
     # transform_data_with_nan_handling
     preprocessor.transform_data_with_nan_handling()
@@ -84,12 +82,11 @@ def preprocess_data(subset: pd.DataFrame, selected_outcome: list[str]) -> pd.Dat
     logging.info("Filled NaN with 0 for 'ftnd' column.")
 
     # Specify additional columns to drop
-    columns_to_drop_2 = [
+    columns_to_drop_3 = [
         'rbs_iv_days', 'race', 'RBS_cocaine_Days', 'RBS_heroin_Days',
         'RBS_opioid_Days', 'RBS_speed_Days', 'RBS_speedball_Days'
     ]
-    preprocessor.drop_columns_and_return(columns_to_drop_2)
-    logging.info(f"Dropped additional columns: {columns_to_drop_2}")
+    preprocessor.drop_columns_and_return(columns_to_drop_3)
 
     # Convert drug count columns to binary
     preprocessor.convert_uds_to_binary()
