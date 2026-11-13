@@ -19,6 +19,8 @@ Test classes:
     TestConvertUdsToBinary           — convert_uds_to_binary
 """
 
+import logging
+
 import pytest
 import pandas as pd
 import numpy as np
@@ -101,7 +103,7 @@ def transform_rename_df():
 # ---------------------------------------------------------------------------
 
 class TestDropColumns:
-    """Columns in the drop list are removed; columns not in the list survive; missing names are silently skipped."""
+    """Columns in the drop list are removed; columns not in the list survive; missing names are skipped with a warning."""
 
     def test_drops_valid_columns(self, simple_df):
         pre = DataPreprocessor(simple_df.copy())
@@ -131,6 +133,25 @@ class TestDropColumns:
         pre.drop_columns_and_return(["score", "nonexistent"])
         assert "score" not in pre.dataframe.columns
         assert "id" in pre.dataframe.columns
+
+    def test_missing_columns_logged_as_warning(self, simple_df, caplog):
+        pre = DataPreprocessor(simple_df.copy())
+        with caplog.at_level(logging.WARNING):
+            pre.drop_columns_and_return(["score", "nonexistent"])
+        assert "nonexistent" in caplog.text
+        assert "score" not in caplog.text
+
+    def test_returns_modified_dataframe(self, simple_df):
+        pre = DataPreprocessor(simple_df.copy())
+        result = pre.drop_columns_and_return(["score"])
+        assert result is pre.dataframe
+        assert "score" not in result.columns
+
+    def test_string_argument_raises(self, simple_df):
+        pre = DataPreprocessor(simple_df.copy())
+        with pytest.raises(TypeError, match="list of column names"):
+            pre.drop_columns_and_return("score")
+        assert "score" in pre.dataframe.columns
 
 
 # ---------------------------------------------------------------------------
@@ -197,6 +218,12 @@ class TestProcessTLFBColumns:
         pre.process_tlfb_columns(specified)
         for col in specified:
             assert col in pre.dataframe.columns
+
+    def test_no_specified_columns_present_keeps_tlfb_other_last(self, tlfb_df):
+        pre = DataPreprocessor(tlfb_df.copy())
+        pre.process_tlfb_columns(["TLFB_Methadone_Count"])
+        assert list(pre.dataframe.columns) == ["id", "TLFB_Other"]
+        assert pre.dataframe.loc[0, "TLFB_Other"] == 11  # 3 + 0 + 1 + 5 + 2
 
 
 # ---------------------------------------------------------------------------
@@ -313,6 +340,11 @@ class TestTransformAndRenameColumn:
         pre.transform_and_rename_column("heroin_inject_days", "rbsivheroin")
         new_pos = list(pre.dataframe.columns).index("rbsivheroin")
         assert original_pos == new_pos
+
+    def test_missing_column_is_skipped(self, transform_rename_df):
+        pre = DataPreprocessor(transform_rename_df.copy())
+        pre.transform_and_rename_column("nonexistent", "renamed")
+        assert list(pre.dataframe.columns) == list(transform_rename_df.columns)
 
 
 # ---------------------------------------------------------------------------

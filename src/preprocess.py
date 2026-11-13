@@ -1,5 +1,6 @@
 # src/preprocess.py
 import numpy as np
+import pandas as pd
 import logging
 
 from src.constants import RACEETH_INDICATOR_COLUMNS, RACEETH_LABELS
@@ -14,34 +15,35 @@ class DataPreprocessor:
         self.dataframe = dataframe
 
 
-    def drop_columns_and_return(self, columns_to_drop):
+    def drop_columns_and_return(self, columns_to_drop: list[str]) -> pd.DataFrame:
         """
-        Drops specified columns from the DataFrame, prints out the dropped columns, and handles potential errors.
+        Drops the specified columns from the DataFrame, logging which were dropped and warning about any not found.
 
         Parameters:
-        - columns_to_drop: A list of strings, where each string is a column name to be dropped.
+        - columns_to_drop: A list of column names to drop. A bare string is rejected, since iterating it
+          would look up each character as a column name and silently drop nothing.
 
         Returns:
         - The modified DataFrame with specified columns dropped.
+
+        Raises:
+        - TypeError: If columns_to_drop is a string.
         """
-        try:
-            # Ensure columns_to_drop are in the DataFrame
-            valid_columns_to_drop = [col for col in columns_to_drop if col in self.dataframe.columns]
-            invalid_columns = [col for col in columns_to_drop if col not in self.dataframe.columns]
+        if isinstance(columns_to_drop, str):
+            raise TypeError(f"columns_to_drop must be a list of column names, not the string {columns_to_drop!r}")
 
-            # Print out valid and invalid columns to drop
-            if valid_columns_to_drop:
-                logging.info(f"Dropping columns: {valid_columns_to_drop}")
-            if invalid_columns:
-                logging.info(f"Invalid columns not found in DataFrame: {invalid_columns}")
+        # Ensure columns_to_drop are in the DataFrame
+        valid_columns_to_drop = [col for col in columns_to_drop if col in self.dataframe.columns]
+        invalid_columns = [col for col in columns_to_drop if col not in self.dataframe.columns]
 
-            # Drop the specified columns and update the instance's DataFrame
-            self.dataframe = self.dataframe.drop(columns=valid_columns_to_drop)
+        if valid_columns_to_drop:
+            logging.info(f"Dropping columns: {valid_columns_to_drop}")
+        if invalid_columns:
+            logging.warning(f"Columns to drop not found in DataFrame: {invalid_columns}")
 
-        except KeyError as e:
-            logging.error(f"Column error: {e}. Please check the columns you are trying to drop.")
-        except Exception as e:
-            logging.error(f"An unexpected error occurred: {e}")
+        # Drop the specified columns and update the instance's DataFrame
+        self.dataframe = self.dataframe.drop(columns=valid_columns_to_drop)
+        return self.dataframe
 
 
     def convert_yes_no_to_binary(self):
@@ -78,7 +80,8 @@ class DataPreprocessor:
         # Remove the 'other' TLFB columns from the DataFrame
         self.dataframe.drop(columns=tlfb_other_columns, inplace=True)
 
-        if 'TLFB_Other' not in specified_tlfb_columns:
+        # With none of the specified columns present there is nothing to place 'TLFB_Other' after, so it stays last
+        if 'TLFB_Other' not in specified_tlfb_columns and any(col in self.dataframe.columns for col in specified_tlfb_columns):
             # Temporarily store TLFB_Other data
             tlfb_other_data = self.dataframe['TLFB_Other']
 
@@ -180,6 +183,10 @@ class DataPreprocessor:
         - original_column_name: The name of the column to be transformed and renamed.
         - new_column_name: The new name for the transformed column.
         """
+        if original_column_name not in self.dataframe.columns:
+            logging.warning(f"Column '{original_column_name}' not found in the DataFrame.")
+            return
+
         # Step 1: Transform the specified column to binary based on non-null values
         self.dataframe[original_column_name] = self.dataframe[original_column_name].notna().astype(int)
         
