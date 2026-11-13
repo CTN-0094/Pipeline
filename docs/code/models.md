@@ -40,7 +40,8 @@ OutcomeModel(data, id_column, target_column, seed=None)
 | `X_train`, `X_test` | 75/25 feature split |
 | `y_train`, `y_test` | Corresponding target values |
 | `who_test` | Patient IDs for the test set |
-| `selected_features` | All feature columns (updated after `selectFeatures()`) |
+| `feature_columns` | Candidate features: every column except the ID, the targets and the raw `RaceEth` code |
+| `selected_features` | All of `feature_columns` (updated after `selectFeatures()`) |
 | `best_threshold` | `0.5` default (updated after `train()` for logistic) |
 
 ### `lasso_feature_selection`
@@ -73,7 +74,7 @@ heldout_preds, heldout_evals, subset_preds, subset_evals = model.evaluate(heldou
 
 ### `train()`
 
-Fits L1 Lasso for feature selection, then trains a standard `LogisticRegression` on the selected features. Sets `best_threshold` to the positive class proportion in `y_test`.
+Fits L1 Lasso for feature selection, then trains a standard `LogisticRegression` on the selected features. Sets `best_threshold` to the positive class proportion in `y_train`.
 
 ### `evaluate(processed_data_heldout)`
 

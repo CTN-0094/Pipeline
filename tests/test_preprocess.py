@@ -19,6 +19,8 @@ Test classes:
     TestConvertUdsToBinary           — convert_uds_to_binary
 """
 
+import logging
+
 import pytest
 import pandas as pd
 import numpy as np
@@ -27,6 +29,7 @@ import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
+from src.constants import RACEETH_INDICATOR_COLUMNS
 from src.preprocess import DataPreprocessor
 
 
@@ -100,7 +103,7 @@ def transform_rename_df():
 # ---------------------------------------------------------------------------
 
 class TestDropColumns:
-    """Columns in the drop list are removed; columns not in the list survive; missing names are silently skipped."""
+    """Columns in the drop list are removed; columns not in the list survive; missing names are skipped with a warning."""
 
     def test_drops_valid_columns(self, simple_df):
         pre = DataPreprocessor(simple_df.copy())
@@ -130,6 +133,25 @@ class TestDropColumns:
         pre.drop_columns_and_return(["score", "nonexistent"])
         assert "score" not in pre.dataframe.columns
         assert "id" in pre.dataframe.columns
+
+    def test_missing_columns_logged_as_warning(self, simple_df, caplog):
+        pre = DataPreprocessor(simple_df.copy())
+        with caplog.at_level(logging.WARNING):
+            pre.drop_columns_and_return(["score", "nonexistent"])
+        assert "nonexistent" in caplog.text
+        assert "score" not in caplog.text
+
+    def test_returns_modified_dataframe(self, simple_df):
+        pre = DataPreprocessor(simple_df.copy())
+        result = pre.drop_columns_and_return(["score"])
+        assert result is pre.dataframe
+        assert "score" not in result.columns
+
+    def test_string_argument_raises(self, simple_df):
+        pre = DataPreprocessor(simple_df.copy())
+        with pytest.raises(TypeError, match="list of column names"):
+            pre.drop_columns_and_return("score")
+        assert "score" in pre.dataframe.columns
 
 
 # ---------------------------------------------------------------------------
@@ -196,6 +218,12 @@ class TestProcessTLFBColumns:
         pre.process_tlfb_columns(specified)
         for col in specified:
             assert col in pre.dataframe.columns
+
+    def test_no_specified_columns_present_keeps_tlfb_other_last(self, tlfb_df):
+        pre = DataPreprocessor(tlfb_df.copy())
+        pre.process_tlfb_columns(["TLFB_Methadone_Count"])
+        assert list(pre.dataframe.columns) == ["id", "TLFB_Other"]
+        assert pre.dataframe.loc[0, "TLFB_Other"] == 11  # 3 + 0 + 1 + 5 + 2
 
 
 # ---------------------------------------------------------------------------
@@ -313,6 +341,11 @@ class TestTransformAndRenameColumn:
         new_pos = list(pre.dataframe.columns).index("rbsivheroin")
         assert original_pos == new_pos
 
+    def test_missing_column_is_skipped(self, transform_rename_df):
+        pre = DataPreprocessor(transform_rename_df.copy())
+        pre.transform_and_rename_column("nonexistent", "renamed")
+        assert list(pre.dataframe.columns) == list(transform_rename_df.columns)
+
 
 # ---------------------------------------------------------------------------
 # fill_nan_with_zero
@@ -420,3 +453,47 @@ class TestConvertUdsToBinary:
         pre = DataPreprocessor(df.copy())
         pre.convert_uds_to_binary()
         assert pre.dataframe["age"].tolist() == [30, 40]
+
+
+# ---------------------------------------------------------------------------
+# one_hot_encode_raceeth
+# ---------------------------------------------------------------------------
+
+class TestOneHotEncodeRaceEth:
+    """RaceEth gains one indicator per non-reference code; the raw code is kept."""
+
+    def test_each_code_sets_only_its_indicator(self):
+        df = pd.DataFrame({"RaceEth": [1, 2, 3, 4, 0]})
+        pre = DataPreprocessor(df.copy())
+        pre.one_hot_encode_raceeth()
+        out = pre.dataframe
+        assert out["RaceEth_NHB"].tolist() == [0, 1, 0, 0, 0]
+        assert out["RaceEth_Hisp"].tolist() == [0, 0, 1, 0, 0]
+        assert out["RaceEth_Other"].tolist() == [0, 0, 0, 1, 0]
+        assert out["RaceEth_Missing"].tolist() == [0, 0, 0, 0, 1]
+
+    def test_reference_group_has_no_indicator(self):
+        df = pd.DataFrame({"RaceEth": [1, 1]})
+        pre = DataPreprocessor(df.copy())
+        pre.one_hot_encode_raceeth()
+        assert "RaceEth_NHW" not in pre.dataframe.columns
+        assert (pre.dataframe.filter(like="RaceEth_").sum(axis=1) == 0).all()
+
+    def test_column_set_is_fixed_even_when_a_group_is_absent(self):
+        df = pd.DataFrame({"RaceEth": [1, 2]})
+        pre = DataPreprocessor(df.copy())
+        pre.one_hot_encode_raceeth()
+        assert set(RACEETH_INDICATOR_COLUMNS.values()) <= set(pre.dataframe.columns)
+        assert pre.dataframe["RaceEth_Hisp"].tolist() == [0, 0]
+
+    def test_raw_raceeth_is_kept(self):
+        df = pd.DataFrame({"RaceEth": [1, 3]})
+        pre = DataPreprocessor(df.copy())
+        pre.one_hot_encode_raceeth()
+        assert pre.dataframe["RaceEth"].tolist() == [1, 3]
+
+    def test_missing_raceeth_is_skipped(self):
+        df = pd.DataFrame({"age": [30]})
+        pre = DataPreprocessor(df.copy())
+        pre.one_hot_encode_raceeth()
+        assert list(pre.dataframe.columns) == ["age"]

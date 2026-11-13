@@ -128,6 +128,26 @@ class TestModelSelection:
             train_and_evaluate_models([classification_data], "id", logical_outcome, classification_heldout)
             MockModel.assert_called_once_with(classification_data, "id", ["label"])
 
+    def test_string_endpoint_uses_matching_model(self, classification_data, classification_heldout):
+        outcome = {"endpointType": "Logical", "columnsToUse": ["label"]}
+        with patch("src.model_training.LogisticModel") as MockModel:
+            instance = MagicMock()
+            instance.evaluate.return_value = _fake_evaluate()
+            MockModel.return_value = instance
+            train_and_evaluate_models([classification_data], "id", outcome, classification_heldout)
+            MockModel.assert_called_once()
+
+    @pytest.mark.parametrize("endpoint_type", ["unknown", None])
+    def test_unsupported_endpoint_raises(self, classification_data, classification_heldout, endpoint_type):
+        outcome = {"endpointType": endpoint_type, "columnsToUse": ["label"]}
+        with pytest.raises(ValueError, match="Unsupported endpoint type"):
+            train_and_evaluate_models([classification_data], "id", outcome, classification_heldout)
+
+    def test_unsupported_endpoint_raises_with_no_subsets(self, classification_heldout):
+        outcome = {"endpointType": "unknown", "columnsToUse": ["label"]}
+        with pytest.raises(ValueError, match="Unsupported endpoint type"):
+            train_and_evaluate_models([], "id", outcome, classification_heldout)
+
 
 # ── Results Structure ─────────────────────────────────────────────────────────
 

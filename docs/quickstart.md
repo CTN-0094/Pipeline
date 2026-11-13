@@ -91,7 +91,7 @@ python3 run_pipelineV2.py --data <path/to/data.csv> --outcome <outcome_name> -d 
 |:---|:---:|:---|
 | `--data` | *(required)* | Path to cleaned input dataset (CSV) |
 | `-o / --outcome` | all | Outcome(s) to run |
-| `-l / --loop` | — | Min and max seed for multi-seed runs |
+| `-l / --loop` | — | Min and max seed for multi-seed runs (inclusive) |
 | `-d / --dir` | `""` | Output directory for results |
 | `--type` | — | Endpoint type for custom outcomes: `logical`, `integer`, `survival` |
 | `--majority` | `1` | Value representing the majority group in the PSM column |

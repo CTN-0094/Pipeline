@@ -6,7 +6,6 @@ import pandas as pd
 from datetime import datetime
 from src.constants import EndpointType
 import logging
-from src.silent_logging import add_silent_handler
 from src.logging_setup import setup_logging
 import argparse
 import csv
@@ -77,8 +76,9 @@ def main():
 
     args = argument_handler()
 
-    seed_list = list(range(min(args.loop), max(args.loop))) if args.loop else [0]
-    selected_names = set(args.outcome)
+    seed_list = resolve_seed_list(args.loop)
+    # No -o means every built-in outcome, as the README's "all outcomes" example expects.
+    selected_names = set(args.outcome) if args.outcome else {o['name'] for o in AVAILABLE_OUTCOMES}
     matched = [o for o in AVAILABLE_OUTCOMES if o['name'] in selected_names]
 
     if len(matched) < len(selected_names):
@@ -105,6 +105,8 @@ def main():
 
     for selected_outcome in matched:
         for seed in seed_list:
+            # Set up the run's log file first so validation and preprocessing are recorded in it
+            setup_logging(seed, selected_outcome['name'], args.dir, quiet=False)
             processed_data = initialize_pipeline(selected_outcome, args)
             run_pipeline(processed_data, seed, selected_outcome, args)
 
@@ -115,12 +117,28 @@ def main():
 
 
 
+def resolve_seed_list(loop: list[int] | None) -> list[int]:
+    """
+    Expand the -l/--loop argument into the list of seeds to run.
+
+    Parameters:
+    - loop: One seed, or a min and max seed; None runs seed 0 only.
+
+    Returns:
+    - Every seed from min to max, inclusive of both ends, so that
+      "-l 5 10" runs seeds 5 through 10 and "-l 5" runs seed 5.
+    """
+    if not loop:
+        return [0]
+    return list(range(min(loop), max(loop) + 1))
+
+
 def argument_handler():
 
     # Create the parser
     parser = argparse.ArgumentParser(description='Pipeline for statistical modeling and machine learning on the CTN-0094 database')
 
-    parser.add_argument('--majority', type=str, default=1, 
+    parser.add_argument('--majority', type=int, default=1, 
                         help='value of majority in the PSM column')
     parser.add_argument('--split', '--column_to_split', type=str, default='RaceEth', 
                         help='column containing the 2 groups to PSM')
@@ -224,8 +242,6 @@ def run_pipeline(processed_data, seed, selected_outcome, args):
     np.random.seed(seed)
     logging.info(f"Global Seed set to: {seed}")
 
-    setup_logging(seed, selected_outcome['name'], args.dir, quiet=False)
-
     # 1. Held-out split 
     processed_data, processed_data_heldout = holdOutTestData(
         processed_data,
@@ -246,7 +262,7 @@ def run_pipeline(processed_data, seed, selected_outcome, args):
         sampleSize=args.group_size
     )
 
-    # 3. Create and merge demographic subsets (500/500 → 0/1000 ladder)
+    # 3. Create and merge demographic subsets (0/1000 → 500/500 ladder)
     merged_subsets = create_subsets(matched_dataframes)
 
     # 4. DATA-ONLY BRANCH: stop here and just save datasets
@@ -385,21 +401,30 @@ def save_evaluations_to_csv(results, seed, selected_outcome, directory, name):
             ]
 
             if selected_outcome['endpointType'] == EndpointType.LOGICAL:
-                tp = trials_data['confusion_matrix'][0][0]
-                fn = trials_data['confusion_matrix'][1][0]
-                fp = trials_data['confusion_matrix'][0][1]
-                tn = trials_data['confusion_matrix'][1][1]
+                # sklearn orders the binary matrix [[TN, FP], [FN, TP]]; ravel()
+                # yields that order directly. Reading the corners positionally
+                # transposed TP with TN, and the row was then emitted in an order
+                # that did not match the header, so three of the four counts were
+                # written under the wrong column.
+                tn, fp, fn, tp = trials_data['confusion_matrix'].ravel()
                 accuracy = (tp + tn) / (tp + tn + fp + fn)
-                f1 = 2 * (trials_data['precision'] * trials_data['recall']) / (trials_data['precision'] + trials_data['recall'])
+                precision = trials_data['precision']
+                recall = trials_data['recall']
+                # A model that predicts no positives is scored 0 for both
+                # precision and recall by sklearn, which makes 2pr/(p+r) a 0/0
+                # that evaluates to NaN rather than raising. Report 0 for that
+                # degenerate case, matching sklearn's own f1_score.
+                denominator = precision + recall
+                f1 = 2 * (precision * recall) / denominator if denominator else 0.0
 
                 writer.writerow(sections + [
                     tp,
-                    fn,
-                    fp,
                     tn,
+                    fp,
+                    fn,
                     accuracy,
-                    trials_data['precision'],
-                    trials_data['recall'],
+                    precision,
+                    recall,
                     f1,
                     trials_data['roc']
                 ])
@@ -412,7 +437,6 @@ def save_evaluations_to_csv(results, seed, selected_outcome, directory, name):
                     trials_data['mcfadden_r2']
                 ])
             elif selected_outcome['endpointType'] == EndpointType.SURVIVAL:
-                print("AARON DEBUG INSIDE")
                 writer.writerow(sections + [
                     trials_data['concordance_index']
                 ])
@@ -440,7 +464,7 @@ def save_predictions_to_csv(data, seed, selected_outcome, directory, name):
         writer = csv.writer(file)
 
          # Write header
-        header = ['who'] + [f'Subset_{i+1}' for i in range(10)]
+        header = ['who'] + [f'Subset_{i+1}' for i in range(data.shape[0])]
         writer.writerow(header)
         
         # Write data rows
@@ -486,7 +510,7 @@ def save_model_input_datasets(
     os.makedirs(subsets_dir, exist_ok=True)
     os.makedirs(heldout_dir, exist_ok=True)
 
-    # Save subsets (ladder 500/500 → 0/1000)
+    # Save subsets (ladder 0/1000 → 500/500)
     for i, subset_df in enumerate(merged_subsets, start=1):
         # Compute demographics
         col_as_str = subset_df[split_col].astype(str)

@@ -5,17 +5,15 @@ from typing import Optional  # For optional type hints
 import numpy as np  # For numerical operations
 import pandas as pd  # For DataFrame manipulation
 
-from joblib import dump, load  # For saving/loading models
 from src.constants import RACEETH_LABELS
 from sklearn.exceptions import NotFittedError  # Handle unfitted model errors
-from sklearn.linear_model import LogisticRegression, Lasso, LassoCV, LinearRegression  # Logistic regression model
+from sklearn.linear_model import LogisticRegression, Lasso, LassoCV  # Logistic regression model
 from sklearn.preprocessing import StandardScaler  # For feature scaling
 from sklearn.pipeline import Pipeline  # For creating a machine learning pipeline
 from sklearn.model_selection import train_test_split  # For splitting data into training/testing sets
-from sklearn.metrics import confusion_matrix, roc_auc_score, precision_score, recall_score, f1_score, mean_squared_error, mean_absolute_error, r2_score # For model evaluation
+from sklearn.metrics import confusion_matrix, roc_auc_score, precision_score, recall_score, mean_squared_error, mean_absolute_error  # For model evaluation
 import statsmodels.api as sm  # For statistical models (like Negative Binomial)
 from statsmodels.othermod.betareg import BetaModel
-from statsmodels.discrete.discrete_model import NegativeBinomial
 from scipy.stats import pearsonr
 from lifelines import CoxPHFitter
 from lifelines.utils import concordance_index
@@ -57,7 +55,11 @@ class OutcomeModel:
         
         self.y = data[target_column]  # Target variable (y)
         self.model = None  # Placeholder for the trained model
-        self.selected_features = self.X.columns  # Placeholder for selected features
+        # The raw RaceEth code is nominal, so it is never a candidate feature; the
+        # RaceEth_* indicators added in preprocessing stand in for it. It stays in
+        # X because the demographic summaries read it.
+        self.feature_columns = [c for c in self.X.columns if c != 'RaceEth']
+        self.selected_features = list(self.feature_columns)  # Placeholder for selected features
         
         # Train-test split
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(
@@ -163,7 +165,8 @@ class OutcomeModel:
                 ('model', model)
             ])
 
-            pipeline.fit(self.X_train, fit_target)
+            X_candidates = self.X_train[self.feature_columns]
+            pipeline.fit(X_candidates, fit_target)
 
             # Extract the fitted logistic regression model from the pipeline
             model = pipeline.named_steps['model']
@@ -175,7 +178,7 @@ class OutcomeModel:
             if isinstance(coefficients[0], np.ndarray):
                 coefficients = coefficients[0]
             # Select the features where the L1 regularization retained non-zero coefficients
-            self.selected_features = self.X_train.columns[coefficients.flatten() != 0].tolist()
+            self.selected_features = X_candidates.columns[coefficients.flatten() != 0].tolist()
 
             # Handle the empty-selection case.
             if not self.selected_features and alpha is None and model_type == 'regression':
@@ -184,11 +187,11 @@ class OutcomeModel:
                 # multi-seed run — or falling back to *all* features, which makes
                 # collinearity-sensitive models like Cox singular — walk down the
                 # CV alpha grid and take the sparsest non-empty Lasso solution (#22).
-                X_scaled = pipeline.named_steps['scaler'].transform(self.X_train)
+                X_scaled = pipeline.named_steps['scaler'].transform(X_candidates)
                 for a in sorted(getattr(model, 'alphas_', []), reverse=True):
                     fallback = Lasso(alpha=a, random_state=42, max_iter=20000)
                     fallback.fit(X_scaled, fit_target)
-                    feats = self.X_train.columns[fallback.coef_.flatten() != 0].tolist()
+                    feats = X_candidates.columns[fallback.coef_.flatten() != 0].tolist()
                     if feats:
                         self.selected_features = feats
                         logging.warning(
@@ -203,7 +206,7 @@ class OutcomeModel:
                 raise ValueError("No features were selected. Check your regularization strength.")
 
             # Log the number of features selected
-            feature_names = self.X_train.columns
+            feature_names = X_candidates.columns
             logging.info(f"Lasso selected {len(self.selected_features)}/{len(feature_names)} features: {self.selected_features}")
         except Exception as e:
             logging.error(f"Error during Lasso feature selection: {e}")
@@ -282,9 +285,13 @@ class LogisticModel(OutcomeModel):
         self.lasso_feature_selection(model_type="classification")
 
     def _find_best_threshold(self):
-        """Determine the best classification threshold based on positive outcome proportion."""
+        """Set the classification threshold to the training set's positive rate.
+
+        This read the test labels, which leaked the evaluation set's outcome
+        rate into the subset predictions it then scored.
+        """
         try:
-            positive_proportion = self.y_test.mean()  # Calculate the proportion of positive outcomes
+            positive_proportion = self.y_train.mean()  # Calculate the proportion of positive outcomes
             self.best_threshold = positive_proportion  # Set threshold to be the proportion of positive outcomes
             logging.info(f"Dynamic threshold set to: {self.best_threshold}")
         except Exception as e:
@@ -304,7 +311,9 @@ class LogisticModel(OutcomeModel):
 
         predictions = zip(id, y_pred)
         evaluations = {
-            "roc": roc_auc_score(y, y_pred),
+            # AUC ranks the scores, so it needs the probabilities; on the
+            # thresholded labels it collapses to balanced accuracy.
+            "roc": roc_auc_score(y, y_pred_proba),
             "confusion_matrix": confusion_matrix(y, y_pred),
             "precision": precision_score(y, y_pred),
             "recall": recall_score(y, y_pred),
@@ -327,34 +336,74 @@ class NegativeBinomialModel(OutcomeModel):
             disp=0
         )
 
-        logging.info("NBR model fitting completed successfully.")
+        logging.info("Negative Binomial model fitting completed successfully.")
 
-    def selectFeatures(self):
-        self.lasso_feature_selection(model_type="regression", alpha=30)
+    def selectFeatures(self) -> None:
+        """Select features for the count outcome with a cross-validated Lasso.
 
-    def predict(self):
-        """Make predictions with the trained Negative Binomial model."""
-        return self.model.evaluate_model() 
-    
+        The strength was previously hardcoded at alpha=30, which zeroed every
+        coefficient on the real integer endpoint and aborted the run. Leaving
+        alpha unset lets LassoCV choose it per subset, and keeps the
+        sparsest-non-empty fallback reachable, since that fallback needs the
+        CV alpha grid.
+        """
+        self.lasso_feature_selection(model_type="regression")
+
+    @staticmethod
+    def _mcfaddenR2(y_true: np.ndarray, y_pred: np.ndarray) -> float:
+        """Compute McFadden's pseudo-R^2 for a Negative Binomial fit.
+
+        Both log-likelihoods are measured on the *same* data (the set being
+        evaluated), using the same Negative Binomial family — and therefore the
+        same dispersion — as the fitted model. Mixing datasets or estimators
+        between the full and null terms makes the ratio track the sample-size
+        ratio rather than fit quality.
+
+        The null is the intercept-only model, whose MLE under a log link is a
+        constant mean of ``y_true.mean()``, so it needs no separate fit.
+
+        Parameters:
+        -----------
+        y_true : np.ndarray
+            Observed counts, 1-D.
+        y_pred : np.ndarray
+            Predicted conditional means from the fitted model, 1-D.
+
+        Returns:
+        --------
+        float
+            McFadden's pseudo-R^2, or ``nan`` when the null log-likelihood is
+            zero or non-finite (e.g. an all-zero outcome), leaving the ratio
+            undefined. Negative values are meaningful out of sample: the model
+            generalizes worse than the evaluation set's own mean.
+        """
+        family = sm.families.NegativeBinomial()
+        ll_full = family.loglike(y_true, y_pred)
+        ll_null = family.loglike(y_true, np.full_like(y_pred, y_true.mean(), dtype=float))
+        if not np.isfinite(ll_null) or ll_null == 0:
+            return float('nan')
+        return 1 - (ll_full / ll_null)
+
     def _evaluateOnValidation(self, X, y, id):
 
         X_with_constant = np.column_stack((np.ones(X[self.selected_features].shape[0]), X[self.selected_features]))
 
-        y_pred = self.model.predict(X_with_constant)
-
-        ll_full = self.model.llf
-        X_null = np.ones((X.shape[0], 1))
-        null_model = NegativeBinomial(y, X_null).fit(method='bfgs', disp=0)
-        ll_null = null_model.llf
-        mcfadden_r2 = 1 - (ll_full / ll_null)
+        y_pred = np.asarray(self.model.predict(X_with_constant)).ravel()
+        # y arrives as a 1-column DataFrame for the heldout set but a Series for
+        # the subset; flatten both so metrics compare 1-D against 1-D instead of
+        # broadcasting into an (n, n) grid.
+        y_true = np.asarray(y).ravel()
 
         predictions = zip(id, y_pred)
         evaluations = {
-            "mse": mean_squared_error(y, y_pred),
-            "rmse": np.sqrt(mean_squared_error(y, y_pred)),
-            "mae": mean_absolute_error(y, y_pred),
-            "pearson_r": pearsonr(y, y_pred),
-            "mcfadden_r2": mcfadden_r2,
+            "mse": mean_squared_error(y_true, y_pred),
+            "rmse": np.sqrt(mean_squared_error(y_true, y_pred)),
+            "mae": mean_absolute_error(y_true, y_pred),
+            # Correlation is undefined when either input is constant; report nan
+            # rather than letting scipy warn on every subset.
+            "pearson_r": (float('nan') if y_true.std() == 0 or y_pred.std() == 0
+                          else pearsonr(y_true, y_pred).statistic),
+            "mcfadden_r2": self._mcfaddenR2(y_true, y_pred),
             "demographics": self._countDemographic(X)
         }
         return predictions, evaluations
@@ -374,13 +423,9 @@ class CoxProportionalHazard(OutcomeModel):
 
         # Catch and log any errors that occur during the feature selection or model fitting process
         except Exception as e:
-            logging.error(f"Error during feature selection and NBR model fitting: {e}")
+            logging.error(f"Error during Cox model fitting: {e}")
             raise
 
-    def predict(self):
-        """Make predictions with the trained Negative Binomial model."""
-        return self.model.evaluate_model() 
-    
     def _evaluateOnValidation(self, X, y, id):
         table = pd.concat([X[self.selected_features], y], axis=1)
 
@@ -393,16 +438,22 @@ class CoxProportionalHazard(OutcomeModel):
         }
         return predictions, evaluations
     
-    def selectFeatures(self):
-        self.lasso_feature_selection(model_type="regression", alpha=30)
+    def selectFeatures(self) -> None:
+        """Select features for the survival outcome with a cross-validated Lasso.
+
+        Shares the reasoning in NegativeBinomialModel.selectFeatures: a fixed
+        alpha=30 selected nothing on the real survival endpoint. Cox is also
+        collinearity-sensitive, so the fallback's sparsest non-empty solution
+        matters more here than selecting every feature would.
+        """
+        self.lasso_feature_selection(model_type="regression")
 
 
 
 
 class BetaRegression(OutcomeModel):
+    """Beta regression implementation for outcomes bounded on (0, 1)."""
 
-
-    """Negative Binomial model implementation."""
     def train(self):
 
         # Step 1: Add intercept
@@ -414,38 +465,66 @@ class BetaRegression(OutcomeModel):
         # Step 3: Fit with optimizer
         self.model = self.model.fit(method='bfgs', disp=0)
 
-        logging.info("NBR model fitting completed successfully.")
+        logging.info("Beta regression model fitting completed successfully.")
 
     def selectFeatures(self):
         self.lasso_feature_selection(model_type="regression", alpha=.05)
 
-    def predict(self):
-        """Make predictions with the trained Negative Binomial model."""
-        return self.model.evaluate_model() 
     
+    @staticmethod
+    def _coxSnellR2(ll_full: float, ll_null: float, n_obs: int) -> float:
+        """Compute the Cox-Snell (likelihood-ratio) pseudo-R^2.
+
+        McFadden's ``1 - ll_full / ll_null`` is only interpretable when the
+        log-likelihoods are non-positive, which holds for discrete outcomes
+        whose likelihood is a probability. A Beta model's likelihood is a
+        *density*, so its log-likelihood is routinely positive and the ratio
+        inverts: a better-fitting model scores further below zero.
+
+        Cox-Snell depends on the log-likelihood *difference* instead, so it is
+        well behaved whatever the sign, and reduces to the familiar 0-to-1
+        reading when the model beats the null.
+
+        Parameters:
+        -----------
+        ll_full : float
+            Log-likelihood of the fitted model on the evaluated data.
+        ll_null : float
+            Log-likelihood of the intercept-only model on the same data.
+        n_obs : int
+            Number of observations both log-likelihoods were measured over.
+
+        Returns:
+        --------
+        float
+            Cox-Snell pseudo-R^2, or ``nan`` if the inputs are degenerate.
+            Negative values mean the model generalizes worse than the null.
+        """
+        if n_obs <= 0 or not np.isfinite(ll_full) or not np.isfinite(ll_null):
+            return float('nan')
+        return 1 - np.exp(-2 * (ll_full - ll_null) / n_obs)
+
     def _evaluateOnValidation(self, X, y, id):
 
         X_with_constant = np.column_stack((np.ones(X[self.selected_features].shape[0]), X[self.selected_features]))
 
-        y_pred = self.model.predict(X_with_constant)
-
-        ll_full = self.model.llf
-        X_null = np.ones((X.shape[0], 1))
-        null_model = BetaModel(endog=y, exog=X_null).fit(method='bfgs', disp=0)
-        ll_null = null_model.llf
-        mcfadden_r2 = 1 - (ll_full / ll_null)
-
+        y_pred = np.ravel(self.model.predict(X_with_constant))
         y = np.ravel(y)
-        y_pred = np.ravel(y_pred)
 
-        r, p = pearsonr(y, y_pred)
+        # Both log-likelihoods must come from the data being evaluated: score
+        # the trained coefficients on it rather than reusing the training llf.
+        ll_full = BetaModel(endog=y, exog=X_with_constant).loglike(np.asarray(self.model.params))
+        ll_null = BetaModel(endog=y, exog=np.ones((len(y), 1))).fit(method='bfgs', disp=0).llf
+        pseudo_r2 = self._coxSnellR2(ll_full, ll_null, len(y))
+
+        r = pearsonr(y, y_pred).statistic
         predictions = zip(id, y_pred)
         evaluations = {
             "mse": mean_squared_error(y, y_pred),
             "rmse": np.sqrt(mean_squared_error(y, y_pred)),
             "mae": mean_absolute_error(y, y_pred),
             "pearson_r": r,
-            "mcfadden_r2": mcfadden_r2,
+            "pseudo_r2": pseudo_r2,
             "demographics": self._countDemographic(X)
         }
         return predictions, evaluations

@@ -398,15 +398,15 @@ class TestLogisticModelTraining:
         threshold = float(model.best_threshold)
         assert 0.0 <= threshold <= 1.0
 
-    def test_threshold_equals_positive_proportion_of_test_set(self, logistic_data):
+    def test_threshold_equals_positive_proportion_of_train_set(self, logistic_data):
         """
         _find_best_threshold sets threshold to the positive class proportion
-        in y_test — verify the value matches directly.
+        in y_train, so no test-set labels leak into the decision rule.
         """
         model = LogisticModel(data=logistic_data, id_column="id", target_column=["outcome"], seed=42)
         model.selectFeatures()
         model.train()
-        expected = model.y_test.mean()
+        expected = model.y_train.mean()
         assert float(model.best_threshold) == pytest.approx(float(expected))
 
     def test_trained_model_can_predict_proba(self, trained_logistic_model):
@@ -419,16 +419,28 @@ class TestLogisticModelTraining:
     def test_selected_features_defaults_to_all_columns_before_selection(self, logistic_data):
         """
         Before selectFeatures() runs, selected_features defaults to every
-        feature column.
+        candidate feature column, which excludes the raw RaceEth code.
 
-        OutcomeModel.__init__ seeds selected_features with the full feature
-        index, so a caller who skips selectFeatures() would train on all
-        columns rather than a Lasso-reduced subset. This test pins that
+        OutcomeModel.__init__ seeds selected_features with the candidate
+        features, so a caller who skips selectFeatures() would train on all
+        of them rather than a Lasso-reduced subset. This test pins that
         default so a regression in the initializer is caught.
         """
         model = LogisticModel(data=logistic_data, id_column="id", target_column=["outcome"], seed=42)
 
-        assert list(model.selected_features) == list(model.X.columns)
+        assert list(model.selected_features) == [c for c in model.X.columns if c != "RaceEth"]
+
+    def test_raw_raceeth_is_never_a_feature(self, logistic_data):
+        """
+        RaceEth is nominal, so its numeric code must not be selected as a
+        feature; it stays in X only for the demographic summaries.
+        """
+        model = LogisticModel(data=logistic_data, id_column="id", target_column=["outcome"], seed=42)
+        model.selectFeatures()
+
+        assert "RaceEth" in model.X.columns
+        assert "RaceEth" not in model.feature_columns
+        assert "RaceEth" not in model.selected_features
 
 
 # =============================================================================
@@ -493,9 +505,9 @@ def _make_count_data(n: int, seed: int) -> pd.DataFrame:
     Build a count-outcome dataset for NegativeBinomialModel tests.
 
     feature2 and feature3 carry genuine signal (the outcome is their sum),
-    while feature1 is pure noise. This lets the regression Lasso
-    (alpha=30) retain the informative features and drop the noise one,
-    mirroring how the model is used on real integer endpoints.
+    while feature1 is pure noise. This lets the cross-validated regression
+    Lasso retain the informative features and drop the noise one, mirroring
+    how the model is used on real integer endpoints.
 
     Args:
         n: Number of rows to generate.
